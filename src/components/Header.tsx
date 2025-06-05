@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { BRAND_IMAGES } from '../assets/images'
 import styles from './Header.module.css'
 
 const Header = () => {
@@ -21,7 +22,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
-          <img src="/logo-optica-suarez.png" alt="Óptica Suárez" className={styles.logoImage} />
+          <img src={BRAND_IMAGES.logo} alt="Óptica Suárez" className={styles.logoImage} />
         </Link>
         
         <nav className={styles.nav}>
