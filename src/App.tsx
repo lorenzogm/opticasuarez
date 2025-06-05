@@ -3,8 +3,11 @@ import { HomePage, AboutPage, ServicesPage, ContactPage } from './pages'
 import { Layout } from './ui/patterns'
 
 export function App() {
+  // Use basename for GitHub Pages deployment
+  const basename = import.meta.env.PROD ? '/opticasuarez' : ''
+  
   return (
-    <Router>
+    <Router basename={basename}>
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
