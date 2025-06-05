@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { BRAND_IMAGES } from '../../assets/images'
 
 export function Header() {
   const location = useLocation()
@@ -22,9 +23,11 @@ export function Header() {
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-              <span className="text-blue-800 font-bold text-lg">OS</span>
-            </div>
+            <img 
+              src={BRAND_IMAGES.logo} 
+              alt="Óptica Suárez" 
+              className="h-12 w-auto"
+            />
             <span className="ml-3 text-white text-xl font-bold" style={{ fontFamily: 'Delius, serif' }}>
               ÓPTICA SUÁREZ
             </span>

@@ -1,11 +1,13 @@
+import { HERO_IMAGES } from '../../assets/images'
+
 export function SocialMediaSection() {
   return (
     <section className="relative min-h-[525px]">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
-          src="/api/placeholder/1200/525" 
-          alt="Social media background"
+          src={HERO_IMAGES.glassesDisplay} 
+          alt="Óptica Suárez - Redes Sociales"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-blue-800/25"></div>

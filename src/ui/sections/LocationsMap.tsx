@@ -1,3 +1,5 @@
+import { STORE_IMAGES } from '../../assets/images'
+
 export function LocationsMap() {
   return (
     <>
@@ -17,7 +19,7 @@ export function LocationsMap() {
             {/* Location Image */}
             <div className="relative">
               <img 
-                src="/api/placeholder/600/697" 
+                src={STORE_IMAGES.bulevar}
                 alt="Centro óptico y de Terapias Visuales de Óptica Suárez en la zona del Bulevar, en Jaén"
                 className="w-full h-full object-cover"
               />
@@ -104,7 +106,7 @@ export function LocationsMap() {
             {/* Location Image */}
             <div className="relative">
               <img 
-                src="/api/placeholder/600/689" 
+                src={STORE_IMAGES.centro}
                 alt="Fachada de Óptica Suárez en Plaza de la estación en Jaén"
                 className="w-full h-full object-cover"
               />

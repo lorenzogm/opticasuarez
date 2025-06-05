@@ -1,0 +1,38 @@
+{
+  "downloadDate": "2025-06-05T23:14:41.944Z",
+  "source": "https://opticasuarezjaen.com",
+  "images": [
+    {
+      "name": "logo_vector_transparente.png",
+      "url": "https://media.v2.siweb.es/uploaded_thumb_small/a57aaa5c420fd0bd0f0d9e3ffabce143/logo_vector_transparente.png",
+      "description": "Óptica Suárez official logo (transparent vector)",
+      "category": "branding",
+      "localPath": "/Users/lorenzogm/lorenzogm/opticasuarez/src/assets/images/real-optica-suarez/logo_vector_transparente.png",
+      "downloaded": true
+    },
+    {
+      "name": "optica_bulevar.jpg",
+      "url": "https://media.v2.siweb.es/uploaded_thumb_small/a57aaa5c420fd0bd0f0d9e3ffabce143/optica_bulevar.jpg",
+      "description": "Óptica Suárez Bulevar store facade",
+      "category": "store",
+      "localPath": "/Users/lorenzogm/lorenzogm/opticasuarez/src/assets/images/real-optica-suarez/optica_bulevar.jpg",
+      "downloaded": true
+    },
+    {
+      "name": "bar_fenix_32.jpg",
+      "url": "https://media.v2.siweb.es/uploaded_thumb_small/a57aaa5c420fd0bd0f0d9e3ffabce143/bar_fenix_32.jpg",
+      "description": "Óptica Suárez Centro store facade (Plaza de la Estación)",
+      "category": "store",
+      "localPath": "/Users/lorenzogm/lorenzogm/opticasuarez/src/assets/images/real-optica-suarez/bar_fenix_32.jpg",
+      "downloaded": true
+    },
+    {
+      "name": "logos_kitdigital_2024.png",
+      "url": "https://media.v2.siweb.es/uploaded_thumb_icon/a57aaa5c420fd0bd0f0d9e3ffabce143/logos_kitdigital_2024.png",
+      "description": "Kit Digital collaboration logos",
+      "category": "partners",
+      "localPath": "/Users/lorenzogm/lorenzogm/opticasuarez/src/assets/images/real-optica-suarez/logos_kitdigital_2024.png",
+      "downloaded": true
+    }
+  ]
+}

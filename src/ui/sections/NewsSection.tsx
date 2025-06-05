@@ -1,11 +1,13 @@
+import { ABOUT_IMAGES } from '../../assets/images'
+
 export function NewsSection() {
   return (
     <section className="relative h-[290px]">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
-          src="/api/placeholder/1200/290" 
-          alt="News background"
+          src={ABOUT_IMAGES.equipoProfesional} 
+          alt="Noticias Óptica Suárez"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/47"></div>

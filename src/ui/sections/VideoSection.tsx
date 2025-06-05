@@ -1,3 +1,5 @@
+import { ABOUT_IMAGES } from '../../assets/images'
+
 export function VideoSection() {
   return (
     <section className="bg-white">
@@ -9,8 +11,8 @@ export function VideoSection() {
               {/* YouTube video placeholder */}
               <div className="absolute inset-0 bg-black">
                 <img 
-                  src="/api/placeholder/539/303" 
-                  alt="Presentación Optica Suárez"
+                  src={ABOUT_IMAGES.tecnologiaAvanzada} 
+                  alt="Presentación Optica Suárez - Tecnología Avanzada"
                   className="w-full h-full object-cover"
                 />
               </div>
