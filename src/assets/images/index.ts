@@ -3,40 +3,66 @@
  * Centralized image paths for easy management and updates
  */
 
+// Import hero images
+import heroMain from './hero/hero-main.jpg'
+import heroGlassesDisplay from './hero/hero-glasses-display.jpg'
+import heroEyeExam from './hero/hero-eye-exam.jpg'
+
+// Import service images
+import visionBinocular from './services/vision-binocular.jpg'
+import terapiaVisual from './services/terapia-visual.jpg'
+import contactologia from './services/contactologia.jpg'
+import visionPediatrica from './services/vision-pediatrica.jpg'
+import controlMiopia from './services/control-miopia.jpg'
+
+// Import product images
+import monturasElegantes from './products/monturas-elegantes.jpg'
+import gafasSol from './products/gafas-sol.jpg'
+import lentillas from './products/lentillas.jpg'
+import monturasTitanio from './products/monturas-titanio.jpg'
+
+// Import about images
+import equipoProfesional from './about/equipo-profesional.jpg'
+import tecnologiaAvanzada from './about/tecnologia-avanzada.jpg'
+import tallerMontaje from './about/taller-montaje.jpg'
+
+// Import logo
+import opticaSuarezLogo from './logos/optica-suarez-logo.svg'
+
 // Hero section images
 export const HERO_IMAGES = {
-  main: '/src/assets/images/hero/hero-main.jpg',
-  glassesDisplay: '/src/assets/images/hero/hero-glasses-display.jpg',
-  eyeExam: '/src/assets/images/hero/hero-eye-exam.jpg'
+  main: heroMain,
+  glassesDisplay: heroGlassesDisplay,
+  eyeExam: heroEyeExam
 } as const;
 
 // Service section images
 export const SERVICE_IMAGES = {
-  visionBinocular: '/src/assets/images/services/vision-binocular.jpg',
-  terapiaVisual: '/src/assets/images/services/terapia-visual.jpg',
-  contactologia: '/src/assets/images/services/contactologia.jpg',
-  visionPediatrica: '/src/assets/images/services/vision-pediatrica.jpg',
-  controlMiopia: '/src/assets/images/services/control-miopia.jpg'
+  visionBinocular: visionBinocular,
+  terapiaVisual: terapiaVisual,
+  contactologia: contactologia,
+  visionPediatrica: visionPediatrica,
+  controlMiopia: controlMiopia
 } as const;
 
 // Product images
 export const PRODUCT_IMAGES = {
-  monturasElegantes: '/src/assets/images/products/monturas-elegantes.jpg',
-  gafasSol: '/src/assets/images/products/gafas-sol.jpg',
-  lentillas: '/src/assets/images/products/lentillas.jpg',
-  monturasTitanio: '/src/assets/images/products/monturas-titanio.jpg'
+  monturasElegantes: monturasElegantes,
+  gafasSol: gafasSol,
+  lentillas: lentillas,
+  monturasTitanio: monturasTitanio
 } as const;
 
 // About section images
 export const ABOUT_IMAGES = {
-  equipoProfesional: '/src/assets/images/about/equipo-profesional.jpg',
-  tecnologiaAvanzada: '/src/assets/images/about/tecnologia-avanzada.jpg',
-  tallerMontaje: '/src/assets/images/about/taller-montaje.jpg'
+  equipoProfesional: equipoProfesional,
+  tecnologiaAvanzada: tecnologiaAvanzada,
+  tallerMontaje: tallerMontaje
 } as const;
 
 // Logo and branding
 export const BRAND_IMAGES = {
-  logo: '/src/assets/images/logos/optica-suarez-logo.svg'
+  logo: opticaSuarezLogo
 } as const;
 
 // Combined export for easy access

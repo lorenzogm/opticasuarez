@@ -149,6 +149,27 @@ The project is ready for deployment to any static hosting service:
 - GitHub Pages
 - AWS S3 + CloudFront
 
+## 🚀 Live Demo
+
+- **Production**: [https://yourusername.github.io/opticasuarez/](https://yourusername.github.io/opticasuarez/)
+- **Development**: Run locally with `npm run dev`
+
+## 📦 Deployment
+
+This project is automatically deployed to GitHub Pages using GitHub Actions.
+
+### Quick Deploy
+1. Push to `main` branch
+2. GitHub Actions will automatically build and deploy
+3. Site will be live at your GitHub Pages URL
+
+### Manual Deploy
+1. Go to **Actions** tab in GitHub
+2. Select "Deploy to GitHub Pages" 
+3. Click "Run workflow"
+
+For detailed deployment instructions, see [DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
 ## 📱 Social Media
 
 - **Instagram**: @opticasuarezjaen
