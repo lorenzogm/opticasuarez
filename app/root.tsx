@@ -5,6 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import "./global.css";
 
 export function meta() {
   return [

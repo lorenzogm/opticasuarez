@@ -1,15 +1,12 @@
+import Homepage from "../UI/homepage/Homepage";
+
 export function meta() {
   return [
-    { title: "Hello World - Optica Suarez" },
-    { name: "description", content: "Hello World from Optica Suarez!" },
+    { title: "Óptica Suárez - Expertos en salud visual" },
+    { name: "description", content: "Óptica Suárez, expertos en salud visual desde 1985. Ofrecemos exámenes visuales, gafas graduadas, lentes de contacto y gafas de sol de las mejores marcas." },
   ];
 }
 
 export default function Home() {
-  return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Hello World</h1>
-      <p>Welcome to Optica Suarez!</p>
-    </div>
-  );
+  return <Homepage />;
 }

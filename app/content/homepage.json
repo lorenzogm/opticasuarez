@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "title": "Óptica Suárez",
+    "subtitle": "Expertos en salud visual desde 1985",
+    "description": "Ofrecemos soluciones integrales para tu visión con la mejor tecnología y atención personalizada",
+    "cta": "Descubre nuestros servicios"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "items": [
+      {
+        "title": "Examen Visual Completo",
+        "description": "Revisión integral de tu salud visual con tecnología de vanguardia"
+      },
+      {
+        "title": "Gafas Graduadas",
+        "description": "Amplia selección de monturas de las mejores marcas"
+      },
+      {
+        "title": "Lentes de Contacto",
+        "description": "Todo tipo de lentillas adaptadas a tus necesidades"
+      },
+      {
+        "title": "Gafas de Sol",
+        "description": "Protección y estilo con las mejores marcas del mercado"
+      }
+    ]
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "description": "Con más de 35 años de experiencia, somos especialistas en optometría y cuidado de la salud visual. Nuestro equipo de profesionales te garantiza la mejor atención.",
+    "experience": "35+ años de experiencia",
+    "clients": "Miles de clientes satisfechos"
+  },
+  "brands": {
+    "title": "Nuestras Marcas",
+    "description": "Trabajamos con las mejores marcas del mercado para ofrecerte calidad y estilo"
+  },
+  "contact": {
+    "title": "Contacto",
+    "phone": "+34 123 456 789",
+    "email": "info@opticasuarez.com",
+    "address": "Calle Principal, 123, Madrid",
+    "hours": "Lunes a Sábado: 9:00 - 20:00"
+  }
+}
