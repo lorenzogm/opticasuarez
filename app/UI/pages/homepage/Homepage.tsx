@@ -1,11 +1,11 @@
-import Hero from '../sections/Hero';
-import Services from '../sections/Services';
-import About from '../sections/About';
-import Brands from '../sections/Brands';
-import Testimonials from '../sections/Testimonials';
-import Contact from '../sections/Contact';
-import Navigation from '../components/Navigation';
-import content from '../../content/homepage.json';
+import Hero from '../../sections/Hero';
+import Services from '../../sections/Services';
+import About from '../../sections/About';
+import Brands from '../../sections/Brands';
+import Testimonials from '../../sections/Testimonials';
+import Contact from '../../sections/Contact';
+import Navigation from '../../components/Navigation';
+import content from '../../../content/homepage.json';
 
 export default function Homepage() {
   return (
