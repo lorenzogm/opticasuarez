@@ -3,6 +3,7 @@ import Services from '../../sections/Services';
 import About from '../../sections/About';
 import Brands from '../../sections/Brands';
 import Testimonials from '../../sections/Testimonials';
+import BookAppointment from '../../sections/BookAppointment';
 import Contact from '../../sections/Contact';
 import Navigation from '../../components/Navigation';
 import content from '../../../content/homepage.json';
@@ -36,6 +37,11 @@ export default function Homepage() {
         <Testimonials
           title={content.testimonials.title}
           testimonials={content.testimonials.testimonials}
+        />
+        <BookAppointment
+          title={content.bookAppointment.title}
+          description={content.bookAppointment.description}
+          buttonText={content.bookAppointment.buttonText}
         />
         <Contact
           title={content.contact.title}

@@ -70,6 +70,11 @@
       }
     ]
   },
+  "bookAppointment": {
+    "title": "Reserva tu cita hoy",
+    "description": "Obtén un examen visual completo con nuestros especialistas. Agenda tu cita y cuida tu salud visual.",
+    "buttonText": "Reservar Cita"
+  },
   "contact": {
     "title": "Contacto",
     "phone": "+34 123 456 789",
