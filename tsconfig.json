@@ -9,6 +9,7 @@
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES6"],
+    "types": ["node"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",

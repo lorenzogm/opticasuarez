@@ -8,7 +8,9 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "deploy": "npm run build && gh-pages -d build/client",
+    "predeploy": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +25,10 @@
     "react-router": "^7.7.1"
   },
   "devDependencies": {
+    "@types/node": "^24.2.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
+    "gh-pages": "^6.2.0",
     "typescript": "^5.9.2",
     "vite": "^5.4.19"
   }
