@@ -1,4 +1,4 @@
-@import "tailwindcss/index.css";
+@import 'tailwindcss/index.css';
 
 /* Smooth scrolling for the entire document */
 html {
@@ -9,7 +9,7 @@ html {
 button:focus,
 input:focus,
 textarea:focus {
-  outline: 2px solid #3B82F6;
+  outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 

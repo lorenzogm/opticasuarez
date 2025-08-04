@@ -9,7 +9,10 @@ interface TestimonialsProps {
   testimonials: Testimonial[];
 }
 
-export default function Testimonials({ title, testimonials }: TestimonialsProps) {
+export default function Testimonials({
+  title,
+  testimonials,
+}: TestimonialsProps) {
   return (
     <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6">
@@ -27,7 +30,9 @@ export default function Testimonials({ title, testimonials }: TestimonialsProps)
                   <svg
                     key={i}
                     className={`w-5 h-5 ${
-                      i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'
+                      i < testimonial.rating
+                        ? 'text-yellow-400'
+                        : 'text-gray-300'
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -46,7 +51,9 @@ export default function Testimonials({ title, testimonials }: TestimonialsProps)
                   </span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                  <p className="font-semibold text-gray-900">
+                    {testimonial.name}
+                  </p>
                   <p className="text-sm text-gray-500">Cliente verificado</p>
                 </div>
               </div>
