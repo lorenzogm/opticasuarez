@@ -6,6 +6,13 @@ interface HeroProps {
 }
 
 export default function Hero({ title, subtitle, description, cta }: HeroProps) {
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white min-h-screen flex items-center">
       <div className="absolute inset-0 bg-black/20"></div>
@@ -19,7 +26,10 @@ export default function Hero({ title, subtitle, description, cta }: HeroProps) {
         <p className="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed text-blue-50">
           {description}
         </p>
-        <button className="bg-white text-blue-900 px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-lg min-h-[44px] min-w-[44px]">
+        <button 
+          onClick={scrollToServices}
+          className="bg-white text-blue-900 px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg min-h-[44px] min-w-[44px] hover:scale-105 hover:shadow-xl"
+        >
           {cta}
         </button>
       </div>

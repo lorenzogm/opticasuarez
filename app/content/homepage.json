@@ -34,7 +34,41 @@
   },
   "brands": {
     "title": "Nuestras Marcas",
-    "description": "Trabajamos con las mejores marcas del mercado para ofrecerte calidad y estilo"
+    "description": "Trabajamos con las mejores marcas del mercado para ofrecerte calidad y estilo",
+    "brands": [
+      "Ray-Ban",
+      "Oakley",
+      "Prada",
+      "Gucci",
+      "Tom Ford",
+      "Persol",
+      "Maui Jim",
+      "Polo Ralph Lauren",
+      "Giorgio Armani",
+      "Dolce & Gabbana",
+      "Police",
+      "Carrera"
+    ]
+  },
+  "testimonials": {
+    "title": "Lo que dicen nuestros clientes",
+    "testimonials": [
+      {
+        "name": "María González",
+        "text": "Excelente atención y profesionalidad. Me ayudaron a encontrar las gafas perfectas para mi rostro y necesidades.",
+        "rating": 5
+      },
+      {
+        "name": "Carlos Ruiz",
+        "text": "Llevo más de 10 años viniendo aquí. Siempre me ofrecen el mejor servicio y los precios más competitivos.",
+        "rating": 5
+      },
+      {
+        "name": "Ana Martín",
+        "text": "El examen visual fue muy completo y me explicaron todo con mucha paciencia. Muy recomendable.",
+        "rating": 5
+      }
+    ]
   },
   "contact": {
     "title": "Contacto",
