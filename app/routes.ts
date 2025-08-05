@@ -7,6 +7,7 @@ export default [
   route('book/step3', 'routes/book-step3.tsx'),
   route('book/step4', 'routes/book-step4.tsx'),
   route('quienes-somos', 'routes/quienes-somos.tsx'),
+  route('control-de-miopia', 'routes/control-de-miopia.tsx'),
   route('vision-pediatrica', 'routes/vision-pediatrica.tsx'),
   route('terapia-visual', 'routes/terapia-visual.tsx'),
   route('contactologia', 'routes/contactologia.tsx'),

@@ -1,0 +1,99 @@
+{
+  "mainTitle": "CONTROL DE MIOPÍA",
+  "hero": {
+    "title": "Control Especializado de la Miopía",
+    "subtitle": "Protegemos la Visión de tu Hijo",
+    "description": "En Óptica Suárez ofrecemos las técnicas más avanzadas para frenar la progresión de la miopía en niños y adolescentes, garantizando un futuro visual saludable.",
+    "image": "/images/control-miopia/hero-miopia.webp"
+  },
+  "info": {
+    "title": "¿Qué es el Control de Miopía?",
+    "description": "La miopía es un defecto refractivo que está aumentando de forma alarmante en todo el mundo. En España, ya afecta al 47% de los jóvenes universitarios. Sin un control adecuado, la miopía puede progresar rápidamente durante la infancia y adolescencia.",
+    "features": [
+      {
+        "title": "Detección Temprana",
+        "description": "Identificamos los primeros signos de miopía mediante exámenes visuales especializados",
+        "icon": "👁️"
+      },
+      {
+        "title": "Tratamiento Personalizado", 
+        "description": "Cada niño recibe un plan de tratamiento adaptado a sus necesidades específicas",
+        "icon": "🎯"
+      },
+      {
+        "title": "Seguimiento Continuo",
+        "description": "Monitorizamos la evolución de la miopía con controles regulares y precisos",
+        "icon": "📈"
+      },
+      {
+        "title": "Tecnología Avanzada",
+        "description": "Utilizamos los últimos avances en tecnología óptica para el control de la miopía",
+        "icon": "🔬"
+      }
+    ]
+  },
+  "treatments": {
+    "title": "Opciones de Tratamiento",
+    "items": [
+      {
+        "title": "Lentes de Contacto Especializadas",
+        "description": "Lentes de contacto específicamente diseñadas para frenar la progresión de la miopía. Estas lentes crean un desenfoque periférico que ayuda a controlar el crecimiento del ojo.",
+        "image": "/images/control-miopia/lentes-contacto.webp",
+        "benefits": [
+          "Reducción significativa de la progresión",
+          "Cómodas para el uso diario",
+          "Aptas para niños activos",
+          "Control profesional regular"
+        ]
+      },
+      {
+        "title": "Gafas con Lentes Progresivas",
+        "description": "Lentes progresivas especiales que proporcionan diferentes potencias en distintas zonas de la lente, optimizando la visión y controlando la miopía.",
+        "image": "/images/control-miopia/gafas-progresivas.webp",
+        "benefits": [
+          "Visión clara a todas las distancias",
+          "Reducción del esfuerzo visual",
+          "Diseño discreto y atractivo",
+          "Adaptación gradual y cómoda"
+        ]
+      },
+      {
+        "title": "Terapia Visual",
+        "description": "Programa de ejercicios visuales personalizados que fortalecen los músculos oculares y mejoran las habilidades visuales para un mejor control de la miopía.",
+        "image": "/images/control-miopia/terapia-visual.webp", 
+        "benefits": [
+          "Fortalecimiento muscular ocular",
+          "Mejora de la coordinación visual",
+          "Reducción de la fatiga visual",
+          "Ejercicios personalizados"
+        ]
+      }
+    ]
+  },
+  "science": {
+    "title": "Respaldo Científico",
+    "description": "Nuestros tratamientos están basados en investigaciones científicas rigurosas que demuestran la efectividad del control de la miopía.",
+    "studies": [
+      {
+        "title": "Estudio LAMP",
+        "description": "Demostró una reducción del 67% en la progresión de la miopía con lentes de contacto especializadas",
+        "percentage": "67%"
+      },
+      {
+        "title": "Investigación MiSight",
+        "description": "Mostró una reducción del 59% en la progresión de la miopía en niños de 8-12 años",
+        "percentage": "59%"
+      },
+      {
+        "title": "Estudio COMET",
+        "description": "Confirmó la efectividad de las lentes progresivas en el control de la miopía",
+        "percentage": "42%"
+      }
+    ]
+  },
+  "bookAppointment": {
+    "title": "¿Preocupado por la Visión de tu Hijo?",
+    "description": "No esperes más. Un diagnóstico temprano y un tratamiento adecuado pueden hacer la diferencia en el futuro visual de tu hijo. Nuestros especialistas están aquí para ayudarte.",
+    "buttonText": "Solicitar Cita"
+  }
+}
