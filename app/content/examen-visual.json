@@ -1,0 +1,111 @@
+{
+  "mainTitle": "EXAMEN VISUAL",
+  "subtitle": "Evaluación profesional completa de tu salud visual",
+  "intro": {
+    "title": "¿QUÉ ES UN EXAMEN VISUAL?",
+    "description": "Un examen visual completo es mucho más que una simple revisión de la vista. En Óptica Suárez realizamos una evaluación integral de tu sistema visual para detectar posibles problemas y garantizar tu máximo confort visual."
+  },
+  "examTypes": {
+    "title": "TIPOS DE EXAMEN VISUAL",
+    "items": [
+      {
+        "title": "VISIÓN BINOCULAR",
+        "description": "Evaluamos cómo trabajan tus ojos en conjunto para una visión tridimensional óptima.",
+        "icon": "👀"
+      },
+      {
+        "title": "REFRACCIÓN",
+        "description": "Determinamos la graduación exacta que necesitas para corregir miopía, hipermetropía o astigmatismo.",
+        "icon": "🔍"
+      },
+      {
+        "title": "SALUD OCULAR",
+        "description": "Revisión completa de la salud de tus ojos para detectar posibles patologías.",
+        "icon": "❤️"
+      },
+      {
+        "title": "FUNCIÓN VISUAL",
+        "description": "Analizamos la calidad de tu visión en diferentes distancias y condiciones.",
+        "icon": "📊"
+      }
+    ]
+  },
+  "process": {
+    "title": "NUESTRO PROCESO",
+    "description": "Seguimos un protocolo exhaustivo para garantizar la máxima precisión en tu examen visual",
+    "steps": [
+      {
+        "step": "1",
+        "title": "ANAMNESIS",
+        "description": "Entrevista inicial para conocer tu historial visual y necesidades específicas."
+      },
+      {
+        "step": "2", 
+        "title": "EXAMEN PRELIMINAR",
+        "description": "Pruebas iniciales de agudeza visual y evaluación básica."
+      },
+      {
+        "step": "3",
+        "title": "REFRACCIÓN",
+        "description": "Determinación precisa de tu graduación con equipos de última generación."
+      },
+      {
+        "step": "4",
+        "title": "EVALUACIÓN BINOCULAR",
+        "description": "Análisis de la coordinación y funcionamiento conjunto de ambos ojos."
+      },
+      {
+        "step": "5",
+        "title": "DIAGNÓSTICO Y RECOMENDACIONES",
+        "description": "Entrega de resultados y asesoramiento personalizado sobre tu salud visual."
+      }
+    ]
+  },
+  "benefits": {
+    "title": "BENEFICIOS DE UN EXAMEN VISUAL COMPLETO",
+    "items": [
+      "Detección precoz de problemas visuales",
+      "Mejora de tu calidad de vida y rendimiento",
+      "Prescripción precisa de corrección visual",
+      "Prevención de fatiga visual y molestias",
+      "Asesoramiento personalizado para tu estilo de vida"
+    ]
+  },
+  "frequency": {
+    "title": "¿CADA CUÁNTO HACERSE UN EXAMEN?",
+    "recommendations": [
+      {
+        "age": "Niños (3-18 años)",
+        "frequency": "Anualmente",
+        "reason": "Desarrollo visual en crecimiento"
+      },
+      {
+        "age": "Adultos (18-60 años)",
+        "frequency": "Cada 2 años",
+        "reason": "Prevención y mantenimiento"
+      },
+      {
+        "age": "Mayores de 60 años",
+        "frequency": "Anualmente",
+        "reason": "Mayor riesgo de patologías"
+      }
+    ]
+  },
+  "cta": {
+    "title": "RESERVA TU EXAMEN VISUAL",
+    "description": "Agenda tu cita con nuestros especialistas y cuida tu salud visual con la confianza de más de 80 años de experiencia.",
+    "buttonText": "Reservar Cita"
+  },
+  "locations": [
+    {
+      "name": "Óptica Centro",
+      "image": "/images/quienes-somos/locations/optica-centro.webp",
+      "mapLink": "https://www.google.com/maps?ll=37.770092,-3.788108&z=17&t=m&hl=es-ES&gl=US&mapclient=embed&cid=752455638664869523"
+    },
+    {
+      "name": "Óptica Bulevar",
+      "image": "/images/quienes-somos/locations/optica-bulevar.webp",
+      "mapLink": "https://www.google.com/maps/place/Centro+de+Optometria+y+Terapia+Visual+Su%C3%A1rez/@37.780822,-3.787964,19z/data=!4m6!3m5!1s0xd6dd720c6ab51ad:0x85587f18fcc12128!8m2!3d37.7807962!4d-3.7880018!16s%2Fg%2F11m34dpwq8?hl=es-ES&entry=ttu"
+    }
+  ]
+}

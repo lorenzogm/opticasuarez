@@ -7,4 +7,5 @@ export default [
   route('book/step3', 'routes/book-step3.tsx'),
   route('book/step4', 'routes/book-step4.tsx'),
   route('quienes-somos', 'routes/quienes-somos.tsx'),
+  route('examen-visual', 'routes/examen-visual.tsx'),
 ] satisfies RouteConfig;
