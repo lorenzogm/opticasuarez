@@ -8,11 +8,6 @@ interface BookAppointmentProps {
 }
 
 export default function BookAppointment({ title, description, buttonText }: BookAppointmentProps) {
-  const handleBookAppointment = () => {
-    // For now, show an alert. Later could integrate with booking system
-    alert('Para reservar tu cita, por favor llama al +34 123 456 789 o envía un email a info@opticasuarez.com');
-  };
-
   return (
     <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-4xl text-center">
@@ -37,7 +32,7 @@ export default function BookAppointment({ title, description, buttonText }: Book
         <Button 
           size="lg" 
           variant="default"
-          onClick={handleBookAppointment}
+          href="/book"
           className="min-h-[44px] min-w-[44px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
         >
           {buttonText}
