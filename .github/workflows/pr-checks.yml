@@ -10,6 +10,7 @@ jobs:
     name: ${{ matrix.check-name }}
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - check-name: 'TypeScript Check'
