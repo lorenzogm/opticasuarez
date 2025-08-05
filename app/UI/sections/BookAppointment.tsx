@@ -9,11 +9,8 @@ interface BookAppointmentProps {
 
 export default function BookAppointment({ title, description, buttonText }: BookAppointmentProps) {
   const handleBookAppointment = () => {
-    // Scroll to contact section for now, later could integrate with booking system
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    // For now, show an alert. Later could integrate with booking system
+    alert('Para reservar tu cita, por favor llama al +34 123 456 789 o envía un email a info@opticasuarez.com');
   };
 
   return (
