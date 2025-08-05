@@ -2,19 +2,15 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 
 export default function Navigation() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+    const toggleScrolled = () => {
+      setIsScrolled(window.pageYOffset > 300);
     };
 
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    window.addEventListener('scroll', toggleScrolled);
+    return () => window.removeEventListener('scroll', toggleScrolled);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -28,10 +24,12 @@ export default function Navigation() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (!isVisible) return null;
-
   return (
-    <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-gray-200">
+    <nav className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-full shadow-lg border border-gray-200 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-white/90 backdrop-blur-sm' 
+        : 'bg-white/70 backdrop-blur-sm'
+    }`}>
       <div className="flex items-center space-x-1 px-6 py-3">
         <button
           onClick={scrollToTop}
