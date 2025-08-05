@@ -28,9 +28,12 @@ export default function ServicesGrid({ items }: ServicesGridProps) {
                   />
                 </figure>
                 <div className="text-center">
-                  <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide group-hover:text-blue-800 transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide group-hover:text-blue-800 transition-colors duration-300 mb-2">
                     {item.title}
                   </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
               </Button>
             </article>
