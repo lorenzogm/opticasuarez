@@ -4,7 +4,11 @@ interface VideoAboutProps {
   videoId: string;
 }
 
-export default function VideoAbout({ title, description, videoId }: VideoAboutProps) {
+export default function VideoAbout({
+  title,
+  description,
+  videoId,
+}: VideoAboutProps) {
   return (
     <section className="py-16 px-4 sm:px-6 bg-gray-50">
       <div className="container mx-auto max-w-7xl">
@@ -20,7 +24,7 @@ export default function VideoAbout({ title, description, videoId }: VideoAboutPr
               allowFullScreen
             />
           </div>
-          
+
           {/* Content */}
           <div className="space-y-6">
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">

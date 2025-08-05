@@ -5,7 +5,7 @@ import ProgressIndicator from '../../components/progress-indicator';
 const appointmentTypes = {
   'visual-stress': 'Apoyo para Estrés Visual',
   'vision-loss-support': 'Apoyo por Pérdida de Visión',
-  'low-vision-rehabilitation': 'Rehabilitación de Baja Visión'
+  'low-vision-rehabilitation': 'Rehabilitación de Baja Visión',
 };
 
 export default function ContactDetails() {
@@ -14,23 +14,23 @@ export default function ContactDetails() {
   const appointmentType = searchParams.get('type') || '';
   const dateParam = searchParams.get('date');
   const time = searchParams.get('time') || '';
-  
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  
+
   const selectedDate = dateParam ? new Date(dateParam) : null;
-  
+
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('es-ES', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
-  
+
   const validateName = (value: string) => {
     if (!value.trim()) {
       setNameError('El nombre es requerido');
@@ -43,7 +43,7 @@ export default function ContactDetails() {
     setNameError('');
     return true;
   };
-  
+
   const validatePhone = (value: string) => {
     if (!value.trim()) {
       setPhoneError('El teléfono móvil es requerido');
@@ -59,7 +59,7 @@ export default function ContactDetails() {
     setPhoneError('');
     return true;
   };
-  
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setName(value);
@@ -67,7 +67,7 @@ export default function ContactDetails() {
       validateName(value);
     }
   };
-  
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPhone(value);
@@ -75,11 +75,11 @@ export default function ContactDetails() {
       validatePhone(value);
     }
   };
-  
+
   const handleContinue = () => {
     const isNameValid = validateName(name);
     const isPhoneValid = validatePhone(phone);
-    
+
     if (isNameValid && isPhoneValid) {
       const params = new URLSearchParams();
       params.set('type', appointmentType);
@@ -90,7 +90,7 @@ export default function ContactDetails() {
       navigate(`/book/step4?${params.toString()}`);
     }
   };
-  
+
   const canContinue = name.trim() && phone.trim() && !nameError && !phoneError;
 
   return (
@@ -99,14 +99,16 @@ export default function ContactDetails() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link 
+            <Link
               to={`/book/step2?type=${appointmentType}`}
               className="text-blue-600 hover:text-blue-800 flex items-center gap-2 transition-colors"
             >
               ← Volver
             </Link>
             <div className="text-right">
-              <h1 className="text-xl font-semibold text-gray-900">Óptica Suárez</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Óptica Suárez
+              </h1>
               <p className="text-sm text-gray-600">Reservar cita</p>
             </div>
           </div>
@@ -119,7 +121,9 @@ export default function ContactDetails() {
         <div className="mb-8">
           <ProgressIndicator currentStep={3} totalSteps={4} />
           <div className="text-center mt-4">
-            <h2 className="text-2xl font-bold text-gray-900">Datos de contacto</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Datos de contacto
+            </h2>
             <p className="text-gray-600 mt-2">
               Introduce tus datos para confirmar la cita
             </p>
@@ -128,23 +132,45 @@ export default function ContactDetails() {
 
         {/* Appointment Summary */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-          <h3 className="font-semibold text-blue-900 mb-2">Resumen de tu cita</h3>
+          <h3 className="font-semibold text-blue-900 mb-2">
+            Resumen de tu cita
+          </h3>
           <div className="text-sm text-blue-800">
-            <p><span className="font-medium">Tipo:</span> {appointmentTypes[appointmentType as keyof typeof appointmentTypes]}</p>
+            <p>
+              <span className="font-medium">Tipo:</span>{' '}
+              {
+                appointmentTypes[
+                  appointmentType as keyof typeof appointmentTypes
+                ]
+              }
+            </p>
             {selectedDate && (
-              <p><span className="font-medium">Fecha:</span> {formatDate(selectedDate)}</p>
+              <p>
+                <span className="font-medium">Fecha:</span>{' '}
+                {formatDate(selectedDate)}
+              </p>
             )}
-            <p><span className="font-medium">Hora:</span> {time}</p>
+            <p>
+              <span className="font-medium">Hora:</span> {time}
+            </p>
           </div>
         </div>
 
         {/* Contact Form */}
         <div className="bg-white rounded-lg shadow-sm border p-6 max-w-2xl mx-auto">
-          <form onSubmit={(e) => { e.preventDefault(); handleContinue(); }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleContinue();
+            }}
+          >
             <div className="space-y-6">
               {/* Name Field */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Nombre completo *
                 </label>
                 <input
@@ -165,7 +191,10 @@ export default function ContactDetails() {
 
               {/* Phone Field */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Teléfono móvil *
                 </label>
                 <input
@@ -192,7 +221,7 @@ export default function ContactDetails() {
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-8">
-          <Link 
+          <Link
             to={`/book/step2?type=${appointmentType}`}
             className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
           >

@@ -51,7 +51,7 @@
       "url": "https://www.instagram.com/opticasuarezjaen"
     },
     "facebook": {
-      "title": "Estamos en Facebook", 
+      "title": "Estamos en Facebook",
       "handle": "@opticasuarezjaen",
       "url": "https://www.facebook.com/opticasuarezjaen"
     }
@@ -76,7 +76,7 @@
         "schedule": {
           "weekdays": "Lunes a Viernes",
           "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",
-          "saturday": "Sábados", 
+          "saturday": "Sábados",
           "saturdayHours": "10:00 a 13:00"
         },
         "phone": "953-093-062",
@@ -94,7 +94,7 @@
           "saturday": "Sábados",
           "saturdayHours": "10:00 a 13:00"
         },
-        "phone": "953-223-180", 
+        "phone": "953-223-180",
         "phoneUrl": "https://api.whatsapp.com/send?phone=953223180",
         "email": "centro@opticasuarezjaen.es",
         "contactUrl": "/contacto"

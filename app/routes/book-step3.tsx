@@ -5,8 +5,7 @@ export function meta() {
     { title: 'Datos de Contacto - Óptica Suárez' },
     {
       name: 'description',
-      content:
-        'Introduce tus datos de contacto para la cita en Óptica Suárez.',
+      content: 'Introduce tus datos de contacto para la cita en Óptica Suárez.',
     },
   ];
 }

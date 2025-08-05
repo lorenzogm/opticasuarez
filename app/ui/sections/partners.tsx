@@ -15,7 +15,7 @@ export default function Partners({ title, partners }: PartnersProps) {
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-12 text-gray-900">
           {title}
         </h2>
-        
+
         <div className="flex justify-center items-center">
           {partners.map((partner, index) => (
             <div key={index} className="flex justify-center">

@@ -7,6 +7,7 @@
 **Important:** All files and folders in the `app/` directory must follow **kebab-case** naming convention.
 
 Examples:
+
 - ✅ `button.tsx` (not `Button.tsx`)
 - ✅ `navigation.tsx` (not `Navigation.tsx`)
 - ✅ `book-appointment.tsx` (not `BookAppointment.tsx`)

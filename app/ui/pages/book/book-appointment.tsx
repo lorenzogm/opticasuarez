@@ -14,24 +14,27 @@ const appointmentTypes: AppointmentType[] = [
   {
     id: 'visual-stress',
     title: 'Apoyo para Estrés Visual',
-    description: 'Consultoría especializada para el manejo del estrés visual, fatiga ocular y síndrome del ojo seco causado por el uso prolongado de pantallas.',
+    description:
+      'Consultoría especializada para el manejo del estrés visual, fatiga ocular y síndrome del ojo seco causado por el uso prolongado de pantallas.',
     icon: '👁️',
-    duration: '45 minutos'
+    duration: '45 minutos',
   },
   {
     id: 'vision-loss-support',
     title: 'Apoyo por Pérdida de Visión',
-    description: 'Soporte emocional y práctico para adaptarse a cambios en la visión, incluyendo estrategias de afrontamiento y recursos para la vida diaria.',
+    description:
+      'Soporte emocional y práctico para adaptarse a cambios en la visión, incluyendo estrategias de afrontamiento y recursos para la vida diaria.',
     icon: '🤝',
-    duration: '60 minutos'
+    duration: '60 minutos',
   },
   {
     id: 'low-vision-rehabilitation',
     title: 'Rehabilitación de Baja Visión',
-    description: 'Programa integral de rehabilitación para maximizar el uso de la visión residual y aprender técnicas de adaptación para mantener la independencia.',
+    description:
+      'Programa integral de rehabilitación para maximizar el uso de la visión residual y aprender técnicas de adaptación para mantener la independencia.',
     icon: '🔍',
-    duration: '90 minutos'
-  }
+    duration: '90 minutos',
+  },
 ];
 
 export default function BookAppointment() {
@@ -55,14 +58,16 @@ export default function BookAppointment() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="text-blue-600 hover:text-blue-800 flex items-center gap-2 transition-colors"
             >
               ← Volver al inicio
             </Link>
             <div className="text-right">
-              <h1 className="text-xl font-semibold text-gray-900">Óptica Suárez</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Óptica Suárez
+              </h1>
               <p className="text-sm text-gray-600">Reservar cita</p>
             </div>
           </div>
@@ -75,8 +80,13 @@ export default function BookAppointment() {
         <div className="mb-8">
           <ProgressIndicator currentStep={1} totalSteps={4} />
           <div className="text-center mt-4">
-            <h2 className="text-2xl font-bold text-gray-900">Selecciona el tipo de apoyo</h2>
-            <p className="text-gray-600 mt-2">Elige el tipo de apoyo mental relacionado con la salud visual que necesitas</p>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Selecciona el tipo de apoyo
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Elige el tipo de apoyo mental relacionado con la salud visual que
+              necesitas
+            </p>
           </div>
         </div>
 
@@ -96,19 +106,25 @@ export default function BookAppointment() {
                 <div className="text-3xl">{type.icon}</div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{type.title}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {type.title}
+                    </h3>
                     <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
                       {type.duration}
                     </span>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">{type.description}</p>
+                  <p className="text-gray-600 leading-relaxed">
+                    {type.description}
+                  </p>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className={`w-5 h-5 rounded-full border-2 ${
-                    selectedType === type.id
-                      ? 'border-blue-600 bg-blue-600'
-                      : 'border-gray-300'
-                  }`}>
+                  <div
+                    className={`w-5 h-5 rounded-full border-2 ${
+                      selectedType === type.id
+                        ? 'border-blue-600 bg-blue-600'
+                        : 'border-gray-300'
+                    }`}
+                  >
                     {selectedType === type.id && (
                       <div className="w-full h-full rounded-full flex items-center justify-center">
                         <div className="w-2 h-2 bg-white rounded-full"></div>
@@ -123,8 +139,8 @@ export default function BookAppointment() {
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
           >
             Cancelar

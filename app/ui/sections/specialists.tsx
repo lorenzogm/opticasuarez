@@ -4,7 +4,11 @@ interface SpecialistsProps {
   description: string;
 }
 
-export default function Specialists({ title, subtitle, description }: SpecialistsProps) {
+export default function Specialists({
+  title,
+  subtitle,
+  description,
+}: SpecialistsProps) {
   return (
     <section className="py-16 px-4 sm:px-6 bg-blue-50">
       <div className="container mx-auto max-w-4xl text-center">

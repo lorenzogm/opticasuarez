@@ -1,0 +1,126 @@
+{
+  "mainTitle": "NOSOTROS",
+  "history": {
+    "title": "NUESTRA HISTORIA",
+    "timeline": [
+      {
+        "year": "1940",
+        "title": "APERTURA",
+        "description": "Abre sus puertas como el primer establecimiento óptico en la calle Maestra.",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Vision+Pediatrica"
+      },
+      {
+        "year": "1960",
+        "title": "HOGAR PERMANENTE",
+        "description": "La óptica encontró su hogar permanente en el paseo de la estación 12, donde continúa sirviendo a la comunidad hasta el día de hoy.",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Optica+Centro"
+      },
+      {
+        "year": "1970",
+        "title": "JUAN MIGUEL INICIA SU CARRERA",
+        "description": "Juan Miguel Toledano Pantoja comenzó su viaje en el mundo de la óptica a la temprana edad de 13 años en 1970. A lo largo de los años, bajo la tutela de Óptica Suárez, adquirió habilidades y conocimientos que lo llevaron a convertirse en un óptico-optometrista respetado en la sociedad.",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Juan+Miguel"
+      },
+      {
+        "year": "1998",
+        "title": "JUAN MIGUEL ASUME EL MANDO",
+        "description": "Juan Miguel asumió el liderazgo del establecimiento, llevando consigo la visión y el compromiso que lo caracterizan. Su dedicación al cuidado visual y su pasión por su trabajo fueron evidentes en cada interacción con los clientes.",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Liderazgo"
+      },
+      {
+        "year": "2009",
+        "title": "NUEVA GENERACIÓN",
+        "description": "La siguiente generación se unió al negocio familiar, con la incorporación de Juan Pedro Toledano Bermejo, diplomado en Óptica y Optometría. Su experiencia y conocimientos fortalecieron aún más la reputación de Óptica Suárez como líder en atención visual en Jaén.",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Equipo+Profesional"
+      },
+      {
+        "year": "2020",
+        "title": "NUEVOS HORIZONTES",
+        "description": "Óptica Suárez expandió sus horizontes con la apertura de un nuevo centro en la zona del Bulevar en Jaén. Este nuevo espacio, diseñado especialmente para atender las necesidades visuales de los más pequeños, ofrece una amplia gama de servicios y cuenta con un área dedicada a la Terapia Visual de más de 40m2.",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Centro+Bulevar"
+      }
+    ]
+  },
+  "team": {
+    "title": "NUESTRO EQUIPO",
+    "members": [
+      {
+        "name": "JUAN MIGUEL TOLEDANO PANTOJA",
+        "role": "Director de Óptica Suárez",
+        "image": "https://via.placeholder.com/300x400/f3f4f6/374151?text=Juan+Miguel",
+        "details": []
+      },
+      {
+        "name": "JUAN PEDRO TOLEDANO BERMEJO",
+        "role": "Director del Centro de Optometría y TV Suárez",
+        "image": "https://via.placeholder.com/300x400/f3f4f6/374151?text=Juan+Pedro",
+        "details": [
+          "Dip. en Óptica y Optometría",
+          "Col: 19.351",
+          "Máster en Optometría Clínica"
+        ]
+      },
+      {
+        "name": "CLARA SANTIAGO CASTRO",
+        "role": "Graduada en Óptica y Optometría",
+        "image": "https://via.placeholder.com/300x400/f3f4f6/374151?text=Clara+Santiago",
+        "details": ["Col: 26.014"]
+      },
+      {
+        "name": "VANESSA CANTERO ADAIL",
+        "role": "Diplomada en Óptica y Optometría",
+        "image": "https://via.placeholder.com/300x400/f3f4f6/374151?text=Vanessa+Cantero",
+        "details": ["Col: 23.354"]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Nuestros clientes opinan",
+    "moreReviewsLink": "https://www.google.com/search?rlz=1C1CHBF_esES910ES910&q=Centro%20de%20Optometria%20y%20Terapia%20Visual%20Su%C3%A1rez%20Rese%C3%B1as",
+    "items": [
+      {
+        "rating": 5,
+        "name": "Alba Martínez Delgado",
+        "review": "Trato inmejorable!! 100% recomendable!! Grandes profesionales donde se nota su gran experiencia, en especial quiero mencionar a Juan Pedro que trató a nuestra hija genial e hizo que la consulta fuera un juego para ella"
+      },
+      {
+        "rating": 5,
+        "name": "Sergio Pulido",
+        "review": "Amabilidad, trato muy personal y gran profesionalidad de Juan Pedro y Vanesa.\n\nAhora entiendo el pleno que tiene de las 5* en las reseñas, no se merecen menos!"
+      },
+      {
+        "rating": 5,
+        "name": "Manuel López",
+        "review": "Es un centro de optometría con una atención personalizada y muy profesional. Mi experiencia con ellos genial. Un 10 en amabilidad, buen trato y muy resolutivos. A mi hijo de 11 años le llevan el control de miopía con unas lentes desechables y en un año no le ha subido nada. Totalmente recomendable."
+      }
+    ]
+  },
+  "locations": [
+    {
+      "name": "Óptica Centro",
+      "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Optica+Centro",
+      "mapLink": "https://www.google.com/maps?ll=37.770092,-3.788108&z=17&t=m&hl=es-ES&gl=US&mapclient=embed&cid=752455638664869523"
+    },
+    {
+      "name": "Óptica Bulevar",
+      "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Optica+Bulevar",
+      "mapLink": "https://www.google.com/maps/place/Centro+de+Optometria+y+Terapia+Visual+Su%C3%A1rez/@37.780822,-3.787964,19z/data=!4m6!3m5!1s0xd6dd720c6ab51ad:0x85587f18fcc12128!8m2!3d37.7807962!4d-3.7880018!16s%2Fg%2F11m34dpwq8?hl=es-ES&entry=ttu"
+    }
+  ],
+  "socialMedia": [
+    {
+      "platform": "Instagram",
+      "title": "Estamos en Instagram",
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.instagram.com/opticasuarezjaen",
+      "icon": "instagram"
+    },
+    {
+      "platform": "Facebook",
+      "title": "Estamos en Facebook",
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.facebook.com/opticasuarezjaen",
+      "icon": "facebook"
+    }
+  ]
+}

@@ -5,8 +5,7 @@ export function meta() {
     { title: 'Seleccionar Fecha y Hora - Óptica Suárez' },
     {
       name: 'description',
-      content:
-        'Selecciona la fecha y hora para tu cita en Óptica Suárez.',
+      content: 'Selecciona la fecha y hora para tu cita en Óptica Suárez.',
     },
   ];
 }

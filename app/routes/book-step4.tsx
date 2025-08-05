@@ -5,8 +5,7 @@ export function meta() {
     { title: 'Confirmar Cita - Óptica Suárez' },
     {
       name: 'description',
-      content:
-        'Revisa y confirma los detalles de tu cita en Óptica Suárez.',
+      content: 'Revisa y confirma los detalles de tu cita en Óptica Suárez.',
     },
   ];
 }
