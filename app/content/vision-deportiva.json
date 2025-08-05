@@ -1,0 +1,90 @@
+{
+  "mainTitle": "VISIÓN DEPORTIVA",
+  "hero": {
+    "title": "VISIÓN DEPORTIVA",
+    "subtitle": "Optimiza tu rendimiento visual",
+    "description": "Servicios especializados para deportistas. Mejora tu visión y tu rendimiento deportivo con nuestros profesionales especializados.",
+    "image": "/images/homepage/services/vision-binocular.jpg"
+  },
+  "introduction": {
+    "title": "¿QUÉ ES LA VISIÓN DEPORTIVA?",
+    "description": "La visión deportiva es una especialidad de la optometría que se enfoca en optimizar las habilidades visuales específicas necesarias para cada deporte. Los deportistas requieren capacidades visuales excepcionales para alcanzar su máximo rendimiento, y nosotros te ayudamos a conseguirlo.",
+    "benefits": [
+      "Mejora de la coordinación ojo-mano",
+      "Optimización de la percepción de profundidad",
+      "Incremento de la velocidad de procesamiento visual",
+      "Reducción de la fatiga visual durante la práctica deportiva"
+    ]
+  },
+  "services": {
+    "title": "NUESTROS SERVICIOS",
+    "items": [
+      {
+        "title": "EVALUACIÓN VISUAL DEPORTIVA",
+        "description": "Análisis completo de las habilidades visuales específicas para tu deporte."
+      },
+      {
+        "title": "ENTRENAMIENTO VISUAL",
+        "description": "Programas personalizados para mejorar la velocidad y precisión visual."
+      },
+      {
+        "title": "GAFAS DEPORTIVAS",
+        "description": "Equipamiento especializado diseñado para cada disciplina deportiva."
+      },
+      {
+        "title": "PROTECCIÓN OCULAR",
+        "description": "Soluciones de protección para deportes de alto riesgo."
+      }
+    ]
+  },
+  "sports": {
+    "title": "DEPORTES QUE TRATAMOS",
+    "items": [
+      {
+        "name": "Fútbol",
+        "description": "Mejora tu visión periférica y precisión en el disparo"
+      },
+      {
+        "name": "Tenis",
+        "description": "Optimiza el seguimiento visual de la pelota"
+      },
+      {
+        "name": "Baloncesto",
+        "description": "Desarrolla la coordinación ojo-mano para el tiro"
+      },
+      {
+        "name": "Golf",
+        "description": "Precisión visual para mejorar tu swing"
+      },
+      {
+        "name": "Ciclismo",
+        "description": "Protección y claridad visual en movimiento"
+      },
+      {
+        "name": "Natación",
+        "description": "Gafas especializadas para el medio acuático"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "TESTIMONIOS DE DEPORTISTAS",
+    "items": [
+      {
+        "rating": 5,
+        "name": "Carlos Martínez",
+        "review": "Desde que comencé el entrenamiento visual en Óptica Suárez, mi precisión en el disparo ha mejorado notablemente. Recomiendo sus servicios a todos los deportistas."
+      },
+      {
+        "rating": 5,
+        "name": "Ana López",
+        "review": "El equipo de Óptica Suárez me ayudó a optimizar mi visión para el tenis. Ahora puedo seguir la pelota con mayor facilidad y mi juego ha mejorado considerablemente."
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿LISTO PARA MEJORAR TU RENDIMIENTO?",
+    "description": "Solicita una evaluación visual deportiva y descubre cómo podemos ayudarte a alcanzar tu máximo potencial.",
+    "buttonText": "RESERVAR CITA",
+    "buttonUrl": "/book"
+  }
+}
