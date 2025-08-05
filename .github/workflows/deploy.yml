@@ -37,9 +37,6 @@ jobs:
       - name: Add .nojekyll file
         run: touch build/client/.nojekyll
 
-      - name: Add 404.html for SPA routing
-        run: cp build/client/index.html build/client/404.html
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
