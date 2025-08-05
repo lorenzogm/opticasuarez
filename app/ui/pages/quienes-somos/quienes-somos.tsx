@@ -1,4 +1,3 @@
-import Navigation from '../../components/navigation';
 import HistoryTimeline from '../../sections/history-timeline';
 import TeamMembers from '../../sections/team-members';
 import CustomerTestimonials from '../../sections/customer-testimonials';
@@ -9,9 +8,7 @@ import content from '../../../content/quienes-somos.json';
 
 export default function Quienessomos() {
   return (
-    <>
-      <Navigation />
-      <main>
+    <main>
         {/* Main heading */}
         <section className="bg-white py-16 px-4 sm:px-6">
           <div className="container mx-auto max-w-6xl text-center">
@@ -51,6 +48,5 @@ export default function Quienessomos() {
         {/* Social Media */}
         <SocialMediaLinks socialMedia={content.socialMedia} />
       </main>
-    </>
   );
 }

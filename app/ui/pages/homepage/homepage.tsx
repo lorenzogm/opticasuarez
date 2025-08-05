@@ -11,8 +11,7 @@ import content from '../../../content/homepage.json';
 
 export default function Homepage() {
   return (
-    <>
-      <main>
+    <main>
         <Hero
           title={content.hero.title}
           subtitle={content.hero.subtitle}
@@ -53,6 +52,5 @@ export default function Homepage() {
           buttonText={content.bookAppointment.buttonText}
         />
       </main>
-    </>
   );
 }

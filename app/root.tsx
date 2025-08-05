@@ -1,5 +1,6 @@
 import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
+import GlobalNavigation from './ui/components/global-navigation';
 
 export function meta() {
   return [
@@ -56,6 +57,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <GlobalNavigation />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
