@@ -15,6 +15,7 @@ const buttonVariants = cva(
         secondary: 'bg-blue-100 text-blue-900 hover:bg-blue-100/80',
         ghost: 'hover:bg-blue-100 hover:text-blue-900',
         link: 'text-blue-900 underline-offset-4 hover:underline',
+        unstyled: '',
       },
       size: {
         default: 'h-10 px-4 py-2',
@@ -35,18 +36,19 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   href?: string;
+  unstyled?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, size, asChild: _asChild = false, href, ...props },
+    { className, variant, size, asChild: _asChild = false, href, unstyled = false, ...props },
     ref
   ) => {
     if (href) {
       return (
         <Link
           to={href}
-          className={cn(buttonVariants({ variant, size, className }))}
+          className={unstyled ? className : cn(buttonVariants({ variant, size, className }))}
         >
           {props.children}
         </Link>
@@ -55,7 +57,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={unstyled ? className : cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       />
