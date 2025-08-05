@@ -1,4 +1,5 @@
 import { Text } from '../components/text';
+import Image from '../components/image';
 
 interface TimelineItem {
   year: string;
@@ -39,7 +40,7 @@ export default function HistoryTimeline({
             >
               <div className="lg:w-1/2">
                 <figure className="rounded-lg overflow-hidden shadow-lg">
-                  <img
+                  <Image
                     src={item.image}
                     alt={`${item.year}: ${item.title}`}
                     className="w-full h-64 object-cover"

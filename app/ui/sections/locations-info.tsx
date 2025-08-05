@@ -1,5 +1,6 @@
 import { Text } from '../components/text';
 import { Button } from '../components/button';
+import Image from '../components/image';
 
 interface Location {
   name: string;
@@ -25,7 +26,7 @@ export default function LocationsInfo({ locations }: LocationsInfoProps) {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <img
+                  <Image
                     src={location.image}
                     alt={location.name}
                     className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"

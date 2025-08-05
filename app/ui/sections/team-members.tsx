@@ -1,4 +1,5 @@
 import { Text } from '../components/text';
+import Image from '../components/image';
 
 interface TeamMember {
   name: string;
@@ -30,7 +31,7 @@ export default function TeamMembers({ title, members }: TeamMembersProps) {
           {members.map((member, index) => (
             <div key={index} className="text-center">
               <figure className="mb-6">
-                <img
+                <Image
                   src={member.image}
                   alt={member.name}
                   className="w-full h-80 object-cover rounded-lg shadow-lg"
