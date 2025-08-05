@@ -1,5 +1,7 @@
 # opticasuarez-new
 
+🌐 **Live Demo:** [https://lorenzogm.github.io/opticasuarez-new/](https://lorenzogm.github.io/opticasuarez-new/)
+
 Optica Suarez web application built with React Router v7.
 
 ## Development
@@ -30,5 +32,3 @@ You can also deploy manually using:
 ```bash
 npm run deploy
 ```
-
-The application will be available at: `https://lorenzogm.github.io/opticasuarez-new/`
