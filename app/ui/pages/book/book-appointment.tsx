@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import ProgressIndicator from '../../components/progress-indicator';
 
 interface AppointmentType {
   id: string;
@@ -35,6 +36,7 @@ const appointmentTypes: AppointmentType[] = [
 
 export default function BookAppointment() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleTypeSelection = (typeId: string) => {
     setSelectedType(typeId);
@@ -42,8 +44,8 @@ export default function BookAppointment() {
 
   const handleContinue = () => {
     if (selectedType) {
-      // Here we would navigate to step 2 of the booking process
-      alert(`Continuar con el tipo de cita: ${appointmentTypes.find(t => t.id === selectedType)?.title}`);
+      // Navigate to step 2 with the selected appointment type
+      navigate(`/book/step2?type=${selectedType}`);
     }
   };
 
@@ -71,21 +73,7 @@ export default function BookAppointment() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Progress Indicator */}
         <div className="mb-8">
-          <div className="flex items-center justify-center">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
-                1
-              </div>
-              <div className="w-16 h-1 bg-gray-200 mx-2"></div>
-              <div className="w-8 h-8 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-medium">
-                2
-              </div>
-              <div className="w-16 h-1 bg-gray-200 mx-2"></div>
-              <div className="w-8 h-8 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center text-sm font-medium">
-                3
-              </div>
-            </div>
-          </div>
+          <ProgressIndicator currentStep={1} totalSteps={4} />
           <div className="text-center mt-4">
             <h2 className="text-2xl font-bold text-gray-900">Selecciona el tipo de apoyo</h2>
             <p className="text-gray-600 mt-2">Elige el tipo de apoyo mental relacionado con la salud visual que necesitas</p>
