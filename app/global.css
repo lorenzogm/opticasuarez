@@ -1,4 +1,4 @@
-@import 'tailwindcss/index.css';
+@import "tailwindcss";
 
 /* Smooth scrolling for the entire document */
 html {
