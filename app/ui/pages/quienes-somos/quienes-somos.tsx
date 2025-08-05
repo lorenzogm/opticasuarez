@@ -9,44 +9,41 @@ import content from '../../../content/quienes-somos.json';
 export default function Quienessomos() {
   return (
     <main>
-        {/* Main heading */}
-        <section className="bg-white py-16 px-4 sm:px-6">
-          <div className="container mx-auto max-w-6xl text-center">
-            <Text
-              as="h1"
-              size="4xl"
-              weight="bold"
-              className="mb-8 text-gray-900 uppercase tracking-wide"
-            >
-              {content.mainTitle}
-            </Text>
-          </div>
-        </section>
+      {/* Main heading */}
+      <section className="bg-white py-16 px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl text-center">
+          <Text
+            as="h1"
+            size="4xl"
+            weight="bold"
+            className="mb-8 text-gray-900 uppercase tracking-wide"
+          >
+            {content.mainTitle}
+          </Text>
+        </div>
+      </section>
 
-        {/* History Timeline */}
-        <HistoryTimeline
-          title={content.history.title}
-          timeline={content.history.timeline}
-        />
+      {/* History Timeline */}
+      <HistoryTimeline
+        title={content.history.title}
+        timeline={content.history.timeline}
+      />
 
-        {/* Team Members */}
-        <TeamMembers
-          title={content.team.title}
-          members={content.team.members}
-        />
+      {/* Team Members */}
+      <TeamMembers title={content.team.title} members={content.team.members} />
 
-        {/* Customer Testimonials */}
-        <CustomerTestimonials
-          title={content.testimonials.title}
-          testimonials={content.testimonials.items}
-          moreReviewsLink={content.testimonials.moreReviewsLink}
-        />
+      {/* Customer Testimonials */}
+      <CustomerTestimonials
+        title={content.testimonials.title}
+        testimonials={content.testimonials.items}
+        moreReviewsLink={content.testimonials.moreReviewsLink}
+      />
 
-        {/* Locations */}
-        <LocationsInfo locations={content.locations} />
+      {/* Locations */}
+      <LocationsInfo locations={content.locations} />
 
-        {/* Social Media */}
-        <SocialMediaLinks socialMedia={content.socialMedia} />
-      </main>
+      {/* Social Media */}
+      <SocialMediaLinks socialMedia={content.socialMedia} />
+    </main>
   );
 }

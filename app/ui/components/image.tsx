@@ -6,10 +6,16 @@ interface ImageProps {
   height?: number;
 }
 
-export default function Image({ src, alt, className, width, height }: ImageProps) {
+export default function Image({
+  src,
+  alt,
+  className,
+  width,
+  height,
+}: ImageProps) {
   // Get the base path from the environment
   const basePath = import.meta.env.PROD ? '/opticasuarez-new' : '';
-  
+
   // Handle relative paths that start with '/'
   const imageSrc = src.startsWith('/') ? `${basePath}${src}` : src;
 

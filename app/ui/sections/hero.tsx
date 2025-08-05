@@ -5,7 +5,12 @@ interface HeroProps {
   cta: string;
 }
 
-export default function Hero({ title, subtitle, description, cta }: HeroProps) {
+export default function Hero({
+  title,
+  subtitle,
+  description,
+  cta: _cta,
+}: HeroProps) {
   return (
     <section className="bg-white py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl text-center">
