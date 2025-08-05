@@ -16,6 +16,12 @@ export default function GlobalNavigation() {
         >
           Quienes Somos
         </Link>
+        <Link
+          to="/servicios"
+          className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
+        >
+          Servicios
+        </Link>
       </div>
     </nav>
   );
