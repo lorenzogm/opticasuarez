@@ -1,6 +1,5 @@
-import { Links, Meta, Scripts, ScrollRestoration } from 'react-router';
+import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
-import Homepage from './UI/pages/homepage/Homepage';
 
 export function meta() {
   return [
@@ -57,7 +56,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Homepage />
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
       </body>

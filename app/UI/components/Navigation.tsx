@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 export default function Navigation() {
   const [isVisible, setIsVisible] = useState(false);
@@ -44,6 +45,12 @@ export default function Navigation() {
         >
           Servicios
         </button>
+        <Link
+          to="/book"
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors duration-200"
+        >
+          Reservar Cita
+        </Link>
         <button
           onClick={() => scrollToSection('contact')}
           className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
