@@ -1,3 +1,5 @@
+import Svg from '../components/svg';
+
 interface PartnerItem {
   name: string;
   image: string;
@@ -19,7 +21,7 @@ export default function Partners({ title, partners }: PartnersProps) {
         <div className="flex justify-center items-center">
           {partners.map((partner, index) => (
             <div key={index} className="flex justify-center">
-              <img
+              <Svg
                 src={partner.image}
                 alt={partner.name}
                 className="h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"

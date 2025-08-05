@@ -1,3 +1,5 @@
+import Svg from '../components/svg';
+
 interface ServiceGridItem {
   title: string;
   description: string;
@@ -18,7 +20,7 @@ export default function ServicesGrid({ items }: ServicesGridProps) {
             <article key={index} className="group">
               <a href={item.url} className="block">
                 <figure className="mb-4 overflow-hidden rounded-lg">
-                  <img
+                  <Svg
                     src={item.image}
                     alt={item.description}
                     className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"

@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "target": "ES2022",
@@ -19,6 +20,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]

@@ -1,3 +1,5 @@
+import Svg from '../components/svg';
+
 interface LocationSchedule {
   weekdays: string;
   weekdaysHours: string;
@@ -38,7 +40,7 @@ export default function Locations({ title, locations }: LocationsProps) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 {/* Image */}
                 <div className="aspect-video lg:aspect-square">
-                  <img
+                  <Svg
                     src={location.image}
                     alt={location.name}
                     className="w-full h-full object-cover"
