@@ -1,0 +1,135 @@
+{
+  "mainTitle": "CONTACTOLOGÍA",
+  "intro": {
+    "title": "Especialistas en Lentes de Contacto",
+    "description": "En Óptica Suárez somos especialistas en contactología, ofreciendo un servicio integral de adaptación, seguimiento y cuidado de lentes de contacto. Nuestro equipo de profesionales te asesorará para encontrar la mejor solución visual según tus necesidades."
+  },
+  "services": {
+    "title": "NUESTROS SERVICIOS DE CONTACTOLOGÍA",
+    "items": [
+      {
+        "title": "Adaptación de Lentes",
+        "description": "Realizamos una evaluación completa de tus ojos para adaptar las lentes de contacto más adecuadas para ti.",
+        "icon": "eye"
+      },
+      {
+        "title": "Seguimiento Personalizado",
+        "description": "Control periódico del estado de tus ojos y de las lentes de contacto para garantizar tu comodidad y salud visual.",
+        "icon": "calendar"
+      },
+      {
+        "title": "Lentes Especializadas",
+        "description": "Disponemos de lentes para casos especiales: queratocono, astigmatismo irregular, lentes multifocales y más.",
+        "icon": "settings"
+      },
+      {
+        "title": "Educación y Cuidado",
+        "description": "Te enseñamos las técnicas correctas de manipulación, limpieza y cuidado de tus lentes de contacto.",
+        "icon": "book"
+      }
+    ]
+  },
+  "types": {
+    "title": "TIPOS DE LENTES DE CONTACTO",
+    "items": [
+      {
+        "name": "Lentes Diarias",
+        "description": "Máxima comodidad e higiene. Perfectas para uso ocasional o para quien prefiere estrenar lentes cada día.",
+        "benefits": ["Máxima higiene", "Sin mantenimiento", "Perfectas para deportes"],
+        "image": "/images/contactologia/lentes-diarias.webp"
+      },
+      {
+        "name": "Lentes Mensuales",
+        "description": "Opción económica para uso regular. Materiales de alta calidad que proporcionan comodidad durante todo el mes.",
+        "benefits": ["Económicas", "Alta calidad", "Uso prolongado"],
+        "image": "/images/contactologia/lentes-mensuales.webp"
+      },
+      {
+        "name": "Lentes Multifocales",
+        "description": "Corrigen la presbicia permitiendo una visión nítida tanto de cerca como de lejos.",
+        "benefits": ["Corrección presbicia", "Visión nítida", "Mayor libertad"],
+        "image": "/images/contactologia/lentes-multifocales.webp"
+      },
+      {
+        "name": "Lentes Tóricas",
+        "description": "Diseñadas específicamente para corregir el astigmatismo, proporcionando una visión estable y clara.",
+        "benefits": ["Corrección astigmatismo", "Visión estable", "Diseño específico"],
+        "image": "/images/contactologia/lentes-toricas.webp"
+      }
+    ]
+  },
+  "advantages": {
+    "title": "VENTAJAS DE LAS LENTES DE CONTACTO",
+    "items": [
+      {
+        "title": "Libertad de Movimiento",
+        "description": "Perfectas para practicar deportes y actividades físicas sin limitaciones."
+      },
+      {
+        "title": "Campo Visual Completo",
+        "description": "Visión periférica sin restricciones, sin montura que limite tu campo visual."
+      },
+      {
+        "title": "Estética Natural",
+        "description": "Mantén tu apariencia natural sin que se note que usas corrección visual."
+      },
+      {
+        "title": "Comodidad Meteorológica",
+        "description": "No se empañan con los cambios de temperatura ni se mojan con la lluvia."
+      }
+    ]
+  },
+  "process": {
+    "title": "PROCESO DE ADAPTACIÓN",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Evaluación Inicial",
+        "description": "Examen completo de la superficie ocular y evaluación de tus necesidades visuales y estilo de vida."
+      },
+      {
+        "step": "2",
+        "title": "Selección de Lentes",
+        "description": "Elección del tipo de lente más adecuado según tu graduación, curvatura corneal y preferencias."
+      },
+      {
+        "step": "3",
+        "title": "Período de Prueba",
+        "description": "Uso supervisado de las lentes con seguimiento de la adaptación y comodidad."
+      },
+      {
+        "step": "4",
+        "title": "Seguimiento Continuo",
+        "description": "Revisiones periódicas para asegurar el correcto estado de tus ojos y lentes."
+      }
+    ]
+  },
+  "brands": {
+    "title": "MARCAS DE CONFIANZA",
+    "description": "Trabajamos con las mejores marcas del mercado para garantizar la máxima calidad y comodidad.",
+    "logos": [
+      {
+        "name": "Acuvue",
+        "image": "/images/brands/acuvue.webp"
+      },
+      {
+        "name": "Biofinity",
+        "image": "/images/brands/biofinity.webp"
+      },
+      {
+        "name": "Dailies",
+        "image": "/images/brands/dailies.webp"
+      },
+      {
+        "name": "Air Optix",
+        "image": "/images/brands/air-optix.webp"
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Interesado en Lentes de Contacto?",
+    "description": "Solicita una cita con nuestros especialistas en contactología y descubre la libertad visual que te ofrecen las lentes de contacto.",
+    "buttonText": "Reservar Cita",
+    "buttonLink": "/book"
+  }
+}
