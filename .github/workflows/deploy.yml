@@ -36,7 +36,7 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          cp -r build/client/assets build/client/opticasuarez-new/assets
+          cp -r build/client/assets build/client/opticasuarez-new/
           cp build/client/favicon.ico build/client/opticasuarez-new/
 
       - name: Add .nojekyll file
