@@ -7,7 +7,19 @@ on:
 jobs:
   pr-checks:
     runs-on: ubuntu-latest
-    name: Code Quality Checks
+    name: ${{ matrix.check-name }}
+    
+    strategy:
+      matrix:
+        include:
+          - check-name: 'TypeScript Check'
+            command: 'npm run typecheck'
+          - check-name: 'ESLint Check'
+            command: 'npm run lint'
+          - check-name: 'Prettier Check'
+            command: 'npm run format'
+          - check-name: 'Build Check'
+            command: 'npm run build'
 
     steps:
       - name: Checkout
@@ -22,14 +34,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: TypeScript type check
-        run: npm run typecheck
-
-      - name: ESLint check
-        run: npm run lint
-
-      - name: Prettier format check
-        run: npm run format
-
-      - name: Build check
-        run: npm run build
+      - name: Run check
+        run: ${{ matrix.command }}
