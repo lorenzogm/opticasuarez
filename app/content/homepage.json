@@ -1,9 +1,114 @@
 {
   "hero": {
-    "title": "Óptica Suárez",
-    "subtitle": "Expertos en salud visual desde 1985",
-    "description": "Ofrecemos soluciones integrales para tu visión con la mejor tecnología y atención personalizada",
+    "title": "TU ÓPTICA EN JAÉN",
+    "subtitle": "BIENVENIDOS A ÓPTICA SUAREZ",
+    "description": "DESDE 1940 CUIDANDO TU VISIÓN",
     "cta": "Descubre nuestros servicios"
+  },
+  "servicesGrid": {
+    "items": [
+      {
+        "title": "VISIÓN BINOCULAR",
+        "description": "Paciente realizando un examen de visión con los profesionales de óptica Suárez en Jaén.",
+        "url": "/examen-visual",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Visión+Binocular"
+      },
+      {
+        "title": "TERAPIA VISUAL",
+        "description": "Asesoramiento personalizado en la compra de monturas y cristales graduados en óptica Suárez en Jaén.",
+        "url": "/terapia-visual",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Terapia+Visual"
+      },
+      {
+        "title": "CONTACTOLOGÍA",
+        "description": "Chica poniéndose unas lentillas compradas en óptica Suárez en Jaén.",
+        "url": "/contactologia",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Contactología"
+      },
+      {
+        "title": "VISIÓN PEDIÁTRICA",
+        "description": "Niño realizando terapias oculares en el centro óptico de óptica Suárez en Jaén.",
+        "url": "/vision-pediatrica",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Visión+Pediátrica"
+      },
+      {
+        "title": "CONTROL DE MIOPÍA",
+        "description": "Servicios especializados en control de miopía para el cuidado de tu visión.",
+        "url": "/control-de-miopia",
+        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Control+de+Miopía"
+      }
+    ]
+  },
+  "videoAbout": {
+    "title": "Somos Óptica Suárez",
+    "description": "Somos tu destino de confianza para todo lo relacionado con el cuidado de tus ojos. Con un equipo de profesionales dedicados y una amplia gama de servicios y productos de calidad, estamos aquí para garantizarte una experiencia visual excepcional. Desde exámenes de la vista hasta la selección de gafas y lentes de contacto, estamos comprometidos a cuidar de tu visión de la mejor manera posible. ¡Ven y descubre cómo podemos ayudarte a ver mejor y lucir genial en Óptica Suárez!",
+    "videoId": "mSpF_F-sAzM"
+  },
+  "socialMedia": {
+    "instagram": {
+      "title": "Estamos en Instagram",
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.instagram.com/opticasuarezjaen"
+    },
+    "facebook": {
+      "title": "Estamos en Facebook", 
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.facebook.com/opticasuarezjaen"
+    }
+  },
+  "specialists": {
+    "title": "ESPECIALISTAS EN EL CUIDADO DE TUS OJOS",
+    "subtitle": "Tu óptica de referencia",
+    "description": "Descubre nuestros servicios y tratamientos de calidad profesional, junto con asesoramiento especializado para el cuidado de tu visión."
+  },
+  "news": {
+    "title": "NOTICIAS",
+    "buttonText": "INFORMACIÓN",
+    "url": "/blog"
+  },
+  "locations": {
+    "title": "¿DÓNDE ESTAMOS?",
+    "locations": [
+      {
+        "name": "Óptica Bulevar",
+        "image": "https://via.placeholder.com/600x400/f3f4f6/374151?text=Óptica+Bulevar",
+        "address": "C. de Canarias, 6, 23009 Jaén",
+        "schedule": {
+          "weekdays": "Lunes a Viernes",
+          "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",
+          "saturday": "Sábados", 
+          "saturdayHours": "10:00 a 13:00"
+        },
+        "phone": "953-093-062",
+        "phoneUrl": "https://api.whatsapp.com/send?phone=953093062",
+        "email": "bulevar@opticasuarezjaen.es",
+        "contactUrl": "/contacto"
+      },
+      {
+        "name": "Óptica Centro",
+        "image": "https://via.placeholder.com/600x400/f3f4f6/374151?text=Óptica+Centro",
+        "address": "P.º de la Estación, 12, 23003 Jaén",
+        "schedule": {
+          "weekdays": "Lunes a Viernes",
+          "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",
+          "saturday": "Sábados",
+          "saturdayHours": "10:00 a 13:00"
+        },
+        "phone": "953-223-180", 
+        "phoneUrl": "https://api.whatsapp.com/send?phone=953223180",
+        "email": "centro@opticasuarezjaen.es",
+        "contactUrl": "/contacto"
+      }
+    ]
+  },
+  "partners": {
+    "title": "Nuestros Colaboradores",
+    "partners": [
+      {
+        "name": "Kit Digital 2024",
+        "image": "https://via.placeholder.com/200x100/f3f4f6/374151?text=Kit+Digital"
+      }
+    ]
   },
   "services": {
     "title": "Nuestros Servicios",
