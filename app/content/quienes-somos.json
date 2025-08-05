@@ -7,37 +7,37 @@
         "year": "1940",
         "title": "APERTURA",
         "description": "Abre sus puertas como el primer establecimiento óptico en la calle Maestra.",
-        "image": "/images/quienes-somos/timeline/vision-pediatrica.webp"
+        "image": "/images/quienes-somos/timeline/vision-pediatrica.png"
       },
       {
         "year": "1960",
         "title": "HOGAR PERMANENTE",
         "description": "La óptica encontró su hogar permanente en el paseo de la estación 12, donde continúa sirviendo a la comunidad hasta el día de hoy.",
-        "image": "/images/quienes-somos/timeline/optica-centro.webp"
+        "image": "/images/quienes-somos/timeline/optica-centro.jpg"
       },
       {
         "year": "1970",
         "title": "JUAN MIGUEL INICIA SU CARRERA",
         "description": "Juan Miguel Toledano Pantoja comenzó su viaje en el mundo de la óptica a la temprana edad de 13 años en 1970. A lo largo de los años, bajo la tutela de Óptica Suárez, adquirió habilidades y conocimientos que lo llevaron a convertirse en un óptico-optometrista respetado en la sociedad.",
-        "image": "/images/quienes-somos/timeline/juan-miguel.webp"
+        "image": "/images/quienes-somos/timeline/juan-miguel.jpg"
       },
       {
         "year": "1998",
         "title": "JUAN MIGUEL ASUME EL MANDO",
         "description": "Juan Miguel asumió el liderazgo del establecimiento, llevando consigo la visión y el compromiso que lo caracterizan. Su dedicación al cuidado visual y su pasión por su trabajo fueron evidentes en cada interacción con los clientes.",
-        "image": "/images/quienes-somos/timeline/liderazgo.webp"
+        "image": "/images/quienes-somos/timeline/liderazgo.jpg"
       },
       {
         "year": "2009",
         "title": "NUEVA GENERACIÓN",
         "description": "La siguiente generación se unió al negocio familiar, con la incorporación de Juan Pedro Toledano Bermejo, diplomado en Óptica y Optometría. Su experiencia y conocimientos fortalecieron aún más la reputación de Óptica Suárez como líder en atención visual en Jaén.",
-        "image": "/images/quienes-somos/timeline/equipo-profesional.webp"
+        "image": "/images/quienes-somos/timeline/equipo-profesional.jpg"
       },
       {
         "year": "2020",
         "title": "NUEVOS HORIZONTES",
         "description": "Óptica Suárez expandió sus horizontes con la apertura de un nuevo centro en la zona del Bulevar en Jaén. Este nuevo espacio, diseñado especialmente para atender las necesidades visuales de los más pequeños, ofrece una amplia gama de servicios y cuenta con un área dedicada a la Terapia Visual de más de 40m2.",
-        "image": "/images/quienes-somos/timeline/centro-bulevar.webp"
+        "image": "/images/quienes-somos/timeline/centro-bulevar.jpg"
       }
     ]
   },
@@ -47,13 +47,13 @@
       {
         "name": "JUAN MIGUEL TOLEDANO PANTOJA",
         "role": "Director de Óptica Suárez",
-        "image": "/images/quienes-somos/team/juan-miguel.webp",
+        "image": "/images/quienes-somos/team/juan-miguel.jpg",
         "details": []
       },
       {
         "name": "JUAN PEDRO TOLEDANO BERMEJO",
         "role": "Director del Centro de Optometría y TV Suárez",
-        "image": "/images/quienes-somos/team/juan-pedro.webp",
+        "image": "/images/quienes-somos/team/juan-pedro.jpg",
         "details": [
           "Dip. en Óptica y Optometría",
           "Col: 19.351",
@@ -63,13 +63,13 @@
       {
         "name": "CLARA SANTIAGO CASTRO",
         "role": "Graduada en Óptica y Optometría",
-        "image": "/images/quienes-somos/team/clara-santiago.webp",
+        "image": "/images/quienes-somos/team/clara-santiago.jpg",
         "details": ["Col: 26.014"]
       },
       {
         "name": "VANESSA CANTERO ADAIL",
         "role": "Diplomada en Óptica y Optometría",
-        "image": "/images/quienes-somos/team/vanessa-cantero.webp",
+        "image": "/images/quienes-somos/team/vanessa-cantero.jpg",
         "details": ["Col: 23.354"]
       }
     ]
@@ -98,12 +98,12 @@
   "locations": [
     {
       "name": "Óptica Centro",
-      "image": "/images/quienes-somos/locations/optica-centro.webp",
+      "image": "/images/quienes-somos/locations/optica-centro.jpg",
       "mapLink": "https://www.google.com/maps?ll=37.770092,-3.788108&z=17&t=m&hl=es-ES&gl=US&mapclient=embed&cid=752455638664869523"
     },
     {
       "name": "Óptica Bulevar",
-      "image": "/images/quienes-somos/locations/optica-bulevar.webp",
+      "image": "/images/quienes-somos/locations/optica-bulevar.jpg",
       "mapLink": "https://www.google.com/maps/place/Centro+de+Optometria+y+Terapia+Visual+Su%C3%A1rez/@37.780822,-3.787964,19z/data=!4m6!3m5!1s0xd6dd720c6ab51ad:0x85587f18fcc12128!8m2!3d37.7807962!4d-3.7880018!16s%2Fg%2F11m34dpwq8?hl=es-ES&entry=ttu"
     }
   ],
