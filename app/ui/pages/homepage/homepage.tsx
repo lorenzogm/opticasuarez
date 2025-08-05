@@ -7,13 +7,11 @@ import Specialists from '../../sections/specialists';
 import News from '../../sections/news';
 import Locations from '../../sections/locations';
 import Partners from '../../sections/partners';
-import Navigation from '../../components/navigation';
 import content from '../../../content/homepage.json';
 
 export default function Homepage() {
   return (
     <>
-      <Navigation />
       <main>
         <Hero
           title={content.hero.title}
