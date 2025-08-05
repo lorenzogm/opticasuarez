@@ -11,31 +11,31 @@
         "title": "VISIÓN BINOCULAR",
         "description": "Paciente realizando un examen de visión con los profesionales de óptica Suárez en Jaén.",
         "url": "/examen-visual",
-        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Visión+Binocular"
+        "image": "/images/homepage/services/vision-binocular.svg"
       },
       {
         "title": "TERAPIA VISUAL",
         "description": "Asesoramiento personalizado en la compra de monturas y cristales graduados en óptica Suárez en Jaén.",
         "url": "/terapia-visual",
-        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Terapia+Visual"
+        "image": "/images/homepage/services/terapia-visual.svg"
       },
       {
         "title": "CONTACTOLOGÍA",
         "description": "Chica poniéndose unas lentillas compradas en óptica Suárez en Jaén.",
         "url": "/contactologia",
-        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Contactología"
+        "image": "/images/homepage/services/contactologia.svg"
       },
       {
         "title": "VISIÓN PEDIÁTRICA",
         "description": "Niño realizando terapias oculares en el centro óptico de óptica Suárez en Jaén.",
         "url": "/vision-pediatrica",
-        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Visión+Pediátrica"
+        "image": "/images/homepage/services/vision-pediatrica.svg"
       },
       {
         "title": "CONTROL DE MIOPÍA",
         "description": "Servicios especializados en control de miopía para el cuidado de tu visión.",
         "url": "/control-de-miopia",
-        "image": "https://via.placeholder.com/400x300/f3f4f6/374151?text=Control+de+Miopía"
+        "image": "/images/homepage/services/control-de-miopia.svg"
       }
     ]
   },
@@ -71,7 +71,7 @@
     "locations": [
       {
         "name": "Óptica Bulevar",
-        "image": "https://via.placeholder.com/600x400/f3f4f6/374151?text=Óptica+Bulevar",
+        "image": "/images/homepage/locations/optica-bulevar.svg",
         "address": "C. de Canarias, 6, 23009 Jaén",
         "schedule": {
           "weekdays": "Lunes a Viernes",
@@ -86,7 +86,7 @@
       },
       {
         "name": "Óptica Centro",
-        "image": "https://via.placeholder.com/600x400/f3f4f6/374151?text=Óptica+Centro",
+        "image": "/images/homepage/locations/optica-centro.svg",
         "address": "P.º de la Estación, 12, 23003 Jaén",
         "schedule": {
           "weekdays": "Lunes a Viernes",
@@ -106,7 +106,7 @@
     "partners": [
       {
         "name": "Kit Digital 2024",
-        "image": "https://via.placeholder.com/200x100/f3f4f6/374151?text=Kit+Digital"
+        "image": "/images/homepage/partners/kit-digital-2024.svg"
       }
     ]
   },

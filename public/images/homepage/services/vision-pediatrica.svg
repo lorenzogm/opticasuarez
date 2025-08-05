@@ -1,0 +1,8 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#fce4ec"/>
+  <text x="200" y="150" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="22" fill="#c2185b">Visión Pediátrica</text>
+  <rect x="170" y="100" width="60" height="40" rx="20" fill="#c2185b" opacity="0.4"/>
+  <circle cx="185" cy="110" r="8" fill="#c2185b"/>
+  <circle cx="215" cy="110" r="8" fill="#c2185b"/>
+  <path d="M175 180 Q200 200 225 180" stroke="#c2185b" stroke-width="3" fill="none"/>
+</svg>
