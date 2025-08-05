@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "react-router build && npm run postbuild",
+    "postbuild": "cp -r build/client/images build/client/opticasuarez-new/ && cp build/client/favicon.ico build/client/opticasuarez-new/",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "tsc",
@@ -13,7 +14,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "deploy": "npm run build && gh-pages -d build/client",
+    "deploy": "npm run build && gh-pages -d build/client/opticasuarez-new",
     "predeploy": "npm run build"
   },
   "keywords": [],
