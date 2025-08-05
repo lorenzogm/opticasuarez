@@ -1,0 +1,110 @@
+{
+  "mainTitle": "TERAPIA VISUAL",
+  "hero": {
+    "title": "TERAPIA VISUAL",
+    "subtitle": "Entrenamiento visual para mejorar las habilidades visuales",
+    "description": "La terapia visual es un programa de entrenamiento personalizado diseñado para corregir deficiencias visuales y mejorar el rendimiento visual. Nuestros especialistas desarrollan programas específicos para cada paciente."
+  },
+  "whatIs": {
+    "title": "¿QUÉ ES LA TERAPIA VISUAL?",
+    "description": "La terapia visual es un tratamiento optométrico que utiliza ejercicios específicos para mejorar las habilidades visuales. Está diseñada para corregir problemas de visión que no pueden solucionarse únicamente con gafas o lentes de contacto.",
+    "benefits": [
+      "Mejora la coordinación ojo-mano",
+      "Desarrolla la percepción visual",
+      "Aumenta la concentración y atención",
+      "Reduce la fatiga visual",
+      "Mejora el rendimiento académico",
+      "Fortalece la visión binocular"
+    ]
+  },
+  "conditions": {
+    "title": "CONDICIONES QUE TRATAMOS",
+    "subtitle": "Problemas visuales que pueden beneficiarse de la terapia visual",
+    "items": [
+      {
+        "title": "Problemas de enfoque",
+        "description": "Dificultades para mantener una visión clara a diferentes distancias",
+        "icon": "focus"
+      },
+      {
+        "title": "Problemas de seguimiento",
+        "description": "Dificultades para seguir objetos en movimiento con los ojos",
+        "icon": "tracking"
+      },
+      {
+        "title": "Estrabismo",
+        "description": "Desalineación de los ojos que afecta la visión binocular",
+        "icon": "alignment"
+      },
+      {
+        "title": "Ambliopía (ojo perezoso)",
+        "description": "Reducción de la visión en uno o ambos ojos",
+        "icon": "lazy-eye"
+      },
+      {
+        "title": "Problemas perceptuales",
+        "description": "Dificultades en el procesamiento de la información visual",
+        "icon": "perception"
+      },
+      {
+        "title": "Fatiga visual",
+        "description": "Cansancio ocular por uso prolongado de dispositivos digitales",
+        "icon": "fatigue"
+      }
+    ]
+  },
+  "process": {
+    "title": "NUESTRO PROCESO",
+    "subtitle": "Cómo desarrollamos tu programa de terapia visual",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Evaluación inicial",
+        "description": "Realizamos un examen completo para identificar las deficiencias visuales específicas"
+      },
+      {
+        "step": 2,
+        "title": "Diseño del programa",
+        "description": "Creamos un programa personalizado de ejercicios visuales adaptado a tus necesidades"
+      },
+      {
+        "step": 3,
+        "title": "Sesiones de entrenamiento",
+        "description": "Realizas ejercicios supervisados en nuestra clínica y en casa"
+      },
+      {
+        "step": 4,
+        "title": "Seguimiento y evaluación",
+        "description": "Monitoreamos tu progreso y ajustamos el programa según sea necesario"
+      }
+    ]
+  },
+  "specialists": {
+    "title": "NUESTROS ESPECIALISTAS",
+    "subtitle": "Profesionales especializados en terapia visual",
+    "description": "Nuestro equipo está formado por optometristas especializados en terapia visual con años de experiencia en el tratamiento de problemas visuales complejos."
+  },
+  "testimonials": {
+    "title": "TESTIMONIOS DE PACIENTES",
+    "items": [
+      {
+        "name": "María García",
+        "age": "Madre de paciente de 8 años",
+        "text": "Gracias a la terapia visual, mi hijo ha mejorado notablemente su rendimiento escolar. Los problemas de lectura que tenía se han solucionado.",
+        "rating": 5
+      },
+      {
+        "name": "Carlos Mendoza",
+        "age": "32 años",
+        "text": "La terapia visual me ayudó a superar la fatiga visual que tenía por trabajar muchas horas frente al ordenador.",
+        "rating": 5
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿NECESITAS TERAPIA VISUAL?",
+    "description": "Solicita una evaluación con nuestros especialistas para determinar si la terapia visual puede ayudarte.",
+    "buttonText": "Reservar Cita",
+    "buttonLink": "/book"
+  }
+}
