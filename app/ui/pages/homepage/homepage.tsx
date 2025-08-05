@@ -1,5 +1,5 @@
-import BookAppointment from '../../sections/BookAppointment';
-import Navigation from '../../components/Navigation';
+import BookAppointment from '../../sections/book-appointment';
+import Navigation from '../../components/navigation';
 import content from '../../../content/homepage.json';
 
 export default function Homepage() {

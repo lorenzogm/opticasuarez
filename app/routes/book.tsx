@@ -1,4 +1,4 @@
-import BookAppointment from '../UI/pages/book/BookAppointment';
+import BookAppointment from '../ui/pages/book/book-appointment';
 
 export function meta() {
   return [

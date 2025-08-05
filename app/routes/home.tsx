@@ -1,4 +1,4 @@
-import Homepage from '../UI/pages/homepage/Homepage';
+import Homepage from '../ui/pages/homepage/homepage';
 
 export function meta() {
   return [
