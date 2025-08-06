@@ -4,7 +4,7 @@
     "title": "Especialistas en Visión Pediátrica",
     "subtitle": "Cuidamos la salud visual de los más pequeños",
     "description": "En Óptica Suárez contamos con especialistas en visión pediátrica para garantizar el correcto desarrollo visual de tu hijo. Realizamos exámenes completos y ofrecemos los mejores tratamientos para cada etapa de crecimiento.",
-    "image": "/images/homepage/services/vision-pediatrica.webp"
+    "image": "/images/vision-pediatrica/especialistas-vision-pediatrica.jpg"
   },
   "introduction": {
     "title": "¿Por qué es importante la visión pediátrica?",
@@ -18,37 +18,37 @@
         "title": "Examen Visual Infantil",
         "description": "Evaluación completa adaptada a cada edad, desde bebés hasta adolescentes, utilizando técnicas especializadas y juegos visuales.",
         "icon": "eye-check",
-        "image": "/images/homepage/services/vision-pediatrica.webp"
+        "image": "/images/vision-pediatrica/examen-visual-infantil.jpg"
       },
       {
         "title": "Detección Temprana",
         "description": "Identificamos problemas visuales como ambliopía, estrabismo, miopía, hipermetropía y astigmatismo en etapas iniciales.",
         "icon": "early-detection",
-        "image": "/images/homepage/services/vision-binocular.webp"
+        "image": "/images/vision-pediatrica/deteccion-temprana.jpg"
       },
       {
         "title": "Terapia Visual Pediátrica",
         "description": "Programas de ejercicios visuales diseñados especialmente para niños, mejorando habilidades visuales y perceptuales.",
         "icon": "therapy",
-        "image": "/images/homepage/services/terapia-visual.webp"
+        "image": "/images/vision-pediatrica/terapia-visual-pediatrica.jpg"
       },
       {
         "title": "Gafas Infantiles",
         "description": "Amplio catálogo de monturas resistentes, cómodas y atractivas diseñadas específicamente para niños y adolescentes.",
         "icon": "glasses",
-        "image": "/images/homepage/services/contactologia.webp"
+        "image": "/images/vision-pediatrica/gafas-infantiles.jpg"
       },
       {
         "title": "Control de Miopía",
         "description": "Tratamientos específicos para controlar y frenar el avance de la miopía en niños, incluyendo ortoqueratología y lentes especiales.",
         "icon": "myopia-control",
-        "image": "/images/homepage/services/control-de-miopia.webp"
+        "image": "/images/vision-pediatrica/control-de-miopia.jpg"
       },
       {
         "title": "Seguimiento Personalizado",
         "description": "Control evolutivo periódico adaptado a las necesidades de cada niño, asegurando un desarrollo visual óptimo.",
         "icon": "follow-up",
-        "image": "/images/quienes-somos/timeline/equipo-profesional.webp"
+        "image": "/images/vision-pediatrica/seguimiento-personalizado.jpg"
       }
     ]
   },
