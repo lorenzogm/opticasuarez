@@ -22,6 +22,12 @@ export default function GlobalNavigation() {
         >
           Servicios
         </Link>
+        <Link
+          to="/blog"
+          className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
+        >
+          Blog
+        </Link>
       </div>
     </nav>
   );
