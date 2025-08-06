@@ -1,6 +1,6 @@
 import { Text } from '../../components/text';
 import { Button } from '../../components/button';
-import Services from '../../sections/services';
+import Services from './sections/services';
 import CustomerTestimonials from '../../sections/customer-testimonials';
 import Image from '../../components/image';
 import content from '../../../content/vision-deportiva.json';

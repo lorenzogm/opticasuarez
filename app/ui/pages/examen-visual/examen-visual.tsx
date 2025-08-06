@@ -1,7 +1,7 @@
 import { Text } from '../../components/text';
-import ExamTypes from '../../sections/exam-types';
-import ExamProcess from '../../sections/exam-process';
-import ExamBenefits from '../../sections/exam-benefits';
+import ExamTypes from './sections/exam-types';
+import ExamProcess from './sections/exam-process';
+import ExamBenefits from './sections/exam-benefits';
 import BookAppointment from '../../sections/book-appointment';
 import LocationsInfo from '../../sections/locations-info';
 import content from '../../../content/examen-visual.json';

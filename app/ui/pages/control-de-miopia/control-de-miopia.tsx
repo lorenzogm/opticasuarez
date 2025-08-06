@@ -1,8 +1,8 @@
 import { Text } from '../../components/text';
-import MyopiaHero from '../../sections/myopia-hero';
-import MyopiaInfo from '../../sections/myopia-info';
-import MyopiaTreatments from '../../sections/myopia-treatments';
-import MyopiaScience from '../../sections/myopia-science';
+import MyopiaHero from './sections/myopia-hero';
+import MyopiaInfo from './sections/myopia-info';
+import MyopiaTreatments from './sections/myopia-treatments';
+import MyopiaScience from './sections/myopia-science';
 import BookAppointment from '../../sections/book-appointment';
 import content from '../../../content/control-de-miopia.json';
 

@@ -1,9 +1,9 @@
-import PediatricHero from '../../sections/pediatric-hero';
-import IntroductionSection from '../../sections/introduction-section';
-import PediatricServices from '../../sections/pediatric-services';
-import AgeGroups from '../../sections/age-groups';
-import WarningSigns from '../../sections/warning-signs';
-import CTASection from '../../sections/cta-section';
+import PediatricHero from './sections/pediatric-hero';
+import IntroductionSection from './sections/introduction-section';
+import PediatricServices from './sections/pediatric-services';
+import AgeGroups from './sections/age-groups';
+import WarningSigns from './sections/warning-signs';
+import CTASection from './sections/cta-section';
 import CustomerTestimonials from '../../sections/customer-testimonials';
 import content from '../../../content/vision-pediatrica.json';
 

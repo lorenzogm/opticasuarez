@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router';
-import BlogHero from '../../sections/blog-hero';
-import BlogArticles from '../../sections/blog-articles';
+import BlogHero from './sections/blog-hero';
+import BlogArticles from './sections/blog-articles';
 import BookAppointment from '../../sections/book-appointment';
 import type { BlogPost } from '../../lib/blog';
 

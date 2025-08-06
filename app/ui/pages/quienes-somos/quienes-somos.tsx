@@ -1,8 +1,8 @@
-import HistoryTimeline from '../../sections/history-timeline';
-import TeamMembers from '../../sections/team-members';
+import HistoryTimeline from './sections/history-timeline';
+import TeamMembers from './sections/team-members';
 import CustomerTestimonials from '../../sections/customer-testimonials';
 import LocationsInfo from '../../sections/locations-info';
-import SocialMediaLinks from '../../sections/social-media-links';
+import SocialMediaLinks from './sections/social-media-links';
 import { Text } from '../../components/text';
 import content from '../../../content/quienes-somos.json';
 

@@ -1,12 +1,12 @@
 import BookAppointment from '../../sections/book-appointment';
-import Hero from '../../sections/hero';
+import Hero from './sections/hero';
 import ServicesGrid from '../../sections/services-grid';
-import VideoAbout from '../../sections/video-about';
-import SocialMedia from '../../sections/social-media';
-import Specialists from '../../sections/specialists';
-import News from '../../sections/news';
-import Locations from '../../sections/locations';
-import Partners from '../../sections/partners';
+import VideoAbout from './sections/video-about';
+import SocialMedia from './sections/social-media';
+import Specialists from './sections/specialists';
+import News from './sections/news';
+import Locations from './sections/locations';
+import Partners from './sections/partners';
 import content from '../../../content/homepage.json';
 
 export default function Homepage() {

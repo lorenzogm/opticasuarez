@@ -1,8 +1,8 @@
-import ContactHero from '../../sections/contact-hero';
-import ContactInfo from '../../sections/contact-info';
-import ContactLocations from '../../sections/contact-locations';
-import ContactForm from '../../sections/contact-form';
-import ContactSocialMedia from '../../sections/contact-social-media';
+import ContactHero from './sections/contact-hero';
+import ContactInfo from './sections/contact-info';
+import ContactLocations from './sections/contact-locations';
+import ContactForm from './sections/contact-form';
+import ContactSocialMedia from './sections/contact-social-media';
 import content from '../../../content/contacto.json';
 
 export default function ContactoPage() {

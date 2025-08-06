@@ -1,9 +1,9 @@
-import TerapiaVisualHero from '../../sections/terapia-visual-hero';
-import TerapiaVisualInfo from '../../sections/terapia-visual-info';
-import TerapiaVisualConditions from '../../sections/terapia-visual-conditions';
-import TerapiaVisualProcess from '../../sections/terapia-visual-process';
-import Testimonials from '../../sections/testimonials';
-import TerapiaVisualCta from '../../sections/terapia-visual-cta';
+import TerapiaVisualHero from './sections/terapia-visual-hero';
+import TerapiaVisualInfo from './sections/terapia-visual-info';
+import TerapiaVisualConditions from './sections/terapia-visual-conditions';
+import TerapiaVisualProcess from './sections/terapia-visual-process';
+import Testimonials from './sections/testimonials';
+import TerapiaVisualCta from './sections/terapia-visual-cta';
 import content from '../../../content/terapia-visual.json';
 
 export default function TerapiaVisual() {
