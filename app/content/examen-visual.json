@@ -99,12 +99,12 @@
   "locations": [
     {
       "name": "Óptica Centro",
-      "image": "/images/quienes-somos/locations/optica-centro.webp",
+      "image": "/images/quienes-somos/locations/optica-centro.jpg",
       "mapLink": "https://www.google.com/maps?ll=37.770092,-3.788108&z=17&t=m&hl=es-ES&gl=US&mapclient=embed&cid=752455638664869523"
     },
     {
       "name": "Óptica Bulevar",
-      "image": "/images/quienes-somos/locations/optica-bulevar.webp",
+      "image": "/images/quienes-somos/locations/optica-bulevar.jpg",
       "mapLink": "https://www.google.com/maps/place/Centro+de+Optometria+y+Terapia+Visual+Su%C3%A1rez/@37.780822,-3.787964,19z/data=!4m6!3m5!1s0xd6dd720c6ab51ad:0x85587f18fcc12128!8m2!3d37.7807962!4d-3.7880018!16s%2Fg%2F11m34dpwq8?hl=es-ES&entry=ttu"
     }
   ]
