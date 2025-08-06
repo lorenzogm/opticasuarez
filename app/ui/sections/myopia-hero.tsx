@@ -15,7 +15,7 @@ export default function MyopiaHero({
   image,
 }: MyopiaHeroProps) {
   return (
-    <section className="bg-blue-50 py-16 px-4 sm:px-6">
+    <section className="bg-blue-50 pt-24 pb-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>

@@ -17,7 +17,7 @@ export default function TerapiaVisualHero({
   ctaLink,
 }: TerapiaVisualHeroProps) {
   return (
-    <section className="bg-white py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+    <section className="bg-white pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl text-center">
         <Text
           as="h1"

@@ -12,7 +12,7 @@ export default function Hero({
   cta: _cta,
 }: HeroProps) {
   return (
-    <section className="bg-white py-16 px-4 sm:px-6">
+    <section className="bg-white pt-24 pb-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl text-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900 uppercase tracking-wide">
           {title}

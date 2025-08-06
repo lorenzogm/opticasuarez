@@ -12,7 +12,7 @@ export default function ContactHero({
   description,
 }: ContactHeroProps) {
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-blue-900 to-blue-800 text-white">
+    <section className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-900 to-blue-800 text-white">
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
         <Text
           as="h1"
