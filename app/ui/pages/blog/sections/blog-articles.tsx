@@ -62,7 +62,7 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
                   </span>
                 </div>
                 <Button
-                  onClick={() => alert(`Artículo completo: ${article.title}`)}
+                  href={`/blog/${article.slug}`}
                   variant="secondary"
                   className="w-full"
                 >
