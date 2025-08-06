@@ -19,7 +19,7 @@ export default function ServicesGrid({ items }: ServicesGridProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
           {items.map((item, index) => (
             <article key={index} className="group">
-              <Button href={item.url} className="block">
+              <Button href={item.url} className="block" unstyled={true}>
                 <figure className="mb-4 overflow-hidden rounded-lg">
                   <Image
                     src={item.image}
