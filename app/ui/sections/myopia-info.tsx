@@ -23,14 +23,13 @@ export default function MyopiaInfo({
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-6 text-gray-900 uppercase tracking-wide"
           >
             {title}
           </Text>
           <Text
-            size="lg"
+            variant="body-lg"
             className="max-w-4xl mx-auto text-gray-600 leading-relaxed"
           >
             {description}
@@ -46,14 +45,12 @@ export default function MyopiaInfo({
               <div className="text-4xl mb-4">{feature.icon}</div>
               <Text
                 as="h3"
-                size="lg"
-                weight="semibold"
                 className="mb-3 text-blue-900 uppercase tracking-wide"
               >
                 {feature.title}
               </Text>
               <Text
-                size="sm"
+                variant="body-sm"
                 className="text-gray-600 leading-relaxed"
               >
                 {feature.description}

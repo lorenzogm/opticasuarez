@@ -21,30 +21,27 @@ export default function CTASection({
       <div className="container mx-auto max-w-4xl text-center">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
-          variant="white"
+          variant="heading-2"
+          colour="white"
           className="mb-4 uppercase tracking-wide"
         >
           {title}
         </Text>
         <Text
           as="h3"
-          size="xl"
-          weight="semibold"
-          variant="white"
+          colour="white"
           className="mb-6"
         >
           {subtitle}
         </Text>
         <Text
-          size="lg"
-          variant="white"
+          variant="body-lg"
+          colour="white"
           className="mb-8 leading-relaxed opacity-90"
         >
           {description}
         </Text>
-        <Button href={buttonLink} variant="secondary" size="lg">
+        <Button href={buttonLink} variant="primary">
           {buttonText}
         </Button>
       </div>

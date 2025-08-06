@@ -14,8 +14,7 @@ export default function ControlDeMiopia() {
         <div className="container mx-auto max-w-6xl text-center">
           <Text
             as="h1"
-            size="4xl"
-            weight="bold"
+            variant="heading-1"
             className="mb-8 text-gray-900 uppercase tracking-wide"
           >
             {content.mainTitle}

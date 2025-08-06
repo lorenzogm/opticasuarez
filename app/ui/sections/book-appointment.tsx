@@ -17,25 +17,24 @@ export default function BookAppointment({
       <div className="container mx-auto max-w-4xl text-center">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
-          variant="primary"
+          variant="heading-2"
+          
           align="center"
           className="mb-6"
         >
           {title}
         </Text>
         <Text
-          size="lg"
-          variant="light"
+          variant="body-lg"
+          
           align="center"
           className="mb-8 max-w-2xl mx-auto leading-relaxed"
         >
           {description}
         </Text>
         <Button
-          size="lg"
-          variant="default"
+          variant="primary"
+          
           href="/book"
           className="min-h-[44px] min-w-[44px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
         >

@@ -37,8 +37,7 @@ export default function LocationsInfo({ locations }: LocationsInfoProps) {
               <div>
                 <Text
                   as="h3"
-                  size="2xl"
-                  weight="bold"
+                  variant="heading-3"
                   className="mb-4 text-gray-900"
                 >
                   <a
@@ -53,8 +52,7 @@ export default function LocationsInfo({ locations }: LocationsInfoProps) {
 
                 <Button
                   href={location.mapLink}
-                  variant="outline"
-                  size="lg"
+                  variant="primary"
                   className="mt-4"
                 >
                   Ver en el mapa

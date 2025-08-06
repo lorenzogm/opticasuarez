@@ -19,24 +19,22 @@ export default function TerapiaVisualCta({
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
-          variant="white"
+          variant="heading-2"
+          colour="white"
           className="mb-6 uppercase tracking-wide"
         >
           {title}
         </Text>
         <Text
-          size="lg"
-          variant="white"
+          variant="body-lg"
+          colour="white"
           className="mb-8 leading-relaxed opacity-90"
         >
           {description}
         </Text>
         <Button
           href={buttonLink}
-          size="lg"
-          variant="outline"
+          variant="primary"
           className="bg-white text-blue-900 hover:bg-gray-100 border-white"
         >
           {buttonText}

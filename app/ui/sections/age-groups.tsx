@@ -23,14 +23,13 @@ export default function AgeGroups({
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-4 text-gray-900 uppercase tracking-wide"
           >
             {title}
           </Text>
           <Text
-            size="lg"
+            variant="body-lg"
             className="text-gray-600"
           >
             {subtitle}
@@ -44,8 +43,7 @@ export default function AgeGroups({
             >
               <Text
                 as="h3"
-                size="2xl"
-                weight="bold"
+                variant="heading-3"
                 className="mb-4 text-blue-900"
               >
                 {group.title}
@@ -59,7 +57,7 @@ export default function AgeGroups({
                 {group.recommendations.map((rec, recIndex) => (
                   <Text
                     key={recIndex}
-                    size="sm"
+                    variant="body-sm"
                     className="text-gray-600 border-l-2 border-blue-400 pl-3 text-left"
                   >
                     {rec}

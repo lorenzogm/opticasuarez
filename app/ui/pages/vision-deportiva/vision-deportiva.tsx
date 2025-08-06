@@ -11,28 +11,26 @@ function VisionDeportivaHero() {
       <div className="container mx-auto max-w-6xl text-center">
         <Text
           as="h1"
-          size="4xl"
-          weight="bold"
+          variant="heading-1"
           className="mb-4 text-white uppercase tracking-wide"
         >
           {content.hero.title}
         </Text>
         <Text
           as="h2"
-          size="2xl"
           className="mb-6 text-blue-100"
         >
           {content.hero.subtitle}
         </Text>
         <Text
           as="p"
-          size="lg"
+          variant="body-lg"
           className="mb-8 text-blue-100 max-w-3xl mx-auto"
         >
           {content.hero.description}
         </Text>
         <Button
-          size="lg"
+          variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
           href="/book"
         >
@@ -51,15 +49,14 @@ function VisionDeportivaIntroduction() {
           <div>
             <Text
               as="h2"
-              size="3xl"
-              weight="bold"
+              variant="heading-2"
               className="mb-6 text-gray-900 uppercase tracking-wide"
             >
               {content.introduction.title}
             </Text>
             <Text
               as="p"
-              size="lg"
+              variant="body-lg"
               className="mb-8 text-gray-600 leading-relaxed"
             >
               {content.introduction.description}
@@ -108,8 +105,7 @@ function SportsGrid() {
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           className="mb-12 text-center text-gray-900 uppercase tracking-wide"
         >
           {content.sports.title}
@@ -137,8 +133,7 @@ function SportsGrid() {
               </div>
               <Text
                 as="h3"
-                size="xl"
-                weight="bold"
+                variant="heading-4"
                 className="mb-3 text-gray-900 text-center"
               >
                 {sport.name}
@@ -163,21 +158,20 @@ function CallToAction() {
       <div className="container mx-auto max-w-4xl text-center">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           className="mb-6 text-white uppercase tracking-wide"
         >
           {content.cta.title}
         </Text>
         <Text
           as="p"
-          size="lg"
+          variant="body-lg"
           className="mb-8 text-blue-100"
         >
           {content.cta.description}
         </Text>
         <Button
-          size="lg"
+          variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
           href={content.cta.buttonUrl}
         >

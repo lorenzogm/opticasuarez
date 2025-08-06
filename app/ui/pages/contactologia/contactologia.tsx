@@ -10,8 +10,7 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-6xl text-center">
           <Text
             as="h1"
-            size="4xl"
-            weight="bold"
+            variant="heading-1"
             className="mb-8 text-gray-900 uppercase tracking-wide"
           >
             {content.mainTitle}
@@ -24,15 +23,14 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-4xl text-center">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-6 text-gray-900"
           >
             {content.intro.title}
           </Text>
           <Text
             as="p"
-            size="lg"
+            variant="body-lg"
             className="text-gray-600 leading-relaxed"
           >
             {content.intro.description}
@@ -90,8 +88,7 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-6xl">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-12 text-gray-900 text-center"
           >
             {content.types.title}
@@ -101,15 +98,14 @@ export default function Contactologia() {
               <div key={index} className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
                 <Text
                   as="h3"
-                  size="xl"
-                  weight="bold"
+                  variant="heading-4"
                   className="mb-4 text-gray-900"
                 >
                   {type.name}
                 </Text>
                 <Text
                   as="p"
-                  size="default"
+                  variant="body-md"
                   className="mb-4 text-gray-600"
                 >
                   {type.description}
@@ -132,8 +128,7 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-6xl">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-12 text-gray-900 text-center"
           >
             {content.advantages.title}
@@ -143,15 +138,14 @@ export default function Contactologia() {
               <div key={index} className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300">
                 <Text
                   as="h3"
-                  size="lg"
-                  weight="bold"
+                  variant="heading-5"
                   className="mb-3 text-gray-900"
                 >
                   {advantage.title}
                 </Text>
                 <Text
                   as="p"
-                  size="sm"
+                  variant="body-sm"
                   className="text-gray-600"
                 >
                   {advantage.description}
@@ -167,8 +161,7 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-4xl">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-12 text-gray-900 text-center"
           >
             {content.process.title}
@@ -182,15 +175,14 @@ export default function Contactologia() {
                 <div>
                   <Text
                     as="h3"
-                    size="lg"
-                    weight="bold"
+                    variant="heading-5"
                     className="mb-2 text-gray-900"
                   >
                     {step.title}
                   </Text>
                   <Text
                     as="p"
-                    size="default"
+                    variant="body-md"
                     className="text-gray-600"
                   >
                     {step.description}
@@ -207,15 +199,14 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-6xl text-center">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-6 text-gray-900"
           >
             {content.brands.title}
           </Text>
           <Text
             as="p"
-            size="lg"
+            variant="body-lg"
             className="mb-12 text-gray-600"
           >
             {content.brands.description}
@@ -225,8 +216,6 @@ export default function Contactologia() {
               <div key={index} className="flex items-center justify-center">
                 <Text
                   as="span"
-                  size="lg"
-                  weight="medium"
                   className="text-gray-700 px-4 py-2 bg-white rounded-lg shadow-sm"
                 >
                   {brand.name}
@@ -242,22 +231,20 @@ export default function Contactologia() {
         <div className="container mx-auto max-w-4xl text-center">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-6 text-white"
           >
             {content.cta.title}
           </Text>
           <Text
             as="p"
-            size="lg"
+            variant="body-lg"
             className="mb-8 text-blue-100"
           >
             {content.cta.description}
           </Text>
           <Button
-            variant="secondary"
-            size="lg"
+            variant="primary"
             href={content.cta.buttonLink}
           >
             {content.cta.buttonText}

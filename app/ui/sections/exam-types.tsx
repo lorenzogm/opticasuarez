@@ -17,8 +17,7 @@ export default function ExamTypes({ title, items }: ExamTypesProps) {
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           className="mb-12 text-center text-gray-900 uppercase tracking-wide"
         >
           {title}
@@ -32,15 +31,14 @@ export default function ExamTypes({ title, items }: ExamTypesProps) {
               <div className="text-4xl mb-4">{item.icon}</div>
               <Text
                 as="h3"
-                size="lg"
-                weight="bold"
+                variant="heading-5"
                 className="mb-4 text-gray-900 uppercase"
               >
                 {item.title}
               </Text>
               <Text
                 as="p"
-                size="sm"
+                variant="body-sm"
                 className="text-gray-600 leading-relaxed"
               >
                 {item.description}

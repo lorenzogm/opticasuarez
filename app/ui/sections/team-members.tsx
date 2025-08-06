@@ -19,8 +19,7 @@ export default function TeamMembers({ title, members }: TeamMembersProps) {
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           align="center"
           className="mb-12 text-gray-900 uppercase tracking-wide"
         >
@@ -41,13 +40,12 @@ export default function TeamMembers({ title, members }: TeamMembersProps) {
               <div>
                 <Text
                   as="h3"
-                  size="xl"
-                  weight="bold"
+                  variant="heading-4"
                   className="mb-2 text-gray-900 uppercase tracking-wide"
                 >
                   {member.name}
                 </Text>
-                <Text size="lg" className="mb-4 text-blue-800 font-medium">
+                <Text variant="body-lg" className="mb-4 text-blue-800 font-medium">
                   {member.role}
                 </Text>
 
@@ -56,7 +54,7 @@ export default function TeamMembers({ title, members }: TeamMembersProps) {
                     {member.details.map((detail, detailIndex) => (
                       <Text
                         key={detailIndex}
-                        size="sm"
+                        variant="body-sm"
                         className="text-gray-600"
                       >
                         {detail}

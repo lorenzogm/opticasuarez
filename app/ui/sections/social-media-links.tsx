@@ -55,8 +55,7 @@ export default function SocialMediaLinks({
               <div>
                 <Text
                   as="h3"
-                  size="xl"
-                  weight="bold"
+                  variant="heading-4"
                   className="mb-2 text-gray-900"
                 >
                   <a

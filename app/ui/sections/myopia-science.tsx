@@ -23,16 +23,15 @@ export default function MyopiaScience({
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
-            variant="white"
+            variant="heading-2"
+            colour="white"
             className="mb-6 uppercase tracking-wide"
           >
             {title}
           </Text>
           <Text
-            size="lg"
-            variant="white"
+            variant="body-lg"
+            colour="white"
             className="max-w-4xl mx-auto leading-relaxed opacity-90"
           >
             {description}
@@ -47,14 +46,13 @@ export default function MyopiaScience({
             >
               <div className="mb-4">
                 <Text
-                  size="4xl"
-                  weight="bold"
+                  variant="heading-1"
                   className="text-blue-600"
                 >
                   {study.percentage}
                 </Text>
                 <Text
-                  size="sm"
+                  variant="body-sm"
                   className="text-gray-500 uppercase tracking-wider"
                 >
                   REDUCCIÓN
@@ -62,14 +60,12 @@ export default function MyopiaScience({
               </div>
               <Text
                 as="h3"
-                size="lg"
-                weight="semibold"
                 className="mb-3 text-gray-900 uppercase tracking-wide"
               >
                 {study.title}
               </Text>
               <Text
-                size="sm"
+                variant="body-sm"
                 className="text-gray-600 leading-relaxed"
               >
                 {study.description}

@@ -5,28 +5,21 @@ import { cn } from '../lib/utils';
 const textVariants = cva('text-gray-900', {
   variants: {
     variant: {
+      'heading-1': 'text-4xl font-bold tracking-tight',
+      'heading-2': 'text-3xl font-bold tracking-tight',
+      'heading-3': 'text-2xl font-semibold tracking-tight',
+      'heading-4': 'text-xl font-semibold tracking-tight',
+      'heading-5': 'text-lg font-semibold tracking-tight',
+      'body-lg': 'text-lg leading-relaxed',
+      'body-md': 'text-base leading-relaxed',
+      'body-sm': 'text-sm leading-relaxed',
+    },
+    colour: {
       default: 'text-gray-900',
       muted: 'text-gray-500',
       light: 'text-gray-600',
       white: 'text-white',
       primary: 'text-blue-900',
-    },
-    size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      default: 'text-base',
-      lg: 'text-lg',
-      xl: 'text-xl',
-      '2xl': 'text-2xl',
-      '3xl': 'text-3xl',
-      '4xl': 'text-4xl',
-    },
-    weight: {
-      light: 'font-light',
-      normal: 'font-normal',
-      medium: 'font-medium',
-      semibold: 'font-semibold',
-      bold: 'font-bold',
     },
     align: {
       left: 'text-left',
@@ -35,28 +28,28 @@ const textVariants = cva('text-gray-900', {
     },
   },
   defaultVariants: {
-    variant: 'default',
-    size: 'default',
-    weight: 'normal',
+    variant: 'body-md',
+    colour: 'default',
     align: 'left',
   },
 });
 
 export interface TextProps
-  extends React.HTMLAttributes<HTMLParagraphElement>,
+  extends Omit<React.HTMLAttributes<HTMLParagraphElement>, 'color'>,
     VariantProps<typeof textVariants> {
   as?: React.ElementType;
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
   (
-    { className, variant, size, weight, align, as: Component = 'p', ...props },
+    { className, variant, colour, align, as: Component = 'p', ...props },
     ref
   ) => {
     return (
       <Component
         className={cn(
-          textVariants({ variant, size, weight, align, className })
+          textVariants({ variant, colour, align }),
+          className
         )}
         ref={ref}
         {...props}

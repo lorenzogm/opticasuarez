@@ -16,8 +16,7 @@ export default function TerapiaVisualInfo({
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           align="center"
           className="mb-8 sm:mb-12 text-gray-900 uppercase tracking-wide"
         >
@@ -26,7 +25,7 @@ export default function TerapiaVisualInfo({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
-            <Text size="lg" className="mb-6 text-gray-600 leading-relaxed">
+            <Text variant="body-lg" className="mb-6 text-gray-600 leading-relaxed">
               {description}
             </Text>
           </div>
@@ -34,8 +33,6 @@ export default function TerapiaVisualInfo({
           <div>
             <Text
               as="h3"
-              size="xl"
-              weight="semibold"
               className="mb-6 text-blue-900"
             >
               Beneficios de la Terapia Visual:

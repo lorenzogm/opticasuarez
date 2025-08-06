@@ -24,14 +24,13 @@ export default function PediatricServices({
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-4 text-gray-900 uppercase tracking-wide"
           >
             {title}
           </Text>
           <Text
-            size="lg"
+            variant="body-lg"
             className="text-gray-600"
           >
             {subtitle}
@@ -51,8 +50,6 @@ export default function PediatricServices({
               <div className="p-6">
                 <Text
                   as="h3"
-                  size="xl"
-                  weight="semibold"
                   className="mb-3 text-blue-900"
                 >
                   {service.title}

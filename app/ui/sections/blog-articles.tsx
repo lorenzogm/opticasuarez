@@ -63,7 +63,7 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
                 </div>
                 <Button
                   onClick={() => alert(`Artículo completo: ${article.title}`)}
-                  variant="outline"
+                  variant="secondary"
                   className="w-full"
                 >
                   Leer más

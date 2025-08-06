@@ -22,8 +22,7 @@ export default function MyopiaTreatments({
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-6 text-gray-900 uppercase tracking-wide"
           >
             {title}
@@ -41,14 +40,12 @@ export default function MyopiaTreatments({
               <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                 <Text
                   as="h3"
-                  size="2xl"
-                  weight="semibold"
                   className="mb-4 text-blue-900 uppercase tracking-wide"
                 >
                   {treatment.title}
                 </Text>
                 <Text
-                  size="lg"
+                  variant="body-lg"
                   className="mb-6 text-gray-600 leading-relaxed"
                 >
                   {treatment.description}
@@ -57,7 +54,7 @@ export default function MyopiaTreatments({
                   {treatment.benefits.map((benefit, benefitIndex) => (
                     <div key={benefitIndex} className="flex items-center">
                       <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                      <Text size="sm" className="text-gray-600">
+                      <Text variant="body-sm" className="text-gray-600">
                         {benefit}
                       </Text>
                     </div>

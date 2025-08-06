@@ -21,23 +21,22 @@ export default function TerapiaVisualHero({
       <div className="container mx-auto max-w-6xl text-center">
         <Text
           as="h1"
-          size="4xl"
-          weight="bold"
+          variant="heading-1"
           className="mb-4 text-gray-900 uppercase tracking-wide"
         >
           {title}
         </Text>
-        <Text as="h2" size="xl" weight="medium" className="mb-6 text-blue-900">
+        <Text as="h2" className="mb-6 text-blue-900">
           {subtitle}
         </Text>
         <Text
-          size="lg"
+          variant="body-lg"
           className="mb-8 text-gray-600 max-w-4xl mx-auto leading-relaxed"
         >
           {description}
         </Text>
         {ctaText && ctaLink && (
-          <Button href={ctaLink} size="lg" className="mt-4">
+          <Button href={ctaLink} variant="primary" className="mt-4">
             {ctaText}
           </Button>
         )}

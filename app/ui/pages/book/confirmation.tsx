@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import ProgressIndicator from '../../components/progress-indicator';
+import { Button } from '../../components/button';
+import { Text } from '../../components/text';
 
 const appointmentTypes = {
   'visual-stress': 'Apoyo para Estrés Visual',
@@ -112,19 +114,16 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <Text as="h2" variant="heading-3" className="text-gray-900 mb-4">
             ¡Cita confirmada!
-          </h2>
-          <p className="text-gray-600 mb-6">
+          </Text>
+          <Text variant="body-md" colour="light" className="mb-6">
             Tu cita ha sido reservada exitosamente. Recibirás un email de
             confirmación en breve.
-          </p>
-          <Link
-            to="/"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-          >
+          </Text>
+          <Button href="/" variant="primary">
             Volver al inicio
-          </Link>
+          </Button>
         </div>
       </div>
     );
@@ -143,10 +142,10 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
               ← Volver
             </Link>
             <div className="text-right">
-              <h1 className="text-xl font-semibold text-gray-900">
+              <Text as="h1" variant="heading-4" className="text-gray-900">
                 Óptica Suárez
-              </h1>
-              <p className="text-sm text-gray-600">Reservar cita</p>
+              </Text>
+              <Text variant="body-sm" colour="light">Reservar cita</Text>
             </div>
           </div>
         </div>
@@ -158,10 +157,10 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
         <div className="mb-8">
           <ProgressIndicator currentStep={4} totalSteps={4} />
           <div className="text-center mt-4">
-            <h2 className="text-2xl font-bold text-gray-900">Confirmar cita</h2>
-            <p className="text-gray-600 mt-2">
+            <Text as="h2" variant="heading-3" className="text-gray-900">Confirmar cita</Text>
+            <Text variant="body-md" colour="light" className="mt-2">
               Revisa los detalles de tu cita antes de confirmar
-            </p>
+            </Text>
           </div>
         </div>
 
@@ -233,20 +232,17 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-8">
-          <Link
-            to={`/book/step3?type=${appointmentType}&date=${dateParam}&time=${time}`}
-            className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
+          <Button 
+            href={`/book/step3?type=${appointmentType}&date=${dateParam}&time=${time}`}
+            variant="secondary"
           >
             Volver
-          </Link>
-          <button
+          </Button>
+          <Button
             onClick={handleConfirmBooking}
             disabled={isSubmitting}
-            className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
-              isSubmitting
-                ? 'bg-gray-400 text-white cursor-not-allowed'
-                : 'bg-green-600 text-white hover:bg-green-700 shadow-md'
-            }`}
+            variant="primary"
+            className={isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -274,7 +270,7 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
             ) : (
               'Confirmar cita'
             )}
-          </button>
+          </Button>
         </div>
       </main>
     </div>

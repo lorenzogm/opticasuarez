@@ -46,25 +46,23 @@ export default function ContactForm({
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
-            variant="white"
+            variant="heading-2"
+            
             align="center"
             className="mb-4 uppercase tracking-wide"
           >
             {title}
           </Text>
           <Text
-            size="xl"
-            variant="white"
+            
             align="center"
             className="mb-4 text-blue-100"
           >
             {subtitle}
           </Text>
           <Text
-            size="lg"
-            variant="white"
+            variant="body-lg"
+            
             align="center"
             className="text-gray-300 max-w-2xl mx-auto"
           >
@@ -87,7 +85,7 @@ export default function ContactForm({
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            <Text size="lg" weight="semibold" variant="white">
+            <Text >
               {form.successMessage}
             </Text>
           </div>
@@ -190,8 +188,8 @@ export default function ContactForm({
             <div className="text-center">
               <Button
                 type="submit"
-                variant="default"
-                size="lg"
+                
+                variant="primary"
                 className="bg-blue-600 hover:bg-blue-700 px-8"
               >
                 {form.submitButton}

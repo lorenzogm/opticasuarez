@@ -16,9 +16,8 @@ export default function ContactHero({
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
         <Text
           as="h1"
-          size="4xl"
-          weight="bold"
-          variant="white"
+          variant="heading-1"
+          colour="white"
           align="center"
           className="mb-4 uppercase tracking-wide"
         >
@@ -26,17 +25,15 @@ export default function ContactHero({
         </Text>
         <Text
           as="h2"
-          size="xl"
-          weight="semibold"
-          variant="white"
+          colour="white"
           align="center"
           className="mb-6 text-blue-100"
         >
           {subtitle}
         </Text>
         <Text
-          size="lg"
-          variant="white"
+          variant="body-lg"
+          colour="white"
           align="center"
           className="text-blue-50 max-w-2xl mx-auto"
         >

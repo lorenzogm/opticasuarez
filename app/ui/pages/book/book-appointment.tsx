@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import ProgressIndicator from '../../components/progress-indicator';
+import { Button } from '../../components/button';
+import { Text } from '../../components/text';
 
 interface AppointmentType {
   id: string;
@@ -65,10 +67,10 @@ export default function BookAppointment() {
               ← Volver al inicio
             </Link>
             <div className="text-right">
-              <h1 className="text-xl font-semibold text-gray-900">
+              <Text as="h1" variant="heading-4" className="text-gray-900">
                 Óptica Suárez
-              </h1>
-              <p className="text-sm text-gray-600">Reservar cita</p>
+              </Text>
+              <Text variant="body-sm" colour="light">Reservar cita</Text>
             </div>
           </div>
         </div>
@@ -80,13 +82,13 @@ export default function BookAppointment() {
         <div className="mb-8">
           <ProgressIndicator currentStep={1} totalSteps={4} />
           <div className="text-center mt-4">
-            <h2 className="text-2xl font-bold text-gray-900">
+            <Text as="h2" variant="heading-3" className="text-gray-900">
               Selecciona el tipo de apoyo
-            </h2>
-            <p className="text-gray-600 mt-2">
+            </Text>
+            <Text variant="body-md" colour="light" className="mt-2">
               Elige el tipo de apoyo mental relacionado con la salud visual que
               necesitas
-            </p>
+            </Text>
           </div>
         </div>
 
@@ -106,16 +108,16 @@ export default function BookAppointment() {
                 <div className="text-3xl">{type.icon}</div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <Text as="h3" variant="heading-5" className="text-gray-900">
                       {type.title}
-                    </h3>
-                    <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                    </Text>
+                    <Text variant="body-sm" colour="muted" className="bg-gray-100 px-2 py-1 rounded">
                       {type.duration}
-                    </span>
+                    </Text>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">
+                  <Text variant="body-md" colour="light" className="leading-relaxed">
                     {type.description}
-                  </p>
+                  </Text>
                 </div>
                 <div className="flex-shrink-0">
                   <div
@@ -139,23 +141,17 @@ export default function BookAppointment() {
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
-          <Link
-            to="/"
-            className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
-          >
+          <Button href="/" variant="secondary">
             Cancelar
-          </Link>
-          <button
+          </Button>
+          <Button
             onClick={handleContinue}
             disabled={!selectedType}
-            className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
-              selectedType
-                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-            }`}
+            variant="primary"
+            className={!selectedType ? 'opacity-50 cursor-not-allowed' : ''}
           >
             Continuar
-          </button>
+          </Button>
         </div>
       </main>
     </div>

@@ -22,8 +22,7 @@ export default function HistoryTimeline({
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           align="center"
           className="mb-12 text-gray-900 uppercase tracking-wide"
         >
@@ -51,13 +50,12 @@ export default function HistoryTimeline({
               <div className="lg:w-1/2 text-center lg:text-left">
                 <Text
                   as="h3"
-                  size="2xl"
-                  weight="bold"
+                  variant="heading-3"
                   className="mb-4 text-blue-900 uppercase tracking-wide"
                 >
                   {item.year}: {item.title}
                 </Text>
-                <Text size="lg" className="text-gray-700 leading-relaxed">
+                <Text variant="body-lg" className="text-gray-700 leading-relaxed">
                   {item.description}
                 </Text>
               </div>

@@ -21,27 +21,24 @@ export default function PediatricHero({
           <div className="text-center lg:text-left">
             <Text
               as="h1"
-              size="4xl"
-              weight="bold"
+              variant="heading-1"
               className="mb-4 text-blue-900 uppercase tracking-wide"
             >
               {title}
             </Text>
             <Text
               as="h2"
-              size="2xl"
-              weight="semibold"
               className="mb-6 text-gray-700"
             >
               {subtitle}
             </Text>
             <Text
-              size="lg"
+              variant="body-lg"
               className="mb-8 text-gray-600 leading-relaxed"
             >
               {description}
             </Text>
-            <Button href="/book" size="lg">
+            <Button href="/book" variant="primary">
               Reservar Cita
             </Button>
           </div>

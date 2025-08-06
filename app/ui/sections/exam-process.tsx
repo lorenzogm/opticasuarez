@@ -19,15 +19,14 @@ export default function ExamProcess({ title, description, steps }: ExamProcessPr
         <div className="text-center mb-12">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-6 text-gray-900 uppercase tracking-wide"
           >
             {title}
           </Text>
           <Text
             as="p"
-            size="lg"
+            variant="body-lg"
             className="text-gray-600 max-w-3xl mx-auto"
           >
             {description}
@@ -50,15 +49,14 @@ export default function ExamProcess({ title, description, steps }: ExamProcessPr
                 <div className="ml-8 md:ml-12 flex-1">
                   <Text
                     as="h3"
-                    size="xl"
-                    weight="bold"
+                    variant="heading-4"
                     className="mb-3 text-gray-900 uppercase"
                   >
                     {step.title}
                   </Text>
                   <Text
                     as="p"
-                    size="default"
+                    variant="body-md"
                     className="text-gray-600 leading-relaxed"
                   >
                     {step.description}

@@ -22,15 +22,14 @@ export default function TerapiaVisualProcess({
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           align="center"
           className="mb-4 text-gray-900 uppercase tracking-wide"
         >
           {title}
         </Text>
         <Text
-          size="lg"
+          variant="body-lg"
           align="center"
           className="mb-12 text-gray-600 max-w-3xl mx-auto"
         >
@@ -42,7 +41,7 @@ export default function TerapiaVisualProcess({
             <div key={index} className="text-center">
               <div className="relative mb-6">
                 <div className="w-16 h-16 bg-blue-900 text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Text size="xl" weight="bold">
+                  <Text variant="heading-4">
                     {step.step}
                   </Text>
                 </div>
@@ -52,8 +51,6 @@ export default function TerapiaVisualProcess({
               </div>
               <Text
                 as="h3"
-                size="lg"
-                weight="semibold"
                 className="mb-3 text-gray-900"
               >
                 {step.title}

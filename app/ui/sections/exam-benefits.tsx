@@ -27,8 +27,7 @@ export default function ExamBenefits({
           <div>
             <Text
               as="h2"
-              size="2xl"
-              weight="bold"
+              variant="heading-3"
               className="mb-8 text-gray-900 uppercase tracking-wide"
             >
               {benefitsTitle}
@@ -53,7 +52,7 @@ export default function ExamBenefits({
                   </div>
                   <Text
                     as="p"
-                    size="default"
+                    variant="body-md"
                     className="text-gray-700 leading-relaxed"
                   >
                     {benefit}
@@ -67,8 +66,7 @@ export default function ExamBenefits({
           <div>
             <Text
               as="h2"
-              size="2xl"
-              weight="bold"
+              variant="heading-3"
               className="mb-8 text-gray-900 uppercase tracking-wide"
             >
               {frequencyTitle}
@@ -78,23 +76,20 @@ export default function ExamBenefits({
                 <div key={index} className="bg-white p-6 rounded-lg shadow-md">
                   <Text
                     as="h3"
-                    size="lg"
-                    weight="bold"
+                    variant="heading-5"
                     className="mb-2 text-blue-600"
                   >
                     {rec.age}
                   </Text>
                   <Text
                     as="p"
-                    size="default"
-                    weight="semibold"
                     className="mb-2 text-gray-900"
                   >
                     {rec.frequency}
                   </Text>
                   <Text
                     as="p"
-                    size="sm"
+                    variant="body-sm"
                     className="text-gray-600"
                   >
                     {rec.reason}

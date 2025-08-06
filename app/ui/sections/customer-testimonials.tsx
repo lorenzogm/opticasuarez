@@ -34,8 +34,7 @@ export default function CustomerTestimonials({
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
-          size="3xl"
-          weight="bold"
+          variant="heading-2"
           align="center"
           className="mb-12 text-gray-900 uppercase tracking-wide"
         >
@@ -51,8 +50,7 @@ export default function CustomerTestimonials({
 
               <Text
                 as="h3"
-                size="lg"
-                weight="bold"
+                variant="heading-5"
                 className="mb-4 text-gray-900"
               >
                 {testimonial.name}
@@ -66,7 +64,7 @@ export default function CustomerTestimonials({
         </div>
 
         <div className="text-center">
-          <Button href={moreReviewsLink} variant="outline" size="lg">
+          <Button href={moreReviewsLink} variant="primary">
             Ver más reseñas
           </Button>
         </div>

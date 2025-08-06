@@ -14,15 +14,13 @@ export default function ExamenVisual() {
         <div className="container mx-auto max-w-6xl text-center">
           <Text
             as="h1"
-            size="4xl"
-            weight="bold"
+            variant="heading-1"
             className="mb-6 text-gray-900 uppercase tracking-wide"
           >
             {content.mainTitle}
           </Text>
           <Text
             as="p"
-            size="xl"
             className="text-gray-600 max-w-3xl mx-auto"
           >
             {content.subtitle}
@@ -35,15 +33,14 @@ export default function ExamenVisual() {
         <div className="container mx-auto max-w-4xl text-center">
           <Text
             as="h2"
-            size="3xl"
-            weight="bold"
+            variant="heading-2"
             className="mb-8 text-gray-900 uppercase tracking-wide"
           >
             {content.intro.title}
           </Text>
           <Text
             as="p"
-            size="lg"
+            variant="body-lg"
             className="text-gray-700 leading-relaxed"
           >
             {content.intro.description}

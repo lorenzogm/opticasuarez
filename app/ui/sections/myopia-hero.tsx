@@ -21,27 +21,24 @@ export default function MyopiaHero({
           <div>
             <Text
               as="h2"
-              size="3xl"
-              weight="bold"
+              variant="heading-2"
               className="mb-4 text-blue-900 uppercase tracking-wide"
             >
               {title}
             </Text>
             <Text
               as="h3"
-              size="xl"
-              weight="semibold"
               className="mb-6 text-gray-700 uppercase tracking-wide"
             >
               {subtitle}
             </Text>
             <Text
-              size="lg"
+              variant="body-lg"
               className="mb-8 text-gray-600 leading-relaxed"
             >
               {description}
             </Text>
-            <Button size="lg" href="/book">
+            <Button variant="primary" href="/book">
               Solicitar Información
             </Button>
           </div>
