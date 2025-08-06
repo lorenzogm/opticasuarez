@@ -1,0 +1,92 @@
+{
+  "hero": {
+    "title": "CONTACTO",
+    "subtitle": "ESTAMOS AQUÍ PARA AYUDARTE",
+    "description": "Ponte en contacto con nosotros para cualquier consulta sobre nuestros servicios de óptica y cuidado visual"
+  },
+  "contactInfo": {
+    "title": "INFORMACIÓN DE CONTACTO",
+    "subtitle": "Contáctanos por cualquiera de estos medios",
+    "phone": "953-093-062",
+    "email": "info@opticasuarezjaen.es",
+    "generalInfo": "Para consultas generales y citas",
+    "whatsapp": "+34953093062"
+  },
+  "locations": {
+    "title": "NUESTRAS TIENDAS",
+    "subtitle": "Visítanos en cualquiera de nuestras ubicaciones",
+    "locations": [
+      {
+        "name": "Óptica Bulevar",
+        "image": "/images/contacto/optica-bulevar.jpg",
+        "address": "C. de Canarias, 6, 23009 Jaén",
+        "schedule": {
+          "weekdays": "Lunes a Viernes",
+          "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",
+          "saturday": "Sábados",
+          "saturdayHours": "10:00 a 13:00"
+        },
+        "phone": "953-093-062",
+        "phoneUrl": "tel:+34953093062",
+        "whatsappUrl": "https://api.whatsapp.com/send?phone=34953093062",
+        "email": "bulevar@opticasuarezjaen.es",
+        "mapUrl": "https://maps.google.com/maps?q=C.+de+Canarias,+6,+23009+Jaén"
+      },
+      {
+        "name": "Óptica Centro",
+        "image": "/images/contacto/optica-centro.jpg",
+        "address": "P.º de la Estación, 12, 23003 Jaén",
+        "schedule": {
+          "weekdays": "Lunes a Viernes",
+          "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",
+          "saturday": "Sábados",
+          "saturdayHours": "10:00 a 13:00"
+        },
+        "phone": "953-223-180",
+        "phoneUrl": "tel:+34953223180",
+        "whatsappUrl": "https://api.whatsapp.com/send?phone=34953223180",
+        "email": "centro@opticasuarezjaen.es",
+        "mapUrl": "https://maps.google.com/maps?q=P.º+de+la+Estación,+12,+23003+Jaén"
+      }
+    ]
+  },
+  "contactForm": {
+    "title": "ENVÍANOS UN MENSAJE",
+    "subtitle": "Estamos aquí para resolver tus dudas",
+    "description": "Completa el formulario y nos pondremos en contacto contigo lo antes posible.",
+    "form": {
+      "nameLabel": "Nombre completo",
+      "namePlaceholder": "Tu nombre completo",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "phoneLabel": "Teléfono (opcional)",
+      "phonePlaceholder": "+34 XXX XXX XXX",
+      "subjectLabel": "Asunto",
+      "subjectPlaceholder": "¿En qué podemos ayudarte?",
+      "messageLabel": "Mensaje",
+      "messagePlaceholder": "Cuéntanos en qué podemos ayudarte...",
+      "submitButton": "Enviar mensaje",
+      "successMessage": "Gracias por tu mensaje. Te contactaremos pronto.",
+      "privacy": "Al enviar este formulario aceptas nuestra política de privacidad y el tratamiento de tus datos personales."
+    }
+  },
+  "socialMedia": {
+    "title": "SÍGUENOS EN REDES SOCIALES",
+    "subtitle": "Mantente al día con nuestras novedades",
+    "instagram": {
+      "title": "Instagram",
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.instagram.com/opticasuarezjaen"
+    },
+    "facebook": {
+      "title": "Facebook",
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.facebook.com/opticasuarezjaen"
+    },
+    "youtube": {
+      "title": "YouTube",
+      "handle": "@OpticaSuarezJaen",
+      "url": "https://www.youtube.com/@OpticaSuarezJaen"
+    }
+  }
+}
