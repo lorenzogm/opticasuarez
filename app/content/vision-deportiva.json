@@ -37,34 +37,52 @@
       }
     ]
   },
-  "sports": {
-    "title": "DEPORTES QUE TRATAMOS",
-    "items": [
+  "visualTherapy": {
+    "title": "TERAPIA VISUAL DEPORTIVA",
+    "description": "La terapia visual deportiva desarrolla y mejora las habilidades visuales específicas necesarias para optimizar el rendimiento deportivo. Nuestro programa personalizado trabaja aspectos fundamentales de la visión que impactan directamente en tu desempeño atlético.",
+    "skills": [
       {
-        "name": "Fútbol",
-        "description": "Mejora tu visión periférica y precisión en el disparo"
+        "title": "Coordinación Ojo-Mano",
+        "description": "Mejora la sincronización entre lo que ves y tus movimientos"
       },
       {
-        "name": "Tenis",
-        "description": "Optimiza el seguimiento visual de la pelota"
+        "title": "Seguimiento Visual",
+        "description": "Desarrolla la capacidad de seguir objetos en movimiento con precisión"
       },
       {
-        "name": "Baloncesto",
-        "description": "Desarrolla la coordinación ojo-mano para el tiro"
+        "title": "Visión Periférica",
+        "description": "Amplía tu campo visual para mejor conciencia espacial"
       },
       {
-        "name": "Golf",
-        "description": "Precisión visual para mejorar tu swing"
-      },
-      {
-        "name": "Ciclismo",
-        "description": "Protección y claridad visual en movimiento"
-      },
-      {
-        "name": "Natación",
-        "description": "Gafas especializadas para el medio acuático"
+        "title": "Tiempo de Reacción Visual",
+        "description": "Reduce el tiempo entre percepción visual y respuesta motora"
       }
-    ]
+    ],
+    "improvements": {
+      "title": "MEJORAS EN TU RENDIMIENTO",
+      "items": [
+        "Mayor precisión en movimientos técnicos",
+        "Mejor anticipación a las jugadas",
+        "Reducción de errores por fatiga visual",
+        "Optimización de la concentración visual",
+        "Incremento de la confianza deportiva"
+      ]
+    },
+    "images": [
+      {
+        "src": "/images/homepage/services/vision-binocular.jpg",
+        "alt": "Entrenamiento visual deportivo"
+      },
+      {
+        "src": "/images/homepage/services/vision-binocular.jpg",
+        "alt": "Terapia visual para deportistas"
+      }
+    ],
+    "ctaButton": {
+      "text": "Más Información",
+      "url": "https://wa.me/34953093062",
+      "message": "Hola, me interesa conocer más sobre la terapia visual deportiva"
+    }
   },
   "testimonials": {
     "title": "TESTIMONIOS DE DEPORTISTAS",

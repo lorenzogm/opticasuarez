@@ -99,22 +99,31 @@ function VisionDeportivaIntroduction() {
   );
 }
 
-function SportsGrid() {
+function TerapiaVisualDeportiva() {
   return (
     <section className="py-16 px-4 sm:px-6 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
           variant="heading-2"
-          className="mb-12 text-center text-gray-900 uppercase tracking-wide"
+          className="mb-8 text-center text-gray-900 uppercase tracking-wide"
         >
-          {content.sports.title}
+          {content.visualTherapy.title}
         </Text>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {content.sports.items.map((sport, index) => (
+        <Text
+          as="p"
+          variant="body-lg"
+          className="mb-12 text-center text-gray-600 max-w-4xl mx-auto"
+        >
+          {content.visualTherapy.description}
+        </Text>
+
+        {/* Skills Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {content.visualTherapy.skills.map((skill, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
             >
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -127,25 +136,88 @@ function SportsGrid() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                   />
                 </svg>
               </div>
               <Text
                 as="h3"
                 variant="heading-4"
-                className="mb-3 text-gray-900 text-center"
+                className="mb-3 text-gray-900"
               >
-                {sport.name}
+                {skill.title}
               </Text>
               <Text
                 as="p"
-                className="text-gray-600 text-center"
+                className="text-gray-600"
               >
-                {sport.description}
+                {skill.description}
               </Text>
             </div>
           ))}
+        </div>
+
+        {/* Improvements and Images Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <Text
+              as="h3"
+              variant="heading-3"
+              className="mb-6 text-gray-900 uppercase tracking-wide"
+            >
+              {content.visualTherapy.improvements.title}
+            </Text>
+            <div className="space-y-4 mb-8">
+              {content.visualTherapy.improvements.items.map((improvement, index) => (
+                <div key={index} className="flex items-center">
+                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                    <svg
+                      className="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={3}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <Text as="p" className="text-gray-700">
+                    {improvement}
+                  </Text>
+                </div>
+              ))}
+            </div>
+            <Button
+              variant="primary"
+              className="bg-green-600 hover:bg-green-700 text-white"
+              href={`${content.visualTherapy.ctaButton.url}?text=${encodeURIComponent(content.visualTherapy.ctaButton.message)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {content.visualTherapy.ctaButton.text}
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 gap-4">
+            {content.visualTherapy.images.map((image, index) => (
+              <div key={index} className="relative">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-64 object-cover rounded-lg shadow-lg"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -191,7 +263,7 @@ export default function VisionDeportiva() {
         title={content.services.title}
         items={content.services.items}
       />
-      <SportsGrid />
+      <TerapiaVisualDeportiva />
       <CustomerTestimonials
         title={content.testimonials.title}
         testimonials={content.testimonials.items}
