@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { useState } from 'react';
+import Image from './image';
 
 export default function GlobalNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,8 +19,13 @@ export default function GlobalNavigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-xl font-bold text-gray-900" onClick={closeMenu}>
-              Óptica Suárez
+            <Link to="/" className="flex items-center" onClick={closeMenu}>
+              <Image 
+                src="/images/optica-suarez-logo.png" 
+                alt="Óptica Suárez" 
+                className="h-10 w-auto"
+                height={40}
+              />
             </Link>
           </div>
 
