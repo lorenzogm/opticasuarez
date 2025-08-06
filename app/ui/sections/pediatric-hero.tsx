@@ -1,5 +1,6 @@
 import { Text } from '../components/text';
 import { Button } from '../components/button';
+import Image from '../components/image';
 
 interface PediatricHeroProps {
   title: string;
@@ -43,7 +44,7 @@ export default function PediatricHero({
             </Button>
           </div>
           <div className="flex justify-center">
-            <img
+            <Image
               src={image}
               alt={title}
               className="rounded-lg shadow-lg max-w-full h-auto"

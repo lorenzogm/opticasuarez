@@ -1,4 +1,5 @@
 import { Text } from '../components/text';
+import Image from '../components/image';
 
 interface ServiceItem {
   title: string;
@@ -42,7 +43,7 @@ export default function PediatricServices({
               key={index}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <img
+              <Image
                 src={service.image}
                 alt={service.title}
                 className="w-full h-48 object-cover"
