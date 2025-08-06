@@ -16,7 +16,7 @@ export default function ServicesGrid({ items }: ServicesGridProps) {
   return (
     <section className="py-16 px-4 sm:px-6 bg-white">
       <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 lg:gap-8">
           {items.map((item, index) => (
             <article key={index} className="group">
               <Button href={item.url} className="block" unstyled={true}>
