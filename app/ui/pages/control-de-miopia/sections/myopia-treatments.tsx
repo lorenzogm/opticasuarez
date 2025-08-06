@@ -1,4 +1,5 @@
 import { Text } from '../../../components/text';
+import Image from '../../../components/image';
 
 interface Treatment {
   title: string;
@@ -62,11 +63,10 @@ export default function MyopiaTreatments({
                 </div>
               </div>
               <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
-                <img
+                <Image
                   src={treatment.image}
                   alt={treatment.title}
                   className="rounded-lg shadow-lg w-full h-auto"
-                  loading="lazy"
                 />
               </div>
             </div>

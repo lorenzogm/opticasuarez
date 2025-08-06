@@ -1,5 +1,6 @@
 import { Text } from '../../../components/text';
 import { Button } from '../../../components/button';
+import Image from '../../../components/image';
 
 interface MyopiaHeroProps {
   title: string;
@@ -43,11 +44,10 @@ export default function MyopiaHero({
             </Button>
           </div>
           <div className="flex justify-center">
-            <img
+            <Image
               src={image}
               alt="Control de Miopía"
               className="rounded-lg shadow-lg max-w-full h-auto"
-              loading="lazy"
             />
           </div>
         </div>
