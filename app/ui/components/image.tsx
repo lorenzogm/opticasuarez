@@ -13,15 +13,9 @@ export default function Image({
   width,
   height,
 }: ImageProps) {
-  // Get the base path from the environment
-  const basePath = import.meta.env.PROD ? '/opticasuarez-new' : '';
-
-  // Handle relative paths that start with '/'
-  const imageSrc = src.startsWith('/') ? `${basePath}${src}` : src;
-
   return (
     <img
-      src={imageSrc}
+      src={src}
       alt={alt}
       className={className}
       width={width}

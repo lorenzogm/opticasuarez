@@ -28,11 +28,11 @@ export function meta() {
     { property: 'og:type', content: 'website' },
     {
       property: 'og:url',
-      content: 'https://lorenzogm.github.io/opticasuarez-new/',
+      content: 'https://lorenzogm.github.io/',
     },
     {
       property: 'og:image',
-      content: 'https://lorenzogm.github.io/opticasuarez-new/og-image.jpg',
+      content: 'https://lorenzogm.github.io/og-image.jpg',
     },
     { name: 'twitter:card', content: 'summary_large_image' },
     {
