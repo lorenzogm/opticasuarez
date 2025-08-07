@@ -85,7 +85,7 @@ function VisionDeportivaIntroduction() {
           </div>
           <div className="relative">
             <Image
-              src="/images/homepage/services/vision-binocular.jpg"
+              src="/images/vision-deportiva/vision-deportiva-intro.jpg"
               alt="Evaluación visual deportiva"
               className="w-full h-96 object-cover rounded-lg shadow-lg"
             />
