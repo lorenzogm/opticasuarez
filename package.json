@@ -15,7 +15,10 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "deploy": "npm run build && gh-pages -d build/client/opticasuarez-new",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +38,7 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@types/node": "^24.2.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",

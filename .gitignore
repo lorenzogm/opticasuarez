@@ -54,3 +54,8 @@ Thumbs.db
 
 # Vite temp files
 vite.config.ts.timestamp-*
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
