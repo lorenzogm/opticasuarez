@@ -3,7 +3,7 @@ import { getBlogPosts } from './app/ui/lib/blog';
 
 export default {
   ssr: true,
-  basename: process.env.NODE_ENV === 'production' ? '/opticasuarez-new' : '/',
+  basename: process.env.NODE_ENV === 'production' ? '/opticasuarez-new/' : '/',
   async prerender() {
     const blogPosts = getBlogPosts();
     const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);
