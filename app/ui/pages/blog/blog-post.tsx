@@ -8,52 +8,65 @@ interface BlogPostProps {
 }
 
 function parseMarkdownToHTML(markdown: string): string {
-  return markdown
-    .replace(/^# .+$/gm, '') // Remove h1 headers since we have title in hero
-    .replace(
-      /^## (.+)$/gm,
-      '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
-    )
-    .replace(
-      /^### (.+)$/gm,
-      '<h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3 uppercase tracking-wide">$1</h3>'
-    )
-    .replace(
-      /^#### (.+)$/gm,
-      '<h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">$1</h4>'
-    )
-    .replace(
-      /\*\*(.+?)\*\*/g,
-      '<strong class="font-bold text-gray-900">$1</strong>'
-    )
-    .replace(/^- (.+)$/gm, '<li class="mb-2 text-gray-700">$1</li>')
-    .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
-    .split('\n')
-    .map((line) => {
-      // Handle list items
-      if (line.trim().startsWith('<li')) {
-        return line;
-      }
-      // Handle headings
-      if (line.trim().startsWith('<h')) {
-        return line;
-      }
-      // Handle horizontal rules
-      if (line.trim() === '---') {
-        return '<hr class="my-8 border-gray-300">';
-      }
-      // Handle empty lines
-      if (line.trim() === '') {
-        return '';
-      }
-      // Regular paragraphs
-      return `<p class="mb-4 text-gray-700 leading-relaxed">${line}</p>`;
-    })
-    .join('\n')
-    .replace(/(<li[^>]*>.*?<\/li>\s*)+/g, (match) => {
-      return `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}</ul>`;
-    })
-    .replace(/<p class="mb-4 text-gray-700 leading-relaxed"><\/p>/g, '');
+  const basePath = import.meta.env.PROD ? '/opticasuarez-new' : '';
+
+  return (
+    markdown
+      .replace(/^# .+$/gm, '') // Remove h1 headers since we have title in hero
+      .replace(
+        /^## (.+)$/gm,
+        '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
+      )
+      .replace(
+        /^### (.+)$/gm,
+        '<h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3 uppercase tracking-wide">$1</h3>'
+      )
+      .replace(
+        /^#### (.+)$/gm,
+        '<h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">$1</h4>'
+      )
+      .replace(
+        /\*\*(.+?)\*\*/g,
+        '<strong class="font-bold text-gray-900">$1</strong>'
+      )
+      // Handle inline images
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+        const imageSrc = src.startsWith('/') ? `${basePath}${src}` : src;
+        return `<div class="my-8"><img src="${imageSrc}" alt="${alt}" class="w-full h-64 object-cover rounded-lg shadow-lg mx-auto" /></div>`;
+      })
+      .replace(/^- (.+)$/gm, '<li class="mb-2 text-gray-700">$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
+      .split('\n')
+      .map((line) => {
+        // Handle inline images
+        if (line.trim().startsWith('<div class="my-8"><img')) {
+          return line;
+        }
+        // Handle list items
+        if (line.trim().startsWith('<li')) {
+          return line;
+        }
+        // Handle headings
+        if (line.trim().startsWith('<h')) {
+          return line;
+        }
+        // Handle horizontal rules
+        if (line.trim() === '---') {
+          return '<hr class="my-8 border-gray-300">';
+        }
+        // Handle empty lines
+        if (line.trim() === '') {
+          return '';
+        }
+        // Regular paragraphs
+        return `<p class="mb-4 text-gray-700 leading-relaxed">${line}</p>`;
+      })
+      .join('\n')
+      .replace(/(<li[^>]*>.*?<\/li>\s*)+/g, (match) => {
+        return `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}</ul>`;
+      })
+      .replace(/<p class="mb-4 text-gray-700 leading-relaxed"><\/p>/g, '')
+  );
 }
 
 export default function BlogPost({ post }: BlogPostProps) {

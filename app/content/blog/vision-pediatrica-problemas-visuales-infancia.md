@@ -16,29 +16,11 @@ La visión es fundamental para el desarrollo integral de los niños. En **Óptic
 
 ### Etapas críticas del desarrollo visual
 
-**0-3 meses:**
+Durante los primeros 0-3 meses de vida, los bebés enfocan principalmente a 20-30 cm de distancia, desarrollan seguimiento de objetos en movimiento y muestran preferencia por contrastes altos. Entre los 3-6 meses, se establece la coordinación binocular, aparece la percepción de profundidad inicial, y comienza el reconocimiento de caras familiares.
 
-- Enfoque principalmente a 20-30 cm
-- Seguimiento de objetos en movimiento
-- Preferencia por contrastes altos
+![Desarrollo visual infantil](/ blog/vision-pediatrica-desarrollo.jpg)
 
-**3-6 meses:**
-
-- Coordinación binocular
-- Percepción de profundidad inicial
-- Reconocimiento de caras familiares
-
-**6-12 meses:**
-
-- Visión de colores más desarrollada
-- Coordinación ojo-mano
-- Exploración visual del entorno
-
-**1-3 años:**
-
-- Refinamiento de la agudeza visual
-- Desarrollo de la percepción espacial
-- Coordinación visuomotora
+De los 6-12 meses, la visión de colores se desarrolla más completamente, mejora la coordinación ojo-mano, y se intensifica la exploración visual del entorno. Entre 1-3 años, se produce el refinamiento de la agudeza visual, el desarrollo de la percepción espacial, y la coordinación visuomotora alcanza mayor precisión. Este período es crucial, ya que aproximadamente el 80% del desarrollo visual ocurre durante los primeros años de vida.
 
 ## Problemas visuales más comunes en niños
 

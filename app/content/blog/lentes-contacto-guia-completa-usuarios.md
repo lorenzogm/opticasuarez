@@ -14,40 +14,18 @@ Las lentes de contacto han revolucionado la forma en que corregimos los problema
 
 ## ¿Por qué elegir lentes de contacto?
 
-### Ventajas sobre las gafas tradicionales
+Las lentes de contacto ofrecen un campo visual completo sin las limitaciones del marco de las gafas, proporcionando libertad de movimiento ideal para deportes y actividades físicas. Desde el punto de vista estético, mantienen la apariencia natural sin alterar la imagen personal, mientras que desde el punto de vista práctico, ofrecen comodidad climática al no empañarse ni mojarse con la lluvia, y permiten usar gafas de sol normales cuando sea necesario.
 
-- **Campo visual completo**: Sin limitaciones del marco
-- **Libertad de movimiento**: Ideales para deportes y actividades
-- **Estética**: Apariencia natural sin alterar tu imagen
-- **Comodidad climática**: No se empañan ni se mojan con la lluvia
-- **Versatilidad**: Permiten usar gafas de sol normales
+![Tipos de lentes de contacto](/ blog/lentes-contacto-tipos.jpg)
 
-### Beneficios específicos
-
-- **Corrección óptica superior**: Menos distorsiones periféricas
-- **Estabilidad visual**: Se mueven con el ojo
-- **Ausencia de reflejos**: Mayor nitidez visual
-- **Autoestima**: Confianza en la apariencia personal
+La corrección óptica que proporcionan es superior a las gafas tradicionales, con menos distorsiones periféricas gracias a que se mueven con el ojo, proporcionando estabilidad visual y ausencia de reflejos molestos. Todo esto contribuye a una mayor nitidez visual y a un aumento de la autoestima y confianza en la apariencia personal.
 
 ## Tipos de lentes de contacto
 
 ### Según el material
 
-#### Lentes blandas
+Las lentes blandas, fabricadas con hidrogel o hidrogel de silicona, ofrecen mayor comodidad inicial y fácil adaptación, con menor riesgo de pérdida y variedad de frecuencias de reemplazo. Son ideales para usuarios principiantes, uso ocasional y actividades deportivas, ya que se adaptan mejor a los movimientos bruscos y cambios de posición.
 
-**Material**: Hidrogel o hidrogel de silicona
-**Características:**
-
-- Mayor comodidad inicial
-- Fácil adaptación
-- Menor riesgo de pérdida
-- Variedad de frecuencias de reemplazo
-
-**Ideales para:**
-
-- Usuarios principiantes
-- Uso ocasional
-- Actividades deportivas
 - Personas con ojos sensibles
 
 #### Lentes rígidas permeables al gas (RPG)
@@ -123,75 +101,33 @@ Corrigen presbicia y otros defectos simultáneamente.
 
 ### Tóricas
 
-Específicas para corrección de astigmatismo.
+Las lentes tóricas están específicamente diseñadas para la corrección del astigmatismo, incorporando un diseño estabilizado que corrige meridianos específicos del ojo. Están disponibles en diferentes frecuencias de reemplazo y requieren una adaptación personalizada para garantizar la rotación correcta y la estabilidad visual.
 
-**Características especiales:**
+### Cosméticas y de color
 
-- Diseño estabilizado
-- Corrección de meridianos específicos
-- Disponibles en diferentes frecuencias
-- Adaptación personalizada
+Estas lentes ofrecen opciones tanto estéticas como terapéuticas. Las lentes de realce intensifican el color natural del iris, mientras que las opacas permiten un cambio completo de color. También existen opciones terapéuticas específicas para irregularidades del iris o condiciones médicas particulares.
 
-### Cosméticas/De color
-
-Para cambio estético o terapéutico.
-
-**Opciones:**
-
-- **Realce**: Intensifican el color natural
-- **Opacas**: Cambio completo de color
-- **Terapéuticas**: Para irregularidades iris
+![Proceso de adaptación de lentes](/ blog/lentes-contacto-adaptacion.jpg)
 
 ## El proceso de adaptación en Óptica Suárez
 
 ### Evaluación inicial completa
 
-1. **Historia clínica**: Necesidades y expectativas
-2. **Examen ocular**: Salud y anatomía del ojo
-3. **Evaluación de la lágrima**: Cantidad y calidad
-4. **Medidas especializadas**: Curvatura corneal, diámetro
+Nuestro proceso comienza con una historia clínica detallada donde evaluamos las necesidades y expectativas del paciente. Realizamos un examen ocular completo para verificar la salud y anatomía del ojo, evaluamos la cantidad y calidad de la lágrima, y tomamos medidas especializadas como la curvatura corneal y el diámetro.
 
-### Selección personalizada
-
-Consideramos factores como:
-
-- **Defecto refractivo**: Tipo y graduación
-- **Estilo de vida**: Actividades y horarios
-- **Anatomía ocular**: Forma y tamaño
-- **Experiencia previa**: Historial con lentillas
+En la selección personalizada consideramos el tipo y graduación del defecto refractivo, el estilo de vida y actividades del paciente, la anatomía ocular individual incluyendo forma y tamaño, y cualquier experiencia previa con lentillas para optimizar la elección.
 
 ### Proceso de adaptación
 
-#### Primera fase: Entrenamiento
+La primera fase se centra en el entrenamiento, donde enseñamos la colocación y retirada correcta, técnicas de manipulación segura, horarios de uso inicial para adaptación gradual, y signos de alarma que requieren atención inmediata.
 
-- Colocación y retirada correcta
-- Técnicas de manipulación
-- Horarios de uso inicial
-- Signos de alarma
-
-#### Segunda fase: Seguimiento
-
-- **Control a las 24 horas**: Adaptación inicial
-- **Revisión semanal**: Ajustes necesarios
-- **Control mensual**: Evaluación completa
-- **Seguimientos regulares**: Mantenimiento óptimo
+La segunda fase incluye seguimiento continuo con control a las 24 horas para evaluar la adaptación inicial, revisión semanal para realizar ajustes necesarios, control mensual para evaluación completa, y seguimientos regulares para mantenimiento óptimo de la salud ocular.
 
 ## Cuidado y mantenimiento
 
-### Higiene fundamental
+La higiene es fundamental en el uso de lentes de contacto. Antes de manipular las lentes, es esencial lavarse las manos con jabón neutro sin perfumes, secarlas con toalla limpia sin pelusa, y mantener las uñas cortas para evitar daños accidentales.
 
-#### Antes de manipular las lentes:
-
-1. **Lavado de manos**: Jabón neutro sin perfumes
-2. **Secado**: Con toalla limpia sin pelusa
-3. **Uñas cortas**: Para evitar daños
-
-#### Rutina diaria (lentes no diarias):
-
-1. **Limpieza**: Solución específica para el tipo de lente
-2. **Enjuague**: Eliminación de depósitos
-3. **Desinfección**: Eliminación de microorganismos
-4. **Almacenamiento**: En estuche con solución fresca
+En la rutina diaria para lentes no diarias, debe realizarse limpieza con solución específica para el tipo de lente, enjuague para eliminación de depósitos, desinfección para eliminación de microorganismos, y almacenamiento en estuche con solución fresca.
 
 ### Productos de mantenimiento
 

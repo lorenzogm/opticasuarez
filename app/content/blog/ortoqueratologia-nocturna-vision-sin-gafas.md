@@ -22,32 +22,16 @@ Durante el sueño, las lentes ejercen una presión controlada y gradual sobre la
 
 ## Candidatos ideales para ortoqueratología
 
-### Rango de corrección
+La ortoqueratología es más efectiva en casos de miopía hasta -6.00 dioptrías, astigmatismo hasta -1.75 dioptrías, y combinaciones de miopía con astigmatismo bajo. Para rangos mayores, realizamos evaluación individual considerando las características específicas de cada paciente.
 
-La ortoqueratología es más efectiva en:
-
-- **Miopía**: Hasta -6.00 dioptrías
-- **Astigmatismo**: Hasta -1.75 dioptrías
-- **Combinaciones**: Miopía con astigmatismo bajo
-- **Casos específicos**: Evaluación individual para rangos mayores
+![Adaptación de ortoqueratología](/ blog/ortoqueratologia-adaptacion.jpg)
 
 ### Perfil del usuario ideal
 
-#### Niños y adolescentes (8-16 años)
+Los niños y adolescentes entre 8 y 16 años son candidatos excepcionales, ya que obtienen ventajas específicas como el control de la progresión de miopía, libertad total para actividades deportivas, desarrollo de responsabilidad en el cuidado personal, y prevención de miopía alta en la adultez.
 
-**Ventajas específicas:**
+Los adultos jóvenes también se benefician enormemente, especialmente aquellos con profesiones que tienen restricciones para el uso de gafas, deportistas de alto rendimiento que requieren visión sin limitaciones, y personas que buscan independencia de corrección óptica durante el día. Para tener éxito con la ortoqueratología, es fundamental tener buena higiene personal, capacidad de seguir instrucciones precisas, motivación para el uso nocturno constante, y compromiso con el seguimiento profesional regular.
 
-- Control de la progresión de miopía
-- Libertad para actividades deportivas
-- Desarrollo de responsabilidad en el cuidado
-- Prevención de miopía alta en la adultez
-
-#### Adultos jóvenes
-
-**Beneficios principales:**
-
-- Profesiones con restricciones para gafas
-- Deportistas de alto rendimiento
 - Personas con estilo de vida activo
 - Intolerancia a lentes de contacto diurnas
 

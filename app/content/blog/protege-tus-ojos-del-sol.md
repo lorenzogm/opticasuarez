@@ -14,128 +14,47 @@ En **Óptica Suárez**, no solo nos preocupamos por que veas bien, sino también
 
 ## ¿Por qué son peligrosos los rayos UV para los ojos?
 
-Los rayos ultravioleta pueden causar daños tanto inmediatos como a largo plazo:
+Los rayos ultravioleta pueden causar daños tanto inmediatos como a largo plazo en nuestros ojos. Entre los efectos inmediatos encontramos la fotoqueratitis, conocida como "quemadura solar" en la córnea, que causa dolor y molestias similares a tener arena en los ojos. La conjuntivitis por exposición solar provoca irritación e inflamación, mientras que la visión borrosa temporal puede afectar nuestra capacidad de realizar actividades cotidianas.
 
-### Daños inmediatos
+![Efectos del sol en los ojos](/ blog/proteccion-solar-efectos.jpg)
 
-- **Fotoqueratitis**: "Quemadura solar" en la córnea
-- **Conjuntivitis**: Irritación e inflamación
-- **Visión borrosa temporal**
-
-### Daños a largo plazo
-
-- **Cataratas**: Opacificación prematura del cristalino
-- **Degeneración macular**: Deterioro de la retina central
-- **Pterigión**: Crecimiento anormal de tejido en el ojo
-- **Cáncer de párpados**: Tumores en la piel alrededor de los ojos
+Los daños a largo plazo son aún más preocupantes. La exposición continuada a los rayos UV acelera la formación de cataratas, causando opacificación prematura del cristalino que puede requerir cirugía. La degeneración macular, que afecta la retina central, puede comprometer seriamente la visión central necesaria para leer y reconocer caras. El pterigión, un crecimiento anormal de tejido en el ojo, no solo es antiestético sino que puede afectar la visión. Además, los párpados son especialmente vulnerables al cáncer de piel debido a su delicadeza.
 
 ## Cómo elegir las gafas de sol perfectas
 
 ### Protección UV
 
-- **UV400**: Bloquea el 100% de rayos UV-A y UV-B
-- **Certificación CE**: Garantía de cumplimiento europeo
-- **Etiqueta de protección**: Categorías 0-4 según intensidad
+Lo más importante al elegir gafas de sol es asegurar una protección UV adecuada. Las gafas con etiqueta UV400 bloquean el 100% de los rayos UV-A y UV-B, proporcionando la máxima protección disponible. La certificación CE garantiza el cumplimiento de los estándares europeos de seguridad, mientras que las etiquetas de protección clasifican las gafas en categorías del 0 al 4 según la intensidad del filtro solar.
 
-### Tipos de lentes
+![Tipos de lentes solares](/ blog/proteccion-solar-lentes.jpg)
 
-#### Polarizadas
+### Tipos de lentes especializadas
 
-- Reducen el deslumbramiento
-- Ideales para conducir y deportes acuáticos
-- Mejoran el contraste
-
-#### Fotocromáticas
-
-- Se adaptan automáticamente a la luz
-- Perfectas para uso diario
-- Comodidad en interiores y exteriores
+Las lentes polarizadas son especialmente efectivas para reducir el deslumbramiento, siendo ideales para conducir y practicar deportes acuáticos, ya que mejoran significativamente el contraste y la percepción de profundidad. Las lentes fotocromáticas ofrecen la ventaja de adaptarse automáticamente a las condiciones de luz, siendo perfectas para uso diario tanto en interiores como exteriores, proporcionando comodidad continua sin necesidad de cambiar de gafas.
 
 ### Materiales de calidad
 
-#### Cristal mineral
-
-- **Ventajas**: Resistencia a rayones, claridad óptica
-- **Desventajas**: Peso, fragilidad
-
-#### Policarbonato
-
-- **Ventajas**: Ligereza, resistencia a impactos
-- **Desventajas**: Susceptible a rayones
-
-#### CR-39
-
-- **Ventajas**: Buena óptica, precio moderado
-- **Desventajas**: Menos resistente
+El cristal mineral ofrece excelente resistencia a rayones y claridad óptica superior, aunque tiene la desventaja del peso y mayor fragilidad ante impactos. El policarbonato destaca por su ligereza y excepcional resistencia a impactos, siendo ideal para deportes, aunque es más susceptible a rayones que requieren cuidado especial. El CR-39 proporciona buena calidad óptica a un precio moderado, representando un equilibrio entre prestaciones y coste, aunque ofrece menor resistencia que otros materiales.
 
 ## Mitos y realidades sobre las gafas de sol
 
-### Mito: "Los cristales oscuros protegen más"
+Es importante desmitificar algunas creencias erróneas sobre la protección solar. Muchas personas piensan que los cristales más oscuros protegen más, pero la realidad es que el color no determina la protección UV. Unas gafas transparentes con filtro UV adecuado protegen mucho más que unas oscuras sin este filtro.
 
-**Realidad**: El color no determina la protección UV. Unas gafas transparentes con filtro UV protegen más que unas oscuras sin él.
+![Cuidados de gafas de sol](/ blog/proteccion-solar-cuidados.jpg)
 
-### Mito: "En días nublados no necesito gafas"
+Otro mito común es creer que en días nublados no necesitamos gafas de sol. Sin embargo, las nubes solo filtran aproximadamente el 10% de los rayos UV, por lo que en días nublados seguimos necesitando protección adecuada. También es peligroso pensar que las gafas baratas son igual de efectivas, ya que las gafas sin certificación pueden ser incluso más perjudiciales que no usar nada, pues dilatan la pupila sin ofrecer protección real.
 
-**Realidad**: Las nubes solo filtran el 10% de los rayos UV. En días nublados sigues necesitando protección.
+## Cuidados especiales según la edad y actividad
 
-### Mito: "Las gafas baratas son igual de efectivas"
+Los niños requieren protección extra, ya que sus ojos son significativamente más sensibles a los rayos UV que los de los adultos. Necesitan monturas resistentes adaptadas a su uso activo y es fundamental educarles sobre la importancia de la protección desde pequeños para crear hábitos saludables.
 
-**Realidad**: Las gafas sin certificación pueden ser incluso peligrosas, ya que dilatan la pupila sin proteger.
+Los adultos mayores deben realizar revisiones regulares para adaptar la graduación a posibles cambios en su visión, utilizando monturas ligeras y ergonómicas para mayor comodidad, y considerando la opción de gafas graduadas que combinen corrección visual y protección solar en una sola solución.
 
-## Cuidados especiales por edades
-
-### Niños
-
-- **Extra protección**: Sus ojos son más sensibles
-- **Monturas resistentes**: Para uso activo
-- **Educación**: Enseñarles la importancia desde pequeños
-
-### Adultos mayores
-
-- **Revisión regular**: Cambios en la prescripción
-- **Comodidad**: Monturas ligeras y ergonómicas
-- **Graduadas**: Combinar corrección y protección
-
-## Actividades que requieren protección especial
-
-### Deportes de montaña
-
-- **Altitud**: Mayor exposición UV
-- **Nieve**: Reflejo intenso
-- **Categoría 4**: Máxima protección
-
-### Deportes acuáticos
-
-- **Reflejo del agua**: Duplica la exposición
-- **Lentes polarizadas**: Reducen deslumbramiento
-- **Correa de seguridad**: Evitar pérdidas
-
-### Conducción
-
-- **Polarizadas**: Reducen reflejos
-- **Color adecuado**: Grises o marrones
-- **Ajuste perfecto**: Sin movimientos
-
-## Consejos de mantenimiento
-
-### Limpieza correcta
-
-1. **Agua tibia**: Enjuagar antes de limpiar
-2. **Jabón neutro**: Sin químicos agresivos
-3. **Paño de microfibra**: Evitar rayones
-4. **Secado al aire**: Sin frotar
-
-### Almacenamiento
-
-- **Funda rígida**: Protección contra golpes
-- **Lugar seco**: Evitar humedad
-- **Temperatura estable**: Sin calor extremo
+Para deportes de montaña, la altitud incrementa la exposición UV y la nieve crea un reflejo intenso que duplica la radiación, requiriendo gafas de categoría 4 con máxima protección. En deportes acuáticos, el reflejo del agua duplica la exposición UV, siendo imprescindibles las lentes polarizadas para reducir el deslumbramiento y usar correa de seguridad para evitar pérdidas. Para la conducción, las lentes polarizadas reducen los reflejos peligrosos, siendo recomendables los colores grises o marrones, y es fundamental un ajuste perfecto que evite movimientos.
 
 ## Tu salud visual, nuestra prioridad
 
-En **Óptica Suárez** disponemos de las mejores marcas de gafas de sol con protección UV certificada. Nuestro equipo de profesionales te ayudará a elegir la opción perfecta según tu estilo de vida, preferencias y necesidades específicas.
-
-No comprometas tu visión. La protección UV es una inversión en tu salud ocular a largo plazo.
+En **Óptica Suárez** disponemos de las mejores marcas de gafas de sol con protección UV certificada. Nuestro equipo de profesionales te ayudará a elegir la opción perfecta según tu estilo de vida, preferencias y necesidades específicas. No comprometas tu visión: la protección UV es una inversión en tu salud ocular a largo plazo.
 
 ---
 

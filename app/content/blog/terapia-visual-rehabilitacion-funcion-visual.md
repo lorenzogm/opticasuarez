@@ -16,13 +16,9 @@ La terapia visual es una disciplina especializada que va más allá de la simple
 
 La terapia visual es un programa de ejercicios visuales personalizados, diseñados para corregir deficiencias en el procesamiento visual y mejorar habilidades específicas del sistema visual. A diferencia de las gafas o lentes de contacto, que simplemente compensan errores refractivos, la terapia visual entrena y desarrolla las habilidades visuales.
 
-### Áreas que aborda la terapia visual:
+![Ejercicios de terapia visual](/ blog/terapia-visual-ejercicios.jpg)
 
-- **Movimientos oculares**: Seguimientos y saltos visuales precisos
-- **Enfoque**: Habilidad para cambiar de lejos a cerca
-- **Coordinación binocular**: Trabajo conjunto de ambos ojos
-- **Procesamiento visual**: Interpretación de la información visual
-- **Integración visuomotora**: Coordinación ojo-mano
+La terapia visual aborda áreas cruciales como los movimientos oculares para seguimientos y saltos visuales precisos, las habilidades de enfoque que permiten cambiar de lejos a cerca eficientemente, la coordinación binocular para el trabajo conjunto óptimo de ambos ojos, el procesamiento visual para una correcta interpretación de la información, y la integración visuomotora que coordina la respuesta ojo-mano.
 
 ## ¿Quiénes pueden beneficiarse?
 
