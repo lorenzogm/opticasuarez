@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Button } from '../../components/button';
+import Image from '../../components/image';
 import type { BlogPost as BlogPostType } from '../../lib/blog';
 
 interface BlogPostProps {
@@ -106,13 +107,10 @@ export default function BlogPost({ post }: BlogPostProps) {
         <section className="py-8">
           <div className="container mx-auto max-w-4xl px-4 sm:px-6">
             <div className="rounded-lg overflow-hidden shadow-lg">
-              <img
+              <Image
                 src={post.featured_image}
                 alt={post.title}
                 className="w-full h-96 object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
               />
             </div>
           </div>

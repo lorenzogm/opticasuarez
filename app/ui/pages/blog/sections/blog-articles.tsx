@@ -1,4 +1,5 @@
 import { Button } from '../../../components/button';
+import Image from '../../../components/image';
 
 interface BlogArticle {
   title: string;
@@ -26,13 +27,10 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
             >
               {article.featured_image && (
                 <div className="h-48 bg-gray-200">
-                  <img
+                  <Image
                     src={article.featured_image}
                     alt={article.title}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
                   />
                 </div>
               )}
