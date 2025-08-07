@@ -1,4 +1,5 @@
 import Image from '../../../components/image';
+import { Link } from 'react-router';
 
 interface LocationSchedule {
   weekdays: string;
@@ -138,12 +139,12 @@ export default function Locations({ title, locations }: LocationsProps) {
                           EMAIL
                         </h3>
                       </div>
-                      <a
-                        href={location.contactUrl}
+                      <Link
+                        to={location.contactUrl}
                         className="text-blue-600 hover:text-blue-800 font-medium"
                       >
                         {location.email}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
