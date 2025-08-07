@@ -9,14 +9,26 @@ interface BlogPostProps {
 function parseMarkdownToHTML(markdown: string): string {
   return markdown
     .replace(/^# .+$/gm, '') // Remove h1 headers since we have title in hero
-    .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>')
-    .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3 uppercase tracking-wide">$1</h3>')
-    .replace(/^#### (.+)$/gm, '<h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">$1</h4>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
+    .replace(
+      /^## (.+)$/gm,
+      '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
+    )
+    .replace(
+      /^### (.+)$/gm,
+      '<h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3 uppercase tracking-wide">$1</h3>'
+    )
+    .replace(
+      /^#### (.+)$/gm,
+      '<h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">$1</h4>'
+    )
+    .replace(
+      /\*\*(.+?)\*\*/g,
+      '<strong class="font-bold text-gray-900">$1</strong>'
+    )
     .replace(/^- (.+)$/gm, '<li class="mb-2 text-gray-700">$1</li>')
     .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
     .split('\n')
-    .map(line => {
+    .map((line) => {
       // Handle list items
       if (line.trim().startsWith('<li')) {
         return line;
@@ -55,7 +67,7 @@ export default function BlogPost({ post }: BlogPostProps) {
           >
             ← Volver al blog
           </Link>
-          
+
           <div className="flex flex-wrap gap-2 mb-4">
             {post.categories.map((category, index) => (
               <span
@@ -66,15 +78,15 @@ export default function BlogPost({ post }: BlogPostProps) {
               </span>
             ))}
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">
             {post.title}
           </h1>
-          
+
           <p className="text-xl text-blue-100 mb-6 leading-relaxed">
             {post.excerpt}
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 text-sm text-blue-200">
             <span>Por {post.author}</span>
             <span className="hidden sm:block">•</span>
@@ -111,10 +123,10 @@ export default function BlogPost({ post }: BlogPostProps) {
       <section className="py-16 px-4 sm:px-6">
         <div className="container mx-auto max-w-4xl">
           <article className="prose prose-lg max-w-none">
-            <div 
+            <div
               className="leading-relaxed"
-              dangerouslySetInnerHTML={{ 
-                __html: parseMarkdownToHTML(post.content)
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(post.content),
               }}
             />
           </article>
@@ -128,12 +140,11 @@ export default function BlogPost({ post }: BlogPostProps) {
             ¿Te gustó este artículo?
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Descubre más artículos sobre salud visual, cuidado de los ojos y novedades en óptica en nuestro blog.
+            Descubre más artículos sobre salud visual, cuidado de los ojos y
+            novedades en óptica en nuestro blog.
           </p>
           <Link to="/blog">
-            <Button variant="primary">
-              Ver más artículos
-            </Button>
+            <Button variant="primary">Ver más artículos</Button>
           </Link>
         </div>
       </section>

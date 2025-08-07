@@ -19,10 +19,7 @@ export default function ExamenVisual() {
           >
             {content.mainTitle}
           </Text>
-          <Text
-            as="p"
-            className="text-gray-600 max-w-3xl mx-auto"
-          >
+          <Text as="p" className="text-gray-600 max-w-3xl mx-auto">
             {content.subtitle}
           </Text>
         </div>
@@ -49,7 +46,7 @@ export default function ExamenVisual() {
       </section>
 
       {/* Exam Types */}
-      <ExamTypes 
+      <ExamTypes
         title={content.examTypes.title}
         items={content.examTypes.items}
       />

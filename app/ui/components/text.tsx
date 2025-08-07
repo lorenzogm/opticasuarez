@@ -47,10 +47,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
   ) => {
     return (
       <Component
-        className={cn(
-          textVariants({ variant, colour, align }),
-          className
-        )}
+        className={cn(textVariants({ variant, colour, align }), className)}
         ref={ref}
         {...props}
       />

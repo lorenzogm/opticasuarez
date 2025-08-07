@@ -27,11 +27,7 @@ export default function CTASection({
         >
           {title}
         </Text>
-        <Text
-          as="h3"
-          colour="white"
-          className="mb-6"
-        >
+        <Text as="h3" colour="white" className="mb-6">
           {subtitle}
         </Text>
         <Text

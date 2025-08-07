@@ -20,9 +20,9 @@ export default function GlobalNavigation() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center" onClick={closeMenu}>
-              <Image 
-                src="/images/optica-suarez-logo.png" 
-                alt="Óptica Suárez" 
+              <Image
+                src="/images/optica-suarez-logo.png"
+                alt="Óptica Suárez"
                 className="h-10 w-auto"
                 height={40}
               />

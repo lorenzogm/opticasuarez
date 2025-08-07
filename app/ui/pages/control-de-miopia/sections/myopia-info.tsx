@@ -49,10 +49,7 @@ export default function MyopiaInfo({
               >
                 {feature.title}
               </Text>
-              <Text
-                variant="body-sm"
-                className="text-gray-600 leading-relaxed"
-              >
+              <Text variant="body-sm" className="text-gray-600 leading-relaxed">
                 {feature.description}
               </Text>
             </div>

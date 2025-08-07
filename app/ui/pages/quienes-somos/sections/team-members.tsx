@@ -45,7 +45,10 @@ export default function TeamMembers({ title, members }: TeamMembersProps) {
                 >
                   {member.name}
                 </Text>
-                <Text variant="body-lg" className="mb-4 text-blue-800 font-medium">
+                <Text
+                  variant="body-lg"
+                  className="mb-4 text-blue-800 font-medium"
+                >
                   {member.role}
                 </Text>
 

@@ -145,7 +145,9 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
               <Text as="h1" variant="heading-4" className="text-gray-900">
                 Óptica Suárez
               </Text>
-              <Text variant="body-sm" colour="light">Reservar cita</Text>
+              <Text variant="body-sm" colour="light">
+                Reservar cita
+              </Text>
             </div>
           </div>
         </div>
@@ -157,7 +159,9 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
         <div className="mb-8">
           <ProgressIndicator currentStep={4} totalSteps={4} />
           <div className="text-center mt-4">
-            <Text as="h2" variant="heading-3" className="text-gray-900">Confirmar cita</Text>
+            <Text as="h2" variant="heading-3" className="text-gray-900">
+              Confirmar cita
+            </Text>
             <Text variant="body-md" colour="light" className="mt-2">
               Revisa los detalles de tu cita antes de confirmar
             </Text>
@@ -232,7 +236,7 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-8">
-          <Button 
+          <Button
             href={`/book/step3?type=${appointmentType}&date=${dateParam}&time=${time}`}
             variant="secondary"
           >

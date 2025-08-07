@@ -120,10 +120,7 @@ export default function TerapiaVisualConditions({
                   {getIcon(item.icon)}
                 </svg>
               </div>
-              <Text
-                as="h3"
-                className="mb-3 text-gray-900"
-              >
+              <Text as="h3" className="mb-3 text-gray-900">
                 {item.title}
               </Text>
               <Text className="text-gray-600 leading-relaxed">

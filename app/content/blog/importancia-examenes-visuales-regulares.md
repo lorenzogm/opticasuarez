@@ -1,11 +1,11 @@
 ---
-title: "La importancia de los exámenes visuales regulares"
-date: "2024-08-06"
-excerpt: "Descubre por qué es fundamental realizar revisiones oculares periódicas para mantener una salud visual óptima."
-author: "Óptica Suárez"
-categories: ["Salud Visual", "Exámenes"]
-featured_image: "/images/blog/examen-visual-blog.jpg"
-slug: "importancia-examenes-visuales-regulares"
+title: 'La importancia de los exámenes visuales regulares'
+date: '2024-08-06'
+excerpt: 'Descubre por qué es fundamental realizar revisiones oculares periódicas para mantener una salud visual óptima.'
+author: 'Óptica Suárez'
+categories: ['Salud Visual', 'Exámenes']
+featured_image: '/images/blog/examen-visual-blog.jpg'
+slug: 'importancia-examenes-visuales-regulares'
 ---
 
 # La importancia de los exámenes visuales regulares
@@ -38,16 +38,19 @@ Nuestra visión puede cambiar gradualmente sin que nos demos cuenta. Los exámen
 Las recomendaciones varían según la edad y factores de riesgo:
 
 ### Niños y adolescentes
+
 - **Primera revisión**: Entre los 6 meses y el primer año de vida
 - **Preescolar**: Entre los 3-5 años
 - **Edad escolar**: Cada 1-2 años
 
 ### Adultos
+
 - **18-39 años**: Cada 2-3 años
 - **40-64 años**: Cada 1-2 años
 - **65+ años**: Anualmente
 
 ### Casos especiales
+
 Si tienes antecedentes familiares de enfermedades oculares, diabetes, hipertensión o trabajas muchas horas frente a pantallas, es recomendable realizar exámenes más frecuentes.
 
 ## Qué incluye un examen visual completo en Óptica Suárez
@@ -98,4 +101,4 @@ No esperes a tener problemas para cuidar tu visión. La prevención es la mejor 
 
 ---
 
-*¿Necesitas programar tu examen visual? Visítanos en cualquiera de nuestros dos centros en Jaén o reserva tu cita online. Tu visión está en las mejores manos.*
+_¿Necesitas programar tu examen visual? Visítanos en cualquiera de nuestros dos centros en Jaén o reserva tu cita online. Tu visión está en las mejores manos._

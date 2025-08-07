@@ -59,22 +59,38 @@
       {
         "title": "0-3 años",
         "description": "Primeros exámenes visuales y detección de problemas congénitos. Evaluación del desarrollo visual temprano.",
-        "recommendations": ["Primera revisión a los 6 meses", "Control anual", "Observación de movimientos oculares"]
+        "recommendations": [
+          "Primera revisión a los 6 meses",
+          "Control anual",
+          "Observación de movimientos oculares"
+        ]
       },
       {
         "title": "3-6 años",
         "description": "Evaluación completa antes del inicio escolar. Detección de ambliopía, estrabismo y errores refractivos.",
-        "recommendations": ["Examen antes de los 3 años", "Control pre-escolar", "Evaluación de la coordinación ojo-mano"]
+        "recommendations": [
+          "Examen antes de los 3 años",
+          "Control pre-escolar",
+          "Evaluación de la coordinación ojo-mano"
+        ]
       },
       {
         "title": "6-12 años",
         "description": "Seguimiento del rendimiento escolar y detección de problemas de aprendizaje relacionados con la visión.",
-        "recommendations": ["Control anual obligatorio", "Evaluación tras dificultades escolares", "Adaptación a gafas si es necesario"]
+        "recommendations": [
+          "Control anual obligatorio",
+          "Evaluación tras dificultades escolares",
+          "Adaptación a gafas si es necesario"
+        ]
       },
       {
         "title": "12-18 años",
         "description": "Control de miopía y cambios hormonales. Adaptación a lentes de contacto y deportes.",
-        "recommendations": ["Control semestral si hay miopía", "Evaluación para lentes de contacto", "Gafas deportivas específicas"]
+        "recommendations": [
+          "Control semestral si hay miopía",
+          "Evaluación para lentes de contacto",
+          "Gafas deportivas específicas"
+        ]
       }
     ]
   },

@@ -35,7 +35,11 @@
       {
         "name": "Lentes Diarias",
         "description": "Máxima comodidad e higiene. Perfectas para uso ocasional o para quien prefiere estrenar lentes cada día.",
-        "benefits": ["Máxima higiene", "Sin mantenimiento", "Perfectas para deportes"],
+        "benefits": [
+          "Máxima higiene",
+          "Sin mantenimiento",
+          "Perfectas para deportes"
+        ],
         "image": "/images/contactologia/lentes-diarias.webp"
       },
       {
@@ -53,7 +57,11 @@
       {
         "name": "Lentes Tóricas",
         "description": "Diseñadas específicamente para corregir el astigmatismo, proporcionando una visión estable y clara.",
-        "benefits": ["Corrección astigmatismo", "Visión estable", "Diseño específico"],
+        "benefits": [
+          "Corrección astigmatismo",
+          "Visión estable",
+          "Diseño específico"
+        ],
         "image": "/images/contactologia/lentes-toricas.webp"
       }
     ]

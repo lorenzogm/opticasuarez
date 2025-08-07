@@ -30,10 +30,7 @@ export default function PediatricServices({
           >
             {title}
           </Text>
-          <Text
-            variant="body-lg"
-            className="text-gray-600"
-          >
+          <Text variant="body-lg" className="text-gray-600">
             {subtitle}
           </Text>
         </div>
@@ -49,15 +46,10 @@ export default function PediatricServices({
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <Text
-                  as="h3"
-                  className="mb-3 text-blue-900"
-                >
+                <Text as="h3" className="mb-3 text-blue-900">
                   {service.title}
                 </Text>
-                <Text
-                  className="text-gray-600 leading-relaxed"
-                >
+                <Text className="text-gray-600 leading-relaxed">
                   {service.description}
                 </Text>
               </div>

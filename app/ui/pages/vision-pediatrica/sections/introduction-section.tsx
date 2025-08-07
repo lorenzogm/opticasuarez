@@ -19,10 +19,7 @@ export default function IntroductionSection({
         >
           {title}
         </Text>
-        <Text
-          variant="body-lg"
-          className="text-gray-700 leading-relaxed"
-        >
+        <Text variant="body-lg" className="text-gray-700 leading-relaxed">
           {content}
         </Text>
       </div>

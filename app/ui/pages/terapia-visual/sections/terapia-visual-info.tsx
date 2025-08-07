@@ -25,16 +25,16 @@ export default function TerapiaVisualInfo({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
-            <Text variant="body-lg" className="mb-6 text-gray-600 leading-relaxed">
+            <Text
+              variant="body-lg"
+              className="mb-6 text-gray-600 leading-relaxed"
+            >
               {description}
             </Text>
           </div>
 
           <div>
-            <Text
-              as="h3"
-              className="mb-6 text-blue-900"
-            >
+            <Text as="h3" className="mb-6 text-blue-900">
               Beneficios de la Terapia Visual:
             </Text>
             <ul className="space-y-3">

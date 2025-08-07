@@ -47,22 +47,16 @@ export default function ContactForm({
           <Text
             as="h2"
             variant="heading-2"
-            
             align="center"
             className="mb-4 uppercase tracking-wide"
           >
             {title}
           </Text>
-          <Text
-            
-            align="center"
-            className="mb-4 text-blue-100"
-          >
+          <Text align="center" className="mb-4 text-blue-100">
             {subtitle}
           </Text>
           <Text
             variant="body-lg"
-            
             align="center"
             className="text-gray-300 max-w-2xl mx-auto"
           >
@@ -85,9 +79,7 @@ export default function ContactForm({
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            <Text >
-              {form.successMessage}
-            </Text>
+            <Text>{form.successMessage}</Text>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -180,15 +172,12 @@ export default function ContactForm({
             </div>
 
             {/* Privacy Notice */}
-            <div className="text-xs text-gray-400">
-              {form.privacy}
-            </div>
+            <div className="text-xs text-gray-400">{form.privacy}</div>
 
             {/* Submit Button */}
             <div className="text-center">
               <Button
                 type="submit"
-                
                 variant="primary"
                 className="bg-blue-600 hover:bg-blue-700 px-8"
               >

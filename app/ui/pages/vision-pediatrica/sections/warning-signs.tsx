@@ -24,16 +24,10 @@ export default function WarningSigns({
           >
             {title}
           </Text>
-          <Text
-            as="h3"
-            className="mb-6 text-red-700"
-          >
+          <Text as="h3" className="mb-6 text-red-700">
             {subtitle}
           </Text>
-          <Text
-            variant="body-lg"
-            className="text-gray-700 leading-relaxed"
-          >
+          <Text variant="body-lg" className="text-gray-700 leading-relaxed">
             {description}
           </Text>
         </div>
@@ -43,9 +37,7 @@ export default function WarningSigns({
               key={index}
               className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-red-400"
             >
-              <Text
-                className="text-gray-700 flex items-center"
-              >
+              <Text className="text-gray-700 flex items-center">
                 <span className="text-red-500 mr-3 text-lg">⚠️</span>
                 {sign}
               </Text>

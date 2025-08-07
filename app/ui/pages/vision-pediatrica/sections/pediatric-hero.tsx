@@ -27,10 +27,7 @@ export default function PediatricHero({
             >
               {title}
             </Text>
-            <Text
-              as="h2"
-              className="mb-6 text-gray-700"
-            >
+            <Text as="h2" className="mb-6 text-gray-700">
               {subtitle}
             </Text>
             <Text

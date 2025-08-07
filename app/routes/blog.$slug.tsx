@@ -10,7 +10,7 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
       { name: 'description', content: 'El artículo que buscas no existe.' },
     ];
   }
-  
+
   return [
     { title: `${data.post.title} - Óptica Suárez` },
     { name: 'description', content: data.post.excerpt },
@@ -19,11 +19,11 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
 
 export async function loader({ params }: { params: { slug: string } }) {
   const post = getBlogPost(params.slug);
-  
+
   if (!post) {
     throw new Response('Blog post not found', { status: 404 });
   }
-  
+
   return { post };
 }
 
@@ -33,6 +33,6 @@ interface LoaderData {
 
 export default function BlogPostRoute() {
   const { post } = useLoaderData<LoaderData>();
-  
+
   return <BlogPost post={post} />;
 }

@@ -55,7 +55,10 @@ export default function HistoryTimeline({
                 >
                   {item.year}: {item.title}
                 </Text>
-                <Text variant="body-lg" className="text-gray-700 leading-relaxed">
+                <Text
+                  variant="body-lg"
+                  className="text-gray-700 leading-relaxed"
+                >
                   {item.description}
                 </Text>
               </div>

@@ -31,17 +31,19 @@ export default defineConfig({
     },
 
     // Only run Firefox and WebKit locally, not in CI
-    ...(process.env.CI ? [] : [
-      {
-        name: 'firefox',
-        use: { ...devices['Desktop Firefox'] },
-      },
+    ...(process.env.CI
+      ? []
+      : [
+          {
+            name: 'firefox',
+            use: { ...devices['Desktop Firefox'] },
+          },
 
-      {
-        name: 'webkit',
-        use: { ...devices['Desktop Safari'] },
-      },
-    ]),
+          {
+            name: 'webkit',
+            use: { ...devices['Desktop Safari'] },
+          },
+        ]),
 
     /* Test against mobile viewports. */
     // {

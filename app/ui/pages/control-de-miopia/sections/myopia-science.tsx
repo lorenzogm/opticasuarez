@@ -45,10 +45,7 @@ export default function MyopiaScience({
               className="bg-white rounded-lg p-8 text-center hover:shadow-lg transition-shadow"
             >
               <div className="mb-4">
-                <Text
-                  variant="heading-1"
-                  className="text-blue-600"
-                >
+                <Text variant="heading-1" className="text-blue-600">
                   {study.percentage}
                 </Text>
                 <Text
@@ -64,10 +61,7 @@ export default function MyopiaScience({
               >
                 {study.title}
               </Text>
-              <Text
-                variant="body-sm"
-                className="text-gray-600 leading-relaxed"
-              >
+              <Text variant="body-sm" className="text-gray-600 leading-relaxed">
                 {study.description}
               </Text>
             </div>

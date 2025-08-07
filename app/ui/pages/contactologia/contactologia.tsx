@@ -21,11 +21,7 @@ export default function Contactologia() {
       {/* Introduction */}
       <section className="bg-gray-50 py-16 px-4 sm:px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <Text
-            as="h2"
-            variant="heading-2"
-            className="mb-6 text-gray-900"
-          >
+          <Text as="h2" variant="heading-2" className="mb-6 text-gray-900">
             {content.intro.title}
           </Text>
           <Text
@@ -95,7 +91,10 @@ export default function Contactologia() {
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {content.types.items.map((type, index) => (
-              <div key={index} className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+              <div
+                key={index}
+                className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+              >
                 <Text
                   as="h3"
                   variant="heading-4"
@@ -103,11 +102,7 @@ export default function Contactologia() {
                 >
                   {type.name}
                 </Text>
-                <Text
-                  as="p"
-                  variant="body-md"
-                  className="mb-4 text-gray-600"
-                >
+                <Text as="p" variant="body-md" className="mb-4 text-gray-600">
                   {type.description}
                 </Text>
                 <ul className="list-disc list-inside space-y-2">
@@ -135,7 +130,10 @@ export default function Contactologia() {
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {content.advantages.items.map((advantage, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300">
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300"
+              >
                 <Text
                   as="h3"
                   variant="heading-5"
@@ -143,11 +141,7 @@ export default function Contactologia() {
                 >
                   {advantage.title}
                 </Text>
-                <Text
-                  as="p"
-                  variant="body-sm"
-                  className="text-gray-600"
-                >
+                <Text as="p" variant="body-sm" className="text-gray-600">
                   {advantage.description}
                 </Text>
               </div>
@@ -180,11 +174,7 @@ export default function Contactologia() {
                   >
                     {step.title}
                   </Text>
-                  <Text
-                    as="p"
-                    variant="body-md"
-                    className="text-gray-600"
-                  >
+                  <Text as="p" variant="body-md" className="text-gray-600">
                     {step.description}
                   </Text>
                 </div>
@@ -197,18 +187,10 @@ export default function Contactologia() {
       {/* Brands */}
       <section className="bg-gray-50 py-16 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl text-center">
-          <Text
-            as="h2"
-            variant="heading-2"
-            className="mb-6 text-gray-900"
-          >
+          <Text as="h2" variant="heading-2" className="mb-6 text-gray-900">
             {content.brands.title}
           </Text>
-          <Text
-            as="p"
-            variant="body-lg"
-            className="mb-12 text-gray-600"
-          >
+          <Text as="p" variant="body-lg" className="mb-12 text-gray-600">
             {content.brands.description}
           </Text>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
@@ -229,24 +211,13 @@ export default function Contactologia() {
       {/* Call to Action */}
       <section className="bg-blue-600 py-16 px-4 sm:px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <Text
-            as="h2"
-            variant="heading-2"
-            className="mb-6 text-white"
-          >
+          <Text as="h2" variant="heading-2" className="mb-6 text-white">
             {content.cta.title}
           </Text>
-          <Text
-            as="p"
-            variant="body-lg"
-            className="mb-8 text-blue-100"
-          >
+          <Text as="p" variant="body-lg" className="mb-8 text-blue-100">
             {content.cta.description}
           </Text>
-          <Button
-            variant="primary"
-            href={content.cta.buttonLink}
-          >
+          <Button variant="primary" href={content.cta.buttonLink}>
             {content.cta.buttonText}
           </Button>
         </div>

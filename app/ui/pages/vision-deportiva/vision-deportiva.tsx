@@ -16,10 +16,7 @@ function VisionDeportivaHero() {
         >
           {content.hero.title}
         </Text>
-        <Text
-          as="h2"
-          className="mb-6 text-blue-100"
-        >
+        <Text as="h2" className="mb-6 text-blue-100">
           {content.hero.subtitle}
         </Text>
         <Text
@@ -146,17 +143,10 @@ function TerapiaVisualDeportiva() {
                   />
                 </svg>
               </div>
-              <Text
-                as="h3"
-                variant="heading-4"
-                className="mb-3 text-gray-900"
-              >
+              <Text as="h3" variant="heading-4" className="mb-3 text-gray-900">
                 {skill.title}
               </Text>
-              <Text
-                as="p"
-                className="text-gray-600"
-              >
+              <Text as="p" className="text-gray-600">
                 {skill.description}
               </Text>
             </div>
@@ -174,28 +164,30 @@ function TerapiaVisualDeportiva() {
               {content.visualTherapy.improvements.title}
             </Text>
             <div className="space-y-4 mb-8">
-              {content.visualTherapy.improvements.items.map((improvement, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={3}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
+              {content.visualTherapy.improvements.items.map(
+                (improvement, index) => (
+                  <div key={index} className="flex items-center">
+                    <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <svg
+                        className="w-3 h-3 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <Text as="p" className="text-gray-700">
+                      {improvement}
+                    </Text>
                   </div>
-                  <Text as="p" className="text-gray-700">
-                    {improvement}
-                  </Text>
-                </div>
-              ))}
+                )
+              )}
             </div>
             <Button
               variant="primary"
@@ -235,11 +227,7 @@ function CallToAction() {
         >
           {content.cta.title}
         </Text>
-        <Text
-          as="p"
-          variant="body-lg"
-          className="mb-8 text-blue-100"
-        >
+        <Text as="p" variant="body-lg" className="mb-8 text-blue-100">
           {content.cta.description}
         </Text>
         <Button
@@ -259,10 +247,7 @@ export default function VisionDeportiva() {
     <main>
       <VisionDeportivaHero />
       <VisionDeportivaIntroduction />
-      <Services 
-        title={content.services.title}
-        items={content.services.items}
-      />
+      <Services title={content.services.title} items={content.services.items} />
       <TerapiaVisualDeportiva />
       <CustomerTestimonials
         title={content.testimonials.title}

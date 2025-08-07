@@ -41,18 +41,13 @@ export default function TerapiaVisualProcess({
             <div key={index} className="text-center">
               <div className="relative mb-6">
                 <div className="w-16 h-16 bg-blue-900 text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Text variant="heading-4">
-                    {step.step}
-                  </Text>
+                  <Text variant="heading-4">{step.step}</Text>
                 </div>
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-1/2"></div>
                 )}
               </div>
-              <Text
-                as="h3"
-                className="mb-3 text-gray-900"
-              >
+              <Text as="h3" className="mb-3 text-gray-900">
                 {step.title}
               </Text>
               <Text className="text-gray-600 leading-relaxed">

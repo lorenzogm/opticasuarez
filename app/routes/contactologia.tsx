@@ -2,7 +2,10 @@ import Contactologia from '../ui/pages/contactologia/contactologia';
 
 export function meta() {
   return [
-    { title: 'Contactología | Óptica Suárez - Especialistas en lentes de contacto' },
+    {
+      title:
+        'Contactología | Óptica Suárez - Especialistas en lentes de contacto',
+    },
     {
       name: 'description',
       content:

@@ -12,7 +12,11 @@ interface ExamProcessProps {
   steps: ProcessStep[];
 }
 
-export default function ExamProcess({ title, description, steps }: ExamProcessProps) {
+export default function ExamProcess({
+  title,
+  description,
+  steps,
+}: ExamProcessProps) {
   return (
     <section className="py-16 px-4 sm:px-6 bg-white">
       <div className="container mx-auto max-w-6xl">
@@ -32,19 +36,22 @@ export default function ExamProcess({ title, description, steps }: ExamProcessPr
             {description}
           </Text>
         </div>
-        
+
         <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200 hidden md:block"></div>
-          
+
           <div className="space-y-8">
             {steps.map((step, index) => (
-              <div key={index} className="relative flex items-start md:items-center">
+              <div
+                key={index}
+                className="relative flex items-start md:items-center"
+              >
                 {/* Step number */}
                 <div className="flex-shrink-0 w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold z-10">
                   {step.step}
                 </div>
-                
+
                 {/* Content */}
                 <div className="ml-8 md:ml-12 flex-1">
                   <Text

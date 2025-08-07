@@ -50,9 +50,13 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
                 <h2 className="text-xl font-bold text-gray-900 mb-3 uppercase tracking-wide">
                   {article.title}
                 </h2>
-                <p className="text-gray-600 mb-4 leading-relaxed">{article.excerpt}</p>
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  {article.excerpt}
+                </p>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm text-gray-500">Por {article.author}</span>
+                  <span className="text-sm text-gray-500">
+                    Por {article.author}
+                  </span>
                   <span className="text-sm text-gray-500">
                     {new Date(article.date).toLocaleDateString('es-ES', {
                       year: 'numeric',

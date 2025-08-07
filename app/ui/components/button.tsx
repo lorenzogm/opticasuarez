@@ -31,27 +31,67 @@ export interface ButtonProps
   asChild?: boolean;
   href?: string;
   unstyled?: boolean;
+  target?: string;
+  rel?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, size, asChild: _asChild = false, href, unstyled = false, ...props },
+    {
+      className,
+      variant,
+      size,
+      asChild: _asChild = false,
+      href,
+      target,
+      rel,
+      unstyled = false,
+      ...props
+    },
     ref
   ) => {
     if (href) {
-      return (
-        <Link
-          to={href}
-          className={unstyled ? className : cn(buttonVariants({ variant, size, className }))}
-        >
-          {props.children}
-        </Link>
-      );
+      // Check if it's an external link
+      const isExternal = href.startsWith('http') || href.startsWith('//');
+
+      if (isExternal) {
+        return (
+          <a
+            href={href}
+            target={target}
+            rel={rel}
+            className={
+              unstyled
+                ? className
+                : cn(buttonVariants({ variant, size, className }))
+            }
+          >
+            {props.children}
+          </a>
+        );
+      } else {
+        return (
+          <Link
+            to={href}
+            className={
+              unstyled
+                ? className
+                : cn(buttonVariants({ variant, size, className }))
+            }
+          >
+            {props.children}
+          </Link>
+        );
+      }
     }
 
     return (
       <button
-        className={unstyled ? className : cn(buttonVariants({ variant, size, className }))}
+        className={
+          unstyled
+            ? className
+            : cn(buttonVariants({ variant, size, className }))
+        }
         ref={ref}
         {...props}
       />

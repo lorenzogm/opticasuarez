@@ -2,7 +2,10 @@ import VisionDeportiva from '../ui/pages/vision-deportiva/vision-deportiva';
 
 export function meta() {
   return [
-    { title: 'Visión Deportiva | Óptica Suárez - Especialistas en rendimiento visual' },
+    {
+      title:
+        'Visión Deportiva | Óptica Suárez - Especialistas en rendimiento visual',
+    },
     {
       name: 'description',
       content:

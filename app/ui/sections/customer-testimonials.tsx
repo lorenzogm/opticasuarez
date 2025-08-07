@@ -48,11 +48,7 @@ export default function CustomerTestimonials({
                 {renderStars(testimonial.rating)}
               </div>
 
-              <Text
-                as="h3"
-                variant="heading-5"
-                className="mb-4 text-gray-900"
-              >
+              <Text as="h3" variant="heading-5" className="mb-4 text-gray-900">
                 {testimonial.name}
               </Text>
 

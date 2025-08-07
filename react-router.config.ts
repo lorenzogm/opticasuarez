@@ -6,8 +6,8 @@ export default {
   basename: process.env.NODE_ENV === 'production' ? '/opticasuarez-new' : '/',
   async prerender() {
     const blogPosts = getBlogPosts();
-    const blogRoutes = blogPosts.map(post => `/blog/${post.slug}`);
-    
+    const blogRoutes = blogPosts.map((post) => `/blog/${post.slug}`);
+
     return [
       '/',
       '/blog',
