@@ -112,11 +112,11 @@
     ]
   },
   "cta": {
-    "title": "Reserva una Cita",
+    "title": "Especialistas en Visión Pediátrica",
     "subtitle": "La salud visual de tu hijo es nuestra prioridad",
     "description": "No esperes a que aparezcan problemas. La detección temprana es clave para un desarrollo visual saludable.",
     "buttonText": "Pedir Cita Ahora",
-    "buttonLink": "/book"
+    "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20reservar%20una%20cita%20para%20visión%20pediátrica"
   },
   "testimonials": {
     "title": "Lo que dicen nuestros padres",

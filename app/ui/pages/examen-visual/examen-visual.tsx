@@ -71,6 +71,7 @@ export default function ExamenVisual() {
         title={content.cta.title}
         description={content.cta.description}
         buttonText={content.cta.buttonText}
+        whatsappMessage={content.cta.whatsappMessage}
       />
 
       {/* Locations */}

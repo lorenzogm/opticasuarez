@@ -138,6 +138,6 @@
     "title": "¿Interesado en Lentes de Contacto?",
     "description": "Solicita una cita con nuestros especialistas en contactología y descubre la libertad visual que te ofrecen las lentes de contacto.",
     "buttonText": "Reservar Cita",
-    "buttonLink": "/book"
+    "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20lentes%20de%20contacto"
   }
 }

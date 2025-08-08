@@ -103,6 +103,6 @@
     "title": "¿LISTO PARA MEJORAR TU RENDIMIENTO?",
     "description": "Solicita una evaluación visual deportiva y descubre cómo podemos ayudarte a alcanzar tu máximo potencial.",
     "buttonText": "RESERVAR CITA",
-    "buttonUrl": "/book"
+    "buttonUrl": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20visión%20deportiva"
   }
 }

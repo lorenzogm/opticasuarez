@@ -94,7 +94,8 @@
   "cta": {
     "title": "RESERVA TU EXAMEN VISUAL",
     "description": "Agenda tu cita con nuestros especialistas y cuida tu salud visual con la confianza de más de 80 años de experiencia.",
-    "buttonText": "Reservar Cita"
+    "buttonText": "Reservar Cita",
+    "whatsappMessage": "Hola, me gustaría reservar un examen visual"
   },
   "locations": [
     {

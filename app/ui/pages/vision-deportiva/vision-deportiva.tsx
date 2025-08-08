@@ -29,7 +29,9 @@ function VisionDeportivaHero() {
         <Button
           variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
-          href="/book"
+          href="https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20reservar%20una%20evaluación%20de%20visión%20deportiva"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           RESERVAR EVALUACIÓN
         </Button>
@@ -234,6 +236,8 @@ function CallToAction() {
           variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
           href={content.cta.buttonUrl}
+          target={content.cta.buttonUrl.startsWith('http') ? '_blank' : undefined}
+          rel={content.cta.buttonUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
         >
           {content.cta.buttonText}
         </Button>

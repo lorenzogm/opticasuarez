@@ -35,6 +35,8 @@ export default function TerapiaVisualCta({
         <Button
           href={buttonLink}
           variant="primary"
+          target={buttonLink.startsWith('http') ? '_blank' : undefined}
+          rel={buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
           className="bg-white text-blue-900 hover:bg-gray-100 border-white"
         >
           {buttonText}

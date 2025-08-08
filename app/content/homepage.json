@@ -178,7 +178,8 @@
   "bookAppointment": {
     "title": "Reserva tu cita hoy",
     "description": "Obtén un examen visual completo con nuestros especialistas. Agenda tu cita y cuida tu salud visual.",
-    "buttonText": "Reservar Cita"
+    "buttonText": "Reservar Cita",
+    "whatsappMessage": "Hola, me gustaría reservar una cita para un examen visual completo"
   },
   "contact": {
     "title": "Contacto",

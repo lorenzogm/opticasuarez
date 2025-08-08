@@ -92,8 +92,9 @@
     ]
   },
   "bookAppointment": {
-    "title": "¿Preocupado por la Visión de tu Hijo?",
+    "title": "Control especializado de la Miopía",
     "description": "No esperes más. Un diagnóstico temprano y un tratamiento adecuado pueden hacer la diferencia en el futuro visual de tu hijo. Nuestros especialistas están aquí para ayudarte.",
-    "buttonText": "Solicitar Cita"
+    "buttonText": "Solicitar Cita",
+    "whatsappMessage": "Hola, me gustaría información sobre control de miopía"
   }
 }

@@ -13,10 +13,11 @@ export default {
     return [
       '/',
       '/blog',
-      '/book',
-      '/book/step2',
-      '/book/step3',
-      '/book/step4',
+      // Booking routes temporarily hidden
+      // '/book',
+      // '/book/step2',
+      // '/book/step3',
+      // '/book/step4',
       '/quienes-somos',
       '/servicios',
       '/vision-deportiva',

@@ -105,6 +105,6 @@
     "title": "¿NECESITAS TERAPIA VISUAL?",
     "description": "Solicita una evaluación con nuestros especialistas para determinar si la terapia visual puede ayudarte.",
     "buttonText": "Reservar Cita",
-    "buttonLink": "/book"
+    "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20terapia%20visual"
   }
 }

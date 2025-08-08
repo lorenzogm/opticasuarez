@@ -50,6 +50,7 @@ export default function Homepage() {
         title={content.bookAppointment.title}
         description={content.bookAppointment.description}
         buttonText={content.bookAppointment.buttonText}
+        whatsappMessage={content.bookAppointment.whatsappMessage}
       />
     </main>
   );
