@@ -4,26 +4,26 @@ import GlobalNavigation from './ui/components/global-navigation';
 
 export function meta() {
   return [
-    { title: 'Óptica Suárez - Expertos en salud visual desde 1985' },
+    { title: 'Óptica Suárez, desde 1940 al cuidado de tu visión.' },
     {
       name: 'description',
       content:
-        'Óptica Suárez, expertos en salud visual desde 1985. Ofrecemos exámenes visuales, gafas graduadas, lentes de contacto y gafas de sol de las mejores marcas en Madrid.',
+        'Óptica Suárez, tu Centro de Optometría y Terapia Visual en Jaén, con más de más de 80 años cuidando de la salud visual. Especializados en visión infantil, Terapia Visual Comportamental, Control de Miopía, Contactología y visión deportiva.',
     },
     {
       name: 'keywords',
       content:
-        'óptica, gafas, lentes de contacto, examen visual, optometría, Madrid, gafas graduadas, gafas de sol',
+        'óptica, gafas, lentes de contacto, examen visual, optometría, Jaén, gafas graduadas, gafas de sol, terapia visual, control miopía, contactología, visión infantil, visión deportiva',
     },
     { name: 'author', content: 'Óptica Suárez' },
     {
       property: 'og:title',
-      content: 'Óptica Suárez - Expertos en salud visual desde 1985',
+      content: 'Óptica Suárez, desde 1940 al cuidado de tu visión.',
     },
     {
       property: 'og:description',
       content:
-        'Óptica Suárez, expertos en salud visual desde 1985. Ofrecemos exámenes visuales, gafas graduadas, lentes de contacto y gafas de sol de las mejores marcas en Madrid.',
+        'Óptica Suárez, tu Centro de Optometría y Terapia Visual en Jaén, con más de más de 80 años cuidando de la salud visual. Especializados en visión infantil, Terapia Visual Comportamental, Control de Miopía, Contactología y visión deportiva.',
     },
     { property: 'og:type', content: 'website' },
     {
@@ -37,12 +37,12 @@ export function meta() {
     { name: 'twitter:card', content: 'summary_large_image' },
     {
       name: 'twitter:title',
-      content: 'Óptica Suárez - Expertos en salud visual desde 1985',
+      content: 'Óptica Suárez, desde 1940 al cuidado de tu visión.',
     },
     {
       name: 'twitter:description',
       content:
-        'Óptica Suárez, expertos en salud visual desde 1985. Ofrecemos exámenes visuales, gafas graduadas, lentes de contacto y gafas de sol de las mejores marcas en Madrid.',
+        'Óptica Suárez, tu Centro de Optometría y Terapia Visual en Jaén, con más de más de 80 años cuidando de la salud visual. Especializados en visión infantil, Terapia Visual Comportamental, Control de Miopía, Contactología y visión deportiva.',
     },
   ];
 }

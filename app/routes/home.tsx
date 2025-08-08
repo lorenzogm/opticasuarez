@@ -2,11 +2,11 @@ import Homepage from '../ui/pages/homepage/homepage';
 
 export function meta() {
   return [
-    { title: 'Óptica Suárez - Expertos en salud visual' },
+    { title: 'Óptica Suárez, desde 1940 al cuidado de tu visión.' },
     {
       name: 'description',
       content:
-        'Óptica Suárez, expertos en salud visual desde 1985. Ofrecemos exámenes visuales, gafas graduadas, lentes de contacto y gafas de sol de las mejores marcas.',
+        'Óptica Suárez, tu Centro de Optometría y Terapia Visual en Jaén, con más de más de 80 años cuidando de la salud visual. Especializados en visión infantil, Terapia Visual Comportamental, Control de Miopía, Contactología y visión deportiva.',
     },
   ];
 }
