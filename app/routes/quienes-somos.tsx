@@ -1,13 +1,27 @@
 import Quienessomos from '../ui/pages/quienes-somos/quienes-somos';
 import { BreadcrumbSchema } from '../ui/components/structured-data';
+import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
 
 export function meta() {
+  const quienesSomosKeywords = generatePageKeywords('quienes-somos', [
+    'Historia óptica',
+    'Equipo profesional',
+    'Experiencia óptica',
+    'Desde 1940',
+    'Tradición familiar',
+    'Optometristas Jaén',
+  ]);
+  
   return [
     { title: 'Quiénes somos | Óptica Suárez - Expertos en salud visual' },
     {
       name: 'description',
       content:
         'Desde 1940 cuidando de tu visión. Conoce nuestro equipo y trayectoria profesional de Óptica Suárez en Jaén.',
+    },
+    {
+      name: 'keywords',
+      content: generateMetaKeywords(quienesSomosKeywords),
     },
     {
       property: 'og:title',

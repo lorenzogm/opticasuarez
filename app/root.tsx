@@ -3,8 +3,11 @@ import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
 import GoogleAnalytics from './ui/components/google-analytics';
 import { WebsiteSchema, OrganizationSchema } from './ui/components/structured-data';
+import { generatePageKeywords, generateMetaKeywords } from './ui/lib/seo-keywords';
 
 export function meta() {
+  const homeKeywords = generatePageKeywords('home');
+  
   return [
     { title: 'Óptica Suárez, desde 1940 al cuidado de tu visión.' },
     {
@@ -14,8 +17,7 @@ export function meta() {
     },
     {
       name: 'keywords',
-      content:
-        'óptica, gafas, lentes de contacto, examen visual, optometría, Jaén, gafas graduadas, gafas de sol, terapia visual, control miopía, contactología, visión infantil, visión deportiva',
+      content: generateMetaKeywords(homeKeywords),
     },
     { name: 'author', content: 'Óptica Suárez' },
     {

@@ -1,7 +1,10 @@
 import TerapiaVisual from '../ui/pages/terapia-visual/terapia-visual';
 import { BreadcrumbSchema } from '../ui/components/structured-data';
+import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
 
 export function meta() {
+  const terapiaVisualKeywords = generatePageKeywords('terapia-visual');
+  
   return [
     {
       title:
@@ -11,6 +14,10 @@ export function meta() {
       name: 'description',
       content:
         'Corrige Ojo Vago, estrabismo, problemas de lectura-escritura. Con la terapia visual comportamental puedes mejorar tu rendimiento visual.',
+    },
+    {
+      name: 'keywords',
+      content: generateMetaKeywords(terapiaVisualKeywords),
     },
     {
       property: 'og:title',
