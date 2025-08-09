@@ -37,11 +37,13 @@ export default function CTASection({
         >
           {description}
         </Text>
-        <Button 
-          href={buttonLink} 
+        <Button
+          href={buttonLink}
           variant="primary"
           target={buttonLink.startsWith('http') ? '_blank' : undefined}
-          rel={buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+          rel={
+            buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined
+          }
         >
           {buttonText}
         </Button>

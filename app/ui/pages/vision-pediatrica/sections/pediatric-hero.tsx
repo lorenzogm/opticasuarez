@@ -36,8 +36,8 @@ export default function PediatricHero({
             >
               {description}
             </Text>
-            <Button 
-              href="https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20reservar%20una%20cita%20para%20visión%20pediátrica" 
+            <Button
+              href="https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20reservar%20una%20cita%20para%20visión%20pediátrica"
               variant="primary"
               target="_blank"
               rel="noopener noreferrer"

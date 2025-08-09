@@ -85,12 +85,6 @@ test.describe('Internal Links Routing Issues', () => {
 
       // Verify the current implementation (without trailing slash)
       expect(href).toBe(link.expectedHref);
-
-      // This documents the problem: links point to /servicios but static files
-      // are generated as /servicios/index.html which expects /servicios/
-      console.log(
-        `Link "${link.name}" points to "${href}" but static file generated as "${href}/index.html"`
-      );
     }
   });
 

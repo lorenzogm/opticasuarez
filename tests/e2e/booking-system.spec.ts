@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Booking System', () => {
-  test('should complete the booking flow through all steps', async ({
+  // Booking routes are currently disabled - replaced with WhatsApp integration
+  // These tests are skipped until booking functionality is re-enabled
+
+  test.skip('should complete the booking flow through all steps', async ({
     page,
   }) => {
     // Step 1: Navigate to booking page
@@ -42,7 +45,7 @@ test.describe('Booking System', () => {
     await expect(page.locator('main')).toBeVisible();
   });
 
-  test('should load step 1 (book) correctly', async ({ page }) => {
+  test.skip('should load step 1 (book) correctly', async ({ page }) => {
     await page.goto('/book');
 
     // Check page basics
@@ -56,7 +59,7 @@ test.describe('Booking System', () => {
     await expect(page.locator('main')).toBeVisible();
   });
 
-  test('should load step 2 correctly', async ({ page }) => {
+  test.skip('should load step 2 correctly', async ({ page }) => {
     await page.goto('/book/step2');
 
     // Check that we can access step 2 directly
@@ -69,7 +72,7 @@ test.describe('Booking System', () => {
     await expect(page.locator('main')).toBeVisible();
   });
 
-  test('should load step 3 correctly', async ({ page }) => {
+  test.skip('should load step 3 correctly', async ({ page }) => {
     await page.goto('/book/step3');
 
     // Check that we can access step 3 directly
@@ -82,7 +85,7 @@ test.describe('Booking System', () => {
     await expect(page.locator('main')).toBeVisible();
   });
 
-  test('should load step 4 correctly', async ({ page }) => {
+  test.skip('should load step 4 correctly', async ({ page }) => {
     await page.goto('/book/step4');
 
     // Check that we can access step 4 directly
@@ -95,7 +98,7 @@ test.describe('Booking System', () => {
     await expect(page.locator('main')).toBeVisible();
   });
 
-  test('should have working navigation from booking pages', async ({
+  test.skip('should have working navigation from booking pages', async ({
     page,
   }) => {
     await page.goto('/book');
@@ -110,5 +113,22 @@ test.describe('Booking System', () => {
     // Test navigation to other pages from booking flow
     await page.locator('nav').getByRole('link', { name: 'Contacto' }).click();
     await expect(page).toHaveURL('/contacto');
+  });
+
+  // New test for WhatsApp booking functionality
+  test('should have WhatsApp booking links on contact page', async ({
+    page,
+  }) => {
+    await page.goto('/contacto');
+
+    // Check that we're on the contact page
+    await expect(page).toHaveTitle(/Contacto/);
+    await expect(page).toHaveURL('/contacto');
+
+    // Check for WhatsApp links (multiple links expected - just verify at least one exists)
+    await expect(page.locator('a[href*="whatsapp.com"]').first()).toBeVisible();
+
+    // Verify the count of WhatsApp links is what we expect
+    await expect(page.locator('a[href*="whatsapp.com"]')).toHaveCount(3);
   });
 });

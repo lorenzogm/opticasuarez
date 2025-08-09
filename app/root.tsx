@@ -1,6 +1,7 @@
 import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
+import GoogleAnalytics from './ui/components/google-analytics';
 
 export function meta() {
   return [
@@ -48,6 +49,9 @@ export function meta() {
 }
 
 export default function App() {
+  // Google Analytics 4 Measurement ID
+  const GA_MEASUREMENT_ID = 'G-5PKC2Z5L3G';
+
   return (
     <html lang="en">
       <head>
@@ -55,6 +59,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
       </head>
       <body>
         <GlobalNavigation />

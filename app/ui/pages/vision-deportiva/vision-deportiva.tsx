@@ -236,8 +236,14 @@ function CallToAction() {
           variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
           href={content.cta.buttonUrl}
-          target={content.cta.buttonUrl.startsWith('http') ? '_blank' : undefined}
-          rel={content.cta.buttonUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
+          target={
+            content.cta.buttonUrl.startsWith('http') ? '_blank' : undefined
+          }
+          rel={
+            content.cta.buttonUrl.startsWith('http')
+              ? 'noopener noreferrer'
+              : undefined
+          }
         >
           {content.cta.buttonText}
         </Button>

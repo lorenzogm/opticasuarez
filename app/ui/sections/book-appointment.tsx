@@ -15,7 +15,7 @@ export default function BookAppointment({
   whatsappMessage = 'Hola, me gustaría reservar una cita',
 }: BookAppointmentProps) {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=34953093062&text=${encodeURIComponent(whatsappMessage)}`;
-  
+
   return (
     <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-4xl text-center">

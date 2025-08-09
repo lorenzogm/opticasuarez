@@ -142,11 +142,5 @@ test.describe('Static Hosting Routing Simulation', () => {
     expect(href).toBe('/servicios'); // This documents the routing mismatch
 
     // This is the core of the issue documented for static hosting environments
-    console.log(
-      '📋 DOCUMENTED ISSUE: Link points to "/servicios" but file exists at "/servicios/index.html"'
-    );
-    console.log(
-      '💡 POTENTIAL SOLUTION: Configure prerender to handle both URL patterns'
-    );
   });
 });

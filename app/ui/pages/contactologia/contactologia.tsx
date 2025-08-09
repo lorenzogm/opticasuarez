@@ -217,11 +217,17 @@ export default function Contactologia() {
           <Text as="p" variant="body-lg" className="mb-8 text-blue-100">
             {content.cta.description}
           </Text>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             href={content.cta.buttonLink}
-            target={content.cta.buttonLink.startsWith('http') ? '_blank' : undefined}
-            rel={content.cta.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+            target={
+              content.cta.buttonLink.startsWith('http') ? '_blank' : undefined
+            }
+            rel={
+              content.cta.buttonLink.startsWith('http')
+                ? 'noopener noreferrer'
+                : undefined
+            }
           >
             {content.cta.buttonText}
           </Button>

@@ -39,8 +39,8 @@ export default function MyopiaHero({
             >
               {description}
             </Text>
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               href="https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20control%20de%20miopía"
               target="_blank"
               rel="noopener noreferrer"
