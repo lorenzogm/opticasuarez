@@ -1,4 +1,5 @@
 import TerapiaVisual from '../ui/pages/terapia-visual/terapia-visual';
+import { BreadcrumbSchema } from '../ui/components/structured-data';
 
 export function meta() {
   return [
@@ -9,11 +10,36 @@ export function meta() {
     {
       name: 'description',
       content:
-        'Terapia visual en Jaén. Programas personalizados de entrenamiento visual para mejorar habilidades visuales, tratar estrabismo, ambliopía y problemas de enfoque.',
+        'Corrige Ojo Vago, estrabismo, problemas de lectura-escritura. Con la terapia visual comportamental puedes mejorar tu rendimiento visual.',
     },
+    {
+      property: 'og:title',
+      content: 'Terapia Visual | Óptica Suárez - Entrenamiento visual personalizado',
+    },
+    {
+      property: 'og:description',
+      content: 'Corrige Ojo Vago, estrabismo, problemas de lectura-escritura. Con la terapia visual comportamental puedes mejorar tu rendimiento visual.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://opticasuarezjaen.es/terapia-visual',
+    },
+    { name: 'robots', content: 'index, follow' },
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/terapia-visual' },
   ];
 }
 
 export default function TerapiaVisualPage() {
-  return <TerapiaVisual />;
+  const breadcrumbItems = [
+    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
+    { name: 'Servicios', url: 'https://opticasuarezjaen.es/servicios' },
+    { name: 'Terapia Visual', url: 'https://opticasuarezjaen.es/terapia-visual' },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <TerapiaVisual />
+    </>
+  );
 }

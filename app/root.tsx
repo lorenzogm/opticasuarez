@@ -2,6 +2,7 @@ import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
 import GoogleAnalytics from './ui/components/google-analytics';
+import { WebsiteSchema, OrganizationSchema } from './ui/components/structured-data';
 
 export function meta() {
   return [
@@ -29,11 +30,11 @@ export function meta() {
     { property: 'og:type', content: 'website' },
     {
       property: 'og:url',
-      content: 'https://lorenzogm.github.io/',
+      content: 'https://opticasuarezjaen.es/',
     },
     {
       property: 'og:image',
-      content: 'https://lorenzogm.github.io/og-image.jpg',
+      content: 'https://opticasuarezjaen.es/og-image.jpg',
     },
     { name: 'twitter:card', content: 'summary_large_image' },
     {
@@ -53,13 +54,16 @@ export default function App() {
   const GA_MEASUREMENT_ID = 'G-5PKC2Z5L3G';
 
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://opticasuarezjaen.es/" />
         <Meta />
         <Links />
         <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+        <WebsiteSchema />
+        <OrganizationSchema />
       </head>
       <body>
         <GlobalNavigation />

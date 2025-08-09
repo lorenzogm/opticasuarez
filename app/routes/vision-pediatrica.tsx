@@ -1,16 +1,42 @@
 import VisionPediatrica from '../ui/pages/vision-pediatrica/vision-pediatrica';
+import { BreadcrumbSchema } from '../ui/components/structured-data';
 
 export function meta() {
   return [
-    { title: 'Visión Pediátrica - Óptica Suárez' },
+    { title: 'Visión Infantil - Óptica Suárez' },
     {
       name: 'description',
       content:
-        'Especialistas en visión pediátrica en Óptica Suárez. Cuidamos la salud visual de los más pequeños con exámenes especializados y tratamientos personalizados.',
+        '¿A tu hijo le cuesta seguir el ritmo en clase? ¿Tiene problemas de lectura? Todo esto puede deberse a un mal desarrollo visual.',
     },
+    {
+      property: 'og:title',
+      content: 'Visión Infantil - Óptica Suárez',
+    },
+    {
+      property: 'og:description',
+      content: '¿A tu hijo le cuesta seguir el ritmo en clase? ¿Tiene problemas de lectura? Todo esto puede deberse a un mal desarrollo visual.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://opticasuarezjaen.es/vision-pediatrica',
+    },
+    { name: 'robots', content: 'index, follow' },
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/vision-pediatrica' },
   ];
 }
 
 export default function VisionPediatricaRoute() {
-  return <VisionPediatrica />;
+  const breadcrumbItems = [
+    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
+    { name: 'Servicios', url: 'https://opticasuarezjaen.es/servicios' },
+    { name: 'Visión Infantil', url: 'https://opticasuarezjaen.es/vision-pediatrica' },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <VisionPediatrica />
+    </>
+  );
 }

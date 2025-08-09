@@ -1,4 +1,5 @@
 import ContactoPage from '../ui/pages/contacto/contacto';
+import { BreadcrumbSchema } from '../ui/components/structured-data';
 
 export function meta() {
   return [
@@ -6,11 +7,35 @@ export function meta() {
     {
       name: 'description',
       content:
-        'Contacta con Óptica Suárez Jaén. Información de contacto, ubicaciones y formulario para consultas sobre nuestros servicios de óptica y cuidado visual.',
+        '¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.',
     },
+    {
+      property: 'og:title',
+      content: 'Contacto - Óptica Suárez Jaén',
+    },
+    {
+      property: 'og:description',
+      content: '¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://opticasuarezjaen.es/contacto',
+    },
+    { name: 'robots', content: 'index, follow' },
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/contacto' },
   ];
 }
 
 export default function Contacto() {
-  return <ContactoPage />;
+  const breadcrumbItems = [
+    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
+    { name: 'Contacto', url: 'https://opticasuarezjaen.es/contacto' },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <ContactoPage />
+    </>
+  );
 }
