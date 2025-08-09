@@ -9,31 +9,31 @@
     "items": [
       {
         "title": "VISIÓN BINOCULAR",
-        "description": "Paciente realizando un examen de visión con los profesionales de óptica Suárez en Jaén.",
+        "description": "En nuestro centro de Optometría evaluamos todas las habilidades visuales como Agudeza Visual, acomodación, vergencias o estereopsis entre otros.",
         "url": "/examen-visual",
         "image": "/images/homepage/services/vision-binocular.jpg"
       },
       {
         "title": "TERAPIA VISUAL",
-        "description": "Asesoramiento personalizado en la compra de monturas y cristales graduados en óptica Suárez en Jaén.",
+        "description": "Diviértete mientras realizas ejercicios personalizados para trabajar ojo vago, estrabismo y problemas de aprendizaje.",
         "url": "/terapia-visual",
         "image": "/images/homepage/services/terapia-visual.jpg"
       },
       {
         "title": "CONTACTOLOGÍA",
-        "description": "Chica poniéndose unas lentillas compradas en óptica Suárez en Jaén.",
+        "description": "Adaptación de lentes de contacto personalizadas en casos de Queratocono, Córneas Irregulares y Ortoqueratologia entre otros.",
         "url": "/contactologia",
         "image": "/images/homepage/services/contactologia.jpg"
       },
       {
         "title": "VISIÓN PEDIÁTRICA",
-        "description": "Niño realizando terapias oculares en el centro óptico de óptica Suárez en Jaén.",
+        "description": "¿Preocupada por el neurodesarrollo visual de tu hij@?, en Óptica Suárez comprobamos que tu peque crezca con la mejor visión.",
         "url": "/vision-pediatrica",
         "image": "/images/homepage/services/vision-pediatrica.jpg"
       },
       {
         "title": "CONTROL DE MIOPÍA",
-        "description": "Servicios especializados en control de miopía para el cuidado de tu visión.",
+        "description": "Evaluación y asesoramiento de las diferentes técnicas para frenar el avance de la miopía en los peques de la familia.",
         "url": "/control-de-miopia",
         "image": "/images/homepage/services/control-de-miopia.jpg"
       }
