@@ -1,6 +1,6 @@
 # opticasuarez-new
 
-🌐 **Live Demo:** [https://lorenzogm.github.io/](https://lorenzogm.github.io/)
+🌐 **Live Demo:** [https://opticasuarezjaen.es/](https://opticasuarezjaen.es)
 
 Optica Suarez web application built with React Router v7.
 
