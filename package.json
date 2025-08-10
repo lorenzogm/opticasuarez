@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build && npm run postbuild",
-    "postbuild": "echo 'Build completed successfully'",
+    "postbuild": "node scripts/generate-sitemap.js && echo 'Build completed successfully'",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "tsc",
