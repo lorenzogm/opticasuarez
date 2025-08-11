@@ -6,7 +6,6 @@ import SocialMedia from './sections/social-media';
 import Specialists from './sections/specialists';
 import News from './sections/news';
 import Locations from './sections/locations';
-import Partners from './sections/partners';
 import content from '../../../content/homepage.json';
 
 export default function Homepage() {
@@ -41,10 +40,6 @@ export default function Homepage() {
       <Locations
         title={content.locations.title}
         locations={content.locations.locations}
-      />
-      <Partners
-        title={content.partners.title}
-        partners={content.partners.partners}
       />
       <BookAppointment
         title={content.bookAppointment.title}
