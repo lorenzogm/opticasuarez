@@ -8,7 +8,7 @@ This project automatically generates a sitemap.xml file during the build process
 2. **Route Discovery**: The script reads all routes from the existing React Router configuration
 3. **SEO Optimization**: URLs are prioritized based on their importance:
    - Homepage (`/`): Priority 1.0, weekly updates
-   - Blog index (`/blog`): Priority 0.9, weekly updates  
+   - Blog index (`/blog`): Priority 0.9, weekly updates
    - Blog posts (`/blog/*`): Priority 0.7, monthly updates
    - Service pages: Priority 0.8, monthly updates
 
@@ -33,6 +33,7 @@ Once deployed, the sitemap will be accessible at:
 ## Maintenance
 
 The sitemap is automatically updated when:
+
 - New routes are added to `react-router.config.ts`
 - New blog posts are added
 - The build process runs
@@ -42,6 +43,7 @@ No manual maintenance is required!
 ## Current URLs Included
 
 The sitemap currently includes 18 URLs:
+
 - Homepage and main navigation pages
 - All service pages (vision-deportiva, control-de-miopia, etc.)
 - Blog index and all blog post pages

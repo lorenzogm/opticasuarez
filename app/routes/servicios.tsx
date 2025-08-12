@@ -1,6 +1,9 @@
 import Servicios from '../ui/pages/servicios/servicios';
 import { BreadcrumbSchema } from '../ui/components/structured-data';
-import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '../ui/lib/seo-keywords';
 
 export function meta() {
   const serviciosKeywords = generatePageKeywords('servicios', [
@@ -8,7 +11,7 @@ export function meta() {
     'Servicios optométricos',
     'Especialidades ópticas',
   ]);
-  
+
   return [
     { title: 'Servicios - Óptica Suárez' },
     {
@@ -26,7 +29,8 @@ export function meta() {
     },
     {
       property: 'og:description',
-      content: '¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.',
+      content:
+        '¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.',
     },
     {
       property: 'og:url',

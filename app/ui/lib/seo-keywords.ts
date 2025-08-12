@@ -34,7 +34,7 @@ export const expandedKeywords = [
   'Centro óptico Jaén',
   'Óptica Suárez Jaén',
   'Óptica en el centro de Jaén',
-  
+
   // Professional services
   'Optometrista comportamental',
   'Especialista en visión',
@@ -42,7 +42,7 @@ export const expandedKeywords = [
   'Revisión visual',
   'Graduación de la vista',
   'Medición visual',
-  
+
   // Vision therapy related
   'Terapia visual comportamental',
   'Rehabilitación visual',
@@ -54,7 +54,7 @@ export const expandedKeywords = [
   'Problemas de lectura',
   'Dificultades de aprendizaje',
   'Procesamiento visual',
-  
+
   // Myopia control
   'Control miopía infantil',
   'Frenar miopía',
@@ -63,7 +63,7 @@ export const expandedKeywords = [
   'Lentillas nocturnas',
   'MiSight',
   'Coopervision',
-  
+
   // Contact lenses
   'Lentes de contacto',
   'Lentillas',
@@ -75,7 +75,7 @@ export const expandedKeywords = [
   'Lentillas multifocales',
   'Lentillas cosméticas',
   'Lentillas de colores',
-  
+
   // Eyewear
   'Gafas graduadas',
   'Monturas',
@@ -86,7 +86,7 @@ export const expandedKeywords = [
   'Gafas de ordenador',
   'Filtro luz azul',
   'Antirreflejante',
-  
+
   // Specialized conditions
   'Baja visión',
   'Degeneración macular',
@@ -97,7 +97,7 @@ export const expandedKeywords = [
   'Hipermetropía',
   'Presbicia',
   'Vista cansada',
-  
+
   // Pediatric vision
   'Visión infantil',
   'Optometría pediátrica',
@@ -105,14 +105,14 @@ export const expandedKeywords = [
   'Problemas visuales escolares',
   'Rendimiento académico',
   'Coordinación ojo-mano',
-  
+
   // Sports vision
   'Optometría deportiva',
   'Gafas deportivas',
   'Lentillas deportivas',
   'Rendimiento visual deportivo',
   'Protección ocular deportiva',
-  
+
   // Brands and quality
   'Marcas premium',
   'Ray-Ban',
@@ -125,9 +125,12 @@ export const expandedKeywords = [
 ];
 
 // Generate keywords for specific pages
-export const generatePageKeywords = (pageType: string, baseKeywords: string[] = []): string[] => {
+export const generatePageKeywords = (
+  pageType: string,
+  baseKeywords: string[] = []
+): string[] => {
   const combined = [...coreKeywords, ...expandedKeywords, ...baseKeywords];
-  
+
   switch (pageType) {
     case 'home':
       return [
@@ -138,7 +141,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Tradición óptica',
         'Salud visual',
       ];
-    
+
     case 'terapia-visual':
       return [
         'Terapia Visual',
@@ -154,7 +157,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Neuro desarrollo visual',
         'Optometrista comportamental',
       ];
-    
+
     case 'control-miopia':
       return [
         'Control de Miopía',
@@ -167,7 +170,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Miopía en niños',
         'Tratamiento miopía',
       ];
-    
+
     case 'contactologia':
       return [
         'Contactología',
@@ -181,7 +184,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Lentillas tóricas',
         'Lentillas multifocales',
       ];
-    
+
     case 'vision-deportiva':
       return [
         'Visión Deportiva',
@@ -191,7 +194,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Rendimiento visual deportivo',
         'Protección ocular deportiva',
       ];
-    
+
     case 'vision-pediatrica':
       return [
         'Visión infantil',
@@ -205,7 +208,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Dificultades escolares',
         'Seguimiento visual',
       ];
-    
+
     case 'examen-visual':
       return [
         'Examen visual',
@@ -216,7 +219,7 @@ export const generatePageKeywords = (pageType: string, baseKeywords: string[] = 
         'Chequeo visual',
         'Detección problemas visuales',
       ];
-    
+
     default:
       return combined.slice(0, 20); // Return top 20 keywords for other pages
   }

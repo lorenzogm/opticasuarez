@@ -1,9 +1,12 @@
 import ControlDeMiopia from '../ui/pages/control-de-miopia/control-de-miopia';
-import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '../ui/lib/seo-keywords';
 
 export function meta() {
   const controlMiopiaKeywords = generatePageKeywords('control-miopia');
-  
+
   return [
     { title: 'Control de Miopía - Óptica Suárez' },
     {

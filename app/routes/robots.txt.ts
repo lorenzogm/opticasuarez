@@ -1,9 +1,9 @@
-import type { Route } from "./+types/robots.txt";
+import type { LoaderFunctionArgs } from 'react-router';
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const domain = url.origin;
-  
+
   const robotsContent = [
     'User-agent: *',
     'Allow: /',

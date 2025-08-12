@@ -27,7 +27,8 @@ export function WebsiteSchema() {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://opticasuarezjaen.es/blog?search={search_term_string}',
+        urlTemplate:
+          'https://opticasuarezjaen.es/blog?search={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },
@@ -60,7 +61,7 @@ export function OrganizationSchema() {
     geo: {
       '@type': 'GeoCoordinates',
       latitude: 37.7749,
-      longitude: -3.7900,
+      longitude: -3.79,
     },
     url: 'https://opticasuarezjaen.es',
     logo: 'https://opticasuarezjaen.es/logo.png',
@@ -110,7 +111,8 @@ export function OrganizationSchema() {
           itemOffered: {
             '@type': 'Service',
             name: 'Examen Visual Completo',
-            description: 'Evaluación completa de la salud visual y detección temprana de problemas oculares.',
+            description:
+              'Evaluación completa de la salud visual y detección temprana de problemas oculares.',
           },
         },
         {
@@ -118,7 +120,8 @@ export function OrganizationSchema() {
           itemOffered: {
             '@type': 'Service',
             name: 'Terapia Visual',
-            description: 'Programas personalizados de entrenamiento visual para mejorar habilidades visuales.',
+            description:
+              'Programas personalizados de entrenamiento visual para mejorar habilidades visuales.',
           },
         },
         {
@@ -134,7 +137,8 @@ export function OrganizationSchema() {
           itemOffered: {
             '@type': 'Service',
             name: 'Control de Miopía',
-            description: 'Tratamientos avanzados para el control y prevención de la miopía.',
+            description:
+              'Tratamientos avanzados para el control y prevención de la miopía.',
           },
         },
         {
@@ -142,7 +146,8 @@ export function OrganizationSchema() {
           itemOffered: {
             '@type': 'Service',
             name: 'Contactología',
-            description: 'Adaptación y seguimiento de lentes de contacto especializadas.',
+            description:
+              'Adaptación y seguimiento de lentes de contacto especializadas.',
           },
         },
       ],
@@ -157,7 +162,11 @@ export function OrganizationSchema() {
 }
 
 // Breadcrumb Schema Generator
-export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: string }> }) {
+export function BreadcrumbSchema({
+  items,
+}: {
+  items: Array<{ name: string; url: string }>;
+}) {
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',

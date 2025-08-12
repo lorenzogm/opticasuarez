@@ -1,9 +1,12 @@
 import Contactologia from '../ui/pages/contactologia/contactologia';
-import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '../ui/lib/seo-keywords';
 
 export function meta() {
   const contactologiaKeywords = generatePageKeywords('contactologia');
-  
+
   return [
     {
       title:

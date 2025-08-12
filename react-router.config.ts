@@ -3,7 +3,7 @@ import { getBlogPosts } from './app/ui/lib/blog';
 
 export default {
   // Enable SSR to support the dynamic sitemap route
-  ssr: true, 
+  ssr: true,
   // basename: '/',
   async prerender() {
     const blogPosts = getBlogPosts();

@@ -2,12 +2,18 @@ import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
 import GoogleTagManager from './ui/components/google-tag-manager';
-import { WebsiteSchema, OrganizationSchema } from './ui/components/structured-data';
-import { generatePageKeywords, generateMetaKeywords } from './ui/lib/seo-keywords';
+import {
+  WebsiteSchema,
+  OrganizationSchema,
+} from './ui/components/structured-data';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from './ui/lib/seo-keywords';
 
 export function meta() {
   const homeKeywords = generatePageKeywords('home');
-  
+
   return [
     { title: 'Óptica Suárez, desde 1940 al cuidado de tu visión.' },
     {
@@ -61,15 +67,39 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://opticasuarezjaen.es/" />
-        
+
         {/* Favicon */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png" />
-        
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/icon-192x192.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/icon-512x512.png"
+        />
+
         <Meta />
         <Links />
         <GoogleTagManager containerId={GTM_CONTAINER_ID} />
@@ -79,11 +109,11 @@ export default function App() {
       <body>
         {/* Google Tag Manager (noscript) */}
         <noscript>
-          <iframe 
+          <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
-            height="0" 
-            width="0" 
-            style={{display: 'none', visibility: 'hidden'}}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
         <GlobalNavigation />

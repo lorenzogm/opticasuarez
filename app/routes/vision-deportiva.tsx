@@ -1,9 +1,12 @@
 import VisionDeportiva from '../ui/pages/vision-deportiva/vision-deportiva';
-import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '../ui/lib/seo-keywords';
 
 export function meta() {
   const visionDeportivaKeywords = generatePageKeywords('vision-deportiva');
-  
+
   return [
     {
       title:

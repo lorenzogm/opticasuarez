@@ -1,9 +1,12 @@
 import Homepage from '../ui/pages/homepage/homepage';
-import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '../ui/lib/seo-keywords';
 
 export function meta() {
   const homeKeywords = generatePageKeywords('home');
-  
+
   return [
     { title: 'Óptica Suárez, desde 1940 al cuidado de tu visión.' },
     {

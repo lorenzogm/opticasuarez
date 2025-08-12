@@ -3,11 +3,11 @@
 ## Palabras clave principales (proporcionadas por el cliente)
 
 - Óptica
-- Optometría 
-- Óptica en Jaén 
+- Optometría
+- Óptica en Jaén
 - Mejor óptica de Jaén
-- Terapia Visual 
-- Control de Miopía 
+- Terapia Visual
+- Control de Miopía
 - Ojo vago
 - Estrabismo
 - Ambliopía
@@ -16,8 +16,8 @@
 - Gafas de marca
 - Gafas progresivas
 - Visión Deportiva
-- Queratocono 
-- Lentillas para oposiciones 
+- Queratocono
+- Lentillas para oposiciones
 - Lentillas de Halloween
 - Examen visual
 - Neuro desarrollo visual
@@ -25,6 +25,7 @@
 ## Palabras clave expandidas para mejor posicionamiento SEO
 
 ### Ubicación geográfica
+
 - Óptica Jaén
 - Optometrista Jaén
 - Centro óptico Jaén
@@ -32,6 +33,7 @@
 - Óptica en el centro de Jaén
 
 ### Servicios profesionales
+
 - Optometrista comportamental
 - Especialista en visión
 - Examen optométrico
@@ -40,6 +42,7 @@
 - Medición visual
 
 ### Terapia visual
+
 - Terapia visual comportamental
 - Rehabilitación visual
 - Entrenamiento visual
@@ -52,6 +55,7 @@
 - Procesamiento visual
 
 ### Control de miopía
+
 - Control miopía infantil
 - Frenar miopía
 - Lentes de control de miopía
@@ -61,6 +65,7 @@
 - Coopervision
 
 ### Lentes de contacto
+
 - Lentes de contacto
 - Lentillas
 - Contactología
@@ -73,6 +78,7 @@
 - Lentillas de colores
 
 ### Gafas y monturas
+
 - Gafas graduadas
 - Monturas
 - Cristales oftálmicos
@@ -84,6 +90,7 @@
 - Antirreflejante
 
 ### Condiciones especializadas
+
 - Baja visión
 - Degeneración macular
 - Glaucoma
@@ -95,6 +102,7 @@
 - Vista cansada
 
 ### Visión infantil
+
 - Visión infantil
 - Optometría pediátrica
 - Examen visual niños
@@ -103,6 +111,7 @@
 - Coordinación ojo-mano
 
 ### Visión deportiva
+
 - Optometría deportiva
 - Gafas deportivas
 - Lentillas deportivas
@@ -110,6 +119,7 @@
 - Protección ocular deportiva
 
 ### Marcas y calidad
+
 - Marcas premium
 - Ray-Ban
 - Oakley
@@ -122,24 +132,31 @@
 ## Implementación por páginas
 
 ### Página principal (home)
+
 Incluye las 15 palabras clave principales más términos específicos de la empresa como "Centro óptico Jaén", "Óptica Suárez", "Desde 1940", "Tradición óptica", "Salud visual".
 
 ### Terapia Visual
+
 Enfocada en palabras relacionadas con terapia visual comportamental, tratamiento de ojo vago, estrabismo, ambliopía, problemas de aprendizaje y desarrollo neurológico visual.
 
 ### Control de Miopía
+
 Especializada en términos de control de miopía infantil, tratamientos avanzados, ortoqueratología y lentes especializadas.
 
 ### Contactología
+
 Centrada en lentes de contacto, adaptación, lentillas especializadas (oposiciones, Halloween) y todos los tipos de lentillas.
 
 ### Visión Deportiva
+
 Optimizada para términos relacionados con optometría deportiva, rendimiento visual y equipamiento deportivo.
 
 ### Visión Pediátrica
+
 Enfocada en problemas visuales infantiles, desarrollo visual y problemas de aprendizaje relacionados con la visión.
 
 ### Examen Visual
+
 Especializada en términos relacionados con evaluaciones visuales, diagnósticos y chequeos profesionales.
 
 ## Notas técnicas

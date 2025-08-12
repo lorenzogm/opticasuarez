@@ -16,7 +16,8 @@ export function meta() {
     },
     {
       property: 'og:description',
-      content: 'Conoce todas las novedades y noticias referentes a la óptica y optometría en Jaén y resto del mundo.',
+      content:
+        'Conoce todas las novedades y noticias referentes a la óptica y optometría en Jaén y resto del mundo.',
     },
     {
       property: 'og:url',

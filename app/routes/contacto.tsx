@@ -15,7 +15,8 @@ export function meta() {
     },
     {
       property: 'og:description',
-      content: '¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.',
+      content:
+        '¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.',
     },
     {
       property: 'og:url',

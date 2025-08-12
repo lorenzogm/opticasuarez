@@ -1,9 +1,12 @@
 import ExamenVisual from '../ui/pages/examen-visual/examen-visual';
-import { generatePageKeywords, generateMetaKeywords } from '../ui/lib/seo-keywords';
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '../ui/lib/seo-keywords';
 
 export function meta() {
   const examenVisualKeywords = generatePageKeywords('examen-visual');
-  
+
   return [
     { title: 'Examen Visual | Óptica Suárez - Especialistas en salud visual' },
     {
