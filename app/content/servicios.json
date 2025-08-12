@@ -4,37 +4,37 @@
   "services": [
     {
       "title": "EXAMEN VISUAL",
-      "description": "Paciente realizando un examen de visión con los profesionales de óptica Suárez en Jaén.",
+      "description": "Evaluación exhaustiva de todas las habilidades implicadas en el proceso visual",
       "url": "/examen-visual",
       "image": "/images/homepage/services/vision-binocular.jpg"
     },
     {
       "title": "TERAPIA VISUAL",
-      "description": "Asesoramiento personalizado en la compra de monturas y cristales graduados en óptica Suárez en Jaén.",
+      "description": "Corrige ojo vago, estrabismo o problemas visuales sin necesidad de parche",
       "url": "/terapia-visual",
       "image": "/images/homepage/services/terapia-visual.jpg"
     },
     {
       "title": "CONTACTOLOGÍA",
-      "description": "Chica poniéndose unas lentillas compradas en óptica Suárez en Jaén.",
+      "description": "Adaptaciones de lentes de contacto personalizadas a cada paciente",
       "url": "/contactologia",
       "image": "/images/homepage/services/contactologia.jpg"
     },
     {
       "title": "VISIÓN PEDIÁTRICA",
-      "description": "Niño realizando terapias oculares en el centro óptico de óptica Suárez en Jaén.",
+      "description": "Porque una buena visión es clave para crecer feliz, cuidamos los ojos de los pequeños de la familia",
       "url": "/vision-pediatrica",
       "image": "/images/homepage/services/vision-pediatrica.jpg"
     },
     {
       "title": "CONTROL DE MIOPÍA",
-      "description": "Servicios especializados en control de miopía para el cuidado de tu visión.",
+      "description": "¿Subida de Miopía sin parar? Te decimos como frenarla",
       "url": "/control-de-miopia",
       "image": "/images/homepage/services/control-de-miopia.jpg"
     },
     {
       "title": "VISIÓN DEPORTIVA",
-      "description": "Servicios especializados en visión deportiva para atletas y deportistas.",
+      "description": "Si eres exigente, lleva tu visión al limite y gana la competición",
       "url": "/vision-deportiva",
       "image": "/images/homepage/services/vision-deportiva.jpg"
     }
