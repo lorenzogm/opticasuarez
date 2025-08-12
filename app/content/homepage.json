@@ -17,7 +17,7 @@
         "title": "TERAPIA VISUAL",
         "description": "Diviértete mientras realizas ejercicios personalizados para trabajar ojo vago, estrabismo y problemas de aprendizaje.",
         "url": "/terapia-visual",
-        "image": "/images/homepage/services/terapia-visual.jpg"
+        "image": "/images/control-miopia/terapia-visual.jpg"
       },
       {
         "title": "CONTACTOLOGÍA",
@@ -35,7 +35,7 @@
         "title": "CONTROL DE MIOPÍA",
         "description": "Evaluación y asesoramiento de las diferentes técnicas para frenar el avance de la miopía en los peques de la familia.",
         "url": "/control-de-miopia",
-        "image": "/images/homepage/services/control-de-miopia.jpg"
+        "image": "/images/control-miopia/control-de-miopia-hero.jpg"
       }
     ]
   },
