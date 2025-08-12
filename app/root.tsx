@@ -1,7 +1,7 @@
 import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
-import GoogleAnalytics from './ui/components/google-analytics';
+import GoogleTagManager from './ui/components/google-tag-manager';
 import { WebsiteSchema, OrganizationSchema } from './ui/components/structured-data';
 import { generatePageKeywords, generateMetaKeywords } from './ui/lib/seo-keywords';
 
@@ -52,8 +52,8 @@ export function meta() {
 }
 
 export default function App() {
-  // Google Analytics 4 Measurement ID
-  const GA_MEASUREMENT_ID = 'G-5PKC2Z5L3G';
+  // Google Tag Manager Container ID
+  const GTM_CONTAINER_ID = 'GTM-57936PD5';
 
   return (
     <html lang="es">
@@ -72,11 +72,20 @@ export default function App() {
         
         <Meta />
         <Links />
-        <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+        <GoogleTagManager containerId={GTM_CONTAINER_ID} />
         <WebsiteSchema />
         <OrganizationSchema />
       </head>
       <body>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe 
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+            height="0" 
+            width="0" 
+            style={{display: 'none', visibility: 'hidden'}}
+          />
+        </noscript>
         <GlobalNavigation />
         <Outlet />
         <ScrollRestoration />
