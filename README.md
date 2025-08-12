@@ -19,16 +19,4 @@ npm run build
 
 ## Deployment
 
-This application is configured for deployment to GitHub Pages.
-
-### Automatic Deployment
-
-The app automatically deploys to GitHub Pages when changes are pushed to the main branch via GitHub Actions.
-
-### Manual Deployment
-
-You can also deploy manually using:
-
-```bash
-npm run deploy
-```
+This application can be built for production deployment.
