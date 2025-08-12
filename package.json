@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "react-router build && npm run postbuild",
-    "postbuild": "node scripts/generate-sitemap.js && echo 'Build completed successfully'",
+    "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "tsc",
@@ -24,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@forge42/seo-tools": "^1.4.5",
     "@react-router/dev": "^7.7.1",
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",

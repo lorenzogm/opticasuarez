@@ -2,7 +2,8 @@ import type { Config } from '@react-router/dev/config';
 import { getBlogPosts } from './app/ui/lib/blog';
 
 export default {
-  ssr: false, // Disable SSR for static prerendering
+  // Enable SSR to support the dynamic sitemap route
+  ssr: true, 
   // basename: '/',
   async prerender() {
     const blogPosts = getBlogPosts();
@@ -28,6 +29,8 @@ export default {
       '/examen-visual',
       '/contacto',
       ...blogRoutes,
+      // Exclude sitemap.xml from prerendering as it's a dynamic resource route
+      // '/sitemap.xml',
     ];
   },
 } satisfies Config;

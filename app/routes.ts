@@ -18,4 +18,5 @@ export default [
   route('blog', 'routes/blog.tsx'),
   route('blog/:slug', 'routes/blog.$slug.tsx'),
   route('contacto', 'routes/contacto.tsx'),
+  route('sitemap.xml', 'routes/sitemap.xml.ts'),
 ] satisfies RouteConfig;
