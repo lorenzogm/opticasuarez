@@ -4,7 +4,7 @@ date: '2024-08-06'
 excerpt: 'Descubre por qué es fundamental realizar revisiones oculares periódicas para mantener una salud visual óptima.'
 author: 'Óptica Suárez'
 categories: ['Salud Visual', 'Exámenes']
-featured_image: '/images/blog/examen-visual-blog.jpg'
+featured_image: '/images/blog/examen-visual-blog-new.webp'
 slug: 'importancia-examenes-visuales-regulares'
 ---
 

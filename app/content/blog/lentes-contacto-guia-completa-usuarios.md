@@ -4,7 +4,7 @@ date: '2024-12-17'
 excerpt: 'Todo lo que necesitas saber sobre lentes de contacto: tipos, cuidados, beneficios y cómo elegir las más adecuadas para tu estilo de vida.'
 author: 'Óptica Suárez'
 categories: ['Lentes de Contacto', 'Contactología']
-featured_image: '/images/blog/lentes-contacto-guia.jpg'
+featured_image: '/images/blog/lentes-contacto-guia-new.webp'
 slug: 'lentes-contacto-guia-completa-usuarios'
 ---
 

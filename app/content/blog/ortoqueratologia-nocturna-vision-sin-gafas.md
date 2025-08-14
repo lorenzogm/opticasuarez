@@ -4,7 +4,7 @@ date: '2024-12-15'
 excerpt: 'Descubre cómo las lentes de ortoqueratología te permiten corregir la miopía mientras duermes y disfrutar de visión nítida sin gafas ni lentillas durante el día.'
 author: 'Óptica Suárez'
 categories: ['Ortoqueratología', 'Control de Miopía']
-featured_image: '/images/blog/ortoqueratologia-nocturna.jpg'
+featured_image: '/images/blog/ortoqueratologia-nocturna-new.webp'
 slug: 'ortoqueratologia-nocturna-vision-sin-gafas'
 ---
 

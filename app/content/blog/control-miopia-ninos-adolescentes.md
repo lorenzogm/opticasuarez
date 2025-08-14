@@ -4,7 +4,7 @@ date: '2024-12-19'
 excerpt: 'Descubre las técnicas más avanzadas para frenar la progresión de la miopía en edad temprana y proteger la visión de tu hijo a largo plazo.'
 author: 'Óptica Suárez'
 categories: ['Control de Miopía', 'Visión Pediátrica']
-featured_image: '/images/blog/control-miopia-ninos.jpg'
+featured_image: '/images/blog/control-miopia-ninos-new.webp'
 slug: 'control-miopia-ninos-adolescentes'
 ---
 
