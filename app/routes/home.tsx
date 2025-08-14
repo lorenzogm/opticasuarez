@@ -12,7 +12,7 @@ export function meta() {
     {
       name: 'description',
       content:
-        'Óptica Suárez, tu Centro de Optometría y Terapia Visual en Jaén, con más de más de 80 años cuidando de la salud visual. Especializados en visión infantil, Terapia Visual Comportamental, Control de Miopía, Contactología y visión deportiva.',
+        'Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.',
     },
     {
       name: 'keywords',
