@@ -8,7 +8,11 @@ interface BlogPostProps {
 }
 
 function parseMarkdownToHTML(markdown: string): string {
-  const basePath = import.meta.env.PROD ? '/opticasuarez-new' : '';
+  const basePath =
+    typeof window !== 'undefined' &&
+    window.location.origin.includes('github.io')
+      ? '/opticasuarez-new'
+      : '';
 
   return (
     markdown
