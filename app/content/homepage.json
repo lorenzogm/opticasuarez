@@ -40,7 +40,7 @@
     ]
   },
   "videoAbout": {
-    "title": "Somos Óptica Suárez",
+    "title": "Tu óptica de confianza en Jaén",
     "description": "Somos tu destino de confianza para todo lo relacionado con el cuidado de tus ojos. Con un equipo de profesionales dedicados y una amplia gama de servicios y productos de calidad, estamos aquí para garantizarte una experiencia visual excepcional. Desde exámenes de la vista hasta la selección de gafas y lentes de contacto, estamos comprometidos a cuidar de tu visión de la mejor manera posible. ¡Ven y descubre cómo podemos ayudarte a ver mejor y lucir genial en Óptica Suárez!",
     "videoId": "mSpF_F-sAzM"
   },
@@ -59,7 +59,7 @@
   "specialists": {
     "title": "ESPECIALISTAS EN EL CUIDADO DE TUS OJOS",
     "subtitle": "Tu óptica de referencia",
-    "description": "Descubre nuestros servicios y tratamientos de calidad profesional, junto con asesoramiento especializado para el cuidado de tu visión."
+    "description": "Nos avalan más de 80 años de antigüedad, siendo la óptica más conocida de Jaén. Nuestro equipo profesional está en constante formación para ofrecer siempre el mejor tratamiento para tu visión. Tratamos problemas de aprendizaje, ojo vago o ambliopía, estrabismo, así como adaptaciones de lentes de contacto especiales como orto-K o queratocono."
   },
   "news": {
     "title": "NOTICIAS",
@@ -177,7 +177,7 @@
   },
   "bookAppointment": {
     "title": "Reserva tu cita hoy",
-    "description": "Obtén un examen visual completo con nuestros especialistas. Agenda tu cita y cuida tu salud visual.",
+    "description": "Contáctatenos para agendar tu cita y realizar un examen visual exhaustivo, evaluando todas las habilidades visuales como acomodación, vergencias, visión binocular o estereopsis.",
     "buttonText": "Reservar Cita",
     "whatsappMessage": "Hola, me gustaría reservar una cita para un examen visual completo"
   },

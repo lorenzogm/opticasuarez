@@ -69,3 +69,38 @@ import { Button } from '../ui/components/Button';
 3. Follow the existing project structure under `app/ui/`
 
 This convention ensures consistency across the codebase and follows modern web development best practices.
+
+## Quality Assurance
+
+### CI/CD Validation
+
+**Critical:** Always run the exact same commands that are executed in the CI checks before making any code changes. These commands must all pass successfully, and any failures must be fixed immediately.
+
+Required CI commands to run in order:
+
+1. **Install dependencies**:
+   ```bash
+   npm ci
+   ```
+
+2. **Code quality checks**:
+   ```bash
+   npm run check
+   ```
+   This executes:
+   - `npm run typecheck` - TypeScript type checking
+   - `npm run lint` - ESLint code quality checks
+
+3. **Build validation**:
+   ```bash
+   npm run build
+   ```
+
+### Validation Workflow
+
+1. **Before making changes**: Run all CI commands to establish baseline
+2. **After making changes**: Re-run all CI commands to ensure nothing is broken
+3. **Fix any failures**: Use available fix commands like `npm run lint:fix` if needed
+4. **Verify success**: All commands must complete with exit code 0
+
+**Important**: Never submit changes if any of these CI commands fail. Always investigate and fix the root cause of failures rather than ignoring them.

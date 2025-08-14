@@ -32,9 +32,13 @@ test.describe('Homepage Content Verification', () => {
     await page.goto('/');
 
     // Verify services grid items are displayed with correct content
+    // Use more specific selectors to avoid conflicts with content in other sections
+    // Target the services grid section specifically by its structure
     for (const service of homepageContent.servicesGrid.items) {
-      await expect(page.getByText(service.title)).toBeVisible();
-      await expect(page.getByText(service.description)).toBeVisible();
+      // Look for the service title within an h3 element inside an article
+      await expect(page.locator('article h3').filter({ hasText: service.title })).toBeVisible();
+      // Look for the service description within the same article structure
+      await expect(page.locator('article').filter({ hasText: service.title }).locator('p').filter({ hasText: service.description })).toBeVisible();
     }
   });
 
