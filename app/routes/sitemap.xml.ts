@@ -1,21 +1,39 @@
-import { generateRemixSitemap } from '@forge42/seo-tools/remix/sitemap';
 import type { LoaderFunctionArgs } from 'react-router';
+import { getBlogPosts } from '../ui/lib/blog';
 
 export const loader = async ({ request: _request }: LoaderFunctionArgs) => {
-  // For React Router v7, we need to import the routes differently
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const routes = (globalThis as any).__remixServerBuild?.routes || {};
-
+  // Get blog posts for dynamic routes
+  const blogPosts = getBlogPosts();
+  
   // Use production domain for consistency
   const domain = 'https://opticasuarezjaen.es';
-  const sitemap = await generateRemixSitemap({
-    domain,
-    ignore: [
-      // Add any routes you want to exclude from the sitemap
-      // Like API endpoints or admin pages
-    ],
-    routes,
-  });
+  
+  // Define all legitimate routes - this ensures we only include real pages
+  const routes = [
+    '/',
+    '/quienes-somos',
+    '/servicios',
+    '/vision-deportiva',
+    '/control-de-miopia',
+    '/vision-pediatrica',
+    '/terapia-visual',
+    '/contactologia',
+    '/examen-visual',
+    '/contacto',
+    '/blog',
+    ...blogPosts.map((post) => `/blog/${post.slug}`),
+  ];
+
+  // Generate sitemap XML manually to ensure full control
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes.map(route => `  <url>
+    <loc>${domain}${route}</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
+  </url>`).join('\n')}
+</urlset>`;
 
   return new Response(sitemap, {
     headers: {
