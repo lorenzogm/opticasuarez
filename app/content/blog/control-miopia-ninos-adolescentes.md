@@ -16,7 +16,7 @@ La miopía está experimentando un crecimiento alarmante a nivel mundial, especi
 
 La miopía es un defecto refractivo donde los objetos lejanos se ven borrosos mientras que los cercanos se perciben con claridad. Lo que antes era considerado simplemente un problema de graduación, ahora sabemos que puede progresar rápidamente durante la infancia y adolescencia.
 
-![Niño realizando examen visual](/ blog/control-miopia-examen.jpg)
+![Niño realizando examen visual](/images/blog/control-miopia-examen-visual.webp)
 
 ### Factores que contribuyen al aumento de la miopía
 
@@ -28,7 +28,7 @@ Controlar la progresión de la miopía durante la infancia es crucial para la sa
 
 Un control efectivo de la miopía significa una menor dependencia de corrección óptica, mejor rendimiento académico y deportivo para el niño, y una significativa reducción de limitaciones futuras en su vida adulta.
 
-![Tratamientos de control de miopía](/ blog/control-miopia-tratamientos.jpg)
+![Tratamientos de control de miopía](/images/blog/control-miopia-tratamiento.webp)
 
 ## Métodos de control de miopía disponibles
 
@@ -50,7 +50,7 @@ Un tratamiento farmacológico que ha demostrado eficacia en el control de la mio
 
 Los cristales con diseños específicos reducen el estrés visual y controlan la progresión de la miopía. Entre las opciones disponibles se encuentran lentes de adición progresiva, cristales con tratamientos específicos para control de miopía, y diseños personalizados adaptados a las necesidades individuales de cada niño.
 
-![Seguimiento profesional en Óptica Suárez](/ blog/control-miopia-seguimiento.jpg)
+![Seguimiento profesional en Óptica Suárez](/images/blog/control-miopia-seguimiento.webp)
 
 ## El proceso en Óptica Suárez
 
@@ -70,7 +70,7 @@ Para prevenir la miopía y optimizar los resultados del tratamiento, recomendamo
 
 La iluminación adecuada es crucial para todas las tareas de cerca, y debe mantenerse una distancia de lectura de al menos 30-40 centímetros del material. Los padres deben estar atentos a señales como entrecerrar los ojos frecuentemente, acercarse mucho a los objetos, dolores de cabeza frecuentes, fatiga visual, o bajo rendimiento escolar, ya que pueden indicar cambios en la visión que requieren evaluación inmediata.
 
-![Tecnología avanzada para control de miopía](/ blog/control-miopia-tecnologia.jpg)
+![Tecnología avanzada para control de miopía](/images/blog/control-miopia-tecnologia.webp)
 
 ## Tecnología avanzada al servicio del control de miopía
 
