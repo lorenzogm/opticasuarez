@@ -4,6 +4,8 @@ interface ImageProps {
   className?: string;
   width?: number;
   height?: number;
+  sizes?: string;
+  priority?: boolean;
 }
 
 export default function Image({
@@ -12,14 +14,71 @@ export default function Image({
   className,
   width,
   height,
+  sizes,
+  priority = false,
 }: ImageProps) {
+  // Extract file extension and path
+  const lastDotIndex = src.lastIndexOf('.');
+  const basePath = src.substring(0, lastDotIndex);
+
+  // Generate responsive image sources
+  const generateWebPSources = (basePath: string) => {
+    // For homepage services and locations, create multiple responsive sizes
+    if (basePath.includes('/homepage/services/') || basePath.includes('/homepage/locations/')) {
+      return [
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}-800.webp 800w`,
+        `${basePath}.webp 1200w`,
+      ].join(', ');
+    }
+    // For partner images, use appropriate sizes for logos
+    if (basePath.includes('/homepage/partners/')) {
+      return [
+        `${basePath}-200.webp 200w`,
+        `${basePath}-400.webp 400w`,
+        `${basePath}-800.webp 800w`,
+        `${basePath}.webp 1200w`,
+      ].join(', ');
+    }
+    // For other images, just provide the main webp version
+    return `${basePath}.webp`;
+  };
+
+  const webpSrcSet = generateWebPSources(basePath);
+  
+  // Default sizes for responsive images
+  const defaultSizes = sizes || (() => {
+    if (basePath.includes('/homepage/services/')) {
+      return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+    }
+    if (basePath.includes('/homepage/locations/')) {
+      return '(max-width: 768px) 100vw, 50vw';
+    }
+    if (basePath.includes('/homepage/partners/')) {
+      return '(max-width: 640px) 200px, (max-width: 1024px) 400px, 800px';
+    }
+    return '100vw';
+  })();
+
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      width={width}
-      height={height}
-    />
+    <picture>
+      {/* WebP sources with responsive sizes */}
+      <source
+        srcSet={webpSrcSet}
+        sizes={defaultSizes}
+        type="image/webp"
+      />
+      {/* Fallback to original format */}
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    </picture>
   );
 }
