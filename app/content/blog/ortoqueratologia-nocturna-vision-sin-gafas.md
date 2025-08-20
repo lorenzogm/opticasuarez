@@ -24,7 +24,7 @@ Durante el sueño, las lentes ejercen una presión controlada y gradual sobre la
 
 La ortoqueratología es más efectiva en casos de miopía hasta -6.00 dioptrías, astigmatismo hasta -1.75 dioptrías, y combinaciones de miopía con astigmatismo bajo. Para rangos mayores, realizamos evaluación individual considerando las características específicas de cada paciente.
 
-![Adaptación de ortoqueratología](/ blog/ortoqueratologia-adaptacion.jpg)
+![Adaptación de ortoqueratología](/images/blog/ortoqueratologia-adaptacion.webp)
 
 ### Perfil del usuario ideal
 

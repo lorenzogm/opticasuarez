@@ -41,6 +41,32 @@ export default function Image({
         `${basePath}.webp 1200w`,
       ].join(', ');
     }
+    // For blog images, use responsive sizes
+    if (basePath.includes('/blog/')) {
+      return [
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}.webp 1000w`,
+      ].join(', ');
+    }
+    // For team images, use smaller responsive sizes
+    if (basePath.includes('/team/')) {
+      return [
+        `${basePath}-200.webp 200w`,
+        `${basePath}-400.webp 400w`,
+        `${basePath}-600.webp 600w`,
+        `${basePath}.webp 800w`,
+      ].join(', ');
+    }
+    // For control-miopia and vision-pediatrica images, use standard responsive sizes
+    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
+      return [
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}-800.webp 800w`,
+        `${basePath}.webp 1200w`,
+      ].join(', ');
+    }
     // For other images, just provide the main webp version
     return `${basePath}.webp`;
   };
@@ -57,6 +83,15 @@ export default function Image({
     }
     if (basePath.includes('/homepage/partners/')) {
       return '(max-width: 640px) 200px, (max-width: 1024px) 400px, 800px';
+    }
+    if (basePath.includes('/blog/')) {
+      return '(max-width: 640px) 100vw, (max-width: 1024px) 640px, 1000px';
+    }
+    if (basePath.includes('/team/')) {
+      return '(max-width: 640px) 200px, (max-width: 1024px) 400px, 600px';
+    }
+    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
+      return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
     return '100vw';
   })();

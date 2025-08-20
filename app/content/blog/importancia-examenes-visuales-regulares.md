@@ -18,7 +18,7 @@ Los exámenes visuales regulares no solo nos permiten detectar problemas de refr
 
 Durante un examen visual completo, nuestros especialistas pueden detectar el glaucoma, una enfermedad silenciosa que puede causar pérdida irreversible de la visión si no se trata a tiempo. Las cataratas, que causan opacificación del cristalino y afectan la claridad visual, también pueden identificarse en sus primeras etapas. La degeneración macular, que produce deterioro de la parte central de la retina, y la retinopatía diabética, una complicación de la diabetes que afecta los vasos sanguíneos de la retina, son condiciones que requieren detección temprana para preservar la visión.
 
-![Examen visual completo](/ blog/examen-visual-completo.jpg)
+![Examen visual completo](/images/blog/examen-visual-completo.webp)
 
 Nuestra visión puede cambiar gradualmente sin que nos demos cuenta, por lo que los exámenes regulares nos permiten actualizar la graduación de gafas y lentes de contacto, asegurar una visión nítida y cómoda, y prevenir la fatiga visual y dolores de cabeza que pueden afectar significativamente nuestra calidad de vida y rendimiento diario.
 
@@ -28,7 +28,7 @@ Las recomendaciones para la frecuencia de exámenes visuales varían según la e
 
 Los adultos entre 18-39 años deben realizarse exámenes cada 2-3 años si no presentan problemas visuales, mientras que aquellos entre 40-64 años requieren controles cada 1-2 años debido a los cambios naturales del envejecimiento. Las personas de 65 años en adelante necesitan exámenes anuales, ya que el riesgo de desarrollar enfermedades oculares aumenta significativamente con la edad.
 
-![Tecnología avanzada en exámenes](/ blog/examen-visual-tecnologia.jpg)
+![Tecnología avanzada en exámenes](/images/blog/examen-visual-tecnologia.webp)
 
 En casos especiales, como antecedentes familiares de enfermedades oculares, diabetes, hipertensión o trabajo prolongado frente a pantallas, es recomendable realizar exámenes más frecuentes según las necesidades individuales y bajo recomendación profesional.
 

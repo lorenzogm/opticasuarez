@@ -16,7 +16,7 @@ Las lentes de contacto han revolucionado la forma en que corregimos los problema
 
 Las lentes de contacto ofrecen un campo visual completo sin las limitaciones del marco de las gafas, proporcionando libertad de movimiento ideal para deportes y actividades físicas. Desde el punto de vista estético, mantienen la apariencia natural sin alterar la imagen personal, mientras que desde el punto de vista práctico, ofrecen comodidad climática al no empañarse ni mojarse con la lluvia, y permiten usar gafas de sol normales cuando sea necesario.
 
-![Tipos de lentes de contacto](/ blog/lentes-contacto-tipos.jpg)
+![Tipos de lentes de contacto](/images/blog/lentes-contacto-tipos.webp)
 
 La corrección óptica que proporcionan es superior a las gafas tradicionales, con menos distorsiones periféricas gracias a que se mueven con el ojo, proporcionando estabilidad visual y ausencia de reflejos molestos. Todo esto contribuye a una mayor nitidez visual y a un aumento de la autoestima y confianza en la apariencia personal.
 
@@ -107,7 +107,7 @@ Las lentes tóricas están específicamente diseñadas para la corrección del a
 
 Estas lentes ofrecen opciones tanto estéticas como terapéuticas. Las lentes de realce intensifican el color natural del iris, mientras que las opacas permiten un cambio completo de color. También existen opciones terapéuticas específicas para irregularidades del iris o condiciones médicas particulares.
 
-![Proceso de adaptación de lentes](/ blog/lentes-contacto-adaptacion.jpg)
+![Proceso de adaptación de lentes](/images/blog/lentes-contacto-adaptacion.webp)
 
 ## El proceso de adaptación en Óptica Suárez
 

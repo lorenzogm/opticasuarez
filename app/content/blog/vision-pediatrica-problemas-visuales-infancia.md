@@ -18,7 +18,7 @@ La visión es fundamental para el desarrollo integral de los niños. En **Óptic
 
 Durante los primeros 0-3 meses de vida, los bebés enfocan principalmente a 20-30 cm de distancia, desarrollan seguimiento de objetos en movimiento y muestran preferencia por contrastes altos. Entre los 3-6 meses, se establece la coordinación binocular, aparece la percepción de profundidad inicial, y comienza el reconocimiento de caras familiares.
 
-![Desarrollo visual infantil](/ blog/vision-pediatrica-desarrollo.jpg)
+![Desarrollo visual infantil](/images/blog/vision-pediatrica-desarrollo.webp)
 
 De los 6-12 meses, la visión de colores se desarrolla más completamente, mejora la coordinación ojo-mano, y se intensifica la exploración visual del entorno. Entre 1-3 años, se produce el refinamiento de la agudeza visual, el desarrollo de la percepción espacial, y la coordinación visuomotora alcanza mayor precisión. Este período es crucial, ya que aproximadamente el 80% del desarrollo visual ocurre durante los primeros años de vida.
 

@@ -87,7 +87,7 @@ function VisionDeportivaIntroduction() {
           </div>
           <div className="relative">
             <Image
-              src="/images/vision-deportiva/vision-deportiva-intro.jpg"
+              src="/images/vision-deportiva/vision-deportiva-intro.webp"
               alt="Evaluación visual deportiva"
               className="w-full h-96 object-cover rounded-lg shadow-lg"
             />
