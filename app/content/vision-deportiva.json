@@ -4,7 +4,7 @@
     "title": "VISIÓN DEPORTIVA",
     "subtitle": "Optimiza tu rendimiento visual",
     "description": "Servicios especializados para deportistas. Mejora tu visión y tu rendimiento deportivo con nuestros profesionales especializados.",
-    "image": "/images/homepage/services/vision-binocular.jpg"
+    "image": "/images/homepage/services/vision-binocular.webp"
   },
   "introduction": {
     "title": "¿QUÉ ES LA VISIÓN DEPORTIVA?",
@@ -70,11 +70,11 @@
     },
     "images": [
       {
-        "src": "/images/homepage/services/vision-binocular.jpg",
+        "src": "/images/homepage/services/vision-binocular.webp",
         "alt": "Entrenamiento visual deportivo"
       },
       {
-        "src": "/images/homepage/services/vision-binocular.jpg",
+        "src": "/images/homepage/services/vision-binocular.webp",
         "alt": "Terapia visual para deportistas"
       }
     ],
