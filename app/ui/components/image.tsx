@@ -58,6 +58,15 @@ export default function Image({
         `${basePath}.webp 800w`,
       ].join(', ');
     }
+    // For quienes-somos timeline images, use standard responsive sizes
+    if (basePath.includes('/quienes-somos/timeline/')) {
+      return [
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}-800.webp 800w`,
+        `${basePath}.webp 800w`,
+      ].join(', ');
+    }
     // For control-miopia and vision-pediatrica images, use standard responsive sizes
     if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
       return [
@@ -89,6 +98,9 @@ export default function Image({
     }
     if (basePath.includes('/team/')) {
       return '(max-width: 640px) 200px, (max-width: 1024px) 400px, 600px';
+    }
+    if (basePath.includes('/quienes-somos/timeline/')) {
+      return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
     if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
