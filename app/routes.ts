@@ -21,4 +21,5 @@ export default [
   route('contacto', 'routes/contacto.tsx'),
   route('sitemap.xml', 'routes/sitemap.xml.ts'),
   route('robots.txt', 'routes/robots.txt.ts'),
+  route('og-image.jpg', 'routes/og-image.jpg.ts'),
 ] satisfies RouteConfig;
