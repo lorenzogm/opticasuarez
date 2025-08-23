@@ -47,7 +47,7 @@ const locations = {
 };
 
 const periods = {
-  morning: 'Mañana (9:00-12:00)',
+  morning: 'Mañana (9:30-13:00)',
   afternoon: 'Tarde (17:00-20:00)',
 };
 
@@ -127,26 +127,51 @@ Si tienes alguna pregunta, no dudes en contactarnos:
     }
 
     // Send email to Óptica Suárez
-    await resend.emails.send({
+    console.log('Attempting to send email to Óptica Suárez...');
+    const opticaEmailPayload = {
       from: 'Óptica Suárez <no-reply@opticasuarezjaen.es>',
       to: ['optica@lorenzogm.com'],
       subject: 'Nueva cita reservada - Óptica Suárez',
       text: opticaEmailContent.trim(),
-    });
+    };
+    console.log('Optica email payload:', JSON.stringify(opticaEmailPayload, null, 2));
+    
+    const opticaEmailResult = await resend.emails.send(opticaEmailPayload);
+    console.log('Optica email result:', JSON.stringify(opticaEmailResult, null, 2));
 
     // Send confirmation email to customer
-    await resend.emails.send({
+    console.log(`Attempting to send confirmation email to customer: ${bookingDetails.email}...`);
+    const customerEmailPayload = {
       from: 'Óptica Suárez <no-reply@opticasuarezjaen.es>',
       to: [bookingDetails.email],
       subject: 'Confirmación de cita - Óptica Suárez',
       text: customerEmailContent.trim(),
-    });
+    };
+    console.log('Customer email payload:', JSON.stringify(customerEmailPayload, null, 2));
+    
+    const customerEmailResult = await resend.emails.send(customerEmailPayload);
+    console.log('Customer email result:', JSON.stringify(customerEmailResult, null, 2));
 
     console.log(`Emails sent successfully to optica@lorenzogm.com and ${bookingDetails.email}`);
+    console.log('Optica email ID:', opticaEmailResult.data?.id);
+    console.log('Customer email ID:', customerEmailResult.data?.id);
 
     return { success: true };
   } catch (error) {
     console.error('Error sending booking emails:', error);
+    
+    // Log more details about the error
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    
+    // If it's a Resend API error, log the response details
+    if (error && typeof error === 'object' && 'message' in error) {
+      console.error('API error details:', JSON.stringify(error, null, 2));
+    }
+    
     return { 
       success: false, 
       error: 'Ha ocurrido un error al enviar los emails de confirmación.' 

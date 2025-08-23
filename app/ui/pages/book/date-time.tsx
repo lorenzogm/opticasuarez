@@ -258,7 +258,7 @@ export default function DateTimeSelection() {
                   }`}
                 >
                   <div className="font-medium">Mañana</div>
-                  <div className="text-sm text-gray-600">9:00 - 12:00</div>
+                  <div className="text-sm text-gray-600">9:30 - 13:00</div>
                 </button>
                 <button
                   onClick={() => setSelectedPeriod('afternoon')}

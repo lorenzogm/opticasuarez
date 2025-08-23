@@ -217,7 +217,7 @@ export default function ContactDetails() {
               </p>
             )}
             <p>
-              <span className="font-medium">Hora:</span> {period === 'morning' ? 'Mañana (9:00-12:00)' : 'Tarde (17:00-20:00)'}
+              <span className="font-medium">Hora:</span> {period === 'morning' ? 'Mañana (9:30-13:00)' : 'Tarde (17:00-20:00)'}
             </p>
           </div>
         </div>

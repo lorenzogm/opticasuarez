@@ -36,7 +36,7 @@ const locations = {
 };
 
 const periods = {
-  morning: 'Mañana (9:00-12:00)',
+  morning: 'Mañana (9:30-13:00)',
   afternoon: 'Tarde (17:00-20:00)',
 };
 
