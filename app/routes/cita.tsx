@@ -6,11 +6,11 @@ export function meta() {
     {
       name: 'description',
       content:
-        'Reserva tu cita para apoyo mental relacionado con la salud visual en Óptica Suárez.',
+        'Reserva tu cita para servicios ópticos especializados en Óptica Suárez.',
     },
   ];
 }
 
-export default function Book() {
+export default function Cita() {
   return <BookAppointment />;
 }

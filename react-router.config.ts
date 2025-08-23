@@ -14,11 +14,12 @@ export default {
     return [
       '/',
       '/blog',
-      // Booking routes temporarily hidden
-      // '/book',
-      // '/book/step2',
-      // '/book/step3',
-      // '/book/step4',
+      // Booking routes with Spanish names
+      '/cita',
+      '/cita/centro',
+      '/cita/horario', 
+      '/cita/contacto',
+      '/cita/confirmacion',
       '/quienes-somos',
       '/servicios',
       '/vision-deportiva',

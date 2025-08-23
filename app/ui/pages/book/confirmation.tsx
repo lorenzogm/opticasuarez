@@ -1,31 +1,59 @@
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useSearchParams, useFetcher } from 'react-router';
 import ProgressIndicator from '../../components/progress-indicator';
 import { Button } from '../../components/button';
 import { Text } from '../../components/text';
 
 const appointmentTypes = {
-  'visual-stress': 'Apoyo para Estrés Visual',
-  'vision-loss-support': 'Apoyo por Pérdida de Visión',
-  'low-vision-rehabilitation': 'Rehabilitación de Baja Visión',
+  'phone-consultation': 'Cita telefónica',
+  'refraction-exam': 'Cita refracción',
+  'visual-efficiency-eval': 'Cita Evaluación de eficacia visual',
+  'child-exam': 'Cita Examen Infantil',
+  'contact-lens': 'Cita Contactología',
+  'sports-vision': 'Cita Visión Deportiva',
 };
 
 const appointmentDurations = {
-  'visual-stress': '45 minutos',
-  'vision-loss-support': '60 minutos',
-  'low-vision-rehabilitation': '90 minutos',
+  'phone-consultation': '10 minutos',
+  'refraction-exam': '30 minutos',
+  'visual-efficiency-eval': '60 minutos',
+  'child-exam': '60 minutos',
+  'contact-lens': '60 minutos',
+  'sports-vision': '60 minutos',
+};
+
+const locations = {
+  centro: {
+    name: 'Óptica Suárez Centro',
+    address: 'Paseo de la Estación 12, Jaén (23003-Jaén)',
+    email: 'centro@opticasuarezjaen.es',
+  },
+  bulevar: {
+    name: 'Óptica Suárez Bulevar', 
+    address: 'Calle Canarias 6, Jaén (23009 - Jaén)',
+    email: 'bulevar@opticasuarezjaen.es',
+  },
+};
+
+const periods = {
+  morning: 'Mañana (9:00-12:00)',
+  afternoon: 'Tarde (17:00-20:00)',
 };
 
 export default function Confirmation() {
   const [searchParams] = useSearchParams();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const fetcher = useFetcher();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const appointmentType = searchParams.get('type') || '';
+  const location = searchParams.get('location') || '';
   const dateParam = searchParams.get('date');
-  const time = searchParams.get('time') || '';
+  const period = searchParams.get('period') || '';
   const name = searchParams.get('name') || '';
+  const age = searchParams.get('age') || '';
   const phone = searchParams.get('phone') || '';
+  const email = searchParams.get('email') || '';
+  const observations = searchParams.get('observations') || '';
 
   const selectedDate = dateParam ? new Date(dateParam) : null;
 
@@ -38,62 +66,29 @@ export default function Confirmation() {
     });
   };
 
-  const handleConfirmBooking = async () => {
-    setIsSubmitting(true);
+  const handleConfirmBooking = () => {
+    const formData = new FormData();
+    formData.append('appointmentType', appointmentType);
+    formData.append('location', location);
+    formData.append('date', dateParam || '');
+    formData.append('period', period);
+    formData.append('name', name);
+    formData.append('age', age);
+    formData.append('phone', phone);
+    formData.append('email', email);
+    formData.append('observations', observations);
 
-    try {
-      // Prepare the booking data
-      const bookingData = {
-        appointmentType:
-          appointmentTypes[appointmentType as keyof typeof appointmentTypes],
-        date: selectedDate ? formatDate(selectedDate) : '',
-        time: time,
-        duration:
-          appointmentDurations[
-            appointmentType as keyof typeof appointmentDurations
-          ],
-        name: name,
-        phone: phone,
-        timestamp: new Date().toISOString(),
-      };
-
-      // Here you would normally send this data to your backend
-      // For now, we'll simulate the email sending
-
-      // Create email content
-      const emailContent = `
-Nueva cita reservada en Óptica Suárez
-
-Detalles de la cita:
-- Tipo de servicio: ${bookingData.appointmentType}
-- Duración: ${bookingData.duration}
-- Fecha: ${bookingData.date}
-- Hora: ${bookingData.time}
-
-Datos del cliente:
-- Nombre: ${bookingData.name}
-- Teléfono: ${bookingData.phone}
-
-Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
-      `;
-
-      // Log the email content (in a real app, this would be sent to optica@lorenzogm.com)
-      console.log('Email que se enviaría a optica@lorenzogm.com:');
-      console.log(emailContent);
-
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error('Error submitting booking:', error);
-      alert(
-        'Ha ocurrido un error al enviar la reserva. Por favor, inténtalo de nuevo.'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    fetcher.submit(formData, { method: 'post' });
   };
+
+  // Check if the action was successful
+  if (fetcher.data?.success) {
+    if (!isSubmitted) {
+      setIsSubmitted(true);
+    }
+  }
+
+  const isSubmitting = fetcher.state === 'submitting';
 
   if (isSubmitted) {
     return (
@@ -136,7 +131,7 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link
-              to={`/book/step3?type=${appointmentType}&date=${dateParam}&time=${time}`}
+              to={`/cita/contacto?type=${appointmentType}&location=${location}&date=${dateParam}&period=${period}&name=${name}&age=${age}&phone=${phone}${email ? `&email=${email}` : ''}&observations=${observations}`}
               className="text-blue-600 hover:text-blue-800 flex items-center gap-2 transition-colors"
             >
               ← Volver
@@ -157,7 +152,7 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Progress Indicator */}
         <div className="mb-8">
-          <ProgressIndicator currentStep={4} totalSteps={4} />
+          <ProgressIndicator currentStep={5} totalSteps={5} />
           <div className="text-center mt-4">
             <Text as="h2" variant="heading-3" className="text-gray-900">
               Confirmar cita
@@ -197,23 +192,45 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
               </p>
             </div>
 
+            {/* Location Details */}
+            <div className="border-b border-gray-200 pb-4">
+              <h4 className="font-medium text-gray-900 mb-2">Centro</h4>
+              <p className="text-gray-700">
+                {locations[location as keyof typeof locations]?.name || 'No especificado'}
+              </p>
+              <p className="text-sm text-gray-500">
+                {locations[location as keyof typeof locations]?.address || ''}
+              </p>
+            </div>
+
             {/* Date and Time */}
             <div className="border-b border-gray-200 pb-4">
               <h4 className="font-medium text-gray-900 mb-2">Fecha y hora</h4>
               {selectedDate && (
                 <p className="text-gray-700">{formatDate(selectedDate)}</p>
               )}
-              <p className="text-gray-700">{time}</p>
+              <p className="text-gray-700">{periods[period as keyof typeof periods] || period}</p>
             </div>
 
             {/* Contact Details */}
-            <div>
+            <div className="border-b border-gray-200 pb-4">
               <h4 className="font-medium text-gray-900 mb-2">
                 Datos de contacto
               </h4>
-              <p className="text-gray-700">{name}</p>
+              <p className="text-gray-700">{name} ({age} años)</p>
               <p className="text-gray-700">{phone}</p>
+              {email && <p className="text-gray-700">{email}</p>}
             </div>
+
+            {/* Observations */}
+            {observations && (
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">Observaciones</h4>
+                <p className="text-gray-700 text-sm bg-gray-50 p-3 rounded-lg">
+                  {observations}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Important Information */}
@@ -237,7 +254,7 @@ Reserva realizada el: ${new Date(bookingData.timestamp).toLocaleString('es-ES')}
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-8">
           <Button
-            href={`/book/step3?type=${appointmentType}&date=${dateParam}&time=${time}`}
+            href={`/cita/contacto?type=${appointmentType}&location=${location}&date=${dateParam}&period=${period}&name=${name}&age=${age}&phone=${phone}${email ? `&email=${email}` : ''}&observations=${observations}`}
             variant="secondary"
           >
             Volver

@@ -14,28 +14,52 @@ interface AppointmentType {
 
 const appointmentTypes: AppointmentType[] = [
   {
-    id: 'visual-stress',
-    title: 'Apoyo para Estrés Visual',
+    id: 'phone-consultation',
+    title: 'Cita telefónica',
     description:
-      'Consultoría especializada para el manejo del estrés visual, fatiga ocular y síndrome del ojo seco causado por el uso prolongado de pantallas.',
-    icon: '👁️',
-    duration: '45 minutos',
+      'Consulta telefónica para resolver dudas sobre visión y salud ocular. Perfecta para consultas rápidas y orientación inicial sobre problemas visuales.',
+    icon: '📞',
+    duration: '10 minutos',
   },
   {
-    id: 'vision-loss-support',
-    title: 'Apoyo por Pérdida de Visión',
+    id: 'refraction-exam',
+    title: 'Cita refracción',
     description:
-      'Soporte emocional y práctico para adaptarse a cambios en la visión, incluyendo estrategias de afrontamiento y recursos para la vida diaria.',
-    icon: '🤝',
+      'Examen completo de agudeza visual y refracción para determinar la graduación exacta que necesitas. Incluye pruebas de miopía, hipermetropía y astigmatismo.',
+    icon: '👓',
+    duration: '30 minutos',
+  },
+  {
+    id: 'visual-efficiency-eval',
+    title: 'Cita Evaluación de eficacia visual',
+    description:
+      'Evaluación completa de todas las habilidades visuales: refracción, oculomotricidad, acomodación, vergencias y estereopsis. Un análisis profundo de tu sistema visual.',
+    icon: '🔬',
     duration: '60 minutos',
   },
   {
-    id: 'low-vision-rehabilitation',
-    title: 'Rehabilitación de Baja Visión',
+    id: 'child-exam',
+    title: 'Cita Examen Infantil',
     description:
-      'Programa integral de rehabilitación para maximizar el uso de la visión residual y aprender técnicas de adaptación para mantener la independencia.',
-    icon: '🔍',
-    duration: '90 minutos',
+      'Examen especializado para niños que evalúa el desarrollo visual según la edad. Detectamos ojo vago, estrabismo y problemas de aprendizaje relacionados con la visión.',
+    icon: '🧸',
+    duration: '60 minutos',
+  },
+  {
+    id: 'contact-lens',
+    title: 'Cita Contactología',
+    description:
+      'Examen refractivo completo más evaluación de características oculares para la adaptación perfecta de lentes de contacto según tus necesidades.',
+    icon: '👁️',
+    duration: '60 minutos',
+  },
+  {
+    id: 'sports-vision',
+    title: 'Cita Visión Deportiva',
+    description:
+      'Examen especializado para deportistas que buscan optimizar su rendimiento visual. Evaluamos y entrenamos las habilidades visuales específicas para tu deporte.',
+    icon: '🏃',
+    duration: '60 minutos',
   },
 ];
 
@@ -50,7 +74,7 @@ export default function BookAppointment() {
   const handleContinue = () => {
     if (selectedType) {
       // Navigate to step 2 with the selected appointment type
-      navigate(`/book/step2?type=${selectedType}`);
+      navigate(`/cita/centro?type=${selectedType}`);
     }
   };
 
@@ -82,14 +106,13 @@ export default function BookAppointment() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Progress Indicator */}
         <div className="mb-8">
-          <ProgressIndicator currentStep={1} totalSteps={4} />
+          <ProgressIndicator currentStep={1} totalSteps={5} />
           <div className="text-center mt-4">
             <Text as="h2" variant="heading-3" className="text-gray-900">
-              Selecciona el tipo de apoyo
+              Selecciona el tipo de cita
             </Text>
             <Text variant="body-md" colour="light" className="mt-2">
-              Elige el tipo de apoyo mental relacionado con la salud visual que
-              necesitas
+              Elige el tipo de servicio visual que necesitas
             </Text>
           </div>
         </div>

@@ -3,22 +3,31 @@ import { Link, useNavigate, useSearchParams } from 'react-router';
 import ProgressIndicator from '../../components/progress-indicator';
 
 const appointmentTypes = {
-  'visual-stress': 'Apoyo para Estrés Visual',
-  'vision-loss-support': 'Apoyo por Pérdida de Visión',
-  'low-vision-rehabilitation': 'Rehabilitación de Baja Visión',
+  'phone-consultation': 'Cita telefónica',
+  'refraction-exam': 'Cita refracción',
+  'visual-efficiency-eval': 'Cita Evaluación de eficacia visual',
+  'child-exam': 'Cita Examen Infantil',
+  'contact-lens': 'Cita Contactología',
+  'sports-vision': 'Cita Visión Deportiva',
 };
 
 export default function ContactDetails() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const appointmentType = searchParams.get('type') || '';
+  const location = searchParams.get('location') || '';
   const dateParam = searchParams.get('date');
-  const time = searchParams.get('time') || '';
+  const period = searchParams.get('period') || '';
 
   const [name, setName] = useState('');
+  const [age, setAge] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [observations, setObservations] = useState('');
   const [nameError, setNameError] = useState('');
+  const [ageError, setAgeError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const selectedDate = dateParam ? new Date(dateParam) : null;
 
@@ -60,6 +69,33 @@ export default function ContactDetails() {
     return true;
   };
 
+  const validateAge = (value: string) => {
+    if (!value.trim()) {
+      setAgeError('La edad es requerida');
+      return false;
+    }
+    const age = parseInt(value);
+    if (isNaN(age) || age < 0 || age > 120) {
+      setAgeError('Introduce una edad válida');
+      return false;
+    }
+    setAgeError('');
+    return true;
+  };
+
+  const validateEmail = (value: string) => {
+    if (!value.trim()) {
+      setEmailError('El email es requerido');
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setEmailError('Introduce un email válido');
+      return false;
+    }
+    setEmailError('');
+    return true;
+  };
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setName(value);
@@ -76,22 +112,52 @@ export default function ContactDetails() {
     }
   };
 
-  const handleContinue = () => {
-    const isNameValid = validateName(name);
-    const isPhoneValid = validatePhone(phone);
-
-    if (isNameValid && isPhoneValid) {
-      const params = new URLSearchParams();
-      params.set('type', appointmentType);
-      params.set('date', dateParam || '');
-      params.set('time', time);
-      params.set('name', name.trim());
-      params.set('phone', phone.replace(/\s/g, ''));
-      navigate(`/book/step4?${params.toString()}`);
+  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setAge(value);
+    if (ageError) {
+      validateAge(value);
     }
   };
 
-  const canContinue = name.trim() && phone.trim() && !nameError && !phoneError;
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (emailError) {
+      validateEmail(value);
+    }
+  };
+
+  const handleContinue = () => {
+    const isNameValid = validateName(name);
+    const isAgeValid = validateAge(age);
+    const isPhoneValid = validatePhone(phone);
+    const isEmailValid = validateEmail(email);
+
+    if (isNameValid && isAgeValid && isPhoneValid && isEmailValid) {
+      const params = new URLSearchParams();
+      params.set('type', appointmentType);
+      params.set('location', location);
+      params.set('date', dateParam || '');
+      params.set('period', period);
+      params.set('name', name.trim());
+      params.set('age', age.trim());
+      params.set('phone', phone.replace(/\s/g, ''));
+      params.set('email', email.trim());
+      params.set('observations', observations.trim());
+      navigate(`/cita/confirmacion?${params.toString()}`);
+    }
+  };
+
+  const canContinue = 
+    name.trim() && 
+    age.trim() && 
+    phone.trim() && 
+    email.trim() &&
+    !nameError && 
+    !ageError && 
+    !phoneError &&
+    !emailError;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -100,7 +166,7 @@ export default function ContactDetails() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link
-              to={`/book/step2?type=${appointmentType}`}
+              to={`/cita/horario?type=${appointmentType}&location=${location}`}
               className="text-blue-600 hover:text-blue-800 flex items-center gap-2 transition-colors"
             >
               ← Volver
@@ -119,7 +185,7 @@ export default function ContactDetails() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Progress Indicator */}
         <div className="mb-8">
-          <ProgressIndicator currentStep={3} totalSteps={4} />
+          <ProgressIndicator currentStep={4} totalSteps={5} />
           <div className="text-center mt-4">
             <h2 className="text-2xl font-bold text-gray-900">
               Datos de contacto
@@ -151,7 +217,7 @@ export default function ContactDetails() {
               </p>
             )}
             <p>
-              <span className="font-medium">Hora:</span> {time}
+              <span className="font-medium">Hora:</span> {period === 'morning' ? 'Mañana (9:00-12:00)' : 'Tarde (17:00-20:00)'}
             </p>
           </div>
         </div>
@@ -215,6 +281,74 @@ export default function ContactDetails() {
                   Introduce un número de móvil español (9 dígitos)
                 </p>
               </div>
+
+              {/* Age Field */}
+              <div>
+                <label
+                  htmlFor="age"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Edad del paciente *
+                </label>
+                <input
+                  type="number"
+                  id="age"
+                  value={age}
+                  onChange={handleAgeChange}
+                  onBlur={() => validateAge(age)}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                    ageError ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Edad"
+                  min="0"
+                  max="120"
+                />
+                {ageError && (
+                  <p className="mt-1 text-sm text-red-600">{ageError}</p>
+                )}
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  onBlur={() => validateEmail(email)}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                    emailError ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="tu@email.com"
+                />
+                {emailError && (
+                  <p className="mt-1 text-sm text-red-600">{emailError}</p>
+                )}
+              </div>
+
+              {/* Observations Field */}
+              <div>
+                <label
+                  htmlFor="observations"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Observaciones (opcional)
+                </label>
+                <textarea
+                  id="observations"
+                  value={observations}
+                  onChange={(e) => setObservations(e.target.value)}
+                  rows={3}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                  placeholder="Cuéntanos cualquier información adicional que consideres relevante para tu cita..."
+                />
+              </div>
             </div>
           </form>
         </div>
@@ -222,7 +356,7 @@ export default function ContactDetails() {
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-8">
           <Link
-            to={`/book/step2?type=${appointmentType}`}
+            to={`/cita/horario?type=${appointmentType}&location=${location}`}
             className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
           >
             Volver
