@@ -1,3 +1,5 @@
+import YouTubeFacade from '../../../components/youtube-facade';
+
 interface VideoAboutProps {
   title: string;
   description: string;
@@ -15,13 +17,10 @@ export default function VideoAbout({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Video */}
           <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}`}
+            <YouTubeFacade
+              videoId={videoId}
               title={title}
               className="w-full h-full"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
             />
           </div>
 
