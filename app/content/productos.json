@@ -1,0 +1,122 @@
+{
+  "title": "Productos",
+  "description": "Descubre nuestra amplia gama de productos ópticos de alta calidad",
+  "categories": [
+    {
+      "id": "gafas-sol",
+      "name": "Gafas de Sol",
+      "description": "Protección y estilo para tus ojos",
+      "image": "/images/productos/gafas-sol-category.jpg"
+    },
+    {
+      "id": "monturas",
+      "name": "Monturas",
+      "description": "Las mejores marcas en monturas graduadas",
+      "image": "/images/productos/monturas-category.jpg"
+    },
+    {
+      "id": "lentes-contacto",
+      "name": "Lentes de Contacto",
+      "description": "Comodidad y visión perfecta",
+      "image": "/images/productos/lentes-contacto-category.jpg"
+    }
+  ],
+  "featured": [
+    {
+      "id": "ray-ban-aviator",
+      "name": "Ray-Ban Aviator Classic",
+      "brand": "Ray-Ban",
+      "category": "gafas-sol",
+      "price": 159.00,
+      "originalPrice": 189.00,
+      "image": "/images/productos/ray-ban-aviator.jpg",
+      "images": [
+        "/images/productos/ray-ban-aviator.jpg",
+        "/images/productos/ray-ban-aviator-2.jpg",
+        "/images/productos/ray-ban-aviator-3.jpg"
+      ],
+      "description": "Las icónicas gafas de sol Ray-Ban Aviator son un símbolo intemporal de estilo y funcionalidad. Diseñadas originalmente para pilotos, estas gafas ofrecen protección UV 100% y un estilo clásico que nunca pasa de moda.",
+      "features": [
+        "Protección UV 100%",
+        "Lentes de cristal de alta calidad",
+        "Montura de metal duradero",
+        "Diseño clásico atemporal",
+        "Disponible en múltiples colores"
+      ],
+      "specifications": {
+        "material": "Metal/Cristal",
+        "proteccion": "UV400",
+        "peso": "31g",
+        "ancho": "58mm",
+        "puente": "14mm",
+        "patilla": "135mm"
+      },
+      "inStock": true,
+      "stock": 15
+    },
+    {
+      "id": "oakley-holbrook",
+      "name": "Oakley Holbrook",
+      "brand": "Oakley",
+      "category": "gafas-sol",
+      "price": 129.00,
+      "originalPrice": 149.00,
+      "image": "/images/productos/oakley-holbrook.jpg",
+      "images": [
+        "/images/productos/oakley-holbrook.jpg",
+        "/images/productos/oakley-holbrook-2.jpg",
+        "/images/productos/oakley-holbrook-3.jpg"
+      ],
+      "description": "Las Oakley Holbrook combinan el estilo retro con la tecnología moderna. Perfectas para deportes y uso diario, ofrecen claridad óptica superior y resistencia excepcional.",
+      "features": [
+        "Lentes Prizm para mayor contraste",
+        "Montura O Matter ligera",
+        "Protección UV 100%",
+        "Resistente a impactos",
+        "Diseño deportivo-casual"
+      ],
+      "specifications": {
+        "material": "O Matter/Prizm",
+        "proteccion": "UV400",
+        "peso": "27g",
+        "ancho": "56mm",
+        "puente": "18mm",
+        "patilla": "137mm"
+      },
+      "inStock": true,
+      "stock": 8
+    },
+    {
+      "id": "persol-po3019s",
+      "name": "Persol PO3019S",
+      "brand": "Persol",
+      "category": "gafas-sol",
+      "price": 245.00,
+      "originalPrice": 275.00,
+      "image": "/images/productos/persol-po3019s.jpg",
+      "images": [
+        "/images/productos/persol-po3019s.jpg",
+        "/images/productos/persol-po3019s-2.jpg",
+        "/images/productos/persol-po3019s-3.jpg"
+      ],
+      "description": "Las Persol PO3019S representan la elegancia italiana en su máxima expresión. Con su distintiva flecha y cristales de calidad superior, son la elección perfecta para quienes buscan distinción y calidad.",
+      "features": [
+        "Cristales de calidad superior",
+        "Distintiva flecha Persol",
+        "Montura de acetato italiano",
+        "Protección UV 100%",
+        "Estilo elegante y sofisticado"
+      ],
+      "specifications": {
+        "material": "Acetato/Cristal",
+        "proteccion": "UV400",
+        "peso": "35g",
+        "ancho": "54mm",
+        "puente": "19mm",
+        "patilla": "140mm"
+      },
+      "inStock": true,
+      "stock": 5
+    }
+  ]
+}
