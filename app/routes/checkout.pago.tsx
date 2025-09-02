@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { Text } from '../ui/components/text';
 import { Button } from '../ui/components/button';
-import { getRedsysConfig, generateRedsysSignature } from '~/utils/redsys';
+import { getRedsysConfig, generateRedsysSignature, createMerchantParameters } from '~/utils/redsys';
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,43 +14,70 @@ export const meta: MetaFunction = () => {
 };
 
 export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const orderDataStr = formData.get('orderData') as string;
-  
-  if (!orderDataStr) {
-    throw new Error('No order data provided');
-  }
-
-  const orderData = JSON.parse(orderDataStr);
-  const redsysConfig = getRedsysConfig();
-  const order = `OP${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase();
-  const amount = Math.round(orderData.total * 100); // Amount in cents
-
-  // Create merchant parameters
-  const merchantParameters = btoa(JSON.stringify({
-    DS_MERCHANT_AMOUNT: amount,
-    DS_MERCHANT_ORDER: order,
-    DS_MERCHANT_MERCHANTCODE: redsysConfig.merchantCode,
-    DS_MERCHANT_CURRENCY: redsysConfig.currency,
-    DS_MERCHANT_TRANSACTIONTYPE: redsysConfig.transactionType,
-    DS_MERCHANT_TERMINAL: redsysConfig.terminal,
-    DS_MERCHANT_MERCHANTURL: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout/confirmacion`,
-    DS_MERCHANT_URLOK: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout/confirmacion`,
-    DS_MERCHANT_URLKO: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout`,
-  }));
-
-  // Generate proper Redsys signature on the server
-  const signature = generateRedsysSignature(merchantParameters, order, redsysConfig.secretKey);
-
-  // Return the form data for client-side submission
-  return {
-    redsysEndpoint: redsysConfig.endpoint,
-    formParams: {
-      Ds_SignatureVersion: 'HMAC_SHA256_V1',
-      Ds_MerchantParameters: merchantParameters,
-      Ds_Signature: signature,
+  try {
+    const formData = await request.formData();
+    const orderDataStr = formData.get('orderData') as string;
+    
+    console.log('Action called with order data:', orderDataStr);
+    
+    if (!orderDataStr) {
+      throw new Error('No order data provided');
     }
-  };
+
+    const orderData = JSON.parse(orderDataStr);
+    const redsysConfig = getRedsysConfig();
+    
+    console.log('Redsys config:', { 
+      merchantCode: redsysConfig.merchantCode,
+      terminal: redsysConfig.terminal,
+      currency: redsysConfig.currency,
+      endpoint: redsysConfig.endpoint,
+      hasSecretKey: !!redsysConfig.secretKey
+    });
+    
+    const order = `OP${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase();
+    const amount = Math.round(orderData.total * 100); // Amount in cents
+    
+    console.log('Generated order:', order, 'Amount:', amount);
+
+    // Create merchant parameters with proper URL-safe Base64 encoding
+    const merchantParameters = createMerchantParameters({
+      DS_MERCHANT_AMOUNT: amount,
+      DS_MERCHANT_ORDER: order,
+      DS_MERCHANT_MERCHANTCODE: redsysConfig.merchantCode,
+      DS_MERCHANT_CURRENCY: redsysConfig.currency,
+      DS_MERCHANT_TRANSACTIONTYPE: redsysConfig.transactionType,
+      DS_MERCHANT_TERMINAL: redsysConfig.terminal,
+      DS_MERCHANT_MERCHANTURL: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout/confirmacion`,
+      DS_MERCHANT_URLOK: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout/confirmacion`,
+      DS_MERCHANT_URLKO: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout`,
+    });
+
+    console.log('Merchant parameters:', merchantParameters);
+
+    // Generate proper Redsys signature on the server
+    const signature = generateRedsysSignature(merchantParameters, order, redsysConfig.secretKey);
+    
+    console.log('Generated signature:', signature);
+
+    // Return the form data for client-side submission
+    return {
+      redsysEndpoint: redsysConfig.endpoint,
+      formParams: {
+        Ds_SignatureVersion: 'HMAC_SHA256_V1',
+        Ds_MerchantParameters: merchantParameters,
+        Ds_Signature: signature,
+      }
+    };
+  } catch (error) {
+    console.error('Action error:', error);
+    throw new Response(`Error processing payment: ${error instanceof Error ? error.message : 'Unknown error'}`, { 
+      status: 500,
+      headers: {
+        'Content-Type': 'text/plain'
+      }
+    });
+  }
 }
 
 export async function loader() {
@@ -140,20 +167,29 @@ function PagoPage({ merchant: _merchant, order: _order, redsysEndpoint: _redsysE
     setIsRedirecting(true);
     
     try {
+      console.log('Starting payment process with order data:', orderData);
+      
       // Send order data to server to generate signature
       const formData = new FormData();
       formData.append('orderData', JSON.stringify(orderData));
       
+      console.log('Sending request to /checkout/pago');
       const response = await fetch('/checkout/pago', {
         method: 'POST',
         body: formData,
       });
       
+      console.log('Response status:', response.status, response.statusText);
+      
       if (!response.ok) {
-        throw new Error('Failed to generate payment form');
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`Failed to generate payment form: ${response.status} - ${errorText}`);
       }
       
       const { redsysEndpoint: endpoint, formParams } = await response.json();
+      console.log('Received form params:', formParams);
+      console.log('Using endpoint:', endpoint);
       
       // Create a form to submit to Redsys with server-generated parameters
       const form = document.createElement('form');
@@ -168,14 +204,16 @@ function PagoPage({ merchant: _merchant, order: _order, redsysEndpoint: _redsysE
         input.name = key;
         input.value = value as string;
         form.appendChild(input);
+        console.log(`Adding form field: ${key} = ${value}`);
       });
 
       document.body.appendChild(form);
+      console.log('Submitting form to Redsys');
       form.submit();
     } catch (error) {
       console.error('Payment error:', error);
       setIsRedirecting(false);
-      // You might want to show an error message to the user here
+      alert(`Error al procesar el pago: ${error instanceof Error ? error.message : 'Error desconocido'}`);
     }
   };
 
