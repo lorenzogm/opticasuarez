@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { Text } from '../ui/components/text';
 import { Button } from '../ui/components/button';
+import { getRedsysConfig, generateRedsysSignature } from '~/utils/redsys';
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,28 +14,22 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
-  // In a real app, this order data would come from your database
-  // For now, we'll create a dummy order structure that the client can use
-  
-  const merchant = {
-    code: '999008881', // Test merchant code
-    terminal: '001',
-    currency: '978', // EUR
-    transactionType: '0', // Authorization
-    url: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout/confirmacion`,
-  };
-
+  const redsysConfig = getRedsysConfig();
   const order = `OP${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase();
 
-  // In a real implementation, you would:
-  // 1. Generate the merchant signature using your secret key
-  // 2. Store the order in your database
-  // 3. Create proper security parameters
-  
+  const merchant = {
+    code: redsysConfig.merchantCode,
+    terminal: redsysConfig.terminal,
+    currency: redsysConfig.currency,
+    transactionType: redsysConfig.transactionType,
+    url: `${process.env.BASE_URL || 'http://localhost:5173'}/checkout/confirmacion`,
+    secretKey: redsysConfig.secretKey,
+  };
+
   return {
     merchant,
     order,
-    redsysEndpoint: 'https://sis-t.redsys.es:25443/sis/realizarPago', // Test environment
+    redsysEndpoint: redsysConfig.endpoint,
   };
 }
 
@@ -67,6 +62,7 @@ interface Merchant {
   currency: string;
   transactionType: string;
   url: string;
+  secretKey: string;
 }
 
 interface PagoPageProps {
@@ -118,6 +114,9 @@ function PagoPage({ merchant, order, redsysEndpoint }: PagoPageProps) {
       DS_MERCHANT_URLKO: `${window.location.origin}/checkout`,
     }));
 
+    // Generate proper Redsys signature
+    const signature = generateRedsysSignature(merchantParameters, order, merchant.secretKey);
+
     // Create a form to submit to Redsys
     const form = document.createElement('form');
     form.method = 'POST';
@@ -128,7 +127,7 @@ function PagoPage({ merchant, order, redsysEndpoint }: PagoPageProps) {
     const params = {
       Ds_SignatureVersion: 'HMAC_SHA256_V1',
       Ds_MerchantParameters: merchantParameters,
-      Ds_Signature: 'DEMO_SIGNATURE', // In production, generate proper signature
+      Ds_Signature: signature,
     };
 
     Object.entries(params).forEach(([key, value]) => {
@@ -143,18 +142,7 @@ function PagoPage({ merchant, order, redsysEndpoint }: PagoPageProps) {
     form.submit();
   };
 
-  const handleDemoPayment = () => {
-    // For demo purposes, simulate successful payment
-    alert('Demo: Pago completado exitosamente');
-    
-    // Clear the cart and redirect to confirmation
-    localStorage.removeItem('current-order');
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('optica-cart');
-    }
-    
-    navigate('/checkout/confirmacion?status=success&order=' + order);
-  };
+
 
   // Show loading state while order data loads
   if (!orderData) {
@@ -273,34 +261,6 @@ function PagoPage({ merchant, order, redsysEndpoint }: PagoPageProps) {
                   size="lg"
                 >
                   {isRedirecting ? 'Redirigiendo...' : `Pagar €${orderData.total.toFixed(2)}`}
-                </Button>
-              </div>
-
-              {/* Demo Payment for Testing */}
-              <div className="border border-yellow-200 rounded-lg p-4 bg-yellow-50">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="bg-yellow-100 p-2 rounded">
-                    <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <Text variant="body-md" className="font-medium text-yellow-800">
-                      Pago de Demostración
-                    </Text>
-                    <Text variant="body-sm" className="text-yellow-700">
-                      Solo para fines de demostración
-                    </Text>
-                  </div>
-                </div>
-
-                <Button 
-                  onClick={handleDemoPayment}
-                  variant="secondary"
-                  className="w-full border-yellow-300 text-yellow-800 hover:bg-yellow-100"
-                  size="lg"
-                >
-                  Simular Pago Exitoso (Demo)
                 </Button>
               </div>
             </div>
