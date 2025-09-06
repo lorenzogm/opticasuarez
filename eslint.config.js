@@ -58,6 +58,6 @@ export default [
     },
   },
   {
-    ignores: ['node_modules/**', 'build/**', '.react-router/**'],
+    ignores: ['node_modules/**', 'build/**', '.react-router/**', 'playwright-report/**', 'test-results/**'],
   },
 ];
