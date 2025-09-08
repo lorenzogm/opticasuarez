@@ -21,6 +21,21 @@ export function meta() {
       name: 'keywords',
       content: generateMetaKeywords(contactologiaKeywords),
     },
+    {
+      property: 'og:title',
+      content: 'Contactología | Óptica Suárez - Especialistas en lentes de contacto',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Descubre nuestros servicios de contactología en Óptica Suárez. Especialistas en lentes de contacto, adaptación personalizada y seguimiento profesional en Jaén.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://opticasuarezjaen.es/contactologia',
+    },
+    { name: 'robots', content: 'index, follow' },
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/contactologia' },
   ];
 }
 

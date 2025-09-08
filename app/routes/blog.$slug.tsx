@@ -14,6 +14,20 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
   return [
     { title: `${data.post.title} - Óptica Suárez` },
     { name: 'description', content: data.post.excerpt },
+    {
+      property: 'og:title',
+      content: `${data.post.title} - Óptica Suárez`,
+    },
+    {
+      property: 'og:description',
+      content: data.post.excerpt,
+    },
+    {
+      property: 'og:url',
+      content: `https://opticasuarezjaen.es/blog/${data.post.slug}`,
+    },
+    { name: 'robots', content: 'index, follow' },
+    { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${data.post.slug}` },
   ];
 }
 
