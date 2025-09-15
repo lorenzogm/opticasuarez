@@ -23,8 +23,26 @@ export default function Image({
 
   // Generate responsive image sources
   const generateWebPSources = (basePath: string) => {
+    // For homepage hero images, create multiple responsive sizes
+    if (basePath.includes('/homepage/hero/')) {
+      return [
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}-800.webp 800w`,
+        `${basePath}.webp 1200w`,
+      ].join(', ');
+    }
     // For homepage services and locations, create multiple responsive sizes
     if (basePath.includes('/homepage/services/') || basePath.includes('/homepage/locations/')) {
+      return [
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}-800.webp 800w`,
+        `${basePath}.webp 1200w`,
+      ].join(', ');
+    }
+    // For homepage news background, create multiple responsive sizes
+    if (basePath.includes('/homepage/news/')) {
       return [
         `${basePath}-320.webp 320w`,
         `${basePath}-640.webp 640w`,
@@ -84,6 +102,12 @@ export default function Image({
   
   // Default sizes for responsive images
   const defaultSizes = sizes || (() => {
+    if (basePath.includes('/homepage/hero/')) {
+      return '100vw';
+    }
+    if (basePath.includes('/homepage/news/')) {
+      return '100vw';
+    }
     if (basePath.includes('/homepage/services/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
