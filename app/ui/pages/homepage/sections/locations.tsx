@@ -12,6 +12,7 @@ interface LocationItem {
   name: string;
   image: string;
   address: string;
+  mapUrl: string;
   schedule: LocationSchedule;
   phone: string;
   phoneUrl: string;
@@ -32,15 +33,19 @@ export default function Locations({ title, locations }: LocationsProps) {
           {title}
         </h2>
 
-        <div className="space-y-12">
+        <div className="space-y-16">
           {locations.map((location, index) => (
             <div
               key={index}
               className="bg-white rounded-lg shadow-lg overflow-hidden"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 items-center ${
+                index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+              }`}>
                 {/* Image */}
-                <div className="aspect-video lg:aspect-square">
+                <div className={`aspect-video lg:aspect-square ${
+                  index % 2 === 1 ? 'lg:col-start-2' : ''
+                }`}>
                   <Image
                     src={location.image}
                     alt={location.name}
@@ -49,13 +54,15 @@ export default function Locations({ title, locations }: LocationsProps) {
                 </div>
 
                 {/* Content */}
-                <div className="p-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className={`p-8 lg:p-12 flex flex-col justify-center ${
+                  index % 2 === 1 ? 'lg:col-start-1' : ''
+                }`}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Location */}
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 mb-4">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="w-6 h-6 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -65,18 +72,25 @@ export default function Locations({ title, locations }: LocationsProps) {
                             clipRule="evenodd"
                           />
                         </svg>
-                        <h3 className="text-lg font-bold text-gray-900 uppercase">
+                        <h3 className="text-xl font-bold text-gray-900 uppercase">
                           UBICACIÓN
                         </h3>
                       </div>
-                      <p className="text-gray-700">{location.address}</p>
+                      <a
+                        href={location.mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-700 hover:text-blue-600 transition-colors duration-200 text-lg leading-relaxed block"
+                      >
+                        {location.address}
+                      </a>
                     </div>
 
                     {/* Schedule */}
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 mb-4">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="w-6 h-6 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -86,11 +100,11 @@ export default function Locations({ title, locations }: LocationsProps) {
                             clipRule="evenodd"
                           />
                         </svg>
-                        <h3 className="text-lg font-bold text-gray-900 uppercase">
+                        <h3 className="text-xl font-bold text-gray-900 uppercase">
                           HORARIOS
                         </h3>
                       </div>
-                      <div className="space-y-1 text-gray-700">
+                      <div className="space-y-2 text-gray-700 text-lg leading-relaxed">
                         <div className="font-medium">
                           {location.schedule.weekdays}
                         </div>
@@ -103,45 +117,45 @@ export default function Locations({ title, locations }: LocationsProps) {
                     </div>
 
                     {/* Contact */}
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 mb-4">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="w-6 h-6 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
                           <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                         </svg>
-                        <h3 className="text-lg font-bold text-gray-900 uppercase">
+                        <h3 className="text-xl font-bold text-gray-900 uppercase">
                           CONTACTO
                         </h3>
                       </div>
                       <a
                         href={location.phoneUrl}
-                        className="text-blue-600 hover:text-blue-800 font-medium"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-lg transition-colors duration-200"
                       >
                         {location.phone}
                       </a>
                     </div>
 
                     {/* Email */}
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 mb-4">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="w-6 h-6 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
                           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                           <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                         </svg>
-                        <h3 className="text-lg font-bold text-gray-900 uppercase">
+                        <h3 className="text-xl font-bold text-gray-900 uppercase">
                           EMAIL
                         </h3>
                       </div>
                       <Link
                         to={location.contactUrl}
-                        className="text-blue-600 hover:text-blue-800 font-medium"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-lg transition-colors duration-200"
                       >
                         {location.email}
                       </Link>
