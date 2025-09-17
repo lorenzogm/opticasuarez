@@ -20,10 +20,6 @@ export function meta() {
     },
     { name: 'author', content: 'Óptica Suárez' },
     {
-      name: 'seobox-verification',
-      content: '8823852fc2a5f2a72beb7fccc9121540',
-    },
-    {
       property: 'og:title',
       content: 'Óptica Suárez, desde 1940 al cuidado de tu visión.',
     },
