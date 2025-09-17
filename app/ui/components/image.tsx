@@ -133,23 +133,16 @@ export default function Image({
   })();
 
   return (
-    <picture>
-      {/* WebP sources with responsive sizes */}
-      <source
-        srcSet={webpSrcSet}
-        sizes={defaultSizes}
-        type="image/webp"
-      />
-      {/* Fallback to original format */}
-      <img
-        src={src}
-        alt={alt}
-        className={className}
-        width={width}
-        height={height}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding="async"
-      />
-    </picture>
+    <img
+      src={`${basePath}.webp`}
+      srcSet={webpSrcSet}
+      sizes={defaultSizes}
+      alt={alt}
+      className={className}
+      width={width}
+      height={height}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+    />
   );
 }

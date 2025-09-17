@@ -32,6 +32,7 @@ export default function News({ title, buttonText, url }: NewsProps) {
             src="/images/homepage/news/news-background.webp"
             alt="Noticias de Óptica Suárez"
             className="h-full w-full object-cover"
+            priority={true}
           />
           {/* Watermark overlay for better text readability */}
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
