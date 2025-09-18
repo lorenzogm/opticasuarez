@@ -73,7 +73,7 @@
         "name": "Óptica Bulevar",
         "image": "/images/homepage/locations/optica-bulevar.webp",
         "address": "C. de Canarias, 6, 23009 Jaén",
-        "mapUrl": "https://maps.google.com/?q=C.+de+Canarias,+6,+23009+Jaén",
+        "mapUrl": "https://maps.app.goo.gl/2G1sP6A3NzBFR9ZJ8",
         "schedule": {
           "weekdays": "Lunes a Viernes",
           "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",
@@ -89,7 +89,7 @@
         "name": "Óptica Centro",
         "image": "/images/homepage/locations/optica-centro.webp",
         "address": "P.º de la Estación, 12, 23003 Jaén",
-        "mapUrl": "https://maps.google.com/?q=P.º+de+la+Estación,+12,+23003+Jaén",
+        "mapUrl": "https://maps.app.goo.gl/akCsZJdQJUhNx6EP8",
         "schedule": {
           "weekdays": "Lunes a Viernes",
           "weekdaysHours": "9:30 a 13:30 y 17:00 a 20:30",

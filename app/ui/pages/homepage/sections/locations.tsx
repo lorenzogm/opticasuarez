@@ -57,6 +57,11 @@ export default function Locations({ title, locations }: LocationsProps) {
                 <div className={`p-8 lg:p-12 flex flex-col justify-center ${
                   index % 2 === 1 ? 'lg:col-start-1' : ''
                 }`}>
+                  {/* Location Name */}
+                  <h3 className="text-2xl font-bold text-blue-900 uppercase mb-6">
+                    {location.name}
+                  </h3>
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Location */}
                     <div className="space-y-3">
