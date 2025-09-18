@@ -1,6 +1,6 @@
 ---
 title: 'Vuelta al cole con buena visión'
-date: '2024-09-17'
+date: '2025-09-17'
 excerpt: 'Prepara a tu hijo para el nuevo curso escolar con un examen visual completo. Descubre por qué es fundamental revisar su visión antes de empezar las clases.'
 author: 'Óptica Suárez'
 categories: ['Visión Pediátrica', 'Salud Visual', 'Educación']
@@ -10,7 +10,7 @@ slug: 'vuelta-cole-buena-vision'
 
 # Vuelta al cole con buena visión
 
-El inicio del curso escolar es el momento perfecto para asegurar que nuestros hijos estén preparados para afrontar los nuevos desafíos académicos. En **Óptica Suárez**, sabemos que una visión óptima es fundamental para el éxito educativo, y por eso recomendamos realizar un [examen visual completo](/examen-visual) antes de que empiecen las clases.
+El inicio del curso escolar es el momento perfecto para asegurar que nuestros hijos estén preparados para afrontar los nuevos desafíos académicos. En [**Óptica Suárez**](http://opticasuarezjaen.es/), sabemos que una visión óptima es fundamental para el éxito educativo, y por eso recomendamos realizar un [examen visual](https://opticasuarezjaen.es/vision-pediatrica) antes de que empiecen las clases.
 
 ## La visión: clave del rendimiento académico
 
@@ -55,7 +55,7 @@ El **estrabismo** no es solo un problema estético. Puede provocar:
 
 ## La importancia del examen visual temprano
 
-En **Óptica Suárez**, llevamos más de 80 años especializándonos en [visión pediátrica](/vision-pediatrica). Nuestros profesionales utilizan técnicas específicas adaptadas a cada edad para evaluar no solo la agudeza visual, sino también:
+En [**Óptica Suárez**](http://opticasuarezjaen.es/), llevamos más de 80 años especializándonos en [visión pediátrica](https://opticasuarezjaen.es/vision-pediatrica). Nuestros profesionales utilizan técnicas específicas adaptadas a cada edad para evaluar no solo la agudeza visual, sino también:
 
 - **Coordinación binocular**
 - **Habilidades de enfoque**
@@ -87,7 +87,7 @@ Es importante prestar atención a estas señales que pueden indicar problemas vi
 
 ## Soluciones personalizadas en Óptica Suárez
 
-Si el examen visual revela algún problema, en Óptica Suárez ofrecemos soluciones adaptadas a cada caso:
+Si el examen visual revela algún problema, en [Óptica Suárez](http://opticasuarezjaen.es/) ofrecemos soluciones adaptadas a cada caso:
 
 ### Gafas infantiles
 
@@ -97,7 +97,7 @@ Si el examen visual revela algún problema, en Óptica Suárez ofrecemos solucio
 
 ### Lentillas para niños
 
-Para algunos casos, las [lentillas](/contactologia) pueden ser una excelente opción, especialmente para:
+Para algunos casos, las [lentillas](https://opticasuarezjaen.es/contactologia) pueden ser una excelente opción, especialmente para:
 
 - Deportes y actividades físicas
 - Corrección de miopía elevada
@@ -105,7 +105,7 @@ Para algunos casos, las [lentillas](/contactologia) pueden ser una excelente opc
 
 ### Terapia visual
 
-En algunos casos, la [terapia visual](/terapia-visual) puede ser necesaria para mejorar las habilidades visuales y optimizar el rendimiento escolar.
+En algunos casos, la [terapia visual](https://opticasuarezjaen.es/terapia-visual) puede ser necesaria para mejorar las habilidades visuales y optimizar el rendimiento escolar.
 
 ## Consejos para cuidar la visión durante el curso
 
@@ -117,10 +117,10 @@ En algunos casos, la [terapia visual](/terapia-visual) puede ser necesaria para 
 
 ## Tu tranquilidad, nuestro compromiso
 
-En **Óptica Suárez**, entendemos la preocupación de los padres por la salud visual de sus hijos. Por eso, ofrecemos un servicio personalizado y cercano, con profesionales especializados en visión infantil que se adaptan a las necesidades de cada niño.
+En [**Óptica Suárez**](http://opticasuarezjaen.es/), entendemos la preocupación de los padres por la salud visual de sus hijos. Por eso, ofrecemos un servicio personalizado y cercano, con profesionales especializados en visión infantil que se adaptan a las necesidades de cada niño.
 
 No esperes a que aparezcan los primeros síntomas o a que las notas bajen. La **prevención** es la mejor herramienta para asegurar un año escolar exitoso.
 
 ---
 
-*¿Quieres asegurar el éxito escolar de tu hijo? [Reserva una cita](/cita) en cualquiera de nuestros dos centros en Jaén y realiza un examen visual completo antes de que empiecen las clases. La visión de tu hijo está en las mejores manos.*
+*¿Quieres asegurar el éxito escolar de tu hijo? [Reserva una cita](https://api.whatsapp.com/send?phone=34953093062&text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita%20para%20un%20examen%20visual%20infantil) en cualquiera de nuestros dos centros en Jaén y realiza un examen visual completo antes de que empiecen las clases. La visión de tu hijo está en las mejores manos.*

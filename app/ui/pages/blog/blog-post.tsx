@@ -33,6 +33,8 @@ function parseMarkdownToHTML(markdown: string): string {
         /\*\*(.+?)\*\*/g,
         '<strong class="font-bold text-gray-900">$1</strong>'
       )
+      // Handle links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline transition-colors">$1</a>')
       // Handle inline images
       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
         const imageSrc = src.startsWith('/') ? `${basePath}${src}` : src;
