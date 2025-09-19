@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { Button } from '../../components/button';
 import Image from '../../components/image';
+import SocialShare from '../../components/social-share';
 import type { BlogPost as BlogPostType } from '../../lib/blog';
 
 interface BlogPostProps {
@@ -74,6 +75,11 @@ function parseMarkdownToHTML(markdown: string): string {
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
+  // Get current URL for sharing
+  const currentUrl = typeof window !== 'undefined' 
+    ? window.location.href 
+    : `https://opticasuarez.com/blog/${post.slug}`;
+
   return (
     <main className="bg-white">
       {/* Hero Section */}
@@ -147,6 +153,13 @@ export default function BlogPost({ post }: BlogPostProps) {
           </article>
         </div>
       </section>
+
+      {/* Social Share */}
+      <SocialShare 
+        title={post.title}
+        url={currentUrl}
+        excerpt={post.excerpt}
+      />
 
       {/* Back to Blog */}
       <section className="bg-gray-50 py-16 px-4 sm:px-6">
