@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import Image from '../../../components/image';
 
 interface NewsProps {
   title: string;
@@ -28,11 +27,11 @@ export default function News({ title, buttonText, url }: NewsProps) {
         }}
       >
         <div className="relative h-[120%] w-full">
-          <Image
+          <img
             src="/images/homepage/news/news-background.webp"
             alt="Noticias de Óptica Suárez"
             className="h-full w-full object-cover"
-            priority={true}
+            loading="eager"
           />
           {/* Watermark overlay for better text readability */}
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>

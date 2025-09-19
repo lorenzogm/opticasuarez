@@ -71,14 +71,14 @@ export default function HeroCarousel({
           {images.map((image, index) => (
             <CarouselItem key={index} className="pl-0 h-full">
               <div className="relative h-full w-full">
-                <Image
+                <img
                   src={image.src}
                   alt={image.alt}
                   className="h-full w-full object-cover"
-                  priority={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
                 {/* Overlay for better text readability */}
-                <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
               </div>
             </CarouselItem>
           ))}
