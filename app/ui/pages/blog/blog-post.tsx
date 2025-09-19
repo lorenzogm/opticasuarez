@@ -34,10 +34,16 @@ function parseMarkdownToHTML(markdown: string): string {
         /\*\*(.+?)\*\*/g,
         '<strong class="font-bold text-gray-900">$1</strong>'
       )
-      // Handle inline images
+      // Handle inline images first
       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
         const imageSrc = src.startsWith('/') ? `${basePath}${src}` : src;
         return `<div class="my-8"><img src="${imageSrc}" alt="${alt}" class="w-full h-64 object-cover rounded-lg shadow-lg mx-auto" /></div>`;
+      })
+      // Handle links (exclude image patterns by using a more specific pattern)
+      .replace(/(?:^|[^!])\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+        // If the match starts with a character other than !, preserve that character
+        const prefix = match.charAt(0) === '[' ? '' : match.charAt(0);
+        return `${prefix}<a href="${url}" class="text-blue-600 hover:text-blue-800 underline transition-colors">${text}</a>`;
       })
       .replace(/^- (.+)$/gm, '<li class="mb-2 text-gray-700">$1</li>')
       .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
