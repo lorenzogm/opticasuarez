@@ -1,4 +1,4 @@
-import HeroSlider from '../../../components/hero-slider';
+import HeroCarousel from '../../../components/hero-carousel';
 
 interface HeroProps {
   title: string;
@@ -37,5 +37,5 @@ export default function Hero({
     },
   ];
 
-  return <HeroSlider images={heroImages} cta={cta} />;
+  return <HeroCarousel images={heroImages} cta={cta} />;
 }
