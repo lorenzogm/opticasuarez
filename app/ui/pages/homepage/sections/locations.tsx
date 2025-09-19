@@ -58,7 +58,7 @@ export default function Locations({ title, locations }: LocationsProps) {
                   index % 2 === 1 ? 'lg:col-start-1' : ''
                 }`}>
                   {/* Location Name */}
-                  <h3 className="text-2xl font-bold text-blue-900 uppercase mb-6">
+                  <h3 className="text-3xl font-bold text-blue-900 uppercase mb-6 text-center">
                     {location.name}
                   </h3>
                   
