@@ -6,6 +6,7 @@ interface ServiceGridItem {
   description: string;
   url: string;
   image: string;
+  alt?: string;
 }
 
 interface ServicesGridProps {
@@ -23,7 +24,7 @@ export default function ServicesGrid({ items }: ServicesGridProps) {
                 <figure className="mb-4 overflow-hidden rounded-lg">
                   <Image
                     src={item.image}
-                    alt={item.description}
+                    alt={item.alt || item.description}
                     className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </figure>

@@ -11,31 +11,36 @@
         "title": "VISIÓN BINOCULAR",
         "description": "En nuestro centro de Optometría evaluamos todas las habilidades visuales como Agudeza Visual, acomodación, vergencias o estereopsis entre otros.",
         "url": "/examen-visual",
-        "image": "/images/homepage/services/vision-binocular.webp"
+        "image": "/images/homepage/services/vision-binocular.webp",
+        "alt": "Optometria en Jaén"
       },
       {
         "title": "TERAPIA VISUAL",
         "description": "Diviértete mientras realizas ejercicios personalizados para trabajar ojo vago, estrabismo y problemas de aprendizaje.",
         "url": "/terapia-visual",
-        "image": "/images/control-miopia/terapia-visual.webp"
+        "image": "/images/control-miopia/terapia-visual.webp",
+        "alt": "terapia visual en Jaén"
       },
       {
         "title": "CONTACTOLOGÍA",
         "description": "Adaptación de lentes de contacto personalizadas en casos de Queratocono, Córneas Irregulares y Ortoqueratologia entre otros.",
         "url": "/contactologia",
-        "image": "/images/homepage/services/contactologia.webp"
+        "image": "/images/homepage/services/contactologia.webp",
+        "alt": "Ortok en Jaén"
       },
       {
         "title": "VISIÓN PEDIÁTRICA",
         "description": "¿Preocupada por el neurodesarrollo visual de tu hij@?, en Óptica Suárez comprobamos que tu peque crezca con la mejor visión.",
         "url": "/vision-pediatrica",
-        "image": "/images/homepage/services/vision-pediatrica.webp"
+        "image": "/images/homepage/services/vision-pediatrica.webp",
+        "alt": "Control de miopía en Jaén"
       },
       {
         "title": "CONTROL DE MIOPÍA",
         "description": "Evaluación y asesoramiento de las diferentes técnicas para frenar el avance de la miopía en los peques de la familia.",
         "url": "/control-de-miopia",
-        "image": "/images/control-miopia/control-de-miopia-hero.webp"
+        "image": "/images/control-miopia/control-de-miopia-hero.webp",
+        "alt": "vision infantil en Jaén"
       }
     ]
   },

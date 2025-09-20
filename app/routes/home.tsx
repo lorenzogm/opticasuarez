@@ -8,11 +8,11 @@ export function meta() {
   const homeKeywords = generatePageKeywords('home');
 
   return [
-    { title: 'Óptica Suárez, desde 1940 al cuidado de tu visión.' },
+    { title: 'Óptica Suárez, tu óptica en Jaén. Desde 1940 mirando por ti' },
     {
       name: 'description',
       content:
-        'Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.',
+        'Optometria en Jaén. Más de 80 años haciendo revisión de la vista, terapia visual, control de miopía, lentes de contacto, visión infantil, ojo vago y estrabismo.',
     },
     {
       name: 'keywords',
@@ -21,12 +21,12 @@ export function meta() {
     { name: 'author', content: 'Óptica Suárez' },
     {
       property: 'og:title',
-      content: 'Óptica Suárez, desde 1940 al cuidado de tu visión.',
+      content: 'Óptica Suárez, tu óptica en Jaén. Desde 1940 mirando por ti',
     },
     {
       property: 'og:description',
       content:
-        'Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.',
+        'Optometria en Jaén. Más de 80 años haciendo revisión de la vista, terapia visual, control de miopía, lentes de contacto, visión infantil, ojo vago y estrabismo.',
     },
     { property: 'og:type', content: 'website' },
     {
@@ -40,12 +40,12 @@ export function meta() {
     { name: 'twitter:card', content: 'summary_large_image' },
     {
       name: 'twitter:title',
-      content: 'Óptica Suárez, desde 1940 al cuidado de tu visión.',
+      content: 'Óptica Suárez, tu óptica en Jaén. Desde 1940 mirando por ti',
     },
     {
       name: 'twitter:description',
       content:
-        'Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.',
+        'Optometria en Jaén. Más de 80 años haciendo revisión de la vista, terapia visual, control de miopía, lentes de contacto, visión infantil, ojo vago y estrabismo.',
     },
     { name: 'robots', content: 'index, follow' },
     { rel: 'canonical', href: 'https://opticasuarezjaen.es/' },
