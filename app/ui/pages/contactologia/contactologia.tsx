@@ -1,17 +1,42 @@
 import { Text } from '../../components/text';
 import { Button } from '../../components/button';
+import Image from '../../components/image';
 import content from '../../../content/contactologia.json';
+import { useEffect } from 'react';
 
 export default function Contactologia() {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelector('.parallax-element') as HTMLElement;
+      if (parallax) {
+        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <main>
-      {/* Main heading */}
-      <section className="bg-white py-16 px-4 sm:px-6">
-        <div className="container mx-auto max-w-6xl text-center">
+      {/* Main heading with background image and parallax */}
+      <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+        <div className="absolute inset-0 parallax-element">
+          <Image
+            src="/images/homepage/services/contactologia.webp"
+            alt="Contactología - Lentes de contacto"
+            className="w-full h-full object-cover transform scale-110"
+            priority
+            sizes="100vw"
+          />
+          {/* Watermark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+        <div className="relative container mx-auto max-w-6xl text-center z-10">
           <Text
             as="h1"
             variant="heading-1"
-            className="mb-8 text-gray-900 uppercase tracking-wide"
+            className="mb-8 text-white uppercase tracking-wide drop-shadow-lg"
           >
             {content.mainTitle}
           </Text>
@@ -178,30 +203,6 @@ export default function Contactologia() {
                     {step.description}
                   </Text>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Brands */}
-      <section className="bg-gray-50 py-16 px-4 sm:px-6">
-        <div className="container mx-auto max-w-6xl text-center">
-          <Text as="h2" variant="heading-2" className="mb-6 text-gray-900">
-            {content.brands.title}
-          </Text>
-          <Text as="p" variant="body-lg" className="mb-12 text-gray-600">
-            {content.brands.description}
-          </Text>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
-            {content.brands.logos.map((brand, index) => (
-              <div key={index} className="flex items-center justify-center">
-                <Text
-                  as="span"
-                  className="text-gray-700 px-4 py-2 bg-white rounded-lg shadow-sm"
-                >
-                  {brand.name}
-                </Text>
               </div>
             ))}
           </div>
