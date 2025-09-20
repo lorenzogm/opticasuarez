@@ -52,9 +52,9 @@ export default function Image({
     // For team images, use smaller responsive sizes
     if (basePath.includes('/team/')) {
       return [
-        `${basePath}-200.webp 200w`,
-        `${basePath}-400.webp 400w`,
-        `${basePath}-600.webp 600w`,
+        `${basePath}-320.webp 320w`,
+        `${basePath}-640.webp 640w`,
+        `${basePath}-800.webp 800w`,
         `${basePath}.webp 800w`,
       ].join(', ');
     }
@@ -97,7 +97,7 @@ export default function Image({
       return '(max-width: 640px) 100vw, (max-width: 1024px) 640px, 1000px';
     }
     if (basePath.includes('/team/')) {
-      return '(max-width: 640px) 200px, (max-width: 1024px) 400px, 600px';
+      return '(max-width: 640px) 320px, (max-width: 1024px) 640px, 800px';
     }
     if (basePath.includes('/quienes-somos/timeline/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
