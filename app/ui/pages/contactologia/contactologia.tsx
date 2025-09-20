@@ -29,8 +29,6 @@ export default function Contactologia() {
             priority
             sizes="100vw"
           />
-          {/* Watermark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
         <div className="relative container mx-auto max-w-6xl text-center z-10">
           <Text
