@@ -58,42 +58,44 @@ export default function HeroCarousel({
   const currentImage = images[current - 1] || images[0];
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      <Carousel 
-        setApi={setApi} 
-        className="w-full h-full"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <CarouselContent className="h-full -ml-0">
-          {images.map((image, index) => (
-            <CarouselItem key={index} className="pl-0 h-full">
-              <div className="relative h-full w-full">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="h-full w-full object-cover"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+    <section className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+      <div className="absolute inset-0">
+        <Carousel 
+          setApi={setApi} 
+          className="w-full h-full"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+        >
+          <CarouselContent className="h-full -ml-0">
+            {images.map((image, index) => (
+              <CarouselItem key={index} className="pl-0 h-full">
+                <div className="relative h-full w-full">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="h-full w-full object-cover object-center"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-        {/* Navigation Arrows - Custom styled */}
-        {images.length > 1 && (
-          <>
-            <CarouselPrevious 
-              className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white z-30"
-            />
-            <CarouselNext 
-              className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white z-30"
-            />
-          </>
-        )}
-      </Carousel>
+          {/* Navigation Arrows - Custom styled */}
+          {images.length > 1 && (
+            <>
+              <CarouselPrevious 
+                className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white z-30"
+              />
+              <CarouselNext 
+                className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white z-30"
+              />
+            </>
+          )}
+        </Carousel>
+      </div>
 
       {/* Content Overlay */}
       <div className="absolute inset-0 z-20 flex h-full items-center justify-center pointer-events-none">

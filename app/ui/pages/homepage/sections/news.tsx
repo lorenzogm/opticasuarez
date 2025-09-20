@@ -28,7 +28,7 @@ export default function News({ title, buttonText, url }: NewsProps) {
       >
         <div className="relative h-[120%] w-full">
           <img
-            src="/images/homepage/news/news-background.webp"
+            src="/images/homepage/news/news-background-original.jpg"
             alt="Noticias de Óptica Suárez"
             className="h-full w-full object-cover"
             loading="eager"
