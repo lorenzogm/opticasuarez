@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.opticasuarezjaen.es"
+        }
+      ],
+      "destination": "https://opticasuarezjaen.es/$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/((?!.*\\.).*)$",
