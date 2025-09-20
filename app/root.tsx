@@ -16,6 +16,9 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Pinterest domain verification */}
+        <meta name="p:domain_verify" content="aa1ce7e96c3e34d07a40e64732398337" />
 
         {/* Favicon */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
