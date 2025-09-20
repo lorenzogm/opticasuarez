@@ -77,8 +77,6 @@ export default function HeroCarousel({
                   className="h-full w-full object-cover"
                   loading={index === 0 ? "eager" : "lazy"}
                 />
-                {/* Overlay for better text readability */}
-                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
               </div>
             </CarouselItem>
           ))}

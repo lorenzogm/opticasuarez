@@ -33,14 +33,12 @@ export default function News({ title, buttonText, url }: NewsProps) {
             className="h-full w-full object-cover"
             loading="eager"
           />
-          {/* Watermark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto max-w-4xl text-center">
-        <h3 className="text-2xl sm:text-3xl font-bold mb-8 text-white uppercase tracking-wide drop-shadow-lg">
+        <h3 className="text-2xl sm:text-3xl font-bold mb-8 text-gray-900 uppercase tracking-wide drop-shadow-lg">
           {title}
         </h3>
         <Link
