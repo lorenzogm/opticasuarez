@@ -101,17 +101,17 @@ export default function HeroCarousel({
       <div className="absolute inset-0 z-20 flex h-full items-center justify-center pointer-events-none">
         <div className="container mx-auto max-w-6xl px-4 text-center text-white pointer-events-auto">
           <div className="animate-fade-in-up">
-            <h1 className="mb-4 text-4xl font-bold uppercase tracking-wide drop-shadow-lg sm:text-5xl md:text-6xl">
+            <h1 className="mb-2 text-2xl font-bold uppercase tracking-wide drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
               {currentImage.title}
             </h1>
-            <h2 className="mb-6 text-2xl font-semibold uppercase tracking-wide drop-shadow-lg sm:text-3xl md:text-4xl text-blue-300">
+            <h2 className="mb-3 text-lg font-semibold uppercase tracking-wide drop-shadow-lg sm:text-2xl md:text-3xl lg:text-4xl text-blue-300">
               {currentImage.subtitle}
             </h2>
-            <h3 className="mb-8 text-lg font-medium uppercase tracking-wide drop-shadow-lg sm:text-xl md:text-2xl">
+            <h3 className="mb-4 text-sm font-medium uppercase tracking-wide drop-shadow-lg sm:text-lg md:text-xl lg:text-2xl">
               {currentImage.description}
             </h3>
             {cta && (
-              <button className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 sm:px-6 sm:py-3 sm:text-base md:px-8 md:text-lg">
                 {cta}
               </button>
             )}
