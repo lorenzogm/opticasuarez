@@ -2,7 +2,7 @@
   "mainTitle": "CONTACTOLOGÍA",
   "intro": {
     "title": "Especialistas en Lentes de Contacto",
-    "description": "En Óptica Suárez somos especialistas en contactología, ofreciendo un servicio integral de adaptación, seguimiento y cuidado de lentes de contacto. Nuestro equipo de profesionales te asesorará para encontrar la mejor solución visual según tus necesidades."
+    "description": "En Óptica Suárez somos especialistas en contactología, siendo el centro de referencia de lentillas en Jaén. Ofrecemos un servicio integral de adaptación, seguimiento y cuidado de lentes de contacto. Nuestro equipo de profesionales te asesorará para encontrar la mejor solución visual según tus necesidades."
   },
   "services": {
     "title": "NUESTROS SERVICIOS DE CONTACTOLOGÍA",
@@ -109,28 +109,6 @@
         "step": "4",
         "title": "Seguimiento Continuo",
         "description": "Revisiones periódicas para asegurar el correcto estado de tus ojos y lentes."
-      }
-    ]
-  },
-  "brands": {
-    "title": "MARCAS DE CONFIANZA",
-    "description": "Trabajamos con las mejores marcas del mercado para garantizar la máxima calidad y comodidad.",
-    "logos": [
-      {
-        "name": "Acuvue",
-        "image": "/images/brands/acuvue.webp"
-      },
-      {
-        "name": "Biofinity",
-        "image": "/images/brands/biofinity.webp"
-      },
-      {
-        "name": "Dailies",
-        "image": "/images/brands/dailies.webp"
-      },
-      {
-        "name": "Air Optix",
-        "image": "/images/brands/air-optix.webp"
       }
     ]
   },
