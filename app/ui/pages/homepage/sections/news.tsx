@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
+import Image from '../../../components/image';
 
 interface NewsProps {
   title: string;
@@ -24,13 +25,19 @@ export default function News({ title, buttonText, url }: NewsProps) {
         className="absolute inset-0 will-change-transform"
         style={{
           transform: `translateY(${scrollY * -0.3}px)`,
-          backgroundImage: 'url(/images/homepage/news/news-background-original.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
           height: '120%',
         }}
-      />
+      >
+        <Image
+          src="/images/homepage/news/news-background.webp"
+          alt="Noticias de Óptica Suárez - Escaparate de la óptica"
+          className="h-full w-full object-cover"
+          priority={true}
+          width={1200}
+          height={800}
+          sizes="100vw"
+        />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto max-w-4xl text-center">

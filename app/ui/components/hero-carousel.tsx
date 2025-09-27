@@ -1,6 +1,5 @@
 import * as React from "react"
 import { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './carousel'
-import Image from './image'
 
 interface HeroCarouselProps {
   images: {
@@ -23,14 +22,12 @@ export default function HeroCarousel({
 }: HeroCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
 
   React.useEffect(() => {
     if (!api) {
       return
     }
 
-    setCount(api.scrollSnapList().length)
     setCurrent(api.selectedScrollSnap() + 1)
 
     api.on("select", () => {
