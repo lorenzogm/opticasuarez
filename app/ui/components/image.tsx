@@ -67,8 +67,8 @@ export default function Image({
         `${basePath}.webp 800w`,
       ].join(', ');
     }
-    // For control-miopia and vision-pediatrica images, use standard responsive sizes
-    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
+    // For control-miopia, vision-pediatrica, and examen-visual images, use standard responsive sizes
+    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/') || basePath.includes('/examen-visual/')) {
       return [
         `${basePath}-320.webp 320w`,
         `${basePath}-640.webp 640w`,
@@ -102,7 +102,7 @@ export default function Image({
     if (basePath.includes('/quienes-somos/timeline/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
-    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
+    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/') || basePath.includes('/examen-visual/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
     return '100vw';
