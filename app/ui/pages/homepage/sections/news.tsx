@@ -30,7 +30,7 @@ export default function News({ title, buttonText, url }: NewsProps) {
       >
         <Image
           src="/images/homepage/news/news-background.webp"
-          alt="Noticias de Óptica Suárez - Escaparate de la óptica"
+          alt="Noticias de Óptica Suárez - Niño realizando examen visual con foroptero"
           className="h-full w-full object-cover"
           priority={true}
           width={1200}
