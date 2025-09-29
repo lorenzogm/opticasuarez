@@ -15,11 +15,10 @@ export default function VisualExamHero({
 }: VisualExamHeroProps) {
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const parallaxElement = document.getElementById('parallax-bg');
-      if (parallaxElement) {
-        const speed = 0.5; // Adjust this value to change parallax speed
-        parallaxElement.style.transform = `translateY(${scrolled * speed}px)`;
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelector('.parallax-element') as HTMLElement;
+      if (parallax) {
+        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
       }
     };
 
@@ -28,46 +27,31 @@ export default function VisualExamHero({
   }, []);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax Effect */}
-      <div 
-        id="parallax-bg"
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
-      >
+    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+      <div className="absolute inset-0 parallax-element">
         <Image
           src={backgroundImage}
           alt={title}
-          className="w-full h-full object-cover"
-          priority={true}
+          className="w-full h-full object-cover transform scale-110"
+          priority
+          sizes="100vw"
         />
       </div>
-      
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-40" />
-      
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
+      <div className="relative container mx-auto max-w-6xl text-center z-10">
         <Text
           as="h1"
           variant="heading-1"
-          className="mb-6 text-white uppercase tracking-wide text-shadow-lg"
+          className="mb-8 text-white uppercase tracking-wide drop-shadow-lg"
         >
           {title}
         </Text>
         <Text 
           as="p" 
           variant="body-lg"
-          className="text-white max-w-3xl mx-auto text-shadow-md"
+          className="text-white max-w-3xl mx-auto drop-shadow-lg"
         >
           {subtitle}
         </Text>
-      </div>
-      
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
-        </div>
       </div>
     </section>
   );
