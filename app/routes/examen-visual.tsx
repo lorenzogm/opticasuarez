@@ -8,11 +8,11 @@ export function meta() {
   const examenVisualKeywords = generatePageKeywords('examen-visual');
 
   return [
-    { title: 'Examen Visual | Óptica Suárez - Especialistas en salud visual' },
+    { title: 'Examen Visual en Jaén | Óptica Suárez - Graduación de la vista' },
     {
       name: 'description',
       content:
-        'Examen visual completo en Óptica Suárez. Evaluación profesional de tu salud visual con tecnología avanzada. Agenda tu cita en Jaén.',
+        'Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!',
     },
     {
       name: 'keywords',
@@ -20,12 +20,12 @@ export function meta() {
     },
     {
       property: 'og:title',
-      content: 'Examen Visual | Óptica Suárez - Especialistas en salud visual',
+      content: 'Examen Visual en Jaén | Óptica Suárez - Graduación de la vista',
     },
     {
       property: 'og:description',
       content:
-        'Examen visual completo en Óptica Suárez. Evaluación profesional de tu salud visual con tecnología avanzada. Agenda tu cita en Jaén.',
+        'Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!',
     },
     {
       property: 'og:url',

@@ -4,26 +4,18 @@ import ExamProcess from './sections/exam-process';
 import ExamBenefits from './sections/exam-benefits';
 import BookAppointment from '../../sections/book-appointment';
 import LocationsInfo from '../../sections/locations-info';
+import VisualExamHero from './sections/visual-exam-hero';
 import content from '../../../content/examen-visual.json';
 
 export default function ExamenVisual() {
   return (
     <main>
-      {/* Hero Section */}
-      <section className="bg-white py-20 px-4 sm:px-6">
-        <div className="container mx-auto max-w-6xl text-center">
-          <Text
-            as="h1"
-            variant="heading-1"
-            className="mb-6 text-gray-900 uppercase tracking-wide"
-          >
-            {content.mainTitle}
-          </Text>
-          <Text as="p" className="text-gray-600 max-w-3xl mx-auto">
-            {content.subtitle}
-          </Text>
-        </div>
-      </section>
+      {/* Hero Section with Parallax */}
+      <VisualExamHero
+        title={content.mainTitle}
+        subtitle={content.subtitle}
+        backgroundImage={content.heroImage}
+      />
 
       {/* Introduction */}
       <section className="py-16 px-4 sm:px-6 bg-gray-50">
