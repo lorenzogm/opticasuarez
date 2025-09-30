@@ -6,6 +6,7 @@ interface ImageProps {
   height?: number;
   sizes?: string;
   priority?: boolean;
+  title?: string;
 }
 
 export default function Image({
@@ -16,6 +17,7 @@ export default function Image({
   height,
   sizes,
   priority = false,
+  title,
 }: ImageProps) {
   // Extract file extension and path
   const lastDotIndex = src.lastIndexOf('.');
@@ -125,6 +127,7 @@ export default function Image({
         height={height}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
+        title={title}
       />
     </picture>
   );
