@@ -16,6 +16,13 @@ export default [
   route('terapia-visual', 'routes/terapia-visual.tsx'),
   route('contactologia', 'routes/contactologia.tsx'),
   route('examen-visual', 'routes/examen-visual.tsx'),
+  // Product routes
+  route('productos', 'routes/productos.tsx'),
+  route('productos/:id', 'routes/productos.$id.tsx'),
+  route('carrito', 'routes/carrito.tsx'),
+  route('checkout', 'routes/checkout.tsx'),
+  route('checkout/pago', 'routes/checkout.pago.tsx'),
+  route('checkout/confirmacion', 'routes/checkout.confirmacion.tsx'),
   route('blog', 'routes/blog.tsx'),
   route('blog/:slug', 'routes/blog.$slug.tsx'),
   route('contacto', 'routes/contacto.tsx'),

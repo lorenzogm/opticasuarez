@@ -2,6 +2,7 @@ import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
 import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
 import GoogleTagManager from './ui/components/google-tag-manager';
+import { CartProvider } from './ui/lib/cart-context';
 import {
   WebsiteSchema,
   OrganizationSchema,
@@ -68,8 +69,10 @@ export default function App() {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <GlobalNavigation />
-        <Outlet />
+        <CartProvider>
+          <GlobalNavigation />
+          <Outlet />
+        </CartProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
