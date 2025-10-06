@@ -1,6 +1,6 @@
 ---
 title: 'Neurodesarrollo Visual del Bebé: De la Gestación a los Primeros Años'
-date: '2025-01-15'
+date: '2025-10-06'
 excerpt: 'Descubre cómo se desarrolla la visión del bebé desde el embarazo hasta los primeros años de vida, y cómo podemos ayudar desde la optometría en Jaén.'
 author: 'Óptica Suárez'
 categories: ['Visión Pediátrica', 'Desarrollo Visual', 'Salud Visual']
@@ -128,7 +128,7 @@ La ambliopía es una disminución de la agudeza visual en uno o ambos ojos sin c
 El estrabismo es la desviación de uno o ambos ojos. Puede presentarse desde el nacimiento o desarrollarse durante los primeros años.
 
 **Tipos principales:**
-- Esotropía (ojo desviado hacia dentro)
+- Endotropia (ojo desviado hacia dentro)
 - Exotropía (ojo desviado hacia fuera)
 - Hipertropía/Hipotropía (desviación vertical)
 
