@@ -13,7 +13,7 @@ export function meta() {
     {
       name: 'description',
       content:
-        'En Óptica Suárez Jaén nos ocupamos del cuidado visual de tus hijos con revisiones personalizadas y atención experta en visión infantil.',
+        'Visión Pediátrica y Examen Visual Infantil en Jaén – Óptica Suárez',
     },
     {
       name: 'keywords',
@@ -26,7 +26,7 @@ export function meta() {
     {
       property: 'og:description',
       content:
-        'En Óptica Suárez Jaén nos ocupamos del cuidado visual de tus hijos con revisiones personalizadas y atención experta en visión infantil.',
+        'Visión Pediátrica y Examen Visual Infantil en Jaén – Óptica Suárez',
     },
     {
       property: 'og:url',

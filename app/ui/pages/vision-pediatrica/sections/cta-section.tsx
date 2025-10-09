@@ -19,9 +19,14 @@ export default function CTASection({
   return (
     <section className="bg-blue-900 py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-4xl text-center">
-        <div className="text-3xl font-bold tracking-tight text-white mb-4 uppercase tracking-wide">
+        <Text
+          as="h2"
+          variant="heading-2"
+          colour="white"
+          className="mb-4 uppercase tracking-wide"
+        >
           {title}
-        </div>
+        </Text>
         <div className="text-2xl font-semibold tracking-tight text-white mb-6">
           {subtitle}
         </div>
