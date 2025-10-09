@@ -11,6 +11,7 @@ interface LocationSchedule {
 interface LocationItem {
   name: string;
   image: string;
+  imageTitle?: string;
   address: string;
   mapUrl: string;
   schedule: LocationSchedule;
@@ -49,6 +50,7 @@ export default function Locations({ title, locations }: LocationsProps) {
                   <Image
                     src={location.image}
                     alt={location.name}
+                    title={location.imageTitle}
                     className="w-full h-full object-cover"
                   />
                 </div>

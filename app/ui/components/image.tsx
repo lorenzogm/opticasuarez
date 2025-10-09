@@ -6,6 +6,7 @@ interface ImageProps {
   height?: number;
   sizes?: string;
   priority?: boolean;
+  title?: string;
 }
 
 export default function Image({
@@ -16,6 +17,7 @@ export default function Image({
   height,
   sizes,
   priority = false,
+  title,
 }: ImageProps) {
   // Extract file extension and path
   const lastDotIndex = src.lastIndexOf('.');
@@ -85,8 +87,8 @@ export default function Image({
         `${basePath}.webp 800w`,
       ].join(', ');
     }
-    // For control-miopia and vision-pediatrica images, use standard responsive sizes
-    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
+    // For control-miopia, vision-pediatrica, and examen-visual images, use standard responsive sizes
+    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/') || basePath.includes('/examen-visual/')) {
       return [
         `${basePath}-320.webp 320w`,
         `${basePath}-640.webp 640w`,
@@ -126,23 +128,31 @@ export default function Image({
     if (basePath.includes('/quienes-somos/timeline/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
-    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/')) {
+    if (basePath.includes('/control-miopia/') || basePath.includes('/vision-pediatrica/') || basePath.includes('/examen-visual/')) {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
     }
     return '100vw';
   })();
 
   return (
-    <img
-      src={`${basePath}.webp`}
-      srcSet={webpSrcSet}
-      sizes={defaultSizes}
-      alt={alt}
-      className={className}
-      width={width}
-      height={height}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
-    />
+    <picture>
+      {/* WebP sources with responsive sizes */}
+      <source
+        srcSet={webpSrcSet}
+        sizes={defaultSizes}
+        type="image/webp"
+      />
+      {/* Fallback to original format */}
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        title={title}
+      />
+    </picture>
   );
 }
