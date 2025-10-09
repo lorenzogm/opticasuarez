@@ -1,14 +1,16 @@
 {
   "mainTitle": "VISIÓN PEDIÁTRICA",
   "hero": {
-    "title": "Especialistas en Visión Pediátrica",
+    "title": "Visión pediátrica en Jaén: cuidamos la visión de tus hijos",
     "subtitle": "Cuidamos la salud visual de los más pequeños",
-    "description": "En Óptica Suárez contamos con especialistas en visión pediátrica para garantizar el correcto desarrollo visual de tu hijo. Realizamos exámenes completos y ofrecemos los mejores tratamientos para cada etapa de crecimiento.",
-    "image": "/images/vision-pediatrica/especialistas-vision-pediatrica.webp"
+    "description": "En Óptica Suárez somos especialistas en visión pediátrica en Jaén, garantizando el correcto neurodesarrollo visual de tu hijo. Realizamos exámenes visuales completos y tratamientos adaptados a cada etapa de crecimiento.",
+    "image": "/images/vision-pediatrica/especialistas-vision-pediatrica.webp",
+    "imageTitle": "Visión Infantil en Jaén",
+    "imageAlt": "Visión Infantil en Jaén"
   },
   "introduction": {
     "title": "¿Por qué es importante la visión pediátrica?",
-    "content": "La visión es fundamental para el desarrollo y aprendizaje de los niños. El 80% de la información que recibe un niño es a través de la vista, por lo que es esencial detectar y corregir cualquier problema visual desde temprana edad para evitar dificultades en el aprendizaje y desarrollo social."
+    "content": "La visión es fundamental para el desarrollo y aprendizaje de los niños. El 80% de la información que recibe un niño es a través de la visión, por lo que es esencial detectar y corregir cualquier problema visual desde edad temprana para evitar dificultades en el aprendizaje y neurodesarrollo visual."
   },
   "services": {
     "title": "Nuestros Servicios",
@@ -16,39 +18,54 @@
     "items": [
       {
         "title": "Examen Visual Infantil",
-        "description": "Evaluación completa adaptada a cada edad, desde bebés hasta adolescentes, utilizando técnicas especializadas y juegos visuales.",
+        "description": "Examen visual completo adaptado a cada edad, desde bebés hasta adolescentes, con pruebas dinámicas y técnicas especializadas.",
         "icon": "eye-check",
-        "image": "/images/vision-pediatrica/examen-visual-infantil.webp"
+        "image": "/images/vision-pediatrica/examen-visual-infantil.webp",
+        "imageTitle": "Examen visual en Jaén",
+        "imageAlt": "Examen visual en Jaén",
+        "link": "https://opticasuarezjaen.es/examen-visual"
       },
       {
         "title": "Detección Temprana",
         "description": "Identificamos problemas visuales como ambliopía, estrabismo, miopía, hipermetropía y astigmatismo en etapas iniciales.",
         "icon": "early-detection",
-        "image": "/images/vision-pediatrica/deteccion-temprana.webp"
+        "image": "/images/vision-pediatrica/deteccion-temprana.webp",
+        "imageTitle": "Fondo de ojo en Jaén",
+        "imageAlt": "Fondo de ojo en Jaén"
       },
       {
         "title": "Terapia Visual Pediátrica",
         "description": "Programas de ejercicios visuales diseñados especialmente para niños, mejorando habilidades visuales y perceptuales.",
         "icon": "therapy",
-        "image": "/images/vision-pediatrica/terapia-visual-pediatrica.webp"
+        "image": "/images/vision-pediatrica/terapia-visual-pediatrica.webp",
+        "imageTitle": "Terapia Visual en Jaén",
+        "imageAlt": "Terapia Visual en Jaén",
+        "link": "https://opticasuarezjaen.es/terapia-visual"
       },
       {
         "title": "Gafas Infantiles",
         "description": "Amplio catálogo de monturas resistentes, cómodas y atractivas diseñadas específicamente para niños y adolescentes.",
         "icon": "glasses",
-        "image": "/images/vision-pediatrica/gafas-infantiles.webp"
+        "image": "/images/vision-pediatrica/gafas-infantiles.webp",
+        "imageTitle": "Gafas Infantiles en Jaén",
+        "imageAlt": "Gafas Infantiles en Jaén"
       },
       {
         "title": "Control de Miopía",
         "description": "Tratamientos específicos para controlar y frenar el avance de la miopía en niños, incluyendo ortoqueratología y lentes especiales.",
         "icon": "myopia-control",
-        "image": "/images/vision-pediatrica/control-de-miopia.webp"
+        "image": "/images/vision-pediatrica/control-de-miopia.webp",
+        "imageTitle": "Control de Miopía en Jaén",
+        "imageAlt": "Control de Miopía en Jaén",
+        "link": "https://opticasuarezjaen.es/control-de-miopia"
       },
       {
-        "title": "Seguimiento Personalizado",
+        "title": "Salud Ocular",
         "description": "Control evolutivo periódico adaptado a las necesidades de cada niño, asegurando un desarrollo visual óptimo.",
         "icon": "follow-up",
-        "image": "/images/vision-pediatrica/seguimiento-personalizado.webp"
+        "image": "/images/vision-pediatrica/seguimiento-personalizado.webp",
+        "imageTitle": "Salud Ocular en Jaén",
+        "imageAlt": "Salud Ocular en Jaén"
       }
     ]
   },
@@ -112,9 +129,9 @@
     ]
   },
   "cta": {
-    "title": "Especialistas en Visión Pediátrica",
+    "title": "📞 Pide tu cita para una revisión visual infantil en Jaén",
     "subtitle": "La salud visual de tu hijo es nuestra prioridad",
-    "description": "No esperes a que aparezcan problemas. La detección temprana es clave para un desarrollo visual saludable.",
+    "description": "La visión de tus hijos merece la mejor atención. En Óptica Suárez Jaén te ayudamos a prevenir y tratar cualquier alteración visual desde los primeros años de vida.",
     "buttonText": "Pedir Cita Ahora",
     "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20reservar%20una%20cita%20para%20visión%20pediátrica"
   },

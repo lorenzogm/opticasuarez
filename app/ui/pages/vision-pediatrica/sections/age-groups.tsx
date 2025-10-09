@@ -17,13 +17,9 @@ export default function AgeGroups({ title, subtitle, groups }: AgeGroupsProps) {
     <section className="bg-white py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <Text
-            as="h2"
-            variant="heading-2"
-            className="mb-4 text-gray-900 uppercase tracking-wide"
-          >
+          <div className="text-3xl font-bold tracking-tight mb-4 text-gray-900 uppercase tracking-wide">
             {title}
-          </Text>
+          </div>
           <Text variant="body-lg" className="text-gray-600">
             {subtitle}
           </Text>
@@ -34,9 +30,9 @@ export default function AgeGroups({ title, subtitle, groups }: AgeGroupsProps) {
               key={index}
               className="bg-blue-50 rounded-lg p-6 text-center hover:bg-blue-100 transition-colors"
             >
-              <Text as="h3" variant="heading-3" className="mb-4 text-blue-900">
+              <div className="text-2xl font-semibold tracking-tight mb-4 text-blue-900">
                 {group.title}
-              </Text>
+              </div>
               <Text className="mb-4 text-gray-700 leading-relaxed">
                 {group.description}
               </Text>

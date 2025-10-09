@@ -9,11 +9,11 @@ export function meta() {
   const visionPediatricaKeywords = generatePageKeywords('vision-pediatrica');
 
   return [
-    { title: 'Visión Infantil - Óptica Suárez' },
+    { title: 'Visión Pediátrica en Jaén | Revisión Visual Infantil – Óptica Suárez' },
     {
       name: 'description',
       content:
-        '¿A tu hijo le cuesta seguir el ritmo en clase? ¿Tiene problemas de lectura? Todo esto puede deberse a un mal desarrollo visual.',
+        'En Óptica Suárez Jaén nos ocupamos del cuidado visual de tus hijos con revisiones personalizadas y atención experta en visión infantil.',
     },
     {
       name: 'keywords',
@@ -21,12 +21,12 @@ export function meta() {
     },
     {
       property: 'og:title',
-      content: 'Visión Infantil - Óptica Suárez',
+      content: 'Visión Pediátrica en Jaén | Revisión Visual Infantil – Óptica Suárez',
     },
     {
       property: 'og:description',
       content:
-        '¿A tu hijo le cuesta seguir el ritmo en clase? ¿Tiene problemas de lectura? Todo esto puede deberse a un mal desarrollo visual.',
+        'En Óptica Suárez Jaén nos ocupamos del cuidado visual de tus hijos con revisiones personalizadas y atención experta en visión infantil.',
     },
     {
       property: 'og:url',

@@ -197,16 +197,16 @@ export const generatePageKeywords = (
 
     case 'vision-pediatrica':
       return [
+        'visión pediátrica Jaén',
+        'optometría infantil Jaén',
+        'revisión visual infantil en Jaén',
+        'examen visual niños Jaén',
+        'cuidado de la vista infantil Jaén',
+        'detección precoz ambliopía Jaén',
+        'ojo vago Jaén',
         'Visión infantil',
         'Optometría pediátrica',
-        'Examen visual niños',
-        'Problemas visuales escolares',
-        'Rendimiento académico',
-        'Coordinación ojo-mano',
         'Desarrollo visual infantil',
-        'Problemas de aprendizaje',
-        'Dificultades escolares',
-        'Seguimiento visual',
       ];
 
     case 'examen-visual':
