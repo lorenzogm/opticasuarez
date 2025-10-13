@@ -17,16 +17,12 @@ export default function WarningSigns({
     <section className="bg-red-50 py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
-          <Text
-            as="h2"
-            variant="heading-2"
-            className="mb-4 text-red-800 uppercase tracking-wide"
-          >
+          <div className="text-3xl font-bold tracking-tight mb-4 text-red-800 uppercase tracking-wide">
             {title}
-          </Text>
-          <Text as="h3" className="mb-6 text-red-700">
+          </div>
+          <div className="text-2xl font-semibold tracking-tight mb-6 text-red-700">
             {subtitle}
-          </Text>
+          </div>
           <Text variant="body-lg" className="text-gray-700 leading-relaxed">
             {description}
           </Text>

@@ -32,14 +32,9 @@ export default function CustomerTestimonials({
   return (
     <section className="bg-gray-50 py-16 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <Text
-          as="h2"
-          variant="heading-2"
-          align="center"
-          className="mb-12 text-gray-900 uppercase tracking-wide"
-        >
+        <div className="text-3xl font-bold tracking-tight text-center mb-12 text-gray-900 uppercase tracking-wide">
           {title}
-        </Text>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {testimonials.map((testimonial, index) => (
@@ -48,9 +43,9 @@ export default function CustomerTestimonials({
                 {renderStars(testimonial.rating)}
               </div>
 
-              <Text as="h3" variant="heading-5" className="mb-4 text-gray-900">
+              <div className="text-lg font-semibold tracking-tight mb-4 text-gray-900">
                 {testimonial.name}
-              </Text>
+              </div>
 
               <Text className="text-gray-700 leading-relaxed">
                 {testimonial.review}

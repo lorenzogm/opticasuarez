@@ -9,11 +9,11 @@ export function meta() {
   const visionPediatricaKeywords = generatePageKeywords('vision-pediatrica');
 
   return [
-    { title: 'Visión Infantil - Óptica Suárez' },
+    { title: 'Visión Pediátrica y Examen Visual Infantil en Jaén – Óptica Suárez' },
     {
       name: 'description',
       content:
-        '¿A tu hijo le cuesta seguir el ritmo en clase? ¿Tiene problemas de lectura? Todo esto puede deberse a un mal desarrollo visual.',
+        'Realizamos exámenes visuales infantiles en Jaén para detectar de forma temprana ojo vago, miopía o estrabismo. Prevención y cuidado visual desde la infancia.',
     },
     {
       name: 'keywords',
@@ -21,12 +21,12 @@ export function meta() {
     },
     {
       property: 'og:title',
-      content: 'Visión Infantil - Óptica Suárez',
+      content: 'Visión Pediátrica y Examen Visual Infantil en Jaén – Óptica Suárez',
     },
     {
       property: 'og:description',
       content:
-        '¿A tu hijo le cuesta seguir el ritmo en clase? ¿Tiene problemas de lectura? Todo esto puede deberse a un mal desarrollo visual.',
+        'Realizamos exámenes visuales infantiles en Jaén para detectar de forma temprana ojo vago, miopía o estrabismo. Prevención y cuidado visual desde la infancia.',
     },
     {
       property: 'og:url',
