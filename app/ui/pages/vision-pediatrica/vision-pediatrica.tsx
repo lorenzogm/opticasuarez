@@ -16,6 +16,8 @@ export default function VisionPediatrica() {
         subtitle={content.hero.subtitle}
         description={content.hero.description}
         image={content.hero.image}
+        imageTitle={content.hero.imageTitle}
+        imageAlt={content.hero.imageAlt}
       />
 
       {/* Introduction */}

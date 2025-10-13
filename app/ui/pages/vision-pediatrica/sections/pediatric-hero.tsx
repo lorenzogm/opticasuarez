@@ -7,6 +7,8 @@ interface PediatricHeroProps {
   subtitle: string;
   description: string;
   image: string;
+  imageTitle?: string;
+  imageAlt?: string;
 }
 
 export default function PediatricHero({
@@ -14,6 +16,8 @@ export default function PediatricHero({
   subtitle,
   description,
   image,
+  imageTitle,
+  imageAlt,
 }: PediatricHeroProps) {
   return (
     <section className="bg-gradient-to-b from-blue-50 to-white py-16 px-4 sm:px-6">
@@ -48,7 +52,8 @@ export default function PediatricHero({
           <div className="flex justify-center">
             <Image
               src={image}
-              alt={title}
+              alt={imageAlt || title}
+              title={imageTitle}
               className="rounded-lg shadow-lg max-w-full h-auto"
             />
           </div>
