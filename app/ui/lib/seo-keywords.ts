@@ -144,6 +144,13 @@ export const generatePageKeywords = (
 
     case 'terapia-visual':
       return [
+        'terapia visual Jaén',
+        'óptica especializada en terapia visual Jaén',
+        'terapia visual para ojo vago Jaén',
+        'terapia visual para estrabismo Jaén',
+        'especialistas en terapia visual Jaén',
+        'tratamiento ojo vago Jaén',
+        'tratamiento estrabismo Jaén',
         'Terapia Visual',
         'Terapia visual comportamental',
         'Ojo vago',

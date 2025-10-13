@@ -1,5 +1,7 @@
 import { Text } from '../../../components/text';
 import { Button } from '../../../components/button';
+import Image from '../../../components/image';
+import { useEffect } from 'react';
 
 interface TerapiaVisualHeroProps {
   title: string;
@@ -7,6 +9,7 @@ interface TerapiaVisualHeroProps {
   description: string;
   ctaText?: string;
   ctaLink?: string;
+  backgroundImage: string;
 }
 
 export default function TerapiaVisualHero({
@@ -15,23 +18,50 @@ export default function TerapiaVisualHero({
   description,
   ctaText,
   ctaLink,
+  backgroundImage,
 }: TerapiaVisualHeroProps) {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelector('.parallax-element') as HTMLElement;
+      if (parallax) {
+        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="bg-white pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 px-4 sm:px-6">
-      <div className="container mx-auto max-w-6xl text-center">
+    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+      <div className="absolute inset-0 parallax-element">
+        <Image
+          src={backgroundImage}
+          alt="terapia visual en jaen"
+          title="terapia visual en jaen"
+          className="w-full h-full object-cover transform scale-110"
+          priority
+          sizes="100vw"
+        />
+      </div>
+      <div className="relative container mx-auto max-w-6xl text-center z-10">
         <Text
           as="h1"
           variant="heading-1"
-          className="mb-4 text-gray-900 uppercase tracking-wide"
+          className="mb-4 text-white uppercase tracking-wide drop-shadow-lg"
         >
           {title}
         </Text>
-        <Text as="h2" className="mb-6 text-blue-900">
+        <Text 
+          as="h2" 
+          className="mb-6 text-white drop-shadow-lg"
+        >
           {subtitle}
         </Text>
         <Text
           variant="body-lg"
-          className="mb-8 text-gray-600 max-w-4xl mx-auto leading-relaxed"
+          className="mb-8 text-white max-w-4xl mx-auto leading-relaxed drop-shadow-lg"
         >
           {description}
         </Text>

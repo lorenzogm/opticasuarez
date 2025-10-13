@@ -1,9 +1,10 @@
 {
-  "mainTitle": "TERAPIA VISUAL",
+  "mainTitle": "Terapia Visual en Jaén",
   "hero": {
-    "title": "TERAPIA VISUAL",
+    "title": "Terapia Visual en Jaén",
     "subtitle": "Entrenamiento visual para mejorar las habilidades visuales",
-    "description": "La terapia visual es un programa de entrenamiento personalizado diseñado para corregir deficiencias visuales y mejorar el rendimiento visual. Nuestros especialistas desarrollan programas específicos para cada paciente."
+    "description": "La terapia visual es un programa de entrenamiento personalizado diseñado para corregir deficiencias visuales y mejorar el rendimiento visual. Nuestros especialistas desarrollan programas específicos para cada paciente.",
+    "backgroundImage": "/images/terapia-visual/hero-image.jpg"
   },
   "whatIs": {
     "title": "¿QUÉ ES LA TERAPIA VISUAL?",
@@ -37,12 +38,12 @@
         "icon": "alignment"
       },
       {
-        "title": "Ambliopía (ojo perezoso)",
+        "title": "Ambliopía (ojo vago)",
         "description": "Reducción de la visión en uno o ambos ojos",
         "icon": "lazy-eye"
       },
       {
-        "title": "Problemas perceptuales",
+        "title": "Problemas de percepción visual",
         "description": "Dificultades en el procesamiento de la información visual",
         "icon": "perception"
       },
@@ -102,8 +103,8 @@
     ]
   },
   "cta": {
-    "title": "¿NECESITAS TERAPIA VISUAL?",
-    "description": "Solicita una evaluación con nuestros especialistas para determinar si la terapia visual puede ayudarte.",
+    "title": "¿Necesitas Terapia Visual en Jaén?",
+    "description": "Solicita una evaluación visual en Óptica Suárez Jaén y descubre si nuestra terapia visual puede ayudarte a mejorar ojo vago, estrabismo o fatiga ocular.",
     "buttonText": "Reservar Cita",
     "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20terapia%20visual"
   }
