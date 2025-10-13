@@ -15,7 +15,7 @@ export default function TerapiaVisualInfo({
     <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <Text
-          as="h2"
+          as="p"
           variant="heading-2"
           align="center"
           className="mb-8 sm:mb-12 text-gray-900 uppercase tracking-wide"
@@ -34,7 +34,7 @@ export default function TerapiaVisualInfo({
           </div>
 
           <div>
-            <Text as="h3" className="mb-6 text-blue-900">
+            <Text as="p" className="mb-6 text-blue-900 text-2xl font-semibold tracking-tight">
               Beneficios de la Terapia Visual:
             </Text>
             <ul className="space-y-3">

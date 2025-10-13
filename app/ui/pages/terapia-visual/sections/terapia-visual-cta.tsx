@@ -18,7 +18,7 @@ export default function TerapiaVisualCta({
     <section className="py-12 sm:py-16 md:py-20 bg-blue-900">
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
         <Text
-          as="h2"
+          as="p"
           variant="heading-2"
           colour="white"
           className="mb-6 uppercase tracking-wide"

@@ -11,12 +11,12 @@ export function meta() {
   return [
     {
       title:
-        'Terapia Visual | Óptica Suárez - Entrenamiento visual personalizado',
+        'Terapia Visual en Jaén para Ojo Vago y Estrabismo | Óptica Suárez',
     },
     {
       name: 'description',
       content:
-        'Corrige Ojo Vago, estrabismo, problemas de lectura-escritura. Con la terapia visual comportamental puedes mejorar tu rendimiento visual.',
+        'Mejora tu sistema visual con terapia visual en Jaén. En Óptica Suárez ayudamos a niños y adultos a mejorar ojo vago, estrabismo y habilidades visuales para un mayor confort y rendimiento.',
     },
     {
       name: 'keywords',
@@ -25,12 +25,12 @@ export function meta() {
     {
       property: 'og:title',
       content:
-        'Terapia Visual | Óptica Suárez - Entrenamiento visual personalizado',
+        'Terapia Visual en Jaén para Ojo Vago y Estrabismo | Óptica Suárez',
     },
     {
       property: 'og:description',
       content:
-        'Corrige Ojo Vago, estrabismo, problemas de lectura-escritura. Con la terapia visual comportamental puedes mejorar tu rendimiento visual.',
+        'Mejora tu sistema visual con terapia visual en Jaén. En Óptica Suárez ayudamos a niños y adultos a mejorar ojo vago, estrabismo y habilidades visuales para un mayor confort y rendimiento.',
     },
     {
       property: 'og:url',

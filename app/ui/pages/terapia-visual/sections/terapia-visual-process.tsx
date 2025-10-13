@@ -21,7 +21,7 @@ export default function TerapiaVisualProcess({
     <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <Text
-          as="h2"
+          as="p"
           variant="heading-2"
           align="center"
           className="mb-4 text-gray-900 uppercase tracking-wide"
@@ -47,7 +47,7 @@ export default function TerapiaVisualProcess({
                   <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-1/2"></div>
                 )}
               </div>
-              <Text as="h3" className="mb-3 text-gray-900">
+              <Text as="p" className="mb-3 text-gray-900 text-2xl font-semibold tracking-tight">
                 {step.title}
               </Text>
               <Text className="text-gray-600 leading-relaxed">
