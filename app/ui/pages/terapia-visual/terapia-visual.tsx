@@ -14,6 +14,7 @@ export default function TerapiaVisual() {
         title={content.hero.title}
         subtitle={content.hero.subtitle}
         description={content.hero.description}
+        backgroundImage={content.hero.backgroundImage}
       />
 
       {/* What is Visual Therapy */}

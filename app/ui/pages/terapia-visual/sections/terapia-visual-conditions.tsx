@@ -89,7 +89,7 @@ export default function TerapiaVisualConditions({
     <section className="py-12 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <Text
-          as="h2"
+          as="p"
           variant="heading-2"
           align="center"
           className="mb-4 text-gray-900 uppercase tracking-wide"
@@ -120,7 +120,7 @@ export default function TerapiaVisualConditions({
                   {getIcon(item.icon)}
                 </svg>
               </div>
-              <Text as="h3" className="mb-3 text-gray-900">
+              <Text as="p" className="mb-3 text-gray-900 text-2xl font-semibold tracking-tight">
                 {item.title}
               </Text>
               <Text className="text-gray-600 leading-relaxed">
