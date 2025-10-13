@@ -36,7 +36,7 @@ export default function TerapiaVisualHero({
 
   return (
     <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 parallax-element" ref={parallaxRef}>
+      <div className="absolute inset-0" ref={parallaxRef}>
         <Image
           src={backgroundImage}
           alt="terapia visual en jaen"
