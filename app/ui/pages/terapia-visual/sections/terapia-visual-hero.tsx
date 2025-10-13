@@ -1,7 +1,7 @@
 import { Text } from '../../../components/text';
 import { Button } from '../../../components/button';
 import Image from '../../../components/image';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface TerapiaVisualHeroProps {
   title: string;
@@ -20,12 +20,13 @@ export default function TerapiaVisualHero({
   ctaLink,
   backgroundImage,
 }: TerapiaVisualHeroProps) {
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
-      const parallax = document.querySelector('.parallax-element') as HTMLElement;
-      if (parallax) {
-        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+      if (parallaxRef.current) {
+        parallaxRef.current.style.transform = `translateY(${scrolled * 0.5}px)`;
       }
     };
 
@@ -35,7 +36,7 @@ export default function TerapiaVisualHero({
 
   return (
     <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 parallax-element">
+      <div className="absolute inset-0 parallax-element" ref={parallaxRef}>
         <Image
           src={backgroundImage}
           alt="terapia visual en jaen"
