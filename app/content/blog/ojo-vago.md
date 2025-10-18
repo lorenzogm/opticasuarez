@@ -177,7 +177,7 @@ Durante décadas se creyó que la ambliopía solo podía tratarse en niños pequ
 
 Aunque es cierto que el cerebro infantil tiene mayor plasticidad, estudios recientes han demostrado que:
 
-- El cerebro adulto continúa generando nuevas conexiones neuronales (neuroplastia)
+- El cerebro adulto continúa generando nuevas conexiones neuronales (neuroplasticidad)
 - La plasticidad neuronal, aunque reducida, persiste toda la vida
 - Con la estimulación y entrenamiento adecuados, se pueden formar nuevas vías visuales
 - Los adultos pueden recuperar visión y desarrollar estereopsis (visión 3D)
