@@ -14,8 +14,8 @@ test.describe('Homepage Content Verification', () => {
     // Verify page loads correctly
     await expect(page).toHaveTitle(/Óptica Suárez/);
 
-    // Check hero section content using JSON data - be more specific with selectors
-    await expect(page.getByRole('heading', { name: homepageContent.hero.title })).toBeVisible();
+    // Check hero section content using JSON data - hero uses paragraph tags, not headings
+    await expect(page.getByText(homepageContent.hero.title)).toBeVisible();
     await expect(page.getByText(homepageContent.hero.subtitle)).toBeVisible();
     await expect(page.getByText(homepageContent.hero.description)).toBeVisible();
   });
