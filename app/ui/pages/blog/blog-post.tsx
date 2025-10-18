@@ -49,24 +49,25 @@ function parseMarkdownToHTML(markdown: string): string {
       .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
       .split('\n')
       .map((line) => {
+        const trimmedLine = line.trim();
         // Handle inline images
-        if (line.trim().startsWith('<div class="my-8"><img')) {
+        if (trimmedLine.startsWith('<div class="my-8"><img')) {
           return line;
         }
         // Handle list items
-        if (line.trim().startsWith('<li')) {
+        if (trimmedLine.startsWith('<li')) {
           return line;
         }
         // Handle headings (including divs that replaced h2)
-        if (line.trim().startsWith('<h') || line.trim().startsWith('<div class="text-2xl')) {
+        if (trimmedLine.startsWith('<h') || trimmedLine.startsWith('<div class="text-2xl')) {
           return line;
         }
         // Handle horizontal rules
-        if (line.trim() === '---') {
+        if (trimmedLine === '---') {
           return '<hr class="my-8 border-gray-300">';
         }
         // Handle empty lines
-        if (line.trim() === '') {
+        if (trimmedLine === '') {
           return '';
         }
         // Regular paragraphs

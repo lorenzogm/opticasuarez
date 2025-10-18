@@ -48,9 +48,9 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
             >
               Todas
             </button>
-            {allCategories.map((category, index) => (
+            {allCategories.map((category) => (
               <button
-                key={index}
+                key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide transition-colors ${
                   selectedCategory === category
@@ -65,9 +65,9 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {filteredArticles.map((article, index) => (
+          {filteredArticles.map((article) => (
             <article
-              key={index}
+              key={article.slug}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
               {article.featured_image && (
@@ -83,9 +83,9 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
               )}
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {article.categories.map((category, catIndex) => (
+                  {article.categories.map((category) => (
                     <button
-                      key={catIndex}
+                      key={category}
                       onClick={() => setSelectedCategory(category)}
                       className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full uppercase tracking-wide hover:bg-blue-200 transition-colors cursor-pointer"
                     >
