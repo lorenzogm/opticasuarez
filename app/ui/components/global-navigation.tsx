@@ -56,10 +56,18 @@ export default function GlobalNavigation() {
               className="relative"
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
+              onFocus={() => setIsServicesOpen(true)}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget)) {
+                  setIsServicesOpen(false);
+                }
+              }}
             >
               <Link
                 to="/servicios"
                 className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1"
+                aria-expanded={isServicesOpen}
+                aria-haspopup="true"
               >
                 Servicios
                 <svg
@@ -67,18 +75,24 @@ export default function GlobalNavigation() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
               
               {isServicesOpen && (
-                <div className="absolute left-0 mt-0 w-64 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                <div 
+                  className="absolute left-0 mt-0 w-64 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50"
+                  role="menu"
+                  aria-label="Servicios disponibles"
+                >
                   {servicePages.map((service) => (
                     <Link
                       key={service.url}
                       to={service.url}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                      role="menuitem"
                     >
                       <div className="font-medium">{service.name}</div>
                       {service.description && (
@@ -190,6 +204,8 @@ export default function GlobalNavigation() {
                 <button
                   onClick={toggleServices}
                   className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                  aria-expanded={isServicesOpen}
+                  aria-controls="mobile-services-menu"
                 >
                   Servicios
                   <svg
@@ -197,17 +213,24 @@ export default function GlobalNavigation() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
                 
                 {isServicesOpen && (
-                  <div className="pl-4 mt-1 space-y-1">
+                  <div 
+                    id="mobile-services-menu"
+                    className="pl-4 mt-1 space-y-1"
+                    role="menu"
+                    aria-label="Servicios disponibles"
+                  >
                     <Link
                       to="/servicios"
                       className="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
                       onClick={closeMenu}
+                      role="menuitem"
                     >
                       Ver todos los servicios
                     </Link>
@@ -217,6 +240,7 @@ export default function GlobalNavigation() {
                         to={service.url}
                         className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
                         onClick={closeMenu}
+                        role="menuitem"
                       >
                         {service.name}
                       </Link>
