@@ -20,7 +20,7 @@ function parseMarkdownToHTML(markdown: string): string {
       .replace(/^# .+$/gm, '') // Remove h1 headers since we have title in hero
       .replace(
         /^## (.+)$/gm,
-        '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
+        '<div class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</div>'
       )
       .replace(
         /^### (.+)$/gm,
@@ -49,24 +49,25 @@ function parseMarkdownToHTML(markdown: string): string {
       .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
       .split('\n')
       .map((line) => {
+        const trimmedLine = line.trim();
         // Handle inline images
-        if (line.trim().startsWith('<div class="my-8"><img')) {
+        if (trimmedLine.startsWith('<div class="my-8"><img')) {
           return line;
         }
         // Handle list items
-        if (line.trim().startsWith('<li')) {
+        if (trimmedLine.startsWith('<li')) {
           return line;
         }
-        // Handle headings
-        if (line.trim().startsWith('<h')) {
+        // Handle headings (including divs that replaced h2)
+        if (trimmedLine.startsWith('<h') || trimmedLine.startsWith('<div class="text-2xl')) {
           return line;
         }
         // Handle horizontal rules
-        if (line.trim() === '---') {
+        if (trimmedLine === '---') {
           return '<hr class="my-8 border-gray-300">';
         }
         // Handle empty lines
-        if (line.trim() === '') {
+        if (trimmedLine === '') {
           return '';
         }
         // Regular paragraphs
@@ -99,13 +100,14 @@ export default function BlogPost({ post }: BlogPostProps) {
           </Link>
 
           <div className="flex flex-wrap gap-2 mb-4">
-            {post.categories.map((category, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-full uppercase tracking-wide"
+            {post.categories.map((category) => (
+              <Link
+                key={category}
+                to={`/blog?category=${encodeURIComponent(category)}`}
+                className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-full uppercase tracking-wide hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 {category}
-              </span>
+              </Link>
             ))}
           </div>
 
