@@ -100,13 +100,14 @@ export default function BlogPost({ post }: BlogPostProps) {
           </Link>
 
           <div className="flex flex-wrap gap-2 mb-4">
-            {post.categories.map((category, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-full uppercase tracking-wide"
+            {post.categories.map((category) => (
+              <Link
+                key={category}
+                to={`/blog?category=${encodeURIComponent(category)}`}
+                className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-full uppercase tracking-wide hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 {category}
-              </span>
+              </Link>
             ))}
           </div>
 
