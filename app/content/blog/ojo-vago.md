@@ -1,6 +1,6 @@
 ---
 title: 'Ambliopía u Ojo Vago: Detección y Tratamiento en Jaén'
-date: '2025-01-15'
+date: '2025-10-18'
 excerpt: 'Descubre qué es la ambliopía o ojo vago, cómo detectarla en niños y los tratamientos más efectivos que ofrecemos en Óptica Suárez para recuperar la visión binocular.'
 author: 'Óptica Suárez'
 categories: ['Visión Pediátrica', 'Terapia Visual', 'Salud Visual']
@@ -134,9 +134,9 @@ Antes de cualquier otro tratamiento, es fundamental corregir cualquier error ref
 - Entrenamiento de habilidades de enfoque y seguimiento
 - Actividades de integración visuomotora
 
-### El tratamiento con parche: Una opción complementaria
+### El tratamiento con parche: El último recurso
 
-Aunque tradicionalmente el parche ha sido el tratamiento más utilizado, **en Óptica Suárez lo consideramos una opción complementaria o para casos específicos**, debido a sus limitaciones:
+Aunque tradicionalmente el parche ha sido el tratamiento más utilizado, **en Óptica Suárez lo consideramos la última opción y sólo casos específicos**, debido a sus limitaciones:
 
 **Desventajas del tratamiento exclusivo con parche:**
 
@@ -152,20 +152,6 @@ Aunque tradicionalmente el parche ha sido el tratamiento más utilizado, **en Ó
 - En niños muy pequeños (menores de 4 años) bajo estricta supervisión
 - Siempre combinado con terapia visual para desarrollar la binocularidad
 - Por períodos cortos y controlados
-
-### Otros tratamientos complementarios
-
-**Penalización farmacológica:**
-
-En algunos casos, especialmente cuando el niño rechaza el parche, se pueden usar gotas de atropina en el ojo bueno para desenfocar temporalmente su visión y forzar el uso del ojo amblíope. Sin embargo, esto también presenta las mismas limitaciones que el parche respecto a la binocularidad.
-
-**Terapia combinada:**
-
-El enfoque más efectivo suele ser una combinación personalizada:
-1. Corrección óptica adecuada con gafas
-2. Terapia visual como tratamiento principal
-3. Complementos específicos según el caso individual
-4. Seguimiento continuo y ajustes según la evolución
 
 ## Tratamiento en adultos: Nunca es tarde
 
