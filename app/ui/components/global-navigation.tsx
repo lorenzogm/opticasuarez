@@ -58,7 +58,7 @@ export default function GlobalNavigation() {
               onMouseLeave={() => setIsServicesOpen(false)}
               onFocus={() => setIsServicesOpen(true)}
               onBlur={(e) => {
-                if (!e.currentTarget.contains(e.relatedTarget)) {
+                if (!e.relatedTarget || !e.currentTarget.contains(e.relatedTarget)) {
                   setIsServicesOpen(false);
                 }
               }}
@@ -66,7 +66,7 @@ export default function GlobalNavigation() {
               <Link
                 to="/servicios"
                 className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1"
-                aria-expanded={isServicesOpen}
+                aria-expanded={isServicesOpen ? 'true' : 'false'}
                 aria-haspopup="true"
               >
                 Servicios
@@ -204,7 +204,7 @@ export default function GlobalNavigation() {
                 <button
                   onClick={toggleServices}
                   className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
-                  aria-expanded={isServicesOpen}
+                  aria-expanded={isServicesOpen ? 'true' : 'false'}
                   aria-controls="mobile-services-menu"
                 >
                   Servicios
