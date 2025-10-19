@@ -1,9 +1,11 @@
 import { Link } from 'react-router';
 import { useState } from 'react';
 import Image from './image';
+import { servicePages } from '../lib/services';
 
 export default function GlobalNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -11,6 +13,11 @@ export default function GlobalNavigation() {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setIsServicesOpen(false);
+  };
+
+  const toggleServices = () => {
+    setIsServicesOpen(!isServicesOpen);
   };
 
   return (
@@ -43,12 +50,46 @@ export default function GlobalNavigation() {
             >
               Quienes Somos
             </Link>
-            <Link
-              to="/servicios"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+            
+            {/* Services Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsServicesOpen(true)}
+              onMouseLeave={() => setIsServicesOpen(false)}
             >
-              Servicios
-            </Link>
+              <Link
+                to="/servicios"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1"
+              >
+                Servicios
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              
+              {isServicesOpen && (
+                <div className="absolute left-0 mt-0 w-64 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                  {servicePages.map((service) => (
+                    <Link
+                      key={service.url}
+                      to={service.url}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                    >
+                      <div className="font-medium">{service.name}</div>
+                      {service.description && (
+                        <div className="text-xs text-gray-500 mt-0.5">{service.description}</div>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            
             <Link
               to="/blog"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
@@ -143,13 +184,47 @@ export default function GlobalNavigation() {
               >
                 Quienes Somos
               </Link>
-              <Link
-                to="/servicios"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
-                onClick={closeMenu}
-              >
-                Servicios
-              </Link>
+              
+              {/* Services Section with Collapsible Menu */}
+              <div>
+                <button
+                  onClick={toggleServices}
+                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                >
+                  Servicios
+                  <svg
+                    className={`w-5 h-5 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {isServicesOpen && (
+                  <div className="pl-4 mt-1 space-y-1">
+                    <Link
+                      to="/servicios"
+                      className="block px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                      onClick={closeMenu}
+                    >
+                      Ver todos los servicios
+                    </Link>
+                    {servicePages.map((service) => (
+                      <Link
+                        key={service.url}
+                        to={service.url}
+                        className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                        onClick={closeMenu}
+                      >
+                        {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
               <Link
                 to="/blog"
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
