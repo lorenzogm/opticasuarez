@@ -4,20 +4,25 @@ import { BreadcrumbSchema } from '../ui/components/structured-data';
 
 export function meta() {
   return [
-    { title: 'Blog - Óptica Suárez' },
+    { title: 'Blog de Salud Visual y Óptica en Jaén | Óptica Suárez' },
     {
       name: 'description',
       content:
-        'Conoce todas las novedades y noticias referentes a la óptica y optometría en Jaén y resto del mundo.',
+        'Descubre consejos de salud visual, neurodesarrollo infantil y novedades en optometría. Blog de Óptica Suárez en Jaén: información útil sobre visión y bienestar ocular para todas las edades.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'óptica en Jaén, ópticas Jaén, optometría Jaén, revisión visual Jaén, salud visual Jaén, lentes de contacto Jaén, gafas Jaén, centro óptico Jaén, controlar miopía Jaén, terapia visual Jaén, especialista en visión Jaén, clínica visual Jaén, lentes progresivas Jaén, gafas de sol Jaén, óptica infantil Jaén',
     },
     {
       property: 'og:title',
-      content: 'Blog - Óptica Suárez',
+      content: 'Blog de Salud Visual y Óptica en Jaén | Óptica Suárez',
     },
     {
       property: 'og:description',
       content:
-        'Conoce todas las novedades y noticias referentes a la óptica y optometría en Jaén y resto del mundo.',
+        'Descubre consejos de salud visual, neurodesarrollo infantil y novedades en optometría. Blog de Óptica Suárez en Jaén: información útil sobre visión y bienestar ocular para todas las edades.',
     },
     {
       property: 'og:url',

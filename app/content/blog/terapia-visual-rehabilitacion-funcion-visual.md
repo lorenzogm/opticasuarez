@@ -3,7 +3,7 @@ title: 'Terapia Visual: Rehabilitación para Mejorar la Función Visual'
 date: '2024-12-16'
 excerpt: 'Descubre cómo la terapia visual puede mejorar habilidades como el enfoque, coordinación binocular y procesamiento visual en niños y adultos.'
 author: 'Óptica Suárez'
-categories: ['Terapia Visual', 'Rehabilitación']
+categories: ['Terapia Visual', 'Salud Visual']
 featured_image: '/images/blog/terapia-visual-new.webp'
 slug: 'terapia-visual-rehabilitacion-funcion-visual'
 ---

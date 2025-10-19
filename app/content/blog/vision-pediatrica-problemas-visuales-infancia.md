@@ -3,7 +3,7 @@ title: 'Visión Pediátrica: Detectando Problemas Visuales en la Infancia'
 date: '2024-12-18'
 excerpt: 'Aprende a identificar los signos de problemas visuales en niños y la importancia de los exámenes tempranos para un desarrollo visual saludable.'
 author: 'Óptica Suárez'
-categories: ['Visión Pediátrica', 'Salud Visual']
+categories: ['Visión Infantil', 'Salud Visual']
 featured_image: '/images/blog/vision-pediatrica-new.webp'
 slug: 'vision-pediatrica-problemas-visuales-infancia'
 ---

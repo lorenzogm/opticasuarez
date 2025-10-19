@@ -3,7 +3,7 @@ title: 'Protege tus ojos del sol: La importancia de las gafas UV'
 date: '2024-07-15'
 excerpt: 'Descubre por qué es crucial proteger tus ojos de los rayos ultravioleta y cómo elegir las gafas de sol adecuadas.'
 author: 'Óptica Suárez'
-categories: ['Protección Solar', 'Gafas de Sol']
+categories: ['Gafas de Sol', 'Salud Visual']
 featured_image: '/images/blog/proteccion-solar-new.webp'
 slug: 'protege-tus-ojos-del-sol'
 ---

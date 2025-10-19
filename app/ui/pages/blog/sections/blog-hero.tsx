@@ -10,9 +10,9 @@ export default function BlogHero({ title, subtitle }: BlogHeroProps) {
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 uppercase tracking-wide">
           {title}
         </h1>
-        <p className="text-xl sm:text-2xl md:text-3xl font-medium text-blue-800 uppercase tracking-wide">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-blue-800 uppercase tracking-wide">
           {subtitle}
-        </p>
+        </h3>
       </div>
     </section>
   );

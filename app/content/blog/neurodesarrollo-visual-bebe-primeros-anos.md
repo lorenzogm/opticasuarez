@@ -3,7 +3,7 @@ title: 'Neurodesarrollo Visual del Bebé: De la Gestación a los Primeros Años'
 date: '2025-10-06'
 excerpt: 'Descubre cómo se desarrolla la visión del bebé desde el embarazo hasta los primeros años de vida, y cómo podemos ayudar desde la optometría en Jaén.'
 author: 'Óptica Suárez'
-categories: ['Visión Pediátrica', 'Desarrollo Visual', 'Salud Visual']
+categories: ['Visión Infantil', 'Salud Visual']
 featured_image: '/images/blog/neurodesarrollo-bebe.webp'
 slug: 'neurodesarrollo-visual-bebe-primeros-anos'
 ---

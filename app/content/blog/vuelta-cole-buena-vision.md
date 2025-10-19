@@ -3,7 +3,7 @@ title: 'Vuelta al cole con buena visión'
 date: '2025-09-17'
 excerpt: 'Prepara a tu hijo para el nuevo curso escolar con un examen visual completo. Descubre por qué es fundamental revisar su visión antes de empezar las clases.'
 author: 'Óptica Suárez'
-categories: ['Visión Pediátrica', 'Salud Visual', 'Educación']
+categories: ['Visión Infantil', 'Educación Visual', 'Gafas Graduadas']
 featured_image: '/images/blog/vuelta-cole-vision-new.webp'
 slug: 'vuelta-cole-buena-vision'
 ---
