@@ -227,6 +227,29 @@ export const generatePageKeywords = (
         'Detección problemas visuales',
       ];
 
+    case 'ortoqueratologia':
+      return [
+        'ortoqueratología Jaén',
+        'Orto-K Jaén',
+        'lentillas nocturnas Jaén',
+        'frenar miopía Jaén',
+        'control miopía nocturno Jaén',
+        'lentes de contacto nocturnas Jaén',
+        'corrección visual sin gafas Jaén',
+        'Ortoqueratología',
+        'Orto-K',
+        'Lentillas nocturnas',
+        'Control de miopía',
+        'Moldeo corneal',
+        'Visión sin gafas',
+        'Lentes de contacto especiales',
+        'Corrección visual temporal',
+        'Topografía corneal',
+        'Adaptación personalizada',
+        'Frenar progresión miopía',
+        'Tratamiento reversible',
+      ];
+
     default:
       return combined.slice(0, 20); // Return top 20 keywords for other pages
   }
