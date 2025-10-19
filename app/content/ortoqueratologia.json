@@ -63,6 +63,7 @@
   "candidates": {
     "title": "¿Eres Candidato para Orto-K?",
     "description": "La ortoqueratología es especialmente adecuada para:",
+    "disclaimer": "La idoneidad para el tratamiento debe ser determinada mediante una evaluación profesional personalizada.",
     "items": [
       "Personas con miopía de hasta -6.00 dioptrías",
       "Niños y adolescentes con miopía progresiva",
@@ -114,7 +115,7 @@
       },
       {
         "question": "¿Puede frenar la miopía en niños?",
-        "answer": "Sí, múltiples estudios científicos han demostrado que la ortoqueratología es efectiva para frenar la progresión de la miopía en niños y adolescentes. Puede reducir la progresión hasta en un 50% comparado con el uso de gafas convencionales, siendo una de las opciones más recomendadas por especialistas."
+        "answer": "Sí, múltiples estudios científicos han demostrado que la ortoqueratología es efectiva para frenar la progresión de la miopía en niños y adolescentes. Según diversos estudios clínicos, puede reducir la progresión hasta en un 50% comparado con el uso de gafas convencionales, siendo una de las opciones más recomendadas por especialistas. Los resultados pueden variar según cada paciente."
       },
       {
         "question": "¿Cuánto cuesta el tratamiento de ortoqueratología en Jaén?",

@@ -40,11 +40,13 @@ export default function FAQAccordion({ items, title }: FAQAccordionProps) {
                 onClick={() => toggleItem(index)}
                 className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
                 aria-expanded={openIndex === index}
+                aria-controls={`faq-panel-${index}`}
               >
                 <Text
                   as="h3"
                   variant="heading-5"
                   className="text-gray-900 pr-8"
+                  id={`faq-button-${index}`}
                 >
                   {item.question}
                 </Text>
@@ -65,9 +67,13 @@ export default function FAQAccordion({ items, title }: FAQAccordionProps) {
                 </svg>
               </button>
               <div
+                id={`faq-panel-${index}`}
+                role="region"
+                aria-labelledby={`faq-button-${index}`}
                 className={`overflow-hidden transition-all duration-300 ${
                   openIndex === index ? 'max-h-96' : 'max-h-0'
                 }`}
+                aria-hidden={openIndex !== index}
               >
                 <div className="px-6 pb-4 pt-2">
                   <Text as="p" variant="body-md" className="text-gray-600">

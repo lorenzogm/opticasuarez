@@ -185,6 +185,15 @@ export default function Ortoqueratologia() {
                 </li>
               ))}
             </ul>
+            {content.candidates.disclaimer && (
+              <Text
+                as="p"
+                variant="body-sm"
+                className="mt-6 text-gray-500 italic text-center"
+              >
+                * {content.candidates.disclaimer}
+              </Text>
+            )}
           </div>
         </div>
       </section>
