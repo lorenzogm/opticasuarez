@@ -37,6 +37,7 @@ export default function Ortoqueratologia() {
               <Image
                 src={content.hero.image}
                 alt="Ortoqueratología - Moldeo corneal en Óptica Suárez Jaén"
+                title="Moldeo corneal en Óptica Suárez"
                 className="w-full h-auto rounded-xl shadow-lg"
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -73,23 +74,44 @@ export default function Ortoqueratologia() {
             {content.benefits.title}
           </Text>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {content.benefits.items.map((benefit, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
-              >
-                <Text
-                  as="h3"
-                  variant="heading-4"
-                  className="mb-4 text-gray-900"
+            {content.benefits.items.map((benefit, index) => {
+              // Define internal links for specific titles
+              const linkMap: Record<string, string> = {
+                'Control de la Miopía': '/control-de-miopia',
+                'Ideal para el Deporte': '/vision-deportiva',
+              };
+              const linkUrl = linkMap[benefit.title];
+
+              return (
+                <div
+                  key={index}
+                  className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
                 >
-                  {benefit.title}
-                </Text>
-                <Text as="p" variant="body-md" className="text-gray-600">
-                  {benefit.description}
-                </Text>
-              </div>
-            ))}
+                  {linkUrl ? (
+                    <a href={linkUrl} className="block">
+                      <Text
+                        as="p"
+                        variant="heading-4"
+                        className="mb-4 text-gray-900 hover:text-blue-600 transition-colors"
+                      >
+                        {benefit.title}
+                      </Text>
+                    </a>
+                  ) : (
+                    <Text
+                      as="p"
+                      variant="heading-4"
+                      className="mb-4 text-gray-900"
+                    >
+                      {benefit.title}
+                    </Text>
+                  )}
+                  <Text as="p" variant="body-md" className="text-gray-600">
+                    {benefit.description}
+                  </Text>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -105,42 +127,71 @@ export default function Ortoqueratologia() {
             {content.process.title}
           </Text>
           <div className="space-y-12">
-            {content.process.steps.map((step, index) => (
-              <div
-                key={index}
-                className={`flex flex-col ${
-                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } gap-8 items-center bg-white rounded-xl p-6 shadow-md`}
-              >
-                <div className="lg:w-1/2">
-                  <Image
-                    src={step.image}
-                    alt={`${step.title} - Ortoqueratología en Jaén`}
-                    className="w-full h-auto rounded-lg"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-                <div className="lg:w-1/2">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                      {step.step}
-                    </div>
-                    <div>
-                      <Text
-                        as="h3"
-                        variant="heading-4"
-                        className="mb-3 text-gray-900"
-                      >
-                        {step.title}
-                      </Text>
-                      <Text as="p" variant="body-md" className="text-gray-600">
-                        {step.description}
-                      </Text>
+            {content.process.steps.map((step, index) => {
+              // Define internal links and image titles for specific steps
+              const linkMap: Record<string, string> = {
+                'Examen Visual Completo': '/examen-visual',
+                'Adaptación Personalizada': '/contactologia',
+              };
+              const imageTitleMap: Record<string, string> = {
+                '/images/ortoqueratologia/topografia-corneal.webp': 'Topografía corneal en Óptica Suárez',
+                '/images/ortoqueratologia/refraccion.webp': 'Examen visual completo',
+                '/images/ortoqueratologia/colocacion-lentillas.webp': 'Adaptación de lentillas',
+                '/images/ortoqueratologia/lampara-hendidura.webp': 'Salud Ocular en Jaén',
+              };
+              const linkUrl = linkMap[step.title];
+              const imageTitle = imageTitleMap[step.image];
+
+              return (
+                <div
+                  key={index}
+                  className={`flex flex-col ${
+                    index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  } gap-8 items-center bg-white rounded-xl p-6 shadow-md`}
+                >
+                  <div className="lg:w-1/2">
+                    <Image
+                      src={step.image}
+                      alt={`${step.title} - Ortoqueratología en Jaén`}
+                      title={imageTitle}
+                      className="w-full h-auto rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div className="lg:w-1/2">
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                        {step.step}
+                      </div>
+                      <div>
+                        {linkUrl ? (
+                          <a href={linkUrl}>
+                            <Text
+                              as="p"
+                              variant="heading-4"
+                              className="mb-3 text-gray-900 hover:text-blue-600 transition-colors"
+                            >
+                              {step.title}
+                            </Text>
+                          </a>
+                        ) : (
+                          <Text
+                            as="p"
+                            variant="heading-4"
+                            className="mb-3 text-gray-900"
+                          >
+                            {step.title}
+                          </Text>
+                        )}
+                        <Text as="p" variant="body-md" className="text-gray-600">
+                          {step.description}
+                        </Text>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -215,7 +266,7 @@ export default function Ortoqueratologia() {
                 className="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300"
               >
                 <Text
-                  as="h3"
+                  as="p"
                   variant="heading-5"
                   className="mb-3 text-gray-900"
                 >
