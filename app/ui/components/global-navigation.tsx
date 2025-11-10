@@ -83,7 +83,7 @@ export default function GlobalNavigation() {
               
               {isServicesOpen && (
                 <div 
-                  className="absolute left-0 mt-0 w-64 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50"
+                  className="absolute left-0 mt-0 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50"
                   role="menu"
                   aria-label="Servicios disponibles"
                 >
@@ -94,10 +94,7 @@ export default function GlobalNavigation() {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
                       role="menuitem"
                     >
-                      <div className="font-medium">{service.name}</div>
-                      {service.description && (
-                        <div className="text-xs text-gray-500 mt-0.5">{service.description}</div>
-                      )}
+                      {service.name}
                     </Link>
                   ))}
                 </div>
