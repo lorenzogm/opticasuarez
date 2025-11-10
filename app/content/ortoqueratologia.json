@@ -1,0 +1,140 @@
+{
+  "mainTitle": "ORTOQUERATOLOGÍA EN JAÉN",
+  "hero": {
+    "title": "Ortoqueratología en Jaén",
+    "subtitle": "Corrección Visual sin Cirugía",
+    "description": "En Óptica Suárez llevamos más de 80 años ofreciendo las soluciones visuales más avanzadas en Jaén. La ortoqueratología (Orto-K) es un tratamiento revolucionario que te permite ver con claridad durante el día sin necesidad de gafas o lentillas, mientras duermes.",
+    "image": "/images/ortoqueratologia/moldeo-corneal.webp"
+  },
+  "intro": {
+    "title": "¿Qué es la Ortoqueratología?",
+    "description": "La ortoqueratología es un tratamiento de corrección visual no quirúrgico que utiliza lentes de contacto especiales diseñadas para moldear suavemente la córnea durante la noche. Al despertar, retiras las lentes y disfrutas de una visión clara durante todo el día sin necesidad de gafas ni lentillas. En nuestra óptica en Jaén, somos especialistas en Orto-K con más de 80 años de experiencia cuidando la salud visual de nuestros pacientes."
+  },
+  "benefits": {
+    "title": "Ventajas de la Ortoqueratología",
+    "items": [
+      {
+        "title": "Libertad Visual Total",
+        "description": "Disfruta de una visión nítida durante todo el día sin necesidad de llevar gafas o lentillas."
+      },
+      {
+        "title": "Control de la Miopía",
+        "description": "Especialmente efectiva para frenar la progresión de la miopía en niños y adolescentes."
+      },
+      {
+        "title": "Reversible y Seguro",
+        "description": "A diferencia de la cirugía láser, es completamente reversible. Si dejas de usar las lentes, tu visión vuelve a su estado original."
+      },
+      {
+        "title": "Ideal para el Deporte",
+        "description": "Perfecta para practicar deportes acuáticos, de contacto o cualquier actividad donde las gafas sean un impedimento."
+      }
+    ]
+  },
+  "process": {
+    "title": "Proceso de Adaptación en Óptica Suárez Jaén",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Topografía Corneal",
+        "description": "Realizamos un mapeo detallado de tu córnea con equipamiento de última generación para determinar si eres candidato ideal para Orto-K.",
+        "image": "/images/ortoqueratologia/topografia-corneal.webp"
+      },
+      {
+        "step": "2",
+        "title": "Examen Visual Completo",
+        "description": "Evaluamos tu salud ocular mediante una refracción precisa y examen con lámpara de hendidura para asegurar la idoneidad del tratamiento.",
+        "image": "/images/ortoqueratologia/refraccion.webp"
+      },
+      {
+        "step": "3",
+        "title": "Adaptación Personalizada",
+        "description": "Diseñamos lentes de contacto a medida según la geometría única de tu córnea y te enseñamos la correcta colocación y cuidado.",
+        "image": "/images/ortoqueratologia/colocacion-lentillas.webp"
+      },
+      {
+        "step": "4",
+        "title": "Seguimiento Continuo",
+        "description": "Realizamos controles periódicos con lámpara de hendidura para verificar la salud de tus ojos y ajustar el tratamiento si es necesario.",
+        "image": "/images/ortoqueratologia/lampara-hendidura.webp"
+      }
+    ]
+  },
+  "candidates": {
+    "title": "¿Eres Candidato para Orto-K?",
+    "description": "La ortoqueratología es especialmente adecuada para:",
+    "disclaimer": "La idoneidad para el tratamiento debe ser determinada mediante una evaluación profesional personalizada.",
+    "items": [
+      "Personas con miopía de hasta -6.00 dioptrías (también tratamos Astigmatismo, Hipermetropía y Presbicia)",
+      "Niños y adolescentes con miopía progresiva",
+      "Deportistas que practican actividades acuáticas o de contacto",
+      "Profesionales con requisitos visuales específicos (pilotos, policías, bomberos)",
+      "Personas que desean evitar la cirugía láser",
+      "Quienes trabajan en ambientes con polvo o aire acondicionado donde las lentillas diarias son incómodas"
+    ]
+  },
+  "why-optica-suarez": {
+    "title": "¿Por qué elegir Óptica Suárez para Ortoqueratología en Jaén?",
+    "items": [
+      {
+        "title": "Más de 80 Años de Experiencia",
+        "description": "Cuatro generaciones de profesionales cuidando la salud visual de las familias de Jaén."
+      },
+      {
+        "title": "Especialistas en Orto-K",
+        "description": "Nuestro equipo está altamente cualificado y cuenta con formación especializada en ortoqueratología."
+      },
+      {
+        "title": "Tecnología Avanzada",
+        "description": "Contamos con los equipos más modernos para topografía corneal y seguimiento del tratamiento."
+      },
+      {
+        "title": "Atención Personalizada",
+        "description": "Cada paciente recibe un plan de tratamiento único adaptado a sus necesidades específicas y estilo de vida."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre Ortoqueratología",
+    "items": [
+      {
+        "question": "¿Es segura la ortoqueratología?",
+        "answer": "Sí, la ortoqueratología es completamente segura cuando se realiza bajo supervisión profesional. En Óptica Suárez, realizamos controles periódicos para garantizar la salud de tus ojos. Las lentes están diseñadas específicamente para este propósito y cuentan con todas las aprobaciones sanitarias necesarias."
+      },
+      {
+        "question": "¿Cuánto tiempo tarda en hacer efecto la Orto-K?",
+        "answer": "La mayoría de los pacientes experimentan una mejora significativa en su visión desde la primera noche. Sin embargo, los resultados óptimos y estables suelen alcanzarse en un periodo de 7 a 14 días. Durante este tiempo, tu optometrista ajustará el tratamiento según sea necesario."
+      },
+      {
+        "question": "¿Cuántas horas tengo que usar las lentillas Orto-k?",
+        "answer": "Las lentes de ortoqueratología se usan durante la noche mientras duermes, normalmente entre 6 y 8 horas. Durante el día, disfrutas de visión clara sin necesidad de usar ningún tipo de corrección visual."
+      },
+      {
+        "question": "¿Qué pasa si dejo de usar las lentes Orto-K?",
+        "answer": "La ortoqueratología es completamente reversible. Si dejas de usar las lentes, tu córnea volverá gradualmente a su forma original en unas pocas semanas y tu visión volverá al estado previo al tratamiento. Esto hace que sea una opción muy segura comparada con procedimientos quirúrgicos."
+      },
+      {
+        "question": "¿La Ortoqueratología puede frenar la miopía en niños?",
+        "answer": "Sí, múltiples estudios científicos han demostrado que la ortoqueratología es efectiva para frenar la progresión de la miopía en niños y adolescentes. Según diversos estudios clínicos, puede reducir la progresión hasta en un 50% comparado con el uso de gafas convencionales, siendo una de las opciones más recomendadas por especialistas. Los resultados pueden variar según cada paciente."
+      },
+      {
+        "question": "¿Cuánto cuesta el tratamiento de ortoqueratología en Jaén?",
+        "answer": "El coste del tratamiento varía según las necesidades específicas de cada paciente. En Óptica Suárez, ofrecemos una primera consulta para evaluar tu caso y proporcionarte un presupuesto personalizado. El precio incluye las lentes personalizadas, todos los seguimientos necesarios durante el primer año y la formación completa para el cuidado de las lentes."
+      },
+      {
+        "question": "¿Cuánto duran las lentes de orto-k?",
+        "answer": "Con el cuidado adecuado, las lentes de ortoqueratología suelen durar entre 1 y 2 años. En Óptica Suárez te enseñaremos todas las técnicas de limpieza y mantenimiento para maximizar su durabilidad y te proporcionaremos productos específicos de alta calidad para su cuidado."
+      },
+      {
+        "question": "¿Puedo practicar deportes con ortoqueratología?",
+        "answer": "¡Absolutamente! De hecho, la ortoqueratología es ideal para deportistas. Como no necesitas usar gafas ni lentillas durante el día, puedes practicar cualquier deporte con total libertad, incluyendo deportes acuáticos, de contacto o de aventura sin preocuparte por tus lentes."
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Interesado en Ortoqueratología?",
+    "description": "Solicita una cita con nuestros especialistas en ortoqueratología en Jaén y descubre si eres candidato para este tratamiento revolucionario. Más de 80 años de experiencia nos avalan.",
+    "buttonText": "Reservar Cita para Evaluación",
+    "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20ortoqueratología%20en%20Jaén"
+  }
+}
