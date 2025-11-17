@@ -102,6 +102,39 @@
       }
     ]
   },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre Terapia Visual",
+    "items": [
+      {
+        "question": "¿Qué es la terapia visual y cómo puede ayudarme en Jaén?",
+        "answer": "La terapia visual es un tratamiento optométrico personalizado que utiliza ejercicios específicos para mejorar las habilidades visuales. En Óptica Suárez Jaén, diseñamos programas de terapia visual adaptados a cada paciente para tratar problemas como ojo vago, estrabismo, dificultades de enfoque y problemas de coordinación ojo-mano. Es especialmente efectiva para niños con problemas de aprendizaje relacionados con la visión y adultos con fatiga visual."
+      },
+      {
+        "question": "¿Cuánto dura un programa de terapia visual en Jaén?",
+        "answer": "La duración de un programa de terapia visual varía según las necesidades de cada paciente, pero generalmente oscila entre 3 y 6 meses. En Óptica Suárez realizamos una evaluación inicial completa para determinar la duración exacta. Las sesiones suelen ser semanales y se combinan con ejercicios para realizar en casa. Realizamos seguimientos periódicos para evaluar el progreso y ajustar el programa según sea necesario."
+      },
+      {
+        "question": "¿La terapia visual puede mejorar el ojo vago (ambliopía) en niños?",
+        "answer": "Sí, la terapia visual es uno de los tratamientos más efectivos para el ojo vago o ambliopía en niños. Aunque tradicionalmente se pensaba que solo era efectiva en edades tempranas, estudios recientes demuestran que puede ser beneficiosa incluso en adolescentes y adultos jóvenes. En Óptica Suárez Jaén, nuestros especialistas en terapia visual evalúan cada caso individualmente y diseñan un programa específico que combina ejercicios de estimulación visual para mejorar la agudeza visual del ojo afectado."
+      },
+      {
+        "question": "¿En qué se diferencia la terapia visual de usar gafas o lentillas?",
+        "answer": "Las gafas y lentillas corrigen los defectos refractivos (miopía, hipermetropía, astigmatismo) pero no entrenan las habilidades visuales. La terapia visual va más allá: mejora la coordinación ocular, el enfoque, el seguimiento visual y la percepción espacial. Es como la diferencia entre usar muletas y hacer fisioterapia. Muchos pacientes en Jaén que usan gafas también se benefician de la terapia visual para mejorar su rendimiento visual y reducir la fatiga ocular."
+      },
+      {
+        "question": "¿Puede la terapia visual ayudar con problemas de lectura y aprendizaje?",
+        "answer": "Absolutamente. Muchos problemas de lectura y aprendizaje en niños están relacionados con deficiencias en las habilidades visuales, como dificultades de seguimiento, enfoque o coordinación binocular. En Óptica Suárez Jaén, identificamos estas deficiencias mediante exámenes completos y diseñamos programas de terapia visual específicos. Los padres suelen notar mejoras significativas en la velocidad de lectura, comprensión y concentración de sus hijos tras completar el programa."
+      },
+      {
+        "question": "¿La terapia visual es efectiva para adultos con fatiga visual?",
+        "answer": "Sí, la terapia visual es muy efectiva para adultos que sufren fatiga visual, especialmente aquellos que trabajan muchas horas frente a pantallas. En nuestra óptica en Jaén, tratamos habitualmente a profesionales que experimentan dolores de cabeza, visión borrosa, ojos secos o cansados. Los ejercicios de terapia visual fortalecen los músculos oculares, mejoran la coordinación y aumentan la resistencia visual, permitiendo trabajar de forma más cómoda y eficiente."
+      },
+      {
+        "question": "¿Cuánto cuesta la terapia visual en Óptica Suárez Jaén?",
+        "answer": "El coste de la terapia visual varía según la duración del programa y las necesidades específicas de cada paciente. En Óptica Suárez ofrecemos una primera consulta de evaluación donde determinamos el tipo de terapia necesaria y te proporcionamos un tiempo de tratamiento aproximado. El precio incluye las sesiones de terapia así como material necesario que se presta para realizar ejercicios tanto en consulta como en casa.Contacta con nosotros para más información sobre tarifas y opciones de financiación."
+      }
+    ]
+  },
   "cta": {
     "title": "¿Necesitas Terapia Visual en Jaén?",
     "description": "Solicita una evaluación visual en Óptica Suárez Jaén y descubre si nuestra terapia visual puede ayudarte a mejorar ojo vago, estrabismo o fatiga ocular.",

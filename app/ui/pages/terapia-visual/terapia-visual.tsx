@@ -3,6 +3,7 @@ import TerapiaVisualInfo from './sections/terapia-visual-info';
 import TerapiaVisualConditions from './sections/terapia-visual-conditions';
 import TerapiaVisualProcess from './sections/terapia-visual-process';
 import Testimonials from './sections/testimonials';
+import FAQAccordion from '../../components/faq-accordion';
 import TerapiaVisualCta from './sections/terapia-visual-cta';
 import content from '../../../content/terapia-visual.json';
 
@@ -43,6 +44,9 @@ export default function TerapiaVisual() {
         title={content.testimonials.title}
         testimonials={content.testimonials.items}
       />
+
+      {/* FAQ Section */}
+      <FAQAccordion title={content.faq.title} items={content.faq.items} />
 
       {/* CTA */}
       <TerapiaVisualCta
