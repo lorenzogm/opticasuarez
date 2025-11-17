@@ -10,12 +10,12 @@ export function meta() {
   return [
     {
       title:
-        'Contactología | Óptica Suárez - Especialistas en lentes de contacto',
+        'Lentes de contacto en Jaén | Óptica Suárez',
     },
     {
       name: 'description',
       content:
-        'Óptica Suárez, centro de referencia de lentillas en Jaén. Especialistas en contactología con servicio integral de adaptación, seguimiento y cuidado de lentes de contacto.',
+        'Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.',
     },
     {
       name: 'keywords',
@@ -23,12 +23,12 @@ export function meta() {
     },
     {
       property: 'og:title',
-      content: 'Contactología | Óptica Suárez - Especialistas en lentes de contacto',
+      content: 'Lentes de contacto en Jaén | Óptica Suárez',
     },
     {
       property: 'og:description',
       content:
-        'Óptica Suárez, centro de referencia de lentillas en Jaén. Especialistas en contactología con servicio integral de adaptación, seguimiento y cuidado de lentes de contacto.',
+        'Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.',
     },
     {
       property: 'og:url',

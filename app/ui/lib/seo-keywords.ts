@@ -180,6 +180,11 @@ export const generatePageKeywords = (
 
     case 'contactologia':
       return [
+        'lentes de contacto Jaén',
+        'lentillas Jaén',
+        'contactología Jaén',
+        'centro de contactología Jaén',
+        'adaptación lentillas Jaén',
         'Contactología',
         'Lentes de contacto',
         'Lentillas',
@@ -190,6 +195,8 @@ export const generatePageKeywords = (
         'Lentillas mensuales',
         'Lentillas tóricas',
         'Lentillas multifocales',
+        'especialistas lentillas Jaén',
+        'óptica lentillas Jaén',
       ];
 
     case 'vision-deportiva':

@@ -2,9 +2,11 @@ import { Text } from '../../components/text';
 import { Button } from '../../components/button';
 import Image from '../../components/image';
 import content from '../../../content/contactologia.json';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Contactologia() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
@@ -25,6 +27,7 @@ export default function Contactologia() {
           <Image
             src="/images/homepage/services/contactologia.webp"
             alt="Contactología - Lentes de contacto"
+            title="Contactología en Jaén"
             className="w-full h-full object-cover transform scale-110"
             priority
             sizes="100vw"
@@ -90,9 +93,9 @@ export default function Contactologia() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-900">
+                <div className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-900">
                   {item.title}
-                </h3>
+                </div>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   {item.description}
                 </p>
@@ -157,13 +160,9 @@ export default function Contactologia() {
                 key={index}
                 className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300"
               >
-                <Text
-                  as="h3"
-                  variant="heading-5"
-                  className="mb-3 text-gray-900"
-                >
+                <div className="text-lg font-semibold mb-3 text-gray-900">
                   {advantage.title}
-                </Text>
+                </div>
                 <Text as="p" variant="body-sm" className="text-gray-600">
                   {advantage.description}
                 </Text>
@@ -190,16 +189,69 @@ export default function Contactologia() {
                   {step.step}
                 </div>
                 <div>
-                  <Text
-                    as="h3"
-                    variant="heading-5"
-                    className="mb-2 text-gray-900"
-                  >
+                  <div className="text-lg font-semibold mb-2 text-gray-900">
                     {step.title}
-                  </Text>
+                  </div>
                   <Text as="p" variant="body-md" className="text-gray-600">
                     {step.description}
                   </Text>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-gray-50 py-16 px-4 sm:px-6">
+        <div className="container mx-auto max-w-4xl">
+          <Text
+            as="h2"
+            variant="heading-2"
+            className="mb-12 text-gray-900 text-center"
+          >
+            {content.faq.title}
+          </Text>
+          <div className="space-y-4">
+            {content.faq.questions.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <button
+                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                  className="w-full px-6 py-4 text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                  aria-expanded={openFaqIndex === index}
+                >
+                  <Text as="h3" variant="heading-5" className="text-gray-900 pr-4">
+                    {faq.question}
+                  </Text>
+                  <svg
+                    className={`flex-shrink-0 w-6 h-6 text-blue-600 transform transition-transform duration-300 ${
+                      openFaqIndex === index ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    openFaqIndex === index ? 'max-h-96' : 'max-h-0'
+                  }`}
+                >
+                  <div className="px-6 pb-4">
+                    <Text as="p" variant="body-md" className="text-gray-600">
+                      {faq.answer}
+                    </Text>
+                  </div>
                 </div>
               </div>
             ))}
