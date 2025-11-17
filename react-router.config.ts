@@ -28,6 +28,7 @@ export default {
       '/terapia-visual',
       '/contactologia',
       '/examen-visual',
+      '/ortoqueratologia',
       '/contacto',
       ...blogRoutes,
       // Exclude sitemap.xml from prerendering as it's a dynamic resource route
