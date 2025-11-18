@@ -4,6 +4,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/vision-deportiva' },
+  ];
+}
+
 export function meta() {
   const visionDeportivaKeywords = generatePageKeywords('vision-deportiva');
 
@@ -36,7 +42,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/vision-deportiva',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/vision-deportiva' },
   ];
 }
 

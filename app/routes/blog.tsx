@@ -2,6 +2,12 @@ import Blog from '../ui/pages/blog/blog';
 import { getBlogPosts } from '../ui/lib/blog';
 import { BreadcrumbSchema } from '../ui/components/structured-data';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/blog' },
+  ];
+}
+
 export function meta() {
   return [
     { title: 'Blog de Salud Visual y Óptica en Jaén | Óptica Suárez' },
@@ -29,7 +35,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/blog',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/blog' },
   ];
 }
 

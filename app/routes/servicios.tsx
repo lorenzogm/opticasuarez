@@ -5,6 +5,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/servicios' },
+  ];
+}
+
 export function meta() {
   const serviciosKeywords = generatePageKeywords('servicios', [
     'Servicios ópticos',
@@ -37,7 +43,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/servicios',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/servicios' },
   ];
 }
 

@@ -3,6 +3,19 @@ import { getBlogPost } from '../ui/lib/blog';
 import BlogPost from '../ui/pages/blog/blog-post';
 import type { BlogPost as BlogPostType } from '../ui/lib/blog';
 
+export function links({ matches }: { matches?: Array<{ data?: { post?: BlogPostType } }> } = {}) {
+  // Find the current route's data from matches
+  const routeData = matches?.find((match) => match.data?.post)?.data;
+  
+  if (!routeData?.post) {
+    return [];
+  }
+
+  return [
+    { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${routeData.post.slug}` },
+  ];
+}
+
 export function meta({ data }: { data: { post: BlogPostType } | null }) {
   if (!data?.post) {
     return [
@@ -27,7 +40,6 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
       content: `https://opticasuarezjaen.es/blog/${data.post.slug}`,
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${data.post.slug}` },
   ];
 }
 

@@ -4,6 +4,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/contactologia' },
+  ];
+}
+
 export function meta() {
   const contactologiaKeywords = generatePageKeywords('contactologia');
 
@@ -35,7 +41,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/contactologia',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/contactologia' },
   ];
 }
 
