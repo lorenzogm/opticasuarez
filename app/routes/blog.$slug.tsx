@@ -3,17 +3,24 @@ import { getBlogPost } from '../ui/lib/blog';
 import BlogPost from '../ui/pages/blog/blog-post';
 import type { BlogPost as BlogPostType } from '../ui/lib/blog';
 
-export function links({ matches }: { matches?: Array<{ data?: { post?: BlogPostType } }> } = {}) {
-  // Find the current route's data from matches
-  const routeData = matches?.find((match) => match.data?.post)?.data;
-  
-  if (!routeData?.post) {
-    return [];
+export async function loader({ params }: { params: { slug: string } }) {
+  const post = getBlogPost(params.slug);
+
+  if (!post) {
+    throw new Response('Blog post not found', { status: 404 });
   }
 
-  return [
-    { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${routeData.post.slug}` },
-  ];
+  return { post };
+}
+
+export function links({ context }: { context?: { post?: BlogPostType } } = {}) {
+  // Access the post from the loader data passed via context
+  if (context?.post?.slug) {
+    return [
+      { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${context.post.slug}` },
+    ];
+  }
+  return [];
 }
 
 export function meta({ data }: { data: { post: BlogPostType } | null }) {
@@ -41,16 +48,6 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
     },
     { name: 'robots', content: 'index, follow' },
   ];
-}
-
-export async function loader({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
-
-  if (!post) {
-    throw new Response('Blog post not found', { status: 404 });
-  }
-
-  return { post };
 }
 
 interface LoaderData {
