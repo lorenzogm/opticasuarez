@@ -1,7 +1,7 @@
 {
   "mainTitle": "CONTACTOLOGÍA",
   "intro": {
-    "title": "Especialistas en Lentes de Contacto",
+    "title": "Especialistas en Lentes de Contacto en Jaén",
     "description": "En Óptica Suárez somos especialistas en contactología, siendo el centro de referencia de lentillas en Jaén. Ofrecemos un servicio integral de adaptación, seguimiento y cuidado de lentes de contacto. Nuestro equipo de profesionales te asesorará para encontrar la mejor solución visual según tus necesidades."
   },
   "services": {
@@ -33,7 +33,7 @@
     "title": "TIPOS DE LENTES DE CONTACTO",
     "items": [
       {
-        "name": "Lentes Diarias",
+        "name": "Lentillas diarias",
         "description": "Máxima comodidad e higiene. Perfectas para uso ocasional o para quien prefiere estrenar lentes cada día.",
         "benefits": [
           "Máxima higiene",
@@ -43,19 +43,19 @@
         "image": "/images/contactologia/lentes-diarias.webp"
       },
       {
-        "name": "Lentes Mensuales",
+        "name": "Lentillas Mensuales",
         "description": "Opción económica para uso regular. Materiales de alta calidad que proporcionan comodidad durante todo el mes.",
         "benefits": ["Económicas", "Alta calidad", "Uso prolongado"],
         "image": "/images/contactologia/lentes-mensuales.webp"
       },
       {
-        "name": "Lentes Multifocales",
+        "name": "Lentillas Multifocales",
         "description": "Corrigen la presbicia permitiendo una visión nítida tanto de cerca como de lejos.",
         "benefits": ["Corrección presbicia", "Visión nítida", "Mayor libertad"],
         "image": "/images/contactologia/lentes-multifocales.webp"
       },
       {
-        "name": "Lentes Tóricas",
+        "name": "Lentillas Tóricas",
         "description": "Diseñadas específicamente para corregir el astigmatismo, proporcionando una visión estable y clara.",
         "benefits": [
           "Corrección astigmatismo",
@@ -112,8 +112,45 @@
       }
     ]
   },
+  "faq": {
+    "title": "PREGUNTAS FRECUENTES",
+    "questions": [
+      {
+        "question": "¿Cuánto tiempo se tarda en adaptar lentillas en Jaén?",
+        "answer": "El proceso de adaptación de lentillas en nuestra óptica de Jaén normalmente toma entre 1 y 2 semanas. Durante este período, realizamos un seguimiento personalizado para asegurar tu comodidad y salud visual. La primera visita incluye un examen completo y la prueba de las primeras lentillas."
+      },
+      {
+        "question": "¿Qué tipos de lentillas son mejores para mi estilo de vida?",
+        "answer": "Depende de tus necesidades específicas. Las lentillas diarias son ideales para uso ocasional y deportes, mientras que las mensuales son más económicas para uso regular. Si practicas deporte frecuentemente en Jaén, las lentillas diarias ofrecen máxima comodidad e higiene. Nuestros especialistas te asesorarán según tu estilo de vida."
+      },
+      {
+        "question": "¿Las lentillas tóricas corrigen el astigmatismo en Jaén?",
+        "answer": "Sí, las lentillas tóricas están diseñadas específicamente para corregir el astigmatismo. En Óptica Suárez en Jaén contamos con una amplia gama de lentillas tóricas de última generación que proporcionan una visión estable y clara, adaptadas a tu graduación específica."
+      },
+      {
+        "question": "¿Puedo usar lentillas si tengo presbicia o vista cansada?",
+        "answer": "Absolutamente. Las lentillas multifocales son la solución perfecta para la presbicia, permitiendo una visión nítida tanto de cerca como de lejos. En nuestra óptica de Jaén realizamos adaptaciones personalizadas de lentillas multifocales con excelentes resultados."
+      },
+      {
+        "question": "¿Con qué frecuencia debo hacer revisiones de mis lentillas?",
+        "answer": "Recomendamos revisiones periódicas cada 6-12 meses en nuestra óptica de Jaén, aunque esto puede variar según el tipo de lentillas y tus necesidades específicas. Durante estas revisiones evaluamos la salud de tus ojos, la comodidad de las lentillas y actualizamos tu graduación si es necesario."
+      },
+      {
+        "question": "¿Qué cuidados necesitan las lentillas mensuales?",
+        "answer": "Las lentillas mensuales requieren limpieza diaria con solución específica, almacenamiento en estuche limpio y reemplazo mensual. En Óptica Suárez en Jaén te enseñamos las técnicas correctas de manipulación, limpieza y cuidado para garantizar la salud de tus ojos y la durabilidad de tus lentillas."
+      },
+      {
+        "question": "¿Puedo practicar deportes con lentillas en Jaén?",
+        "answer": "Sí, las lentillas son ideales para la práctica deportiva. Ofrecen libertad de movimiento, campo visual completo sin monturas que limiten tu visión, y no se empañan con el sudor o cambios de temperatura. Para deportistas en Jaén, recomendamos especialmente las lentillas diarias por su comodidad e higiene."
+      },
+      {
+        "question": "¿Ofrecen lentillas para casos especiales como queratocono en Jaén?",
+        "answer": "Sí, en Óptica Suárez en Jaén somos especialistas en lentillas para casos especiales como queratocono, astigmatismo irregular y otras condiciones corneales complejas. Disponemos de lentillas especializadas y realizamos adaptaciones personalizadas con tecnología avanzada para cada caso."
+      }
+    ]
+  },
   "cta": {
-    "title": "¿Interesado en Lentes de Contacto?",
+    "title": "¿Interesado en Lentes de Contacto en Jaén?",
     "description": "Solicita una cita con nuestros especialistas en contactología y descubre la libertad visual que te ofrecen las lentes de contacto.",
     "buttonText": "Reservar Cita",
     "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20lentes%20de%20contacto"

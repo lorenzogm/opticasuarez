@@ -180,6 +180,11 @@ export const generatePageKeywords = (
 
     case 'contactologia':
       return [
+        'lentes de contacto Jaén',
+        'lentillas Jaén',
+        'contactología Jaén',
+        'centro de contactología Jaén',
+        'adaptación lentillas Jaén',
         'Contactología',
         'Lentes de contacto',
         'Lentillas',
@@ -190,6 +195,8 @@ export const generatePageKeywords = (
         'Lentillas mensuales',
         'Lentillas tóricas',
         'Lentillas multifocales',
+        'especialistas lentillas Jaén',
+        'óptica lentillas Jaén',
       ];
 
     case 'vision-deportiva':
@@ -225,6 +232,29 @@ export const generatePageKeywords = (
         'Medición visual',
         'Chequeo visual',
         'Detección problemas visuales',
+      ];
+
+    case 'ortoqueratologia':
+      return [
+        'ortoqueratología Jaén',
+        'Orto-K Jaén',
+        'lentillas nocturnas Jaén',
+        'frenar miopía Jaén',
+        'control miopía nocturno Jaén',
+        'lentes de contacto nocturnas Jaén',
+        'corrección visual sin gafas Jaén',
+        'Ortoqueratología',
+        'Orto-K',
+        'Lentillas nocturnas',
+        'Control de miopía',
+        'Moldeo corneal',
+        'Visión sin gafas',
+        'Lentes de contacto especiales',
+        'Corrección visual temporal',
+        'Topografía corneal',
+        'Adaptación personalizada',
+        'Frenar progresión miopía',
+        'Tratamiento reversible',
       ];
 
     default:
