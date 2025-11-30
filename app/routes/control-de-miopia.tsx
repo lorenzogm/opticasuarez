@@ -4,6 +4,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/control-de-miopia' },
+  ];
+}
+
 export function meta() {
   const controlMiopiaKeywords = generatePageKeywords('control-miopia');
 
@@ -32,7 +38,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/control-de-miopia',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/control-de-miopia' },
   ];
 }
 

@@ -4,6 +4,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/' },
+  ];
+}
+
 export function meta() {
   const homeKeywords = generatePageKeywords('home');
 
@@ -48,7 +54,6 @@ export function meta() {
         'Optometria en Jaén. Más de 80 años haciendo revisión de la vista, terapia visual, control de miopía, lentes de contacto, visión infantil, ojo vago y estrabismo.',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/' },
   ];
 }
 

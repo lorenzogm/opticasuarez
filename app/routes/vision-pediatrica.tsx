@@ -5,6 +5,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/vision-pediatrica' },
+  ];
+}
+
 export function meta() {
   const visionPediatricaKeywords = generatePageKeywords('vision-pediatrica');
 
@@ -33,7 +39,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/vision-pediatrica',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/vision-pediatrica' },
   ];
 }
 

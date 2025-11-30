@@ -5,6 +5,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/quienes-somos' },
+  ];
+}
+
 export function meta() {
   const quienesSomosKeywords = generatePageKeywords('quienes-somos', [
     'Historia óptica',
@@ -40,7 +46,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/quienes-somos',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/quienes-somos' },
   ];
 }
 

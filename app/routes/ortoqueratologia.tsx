@@ -4,6 +4,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/ortoqueratologia' },
+  ];
+}
+
 export function meta() {
   const ortoqueratologiaKeywords = generatePageKeywords('ortoqueratologia');
 
@@ -32,7 +38,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/ortoqueratologia',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/ortoqueratologia' },
   ];
 }
 
