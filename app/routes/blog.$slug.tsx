@@ -3,6 +3,26 @@ import { getBlogPost } from '../ui/lib/blog';
 import BlogPost from '../ui/pages/blog/blog-post';
 import type { BlogPost as BlogPostType } from '../ui/lib/blog';
 
+export async function loader({ params }: { params: { slug: string } }) {
+  const post = getBlogPost(params.slug);
+
+  if (!post) {
+    throw new Response('Blog post not found', { status: 404 });
+  }
+
+  return { post };
+}
+
+export function links({ context }: { context?: { post?: BlogPostType } } = {}) {
+  // Access the post from the loader data passed via context
+  if (context?.post?.slug) {
+    return [
+      { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${context.post.slug}` },
+    ];
+  }
+  return [];
+}
+
 export function meta({ data }: { data: { post: BlogPostType } | null }) {
   if (!data?.post) {
     return [
@@ -27,18 +47,7 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
       content: `https://opticasuarezjaen.es/blog/${data.post.slug}`,
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: `https://opticasuarezjaen.es/blog/${data.post.slug}` },
   ];
-}
-
-export async function loader({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
-
-  if (!post) {
-    throw new Response('Blog post not found', { status: 404 });
-  }
-
-  return { post };
 }
 
 interface LoaderData {

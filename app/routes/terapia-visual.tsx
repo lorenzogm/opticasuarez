@@ -5,6 +5,12 @@ import {
   generateMetaKeywords,
 } from '../ui/lib/seo-keywords';
 
+export function links() {
+  return [
+    { rel: 'canonical', href: 'https://opticasuarezjaen.es/terapia-visual' },
+  ];
+}
+
 export function meta() {
   const terapiaVisualKeywords = generatePageKeywords('terapia-visual');
 
@@ -37,7 +43,6 @@ export function meta() {
       content: 'https://opticasuarezjaen.es/terapia-visual',
     },
     { name: 'robots', content: 'index, follow' },
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/terapia-visual' },
   ];
 }
 
