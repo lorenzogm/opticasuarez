@@ -36,4 +36,9 @@ export const servicePages: ServicePage[] = [
     url: '/control-de-miopia',
     description: 'Tratamientos para frenar la progresión de la miopía',
   },
+  {
+    name: 'OrtoK',
+    url: '/ortoqueratologia',
+    description: 'Ortoqueratología - Corrección visual nocturna',
+  },
 ];
