@@ -91,6 +91,43 @@
       }
     ]
   },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre Control de Miopía",
+    "items": [
+      {
+        "question": "¿Qué papel tiene el optometrista en el control de la miopía infantil?",
+        "answer": "El optometrista especializado en control de miopía es fundamental para detectar, evaluar y tratar la progresión de la miopía en niños. En Óptica Suárez en Jaén, nuestros optometristas realizan exámenes visuales completos, diseñan tratamientos personalizados y realizan seguimientos periódicos para monitorizar la evolución de la miopía infantil. Su experiencia permite identificar tempranamente los cambios y ajustar el tratamiento para frenar eficazmente la progresión."
+      },
+      {
+        "question": "¿A qué edad se debe empezar el control de miopía en niños?",
+        "answer": "Es recomendable comenzar el control de miopía lo antes posible una vez detectada, idealmente entre los 6 y 12 años, cuando la progresión suele ser más rápida. Sin embargo, el optometrista puede evaluar a niños desde edades tempranas. Cuanto antes se inicie el tratamiento de control de miopía infantil, mejores resultados se obtienen en frenar su progresión. En nuestra óptica en Jaén contamos con tecnología específica para evaluación pediátrica."
+      },
+      {
+        "question": "¿Cuáles son los tratamientos más efectivos para el control de miopía en Jaén?",
+        "answer": "En Óptica Suárez disponemos de las técnicas más avanzadas para el control de miopía: lentes de contacto especializadas de desenfoque periférico, gafas con lentes progresivas específicas, ortoqueratología nocturna y terapia visual personalizada. Nuestros optometristas en Jaén evalúan cada caso individualmente para recomendar el tratamiento más adecuado según la edad del niño, su estilo de vida y el grado de progresión de la miopía."
+      },
+      {
+        "question": "¿Con qué frecuencia debe un optometrista revisar la miopía infantil?",
+        "answer": "Durante el tratamiento de control de miopía, es fundamental realizar revisiones periódicas con el optometrista cada 3-6 meses. Estas revisiones permiten evaluar la efectividad del tratamiento, medir el crecimiento ocular y realizar ajustes necesarios. El seguimiento continuo es esencial para garantizar que el control de la miopía sea efectivo y para detectar cualquier cambio que requiera modificar el plan de tratamiento."
+      },
+      {
+        "question": "¿La miopía infantil se puede frenar completamente?",
+        "answer": "Si bien no se puede detener completamente la miopía, los tratamientos de control de miopía pueden reducir significativamente su progresión, hasta en un 60-70% según estudios científicos. El objetivo del optometrista es ralentizar el avance de la miopía durante los años de crecimiento, reduciendo el riesgo de desarrollar alta miopía y sus complicaciones asociadas a largo plazo. Un control efectivo durante la infancia puede marcar una gran diferencia en la salud visual futura."
+      },
+      {
+        "question": "¿Por qué es importante controlar la miopía en niños y adolescentes?",
+        "answer": "Controlar la miopía infantil es crucial porque una progresión descontrolada puede llevar a alta miopía, aumentando el riesgo de complicaciones oculares graves en la edad adulta como desprendimiento de retina, glaucoma o cataratas prematuras. Además, la miopía alta puede limitar las opciones de corrección visual en el futuro. El optometrista especializado ayuda a prevenir estos riesgos mediante tratamientos que frenan la progresión durante los años críticos de desarrollo visual."
+      },
+      {
+        "question": "¿Dónde puedo encontrar un optometrista especializado en control de miopía en Jaén?",
+        "answer": "En Óptica Suárez en Jaén contamos con optometristas especializados en control de miopía infantil con formación específica y tecnología avanzada para diagnóstico y seguimiento. Ofrecemos tratamientos personalizados adaptados a las necesidades de cada niño. Estamos ubicados en el centro de Jaén y atendemos a familias de toda la provincia. Puedes solicitar una cita con nuestros especialistas para una evaluación completa del control de miopía."
+      },
+      {
+        "question": "¿Los tratamientos de control de miopía son seguros para niños?",
+        "answer": "Sí, todos los tratamientos de control de miopía que ofrecemos en Óptica Suárez son seguros y están respaldados por investigación científica. Las lentes de contacto especializadas, las gafas con tratamiento específico y la terapia visual son opciones no invasivas supervisadas constantemente por nuestros optometristas. El seguimiento profesional regular garantiza la salud ocular y la efectividad del tratamiento, ajustándolo según las necesidades individuales de cada niño."
+      }
+    ]
+  },
   "bookAppointment": {
     "title": "Control especializado de la Miopía",
     "description": "No esperes más. Un diagnóstico temprano y un tratamiento adecuado pueden hacer la diferencia en el futuro visual de tu hijo. Nuestros especialistas están aquí para ayudarte.",
