@@ -41,4 +41,9 @@ export const servicePages: ServicePage[] = [
     url: '/ortoqueratologia',
     description: 'Ortoqueratología - Corrección visual nocturna',
   },
+  {
+    name: 'Plan VEO',
+    url: '/planveo',
+    description: 'Ayuda de hasta 100€ para gafas y lentillas infantiles',
+  },
 ];
