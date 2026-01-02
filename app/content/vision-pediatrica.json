@@ -154,5 +154,42 @@
         "review": "Excelente atención para niños. Mi hija de 7 años se sintió muy cómoda durante todo el examen. Los profesionales saben cómo tratar a los pequeños y hacen que la experiencia sea agradable."
       }
     ]
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre Visión Infantil en Jaén",
+    "items": [
+      {
+        "question": "¿Cuándo debe realizarse la primera revisión visual infantil en Jaén?",
+        "answer": "La primera revisión visual infantil debe realizarse entre los 6 y 12 meses de edad, incluso si no se observan problemas aparentes. En Óptica Suárez Jaén recomendamos una revisión completa antes de los 3 años, otra antes de iniciar la educación primaria, y posteriormente controles anuales. La detección temprana de problemas visuales es fundamental para el correcto neurodesarrollo visual y el rendimiento escolar de tu hijo."
+      },
+      {
+        "question": "¿Qué incluye un examen visual pediátrico completo?",
+        "answer": "En Óptica Suárez realizamos exámenes visuales pediátricos completos que incluyen: evaluación de la agudeza visual, análisis de la refracción (miopía, hipermetropía, astigmatismo), valoración de la coordinación binocular, seguimiento ocular, capacidad de enfoque, percepción de profundidad y detección de estrabismo o ambliopía. Adaptamos las pruebas a cada edad utilizando técnicas especializadas y dinámicas que hacen del examen una experiencia cómoda para los niños."
+      },
+      {
+        "question": "¿Cómo saber si mi hijo necesita gafas?",
+        "answer": "Existen varias señales de alerta: si se acerca mucho a los libros o la televisión, se frota los ojos frecuentemente, parpadea excesivamente, presenta dolores de cabeza, tiene dificultades en el rendimiento escolar, cierra un ojo para ver mejor, o se queja de visión borrosa. En Óptica Suárez Jaén contamos con especialistas en optometría infantil que pueden detectar estos problemas mediante exámenes específicos adaptados a cada edad, incluso en niños que aún no saben leer."
+      },
+      {
+        "question": "¿Cada cuánto tiempo deben revisarse los ojos de los niños en edad escolar?",
+        "answer": "Los niños en edad escolar (6-18 años) deben realizar revisiones visuales anuales obligatorias en Jaén, ya que su sistema visual está en constante desarrollo y cambio. Si el niño usa gafas, tiene antecedentes familiares de problemas visuales, o presenta miopía progresiva, recomendamos controles cada 6 meses. En Óptica Suárez realizamos seguimientos personalizados para asegurar un desarrollo visual óptimo durante todas las etapas del crecimiento."
+      },
+      {
+        "question": "¿Qué es el control de miopía infantil y por qué es importante?",
+        "answer": "El control de miopía infantil consiste en tratamientos específicos para ralentizar o frenar la progresión de la miopía en niños. Es fundamental porque la miopía alta aumenta el riesgo de problemas oculares graves en la vida adulta. En nuestra óptica en Jaén ofrecemos tratamientos avanzados como ortoqueratología (lentes nocturnas), lentes de contacto especiales y gafas con diseños específicos. Estos tratamientos han demostrado reducir significativamente la progresión de la miopía en edad infantil."
+      },
+      {
+        "question": "¿Qué diferencia hay entre un examen visual pediátrico y una revisión en el colegio?",
+        "answer": "Las revisiones escolares son screenings básicos que solo detectan problemas evidentes de agudeza visual. Un examen visual pediátrico completo en Óptica Suárez Jaén es mucho más exhaustivo: evaluamos habilidades visuales fundamentales para el aprendizaje como la coordinación binocular, el seguimiento visual, el enfoque, la percepción espacial y la salud ocular. Muchos niños con dificultades de aprendizaje tienen problemas visuales que no se detectan en revisiones escolares básicas."
+      },
+      {
+        "question": "¿La visión de mi hijo puede afectar su rendimiento escolar?",
+        "answer": "Absolutamente. El 80% del aprendizaje infantil depende de una buena visión. Problemas como dificultades de enfoque, seguimiento visual deficiente, o mala coordinación ojo-mano pueden causar bajo rendimiento escolar, pérdida de concentración, dolores de cabeza y rechazo a la lectura. En Óptica Suárez Jaén, nuestros especialistas en visión pediátrica identifican y tratan estos problemas mediante exámenes específicos y, si es necesario, programas de terapia visual que mejoran significativamente el rendimiento académico."
+      },
+      {
+        "question": "¿Ofrecen terapia visual para niños con problemas de aprendizaje en Jaén?",
+        "answer": "Sí, en Óptica Suárez Jaén somos especialistas en terapia visual pediátrica. Diseñamos programas personalizados de ejercicios visuales para niños con dificultades de aprendizaje relacionadas con la visión, problemas de seguimiento, enfoque, coordinación binocular, ojo vago o estrabismo. La terapia visual mejora las habilidades visuales necesarias para la lectura, escritura y concentración. Muchos padres en Jaén han visto mejoras significativas en el rendimiento escolar de sus hijos tras completar nuestros programas de terapia visual."
+      }
+    ]
   }
 }

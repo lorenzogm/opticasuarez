@@ -5,6 +5,7 @@ import AgeGroups from './sections/age-groups';
 import WarningSigns from './sections/warning-signs';
 import CTASection from './sections/cta-section';
 import CustomerTestimonials from '../../sections/customer-testimonials';
+import FAQAccordion from '../../components/faq-accordion';
 import content from '../../../content/vision-pediatrica.json';
 
 export default function VisionPediatrica() {
@@ -63,6 +64,9 @@ export default function VisionPediatrica() {
         buttonText={content.cta.buttonText}
         buttonLink={content.cta.buttonLink}
       />
+
+      {/* FAQ */}
+      <FAQAccordion title={content.faq.title} items={content.faq.items} />
     </main>
   );
 }
