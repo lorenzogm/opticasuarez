@@ -3,6 +3,7 @@ import MyopiaHero from './sections/myopia-hero';
 import MyopiaInfo from './sections/myopia-info';
 import MyopiaTreatments from './sections/myopia-treatments';
 import MyopiaScience from './sections/myopia-science';
+import FAQAccordion from '../../components/faq-accordion';
 import BookAppointment from '../../sections/book-appointment';
 import content from '../../../content/control-de-miopia.json';
 
@@ -48,6 +49,12 @@ export default function ControlDeMiopia() {
         title={content.science.title}
         description={content.science.description}
         studies={content.science.studies}
+      />
+
+      {/* FAQ Section */}
+      <FAQAccordion
+        title={content.faq.title}
+        items={content.faq.items}
       />
 
       {/* Book Appointment */}
