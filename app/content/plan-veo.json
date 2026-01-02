@@ -77,7 +77,7 @@
       {
         "number": "2",
         "title": "Trae la Documentación",
-        "description": "Acude con la prescripción médica o del óptico-optometrista, DNI del menor y responsable, y Tarjeta Sanitaria."
+        "description": "Acude con la prescripción médica o del óptico-optometrista (si no la tienes nosotros podemos realizarte la revisión optométrica), DNI del menor y responsable, y Tarjeta Sanitaria."
       },
       {
         "number": "3",
@@ -100,7 +100,7 @@
       },
       {
         "question": "¿Necesito receta médica para solicitar el Plan VEO?",
-        "answer": "Sí, necesitas una prescripción médica o de un óptico-optometrista. Los menores de 5 años deben traer receta emitida por un oftalmólogo u óptico-optometrista. Los niños de 6 años o más pueden obtener la prescripción directamente en Óptica Suárez si aún no la tienen."
+        "answer": "Si es de 5 años o menor, necesitarás receta de oftalmólogo (público o privado), de 6 años en adelante, también puedes usar nuestra receta optométrica."
       },
       {
         "question": "¿Cuánto tengo que pagar si las gafas cuestan más de 100 euros?",
