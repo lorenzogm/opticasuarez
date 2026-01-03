@@ -19,6 +19,8 @@ export const loader = async ({ request: _request }: LoaderFunctionArgs) => {
     '/terapia-visual',
     '/contactologia',
     '/examen-visual',
+    '/ortoqueratologia',
+    '/planveo',
     '/contacto',
     '/blog',
     ...blogPosts.map((post) => `/blog/${post.slug}`),

@@ -17,6 +17,7 @@ export default [
   route('contactologia', 'routes/contactologia.tsx'),
   route('examen-visual', 'routes/examen-visual.tsx'),
   route('ortoqueratologia', 'routes/ortoqueratologia.tsx'),
+  route('planveo', 'routes/planveo.tsx'),
   route('blog', 'routes/blog.tsx'),
   route('blog/:slug', 'routes/blog.$slug.tsx'),
   route('contacto', 'routes/contacto.tsx'),

@@ -257,6 +257,28 @@ export const generatePageKeywords = (
         'Tratamiento reversible',
       ];
 
+    case 'plan-veo':
+      return [
+        'Plan VEO Jaén',
+        'Plan VEO óptica Jaén',
+        'ayuda gafas niños Jaén',
+        'ayuda lentillas infantiles Jaén',
+        'gafas Plan VEO Jaén',
+        'lentillas Plan VEO Jaén',
+        'tramitar Plan VEO Jaén',
+        'solicitar Plan VEO Jaén',
+        'Plan VEO Ministerio Sanidad',
+        'ayuda 100 euros gafas Jaén',
+        'gafas infantiles subvencionadas Jaén',
+        'óptica adherida Plan VEO Jaén',
+        'Plan VEO 2025 Jaén',
+        'Plan VEO 2026 Jaén',
+        'gafas graduadas niños ayuda Jaén',
+        'lentillas menores 16 años Jaén',
+        'subvención gafas infantiles Jaén',
+        'ayuda salud visual infantil Jaén',
+      ];
+
     default:
       return combined.slice(0, 20); // Return top 20 keywords for other pages
   }
