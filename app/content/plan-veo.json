@@ -1,0 +1,138 @@
+{
+  "mainTitle": "PLAN VEO EN JAÉN",
+  "hero": {
+    "title": "Plan VEO en Jaén",
+    "subtitle": "Ayuda de hasta 100€ para gafas y lentillas de tu hijo",
+    "description": "En Óptica Suárez Jaén tramitamos el Plan VEO del Ministerio de Sanidad para que tu hijo obtenga gafas graduadas o lentillas con una ayuda de hasta 100€. Estamos adheridos al programa y te ayudamos con toda la gestión de forma rápida y sencilla.",
+    "image": "/images/plan-veo/plan-veo-hero.webp",
+    "imageTitle": "Plan VEO en Jaén - Óptica Suárez",
+    "imageAlt": "Plan VEO en Jaén - Ayuda para gafas y lentillas infantiles"
+  },
+  "introduction": {
+    "title": "¿Qué es el Plan VEO?",
+    "content": "El Plan VEO es una iniciativa del Ministerio de Sanidad de España que ofrece una ayuda económica de hasta 100 euros para la compra de gafas graduadas o lentillas para niños, niñas y adolescentes de hasta 16 años. En Óptica Suárez Jaén somos óptica adherida al Plan VEO, lo que significa que tramitamos toda la documentación necesaria para que tu hijo pueda beneficiarse de esta ayuda sin complicaciones."
+  },
+  "benefits": {
+    "title": "¿Qué cubre el Plan VEO?",
+    "subtitle": "La ayuda incluye todo lo necesario para la salud visual de tu hijo",
+    "items": [
+      {
+        "title": "Gafas Graduadas Completas",
+        "description": "Monturas infantiles resistentes con lentes orgánicas graduadas y tratamiento antirreflejante incluido.",
+        "icon": "glasses",
+        "image": "/images/plan-veo/gafas-graduadas-plan-veo.webp",
+        "imageTitle": "Gafas graduadas Plan VEO en Jaén",
+        "imageAlt": "Gafas graduadas para niños con Plan VEO en Jaén"
+      },
+      {
+        "title": "Lentes de Contacto",
+        "description": "Lentillas hidrofílicas o de gas permeable adaptadas a las necesidades visuales de tu hijo.",
+        "icon": "contact-lens",
+        "image": "/images/plan-veo/lentillas-plan-veo.webp",
+        "imageTitle": "Lentillas Plan VEO en Jaén",
+        "imageAlt": "Lentillas para adolescentes con Plan VEO en Jaén"
+      },
+      {
+        "title": "Solución de Mantenimiento",
+        "description": "Líquido de limpieza y mantenimiento para las lentillas necesario para un año completo.",
+        "icon": "solution",
+        "image": "/images/plan-veo/solucion-lentillas-plan-veo.webp",
+        "imageTitle": "Solución para lentillas Plan VEO",
+        "imageAlt": "Solución de mantenimiento para lentillas incluida en Plan VEO"
+      }
+    ]
+  },
+  "requirements": {
+    "title": "¿Quién puede beneficiarse del Plan VEO?",
+    "subtitle": "Requisitos para solicitar la ayuda en Óptica Suárez Jaén",
+    "description": "Para solicitar la ayuda del Plan VEO en nuestra óptica de Jaén, tu hijo debe cumplir estos requisitos:",
+    "items": [
+      {
+        "title": "Edad",
+        "description": "Niños, niñas y adolescentes de hasta 16 años (inclusive)"
+      },
+      {
+        "title": "Problema Visual",
+        "description": "Diagnóstico de miopía, hipermetropía o astigmatismo que requiera corrección"
+      },
+      {
+        "title": "Cobertura Sanitaria",
+        "description": "Tener derecho a atención sanitaria con cargo al Sistema Nacional de Salud o mutualidades (MUFACE, MUGEJU, ISFAS)"
+      },
+      {
+        "title": "Documentación",
+        "description": "Prescripción médica vigente, DNI del menor y responsable, y Tarjeta Sanitaria Individual"
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "¿Cómo solicitar el Plan VEO en Jaén?",
+    "subtitle": "En Óptica Suárez te lo ponemos fácil",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Pide Cita en Óptica Suárez",
+        "description": "Contacta con nosotros por teléfono o WhatsApp para agendar tu cita. Somos óptica adherida al Plan VEO en Jaén."
+      },
+      {
+        "number": "2",
+        "title": "Trae la Documentación",
+        "description": "Acude con la prescripción médica o del óptico-optometrista (si no la tienes nosotros podemos realizarte la revisión optométrica), DNI del menor y responsable, y Tarjeta Sanitaria."
+      },
+      {
+        "number": "3",
+        "title": "Elige las Gafas o Lentillas",
+        "description": "Nuestros profesionales te ayudarán a elegir la mejor opción para tu hijo entre nuestras monturas y lentillas."
+      },
+      {
+        "number": "4",
+        "title": "Nosotros Tramitamos Todo",
+        "description": "En Óptica Suárez nos encargamos de gestionar toda la documentación del Plan VEO. Si el coste es ≤100€, no pagas nada; si es superior, solo la diferencia."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre el Plan VEO",
+    "items": [
+      {
+        "question": "¿Hasta cuándo puedo solicitar la ayuda del Plan VEO?",
+        "answer": "El Plan VEO está vigente desde el 17 de diciembre de 2025 hasta el 31 de diciembre de 2026. Durante este periodo, puedes acudir a Óptica Suárez Jaén para tramitar la ayuda para tu hijo."
+      },
+      {
+        "question": "¿Necesito receta médica para solicitar el Plan VEO?",
+        "answer": "Si es de 5 años o menor, necesitarás receta de oftalmólogo (público o privado), de 6 años en adelante, también puedes usar nuestra receta optométrica."
+      },
+      {
+        "question": "¿Cuánto tengo que pagar si las gafas cuestan más de 100 euros?",
+        "answer": "Si el coste total de las gafas o lentillas es igual o inferior a 100€, no tendrás que pagar nada. Si el importe supera los 100€, solo pagarás la diferencia. Por ejemplo, si las gafas cuestan 130€, pagarás 30€ y el Plan VEO cubre los 100€ restantes."
+      },
+      {
+        "question": "¿Qué documentación necesito para solicitar el Plan VEO en Jaén?",
+        "answer": "Debes traer: 1) Prescripción médica o del óptico-optometrista con la graduación necesaria, 2) DNI del menor y del responsable legal, 3) Tarjeta Sanitaria Individual del menor, y 4) Formulario de solicitud (Anexo I), que te proporcionamos en Óptica Suárez Jaén."
+      },
+      {
+        "question": "¿El Plan VEO cubre lentes progresivas o tratamientos especiales?",
+        "answer": "El Plan VEO cubre monturas básicas con lentes orgánicas graduadas y tratamiento antirreflejante estándar. Para tratamientos adicionales como lentes progresivas, fotocromáticas o de alta gama, puedes beneficiarte de la ayuda de 100€ y abonar la diferencia del tratamiento especial que elijas."
+      },
+      {
+        "question": "¿Puedo usar el Plan VEO varias veces al año?",
+        "answer": "El Plan VEO ofrece una única ayuda de hasta 100€ por menor durante la vigencia del programa (2025-2026). Se trata de una ayuda única para la compra de gafas graduadas o lentillas con su solución de mantenimiento anual."
+      },
+      {
+        "question": "¿Óptica Suárez en Jaén está adherida al Plan VEO?",
+        "answer": "Sí, Óptica Suárez es una óptica adherida al Plan VEO en Jaén. Esto significa que tramitamos directamente toda la documentación necesaria y aplicamos el descuento en el momento de la compra, sin que tengas que hacer gestiones adicionales."
+      },
+      {
+        "question": "¿Por qué es importante corregir los problemas visuales en la infancia?",
+        "answer": "Corregir los problemas visuales en edad temprana es fundamental porque el 80% de la información que recibe un niño es a través de la vista. Los problemas visuales no corregidos pueden afectar negativamente al rendimiento escolar, el desarrollo cognitivo y la calidad de vida de los niños. El Plan VEO busca eliminar las barreras económicas para garantizar que todos los menores tengan acceso a una buena salud visual."
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Listo para solicitar el Plan VEO en Jaén?",
+    "subtitle": "Agenda tu cita en Óptica Suárez",
+    "description": "Tramitamos tu solicitud del Plan VEO de forma rápida y sencilla. Contacta con nosotros y asegura la salud visual de tu hijo con la ayuda del Ministerio de Sanidad.",
+    "buttonText": "Solicitar Plan VEO",
+    "buttonLink": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20solicitar%20información%20sobre%20el%20Plan%20VEO"
+  }
+}
