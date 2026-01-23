@@ -51,6 +51,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "prettier": "^3.6.2",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2",
     "vite": "^5.4.21"
