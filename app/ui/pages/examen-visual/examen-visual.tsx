@@ -5,6 +5,7 @@ import ExamBenefits from './sections/exam-benefits';
 import BookAppointment from '../../sections/book-appointment';
 import LocationsInfo from '../../sections/locations-info';
 import VisualExamHero from './sections/visual-exam-hero';
+import FAQAccordion from '../../components/faq-accordion';
 import content from '../../../content/examen-visual.json';
 
 export default function ExamenVisual() {
@@ -57,6 +58,9 @@ export default function ExamenVisual() {
         frequencyTitle={content.frequency.title}
         recommendations={content.frequency.recommendations}
       />
+
+      {/* FAQ Section */}
+      <FAQAccordion title={content.faq.title} items={content.faq.items} />
 
       {/* Call to Action */}
       <BookAppointment
