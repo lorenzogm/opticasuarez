@@ -1,7 +1,7 @@
 {
-  "mainTitle": "VISIÓN DEPORTIVA",
+  "mainTitle": "VISIÓN DEPORTIVA EN JAÉN",
   "hero": {
-    "title": "VISIÓN DEPORTIVA",
+    "title": "VISIÓN DEPORTIVA EN JAÉN",
     "subtitle": "Optimiza tu rendimiento visual",
     "description": "Servicios especializados para deportistas. Mejora tu visión y tu rendimiento deportivo con nuestros profesionales especializados.",
     "image": "/images/homepage/services/vision-binocular.webp"
@@ -71,11 +71,13 @@
     "images": [
       {
         "src": "/images/homepage/services/vision-binocular.webp",
-        "alt": "Entrenamiento visual deportivo"
+        "alt": "Examen de visión binocular en consulta optométrica",
+        "title": "Visión Binocular"
       },
       {
-        "src": "/images/homepage/services/vision-binocular.webp",
-        "alt": "Terapia visual para deportistas"
+        "src": "/images/vision-deportiva/mejoras-rendimiento.webp",
+        "alt": "Deportista durante entrenamiento visual para mejorar rendimiento",
+        "title": "Mejoras en rendimiento deportivo"
       }
     ],
     "ctaButton": {
@@ -104,5 +106,42 @@
     "description": "Solicita una evaluación visual deportiva y descubre cómo podemos ayudarte a alcanzar tu máximo potencial.",
     "buttonText": "RESERVAR CITA",
     "buttonUrl": "https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20visión%20deportiva"
+  },
+  "faq": {
+    "title": "PREGUNTAS FRECUENTES SOBRE VISIÓN DEPORTIVA",
+    "items": [
+      {
+        "question": "¿Qué es la visión deportiva y cómo puede mejorar mi rendimiento en Jaén?",
+        "answer": "La visión deportiva es una especialidad de la optometría que evalúa y mejora las habilidades visuales específicas necesarias para cada deporte. En Óptica Suárez en Jaén, nuestros optometristas especializados realizan evaluaciones completas que incluyen coordinación ojo-mano, percepción de profundidad, seguimiento visual y tiempo de reacción, ayudándote a mejorar significativamente tu rendimiento deportivo."
+      },
+      {
+        "question": "¿Qué papel desempeña el optometrista en la evaluación visual deportiva?",
+        "answer": "El optometrista especializado en visión deportiva evalúa las capacidades visuales específicas requeridas en tu deporte. Realiza pruebas avanzadas de agudeza visual dinámica, percepción de profundidad, visión periférica y velocidad de procesamiento visual. Además, diseña programas de entrenamiento visual personalizados y recomienda equipamiento especializado para optimizar tu rendimiento."
+      },
+      {
+        "question": "¿Cómo se puede controlar la miopía en deportistas jóvenes de Jaén?",
+        "answer": "Sí, absolutamente. La práctica deportiva al aire libre es una de las estrategias más efectivas para el control de la miopía infantil. Nuestros optometristas en Jaén pueden evaluar la visión de deportistas jóvenes y recomendar tratamientos específicos como ortoqueratología o lentes de contacto especializadas que permiten realizar deporte sin restricciones mientras controlan la progresión de la miopía."
+      },
+      {
+        "question": "¿Cuándo debo consultar con un optometrista sobre visión deportiva en Jaén?",
+        "answer": "Debes consultar si experimentas dificultad para seguir objetos en movimiento, problemas de coordinación, fatiga visual durante la práctica deportiva, o si simplemente quieres optimizar tu rendimiento visual. En Óptica Suárez en Jaén, realizamos evaluaciones especializadas para deportistas de todos los niveles, desde aficionados hasta profesionales."
+      },
+      {
+        "question": "¿Qué tipo de entrenamiento visual deportivo ofrece el optometrista?",
+        "answer": "Nuestros optometristas diseñan programas de terapia visual deportiva personalizados que incluyen ejercicios específicos para mejorar la coordinación ojo-mano, seguimiento visual, visión periférica y tiempo de reacción. Estos programas son complementarios a tu entrenamiento deportivo habitual y están diseñados para potenciar tus habilidades visuales específicas."
+      },
+      {
+        "question": "¿La visión binocular es importante para el rendimiento deportivo?",
+        "answer": "La visión binocular es fundamental para el rendimiento deportivo. Una buena visión binocular permite una correcta percepción de profundidad, esencial para calcular distancias y velocidades en deportes como tenis, fútbol, baloncesto o golf. Nuestros optometristas evalúan exhaustivamente la visión binocular y ofrecen terapia visual específica si es necesario."
+      },
+      {
+        "question": "¿Cómo puede ayudarme la visión deportiva si practico varios deportes en Jaén?",
+        "answer": "Si practicas varios deportes, nuestros optometristas en Jaén pueden crear un programa de entrenamiento visual integral que mejore las habilidades visuales comunes a todas tus disciplinas deportivas. También te asesoramos sobre el equipamiento visual más versátil y te ofrecemos soluciones personalizadas como gafas deportivas multifuncionales o lentes de contacto específicas que se adapten a tus diferentes actividades."
+      },
+      {
+        "question": "¿Pueden los problemas de visión afectar el control de miopía en deportistas jóvenes?",
+        "answer": "Sí. Un seguimiento optométrico adecuado es crucial para el control de miopía en niños y adolescentes deportistas. La miopía puede progresar rápidamente durante la infancia, pero con tratamientos especializados como ortoqueratología nocturna, lentes de contacto de desenfoque periférico, o terapia visual, podemos controlar su avance mientras el joven deportista mantiene su actividad física sin limitaciones visuales."
+      }
+    ]
   }
 }
