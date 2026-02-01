@@ -7,6 +7,8 @@ interface MyopiaHeroProps {
   subtitle: string;
   description: string;
   image: string;
+  imageAlt?: string;
+  imageTitle?: string;
 }
 
 export default function MyopiaHero({
@@ -14,6 +16,8 @@ export default function MyopiaHero({
   subtitle,
   description,
   image,
+  imageAlt,
+  imageTitle,
 }: MyopiaHeroProps) {
   return (
     <section className="bg-blue-50 pt-24 pb-16 px-4 sm:px-6">
@@ -51,7 +55,8 @@ export default function MyopiaHero({
           <div className="flex justify-center">
             <Image
               src={image}
-              alt="Control de Miopía"
+              alt={imageAlt || "Control de Miopía"}
+              title={imageTitle}
               className="rounded-lg shadow-lg max-w-full h-auto"
             />
           </div>

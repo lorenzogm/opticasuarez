@@ -1,10 +1,12 @@
 {
-  "mainTitle": "CONTROL DE MIOPÍA",
+  "mainTitle": "Control de Miopía en Jaén",
   "hero": {
     "title": "Control Especializado de la Miopía",
     "subtitle": "Protegemos la Visión de tu Hijo",
     "description": "En Óptica Suárez ofrecemos las técnicas más avanzadas para frenar la progresión de la miopía en niños y adolescentes, garantizando un futuro visual saludable.",
-    "image": "/images/control-miopia/control-de-miopia-hero.webp"
+    "image": "/images/control-miopia/control-de-miopia-hero.webp",
+    "imageAlt": "Control de miopia en Jaén",
+    "imageTitle": "Control de miopia en Jaén"
   },
   "info": {
     "title": "¿Qué es el Control de Miopía?",
@@ -39,6 +41,8 @@
         "title": "Lentes de Contacto Especializadas",
         "description": "Lentes de contacto específicamente diseñadas para frenar la progresión de la miopía. Estas lentes crean un desenfoque periférico que ayuda a controlar el crecimiento del ojo.",
         "image": "/images/control-miopia/lentes-contacto.webp",
+        "imageAlt": "Lentes de contacto especiales",
+        "imageTitle": "Lentes de contacto especiales",
         "benefits": [
           "Reducción significativa de la progresión",
           "Cómodas para el uso diario",
@@ -50,6 +54,8 @@
         "title": "Gafas con Lentes Progresivas",
         "description": "Lentes progresivas especiales que proporcionan diferentes potencias en distintas zonas de la lente, optimizando la visión y controlando la miopía.",
         "image": "/images/control-miopia/gafas-progresivas.webp",
+        "imageAlt": "Gafas progresivas",
+        "imageTitle": "Gafas progresivas",
         "benefits": [
           "Visión clara a todas las distancias",
           "Reducción del esfuerzo visual",
@@ -61,6 +67,8 @@
         "title": "Terapia Visual",
         "description": "Programa de ejercicios visuales personalizados que fortalecen los músculos oculares y mejoran las habilidades visuales para un mejor control de la miopía.",
         "image": "/images/control-miopia/terapia-visual.webp",
+        "imageAlt": "Terapia visual",
+        "imageTitle": "Terapia visual",
         "benefits": [
           "Fortalecimiento muscular ocular",
           "Mejora de la coordinación visual",
