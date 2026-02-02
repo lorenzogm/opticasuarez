@@ -46,6 +46,14 @@
         "image": "/images/control-miopia/control-de-miopia-hero.webp",
         "alt": "vision infantil en Jaén",
         "imageTitle": "Control de Miopía"
+      },
+      {
+        "title": "ORTOQUERATOLOGÍA",
+        "description": "Corrección visual sin cirugía. Lentes de contacto especiales que moldean tu córnea mientras duermes para una visión clara durante el día.",
+        "url": "/ortoqueratologia",
+        "image": "/images/ortoqueratologia/moldeo-corneal.webp",
+        "alt": "Ortoqueratología en Jaén",
+        "imageTitle": "Ortoqueratología"
       }
     ]
   },
