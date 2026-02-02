@@ -14,7 +14,7 @@ export function meta() {
   const controlMiopiaKeywords = generatePageKeywords('control-miopia');
 
   return [
-    { title: 'Control de Miopía - Óptica Suárez' },
+    { title: 'Control de Miopía Jaén - Óptica Suárez' },
     {
       name: 'description',
       content:
@@ -26,7 +26,7 @@ export function meta() {
     },
     {
       property: 'og:title',
-      content: 'Control de Miopía - Óptica Suárez',
+      content: 'Control de Miopía Jaén - Óptica Suárez',
     },
     {
       property: 'og:description',

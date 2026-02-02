@@ -3,6 +3,7 @@ import { Button } from '../../components/button';
 import Services from './sections/services';
 import CustomerTestimonials from '../../sections/customer-testimonials';
 import Image from '../../components/image';
+import FAQAccordion from '../../components/faq-accordion';
 import content from '../../../content/vision-deportiva.json';
 
 function VisionDeportivaHero() {
@@ -89,6 +90,7 @@ function VisionDeportivaIntroduction() {
             <Image
               src="/images/vision-deportiva/vision-deportiva-intro.webp"
               alt="Evaluación visual deportiva"
+              title="Evaluación visual deportiva"
               className="w-full h-96 object-cover rounded-lg shadow-lg"
             />
           </div>
@@ -207,6 +209,7 @@ function TerapiaVisualDeportiva() {
                 <Image
                   src={image.src}
                   alt={image.alt}
+                  title={image.title}
                   className="w-full h-64 object-cover rounded-lg shadow-lg"
                 />
               </div>
@@ -264,6 +267,7 @@ export default function VisionDeportiva() {
         testimonials={content.testimonials.items}
         moreReviewsLink=""
       />
+      <FAQAccordion title={content.faq.title} items={content.faq.items} />
       <CallToAction />
     </main>
   );

@@ -16,7 +16,7 @@ export function meta() {
   return [
     {
       title:
-        'Visión Deportiva | Óptica Suárez - Especialistas en rendimiento visual',
+        'Visión Deportiva en Jaén | Óptica Suárez',
     },
     {
       name: 'description',
@@ -30,7 +30,7 @@ export function meta() {
     {
       property: 'og:title',
       content:
-        'Visión Deportiva | Óptica Suárez - Especialistas en rendimiento visual',
+        'Visión Deportiva en Jaén | Óptica Suárez',
     },
     {
       property: 'og:description',
