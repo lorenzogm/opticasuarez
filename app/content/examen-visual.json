@@ -1,5 +1,5 @@
 {
-  "mainTitle": "EXAMEN VISUAL",
+  "mainTitle": "EXAMEN VISUAL EN JAÉN",
   "subtitle": "Evaluamos todas la habilidades visuales",
   "heroImage": "/images/examen-visual/hero-image.webp",
   "intro": {
@@ -89,6 +89,43 @@
         "age": "Mayores de 60 años",
         "frequency": "Anualmente",
         "reason": "Mayor riesgo de patologías"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre el Examen Visual",
+    "items": [
+      {
+        "question": "¿Qué es un examen visual optométrico y por qué es importante en Jaén?",
+        "answer": "Un examen visual optométrico es una evaluación completa realizada por un optometrista que va más allá de medir la agudeza visual. En Óptica Suárez Jaén, nuestros optometristas evalúan la salud ocular, la visión binocular, la acomodación y la coordinación ojo-mano. Este examen es fundamental para detectar problemas visuales tempranos, especialmente en niños, y prevenir el desarrollo de miopía infantil o controlar su progresión."
+      },
+      {
+        "question": "¿Con qué frecuencia debo realizar un examen visual en Jaén?",
+        "answer": "La frecuencia recomendada depende de la edad y condición visual. Los niños deben realizarse exámenes visuales anuales, especialmente aquellos con antecedentes de miopía infantil o que participan en programas de control de miopía. Los adultos entre 18-60 años deben hacerlo cada 2 años, y los mayores de 60 años anualmente. En Óptica Suárez Jaén, nuestros optometristas recomiendan revisiones más frecuentes si hay factores de riesgo o condiciones específicas."
+      },
+      {
+        "question": "¿Cómo puede ayudar un examen visual en el control de la miopía infantil en Jaén?",
+        "answer": "Un examen visual completo realizado por un optometrista especializado es esencial para el control de miopía infantil. En Óptica Suárez Jaén, detectamos signos tempranos de miopía progresiva y ofrecemos soluciones específicas como ortoqueratología nocturna, lentes de contacto especiales para control de miopía, y terapia visual. El optometrista evalúa el crecimiento ocular y adapta el tratamiento para frenar la progresión de la miopía en niños."
+      },
+      {
+        "question": "¿Qué diferencia hay entre un examen visual y una simple graduación de la vista?",
+        "answer": "Una simple graduación mide únicamente la refracción (miopía, hipermetropía, astigmatismo), mientras que un examen visual optométrico completo evalúa múltiples aspectos: visión binocular, movimientos oculares, acomodación, salud ocular y función visual. En Óptica Suárez Jaén, nuestros optometristas realizan pruebas exhaustivas para detectar problemas como ojo vago, estrabismo, insuficiencia de convergencia y otros trastornos que pueden afectar el rendimiento visual y el aprendizaje."
+      },
+      {
+        "question": "¿El optometrista puede detectar problemas de salud ocular en un examen visual?",
+        "answer": "Sí, durante un examen visual completo, el optometrista examina la salud ocular mediante oftalmoscopia y biomicroscopía. En Óptica Suárez Jaén, nuestros optometristas pueden detectar signos tempranos de cataratas, glaucoma, degeneración macular, retinopatía diabética y otras patologías. Si detectamos alguna anomalía, derivamos al oftalmólogo correspondiente. La detección precoz es crucial para preservar la salud visual."
+      },
+      {
+        "question": "¿Los niños necesitan exámenes visuales aunque no se quejen de problemas de visión?",
+        "answer": "Absolutamente. Muchos niños no son conscientes de que tienen problemas visuales porque no conocen otra forma de ver. En Óptica Suárez Jaén, recomendamos exámenes visuales anuales para todos los niños, especialmente antes del inicio escolar. El optometrista puede detectar miopía infantil temprana, ambliopía (ojo vago), estrabismo y problemas de visión binocular que pueden afectar el rendimiento académico. El control de miopía infantil es particularmente importante en Jaén, donde vemos una creciente prevalencia."
+      },
+      {
+        "question": "¿Qué papel juega el optometrista en la prevención de problemas visuales en Jaén?",
+        "answer": "El optometrista es el profesional de primera línea en la prevención y detección de problemas visuales. En Óptica Suárez Jaén, nuestros optometristas especializados realizan exámenes preventivos, educan sobre higiene visual, recomiendan tratamientos de control de miopía infantil, prescriben terapia visual cuando es necesario y colaboran con otros profesionales de la salud visual. El papel del optometrista es fundamental en la prevención de la progresión de la miopía y en la detección temprana de patologías oculares."
+      },
+      {
+        "question": "¿Puedo reservar un examen visual completo con optometrista en Óptica Suárez Jaén?",
+        "answer": "Por supuesto. En Óptica Suárez contamos con optometristas altamente cualificados con más de 80 años de experiencia sirviendo a la comunidad de Jaén. Realizamos exámenes visuales completos que incluyen evaluación de la visión binocular, salud ocular, y asesoramiento sobre control de miopía infantil. Puedes reservar tu cita fácilmente contactando con cualquiera de nuestras dos ópticas en Jaén (Centro y Bulevar) a través de nuestro sistema de citas online o por WhatsApp."
       }
     ]
   },
