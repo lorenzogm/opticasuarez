@@ -5,6 +5,8 @@ interface Treatment {
   title: string;
   description: string;
   image: string;
+  imageAlt?: string;
+  imageTitle?: string;
   benefits: string[];
 }
 
@@ -65,7 +67,8 @@ export default function MyopiaTreatments({
               <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
                 <Image
                   src={treatment.image}
-                  alt={treatment.title}
+                  alt={treatment.imageAlt || treatment.title}
+                  title={treatment.imageTitle}
                   className="rounded-lg shadow-lg w-full h-auto"
                 />
               </div>
