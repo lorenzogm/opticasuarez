@@ -20,7 +20,7 @@ function parseMarkdownToHTML(markdown: string): string {
       .replace(/^# .+$/gm, '') // Remove h1 headers since we have title in hero
       .replace(
         /^## (.+)$/gm,
-        '<div class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</div>'
+        '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
       )
       .replace(
         /^### (.+)$/gm,
@@ -58,8 +58,8 @@ function parseMarkdownToHTML(markdown: string): string {
         if (trimmedLine.startsWith('<li')) {
           return line;
         }
-        // Handle headings (including divs that replaced h2)
-        if (trimmedLine.startsWith('<h') || trimmedLine.startsWith('<div class="text-2xl')) {
+        // Handle headings
+        if (trimmedLine.startsWith('<h')) {
           return line;
         }
         // Handle horizontal rules
