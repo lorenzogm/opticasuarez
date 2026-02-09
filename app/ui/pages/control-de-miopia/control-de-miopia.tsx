@@ -29,6 +29,8 @@ export default function ControlDeMiopia() {
         subtitle={content.hero.subtitle}
         description={content.hero.description}
         image={content.hero.image}
+        imageAlt={content.hero.imageAlt}
+        imageTitle={content.hero.imageTitle}
       />
 
       {/* Myopia Information */}
