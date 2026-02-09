@@ -25,7 +25,7 @@
     "@forge42/seo-tools": "^1.4.5",
     "@radix-ui/react-slot": "^1.2.3",
     "@react-router/dev": "^7.7.1",
-    "@react-router/node": "^7.7.1",
+    "@react-router/node": "^7.9.4",
     "@react-router/serve": "^7.7.1",
     "@tailwindcss/postcss": "^4.1.11",
     "class-variance-authority": "^0.7.1",
