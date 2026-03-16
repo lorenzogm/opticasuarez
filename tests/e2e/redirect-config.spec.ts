@@ -12,17 +12,24 @@ test.describe('Redirect Configuration Verification', () => {
     
     // Verify that redirects are configured
     expect(vercelConfig.redirects).toBeDefined();
-    expect(vercelConfig.redirects).toHaveLength(1);
+    expect(vercelConfig.redirects).toHaveLength(2);
     
-    const redirect = vercelConfig.redirects[0];
+    const wwwRedirect = vercelConfig.redirects[0];
     
     // Verify the redirect configuration for www to non-www
-    expect(redirect.source).toBe('/(.*)');;
-    expect(redirect.destination).toBe('https://opticasuarezjaen.es/$1');
-    expect(redirect.permanent).toBe(true);
-    expect(redirect.has).toBeDefined();
-    expect(redirect.has[0].type).toBe('host');
-    expect(redirect.has[0].value).toBe('www.opticasuarezjaen.es');
+    expect(wwwRedirect.source).toBe('/(.*)');;
+    expect(wwwRedirect.destination).toBe('https://opticasuarezjaen.es/$1');
+    expect(wwwRedirect.permanent).toBe(true);
+    expect(wwwRedirect.has).toBeDefined();
+    expect(wwwRedirect.has[0].type).toBe('host');
+    expect(wwwRedirect.has[0].value).toBe('www.opticasuarezjaen.es');
+
+    const trailingSlashRedirect = vercelConfig.redirects[1];
+
+    // Verify the redirect configuration for trailing slashes
+    expect(trailingSlashRedirect.source).toBe('/:path+/');
+    expect(trailingSlashRedirect.destination).toBe('/:path+');
+    expect(trailingSlashRedirect.permanent).toBe(true);
   });
 
   test('canonical URLs should be consistent across pages', async ({ page }) => {
