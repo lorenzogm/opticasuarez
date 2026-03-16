@@ -1,3 +1,5 @@
+import content from "../content/control-de-miopia.json" with { type: "json" };
+import { BreadcrumbSchema, FAQSchema } from "../ui/components/structured-data";
 import {
   generateMetaKeywords,
   generatePageKeywords,
@@ -14,7 +16,7 @@ export function meta() {
   const controlMiopiaKeywords = generatePageKeywords("control-miopia");
 
   return [
-    { title: "Control de Miopía Jaén - Óptica Suárez" },
+    { title: "Control de Miopía en Jaén | Especialistas - Óptica Suárez" },
     {
       name: "description",
       content:
@@ -24,9 +26,12 @@ export function meta() {
       name: "keywords",
       content: generateMetaKeywords(controlMiopiaKeywords),
     },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
-      content: "Control de Miopía Jaén - Óptica Suárez",
+      content: "Control de Miopía en Jaén | Especialistas - Óptica Suárez",
     },
     {
       property: "og:description",
@@ -37,10 +42,39 @@ export function meta() {
       property: "og:url",
       content: "https://opticasuarezjaen.es/control-de-miopia",
     },
+    {
+      property: "og:image",
+      content: "https://opticasuarezjaen.es/og-image.jpg",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Control de Miopía en Jaén | Especialistas - Óptica Suárez",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "Especialistas en control de miopía en Jaén. Ofrecemos tratamientos avanzados para frenar la progresión de la miopía en niños y adolescentes.",
+    },
     { name: "robots", content: "index, follow" },
   ];
 }
 
 export default function ControlDeMiopiaRoute() {
-  return <ControlDeMiopia />;
+  const breadcrumbItems = [
+    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
+    { name: "Servicios", url: "https://opticasuarezjaen.es/servicios" },
+    {
+      name: "Control de Miopía",
+      url: "https://opticasuarezjaen.es/control-de-miopia",
+    },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <FAQSchema items={content.faq.items} />
+      <ControlDeMiopia />
+    </>
+  );
 }

@@ -33,7 +33,7 @@ export function WebsiteSchema() {
       "query-input": "required name=search_term_string",
     },
     mainEntity: {
-      "@type": "LocalBusiness",
+      "@type": "Optician",
       "@id": "https://opticasuarezjaen.es/#organization",
     },
   };
@@ -45,26 +45,30 @@ export function WebsiteSchema() {
 export function OrganizationSchema() {
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "Optician",
     "@id": "https://opticasuarezjaen.es/#organization",
     name: "Óptica Suárez",
     image: "https://opticasuarezjaen.es/og-image.jpg",
-    telephone: "+34953123456",
+    telephone: "+34953093062",
+    email: "info@opticasuarezjaen.es",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Calle Ejemplo, 123",
+      streetAddress: "C. de Canarias, 6",
       addressLocality: "Jaén",
       addressRegion: "Andalucía",
-      postalCode: "23001",
+      postalCode: "23009",
       addressCountry: "ES",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 37.7749,
-      longitude: -3.79,
+      latitude: 37.7796,
+      longitude: -3.787,
     },
     url: "https://opticasuarezjaen.es",
-    logo: "https://opticasuarezjaen.es/logo.png",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://opticasuarezjaen.es/images/optica-suarez-logo.webp",
+    },
     description:
       "Centro de Optometría y Terapia Visual en Jaén con más de 80 años de experiencia. Especializados en visión infantil, terapia visual, control de miopía y contactología.",
     foundingDate: "1940",
@@ -81,13 +85,41 @@ export function OrganizationSchema() {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         opens: "17:00",
-        closes: "20:00",
+        closes: "20:30",
       },
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: "Saturday",
-        opens: "09:30",
-        closes: "13:30",
+        opens: "10:00",
+        closes: "13:00",
+      },
+    ],
+    department: [
+      {
+        "@type": "Optician",
+        name: "Óptica Suárez Bulevar",
+        telephone: "+34953093062",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "C. de Canarias, 6",
+          addressLocality: "Jaén",
+          addressRegion: "Andalucía",
+          postalCode: "23009",
+          addressCountry: "ES",
+        },
+      },
+      {
+        "@type": "Optician",
+        name: "Óptica Suárez Centro",
+        telephone: "+34953223180",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "P.º de la Estación, 12",
+          addressLocality: "Jaén",
+          addressRegion: "Andalucía",
+          postalCode: "23003",
+          addressCountry: "ES",
+        },
       },
     ],
     serviceArea: {
@@ -113,6 +145,7 @@ export function OrganizationSchema() {
             name: "Examen Visual Completo",
             description:
               "Evaluación completa de la salud visual y detección temprana de problemas oculares.",
+            url: "https://opticasuarezjaen.es/examen-visual",
           },
         },
         {
@@ -122,6 +155,7 @@ export function OrganizationSchema() {
             name: "Terapia Visual",
             description:
               "Programas personalizados de entrenamiento visual para mejorar habilidades visuales.",
+            url: "https://opticasuarezjaen.es/terapia-visual",
           },
         },
         {
@@ -130,6 +164,7 @@ export function OrganizationSchema() {
             "@type": "Service",
             name: "Visión Pediátrica",
             description: "Cuidado especializado de la salud visual infantil.",
+            url: "https://opticasuarezjaen.es/vision-pediatrica",
           },
         },
         {
@@ -139,6 +174,7 @@ export function OrganizationSchema() {
             name: "Control de Miopía",
             description:
               "Tratamientos avanzados para el control y prevención de la miopía.",
+            url: "https://opticasuarezjaen.es/control-de-miopia",
           },
         },
         {
@@ -148,6 +184,27 @@ export function OrganizationSchema() {
             name: "Contactología",
             description:
               "Adaptación y seguimiento de lentes de contacto especializadas.",
+            url: "https://opticasuarezjaen.es/contactologia",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Ortoqueratología",
+            description:
+              "Corrección visual nocturna mediante lentes de contacto especiales para frenar la miopía.",
+            url: "https://opticasuarezjaen.es/ortoqueratologia",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Visión Deportiva",
+            description:
+              "Optimización del rendimiento visual para deportistas.",
+            url: "https://opticasuarezjaen.es/vision-deportiva",
           },
         },
       ],
@@ -155,6 +212,7 @@ export function OrganizationSchema() {
     sameAs: [
       "https://www.facebook.com/opticasuarezjaen",
       "https://www.instagram.com/opticasuarezjaen",
+      "https://www.youtube.com/@OpticaSuarezJaen",
     ],
   };
 
@@ -179,4 +237,26 @@ export function BreadcrumbSchema({
   };
 
   return <StructuredData schema={breadcrumbSchema} />;
+}
+
+// FAQ Schema Generator
+export function FAQSchema({
+  items,
+}: {
+  items: Array<{ question: string; answer: string }>;
+}) {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  return <StructuredData schema={faqSchema} />;
 }

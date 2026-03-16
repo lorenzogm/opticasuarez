@@ -27,6 +27,9 @@ export function meta() {
       name: "keywords",
       content: generateMetaKeywords(serviciosKeywords),
     },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
       content: "Servicios - Óptica Suárez",
@@ -39,6 +42,20 @@ export function meta() {
     {
       property: "og:url",
       content: "https://opticasuarezjaen.es/servicios",
+    },
+    {
+      property: "og:image",
+      content: "https://opticasuarezjaen.es/og-image.jpg",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Servicios - Óptica Suárez",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "¿Conoces nuestros servicios? Entra y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.",
     },
     { name: "robots", content: "index, follow" },
   ];
