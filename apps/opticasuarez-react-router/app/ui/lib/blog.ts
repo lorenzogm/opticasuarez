@@ -9,6 +9,7 @@ export interface BlogPost {
   author: string;
   categories: string[];
   featured_image?: string;
+  keywords?: string;
   slug: string;
   content: string;
 }
