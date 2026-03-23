@@ -7,6 +7,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import GlobalNavigation from "~/components/global-navigation";
 import globalCss from "~/global.css?url";
 import { getBaseUrl } from "~/lib/utils";
 
@@ -149,6 +150,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             width="0"
           />
         </noscript>
+        <GlobalNavigation />
         {children}
         <Scripts />
       </body>
