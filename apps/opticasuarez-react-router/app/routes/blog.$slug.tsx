@@ -37,6 +37,9 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
   return [
     { title: `${data.post.title} - Óptica Suárez` },
     { name: "description", content: data.post.excerpt },
+    ...(data.post.keywords
+      ? [{ name: "keywords", content: data.post.keywords }]
+      : []),
     { property: "og:type", content: "article" },
     { property: "og:locale", content: "es_ES" },
     { property: "og:site_name", content: "Óptica Suárez" },
