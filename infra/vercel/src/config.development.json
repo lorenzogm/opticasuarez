@@ -10,7 +10,6 @@
       "public_source": false,
       "install_command": "pnpm install --frozen-lockfile",
       "auto_assign_custom_domains": true,
-      "protection_bypass_for_automation": false,
       "vercel_authentication": {
         "deployment_type": "none"
       }
