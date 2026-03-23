@@ -1,0 +1,68 @@
+import { createFileRoute } from '@tanstack/react-router'
+import Quienessomos from '~/pages/quienes-somos/quienes-somos'
+import { BreadcrumbSchema } from '~/components/structured-data'
+import {
+  generatePageKeywords,
+  generateMetaKeywords,
+} from '~/lib/seo-keywords'
+
+const quienesSomosKeywords = generatePageKeywords('quienes-somos', [
+  'Historia óptica',
+  'Equipo profesional',
+  'Experiencia óptica',
+  'Desde 1940',
+  'Tradición familiar',
+  'Optometristas Jaén',
+])
+
+export const Route = createFileRoute('/quienes-somos')({
+  head: () => ({
+    meta: [
+      { title: 'Quiénes somos | Óptica Suárez - Expertos en salud visual' },
+      {
+        name: 'description',
+        content:
+          'Desde 1940 cuidando de tu visión. Conoce nuestro equipo y trayectoria profesional de Óptica Suárez en Jaén.',
+      },
+      {
+        name: 'keywords',
+        content: generateMetaKeywords(quienesSomosKeywords),
+      },
+      {
+        property: 'og:title',
+        content: 'Quiénes somos | Óptica Suárez - Expertos en salud visual',
+      },
+      {
+        property: 'og:description',
+        content:
+          'Desde 1940 cuidando de tu visión. Conoce nuestro equipo y trayectoria profesional de Óptica Suárez en Jaén.',
+      },
+      {
+        property: 'og:url',
+        content: 'https://opticasuarezjaen.es/quienes-somos',
+      },
+      { name: 'robots', content: 'index, follow' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://opticasuarezjaen.es/quienes-somos' },
+    ],
+  }),
+  component: RouteComponent,
+})
+
+function RouteComponent() {
+  const breadcrumbItems = [
+    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
+    {
+      name: '¿Quiénes Somos?',
+      url: 'https://opticasuarezjaen.es/quienes-somos',
+    },
+  ]
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <Quienessomos />
+    </>
+  )
+}
