@@ -31,5 +31,11 @@
     "turbo": "2.5.6",
     "ultracite": "5.6.4",
     "vitest": "4.0.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
