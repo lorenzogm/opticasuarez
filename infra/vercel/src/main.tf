@@ -10,19 +10,16 @@ locals {
 }
 
 resource "vercel_project" "main" {
-  team_id                          = var.VERCEL_ORG_ID != "" ? var.VERCEL_ORG_ID : null
-  name                             = "${var.vercel.project.name}-${local.environment_short_code}"
-  output_directory                 = var.vercel.project.output_directory
-  password_protection              = var.vercel.project.password_protection
-  build_command                    = var.vercel.project.build_command
-  root_directory                   = var.vercel.project.root_directory
-  framework                        = var.vercel.project.framework
-  public_source                    = var.vercel.project.public_source
-  install_command                  = var.vercel.project.install_command
-  auto_assign_custom_domains       = var.vercel.project.auto_assign_custom_domains
-  protection_bypass_for_automation = var.vercel.project.protection_bypass_for_automation
-  vercel_authentication            = var.vercel.project.vercel_authentication
-  skew_protection                  = var.vercel.project.skew_protection
+  team_id                    = var.VERCEL_ORG_ID != "" ? var.VERCEL_ORG_ID : null
+  name                       = "${var.vercel.project.name}-${local.environment_short_code}"
+  output_directory           = var.vercel.project.output_directory
+  build_command              = var.vercel.project.build_command
+  root_directory             = var.vercel.project.root_directory
+  framework                  = var.vercel.project.framework
+  public_source              = var.vercel.project.public_source
+  install_command            = var.vercel.project.install_command
+  auto_assign_custom_domains = var.vercel.project.auto_assign_custom_domains
+  vercel_authentication      = var.vercel.project.vercel_authentication
 }
 
 resource "vercel_project_domain" "main" {
