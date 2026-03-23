@@ -13,6 +13,9 @@ export function meta() {
       content:
         "¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.",
     },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
       content: "Contacto - Óptica Suárez Jaén",
@@ -25,6 +28,20 @@ export function meta() {
     {
       property: "og:url",
       content: "https://opticasuarezjaen.es/contacto",
+    },
+    {
+      property: "og:image",
+      content: "https://opticasuarezjaen.es/og-image.jpg",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Contacto - Óptica Suárez Jaén",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.",
     },
     { name: "robots", content: "index, follow" },
   ];

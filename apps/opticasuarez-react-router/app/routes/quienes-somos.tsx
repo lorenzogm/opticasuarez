@@ -32,6 +32,9 @@ export function meta() {
       name: "keywords",
       content: generateMetaKeywords(quienesSomosKeywords),
     },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
       content: "Quiénes somos | Óptica Suárez - Expertos en salud visual",
@@ -44,6 +47,20 @@ export function meta() {
     {
       property: "og:url",
       content: "https://opticasuarezjaen.es/quienes-somos",
+    },
+    {
+      property: "og:image",
+      content: "https://opticasuarezjaen.es/og-image.jpg",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Quiénes somos | Óptica Suárez - Expertos en salud visual",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "Desde 1940 cuidando de tu visión. Conoce nuestro equipo y trayectoria profesional de Óptica Suárez en Jaén.",
     },
     { name: "robots", content: "index, follow" },
   ];

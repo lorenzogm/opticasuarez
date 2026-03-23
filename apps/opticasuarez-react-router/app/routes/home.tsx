@@ -23,6 +23,9 @@ export function meta() {
       content: generateMetaKeywords(homeKeywords),
     },
     { name: "author", content: "Óptica Suárez" },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
       content: "Óptica Suárez, tu óptica en Jaén. Desde 1940 mirando por ti",
@@ -32,7 +35,6 @@ export function meta() {
       content:
         "Optometria en Jaén. Más de 80 años haciendo revisión de la vista, terapia visual, control de miopía, lentes de contacto, visión infantil, ojo vago y estrabismo.",
     },
-    { property: "og:type", content: "website" },
     {
       property: "og:url",
       content: "https://opticasuarezjaen.es/",
