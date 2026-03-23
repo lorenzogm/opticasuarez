@@ -65,6 +65,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Fetch Terraform State from state branch
+        working-directory: infra/vercel/src
+        run: |
+          STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
+          if git fetch origin terraform-state 2>/dev/null; then
+            if git show "origin/terraform-state:infra/vercel/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null; then
+              echo "State file fetched from terraform-state branch"
+            else
+              echo "State file not found on terraform-state branch"
+            fi
+          else
+            echo "terraform-state branch does not exist yet"
+          fi
+
       - name: Decrypt Terraform State
         working-directory: infra/vercel/src
         run: |
@@ -148,16 +162,27 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit Encrypted State
+      - name: Commit Encrypted State to state branch
+        working-directory: infra/vercel/src
         run: |
+          STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
+          cp "$STATE_FILE" "/tmp/$STATE_FILE"
+
           cd ${{ github.workspace }}
-          git fetch origin main
-          STATE_FILE="infra/vercel/src/terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
-          git add "$STATE_FILE"
+          if git fetch origin terraform-state 2>/dev/null; then
+            git checkout terraform-state
+          else
+            git checkout --orphan terraform-state
+            git rm -rf . 2>/dev/null || true
+          fi
+
+          mkdir -p infra/vercel/src
+          cp "/tmp/$STATE_FILE" "infra/vercel/src/$STATE_FILE"
+          git add "infra/vercel/src/$STATE_FILE"
           git diff --staged --quiet && echo "No changes to state file" && exit 0
           git commit -m "chore: update terraform state for ${{ env.TF_VAR_ENVIRONMENT }} environment"
-          git push origin HEAD:main
-          echo "State file committed and pushed"
+          git push origin terraform-state
+          echo "State file committed to terraform-state branch"
 
   app-deploy:
     needs: [check-changes, infra-deploy]
