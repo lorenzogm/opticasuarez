@@ -8,7 +8,6 @@
       "output_directory": ".output",
       "framework": null,
       "public_source": false,
-      "install_command": "cd ../.. && pnpm install --frozen-lockfile",
       "auto_assign_custom_domains": true,
       "vercel_authentication": {
         "deployment_type": "none"
