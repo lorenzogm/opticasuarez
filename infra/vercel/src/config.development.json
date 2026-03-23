@@ -1,0 +1,24 @@
+{
+  "environment_variables": {},
+  "vercel": {
+    "project": {
+      "name": "opticasuarez-web",
+      "build_command": "cd ../.. && npx turbo@^2 run build --filter=opticasuarez-web",
+      "root_directory": "apps/web",
+      "output_directory": ".output",
+      "framework": "vite",
+      "public_source": false,
+      "install_command": "pnpm install --frozen-lockfile",
+      "auto_assign_custom_domains": true,
+      "protection_bypass_for_automation": true,
+      "skew_protection": "12 hours",
+      "password_protection": {
+        "deployment_type": "all_deployments",
+        "password": "opticasuarez-secret"
+      },
+      "vercel_authentication": {
+        "deployment_type": "none"
+      }
+    }
+  }
+}
