@@ -12,10 +12,6 @@
       "auto_assign_custom_domains": true,
       "protection_bypass_for_automation": true,
       "skew_protection": "12 hours",
-      "password_protection": {
-        "deployment_type": "all_deployments",
-        "password": "opticasuarez-secret"
-      },
       "vercel_authentication": {
         "deployment_type": "none"
       }
