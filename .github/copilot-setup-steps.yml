@@ -3,7 +3,9 @@
 # Docs: https://docs.github.com/en/copilot/customizing-copilot/customizing-the-development-environment-for-copilot-coding-agent
 
 steps:
+  - uses: pnpm/action-setup@v4
   - uses: actions/setup-node@v4
     with:
-      node-version: "20"
-  - run: cd apps/opticasuarez-react-router && npm ci
+      node-version: "22"
+      cache: "pnpm"
+  - run: pnpm install
