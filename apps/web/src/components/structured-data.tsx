@@ -65,7 +65,7 @@ export function OrganizationSchema() {
       longitude: -3.79,
     },
     url: getBaseUrl(),
-    logo: `${getBaseUrl()}/logo.png`,
+    logo: `${getBaseUrl()}/images/optica-suarez-logo.png`,
     description:
       "Centro de Optometría y Terapia Visual en Jaén con más de 80 años de experiencia. Especializados en visión infantil, terapia visual, control de miopía y contactología.",
     foundingDate: "1940",
