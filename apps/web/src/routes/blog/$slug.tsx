@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { type BlogPost, getBlogPost } from "~/lib/blog";
+import { getBaseUrl } from "~/lib/utils";
 import BlogPostPage from "~/pages/blog/blog-post";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -28,14 +29,14 @@ export const Route = createFileRoute("/blog/$slug")({
         },
         {
           property: "og:url",
-          content: `https://opticasuarezjaen.es/blog/${post.slug}`,
+          content: `${getBaseUrl()}/blog/${post.slug}`,
         },
         { name: "robots", content: "index, follow" },
       ],
       links: [
         {
           rel: "canonical",
-          href: `https://opticasuarezjaen.es/blog/${post.slug}`,
+          href: `${getBaseUrl()}/blog/${post.slug}`,
         },
       ],
     };

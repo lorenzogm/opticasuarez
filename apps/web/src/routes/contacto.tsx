@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
+import { getBaseUrl } from "~/lib/utils";
 import ContactoPage from "~/pages/contacto/contacto";
 
 export const Route = createFileRoute("/contacto")({
@@ -22,19 +23,19 @@ export const Route = createFileRoute("/contacto")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/contacto",
+        content: `${getBaseUrl()}/contacto`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://opticasuarezjaen.es/contacto" }],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/contacto` }],
   }),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const breadcrumbItems = [
-    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
-    { name: "Contacto", url: "https://opticasuarezjaen.es/contacto" },
+    { name: "Inicio", url: `${getBaseUrl()}/` },
+    { name: "Contacto", url: `${getBaseUrl()}/contacto` },
   ];
 
   return (

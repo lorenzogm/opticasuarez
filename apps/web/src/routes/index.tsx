@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import Homepage from "~/pages/homepage/homepage";
 
 const homeKeywords = generatePageKeywords("home");
@@ -30,11 +31,11 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/",
+        content: `${getBaseUrl()}/`,
       },
       {
         property: "og:image",
-        content: "https://opticasuarezjaen.es/og-image.jpg",
+        content: `${getBaseUrl()}/og-image.jpg`,
       },
       { name: "twitter:card", content: "summary_large_image" },
       {
@@ -48,7 +49,7 @@ export const Route = createFileRoute("/")({
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://opticasuarezjaen.es/" }],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/` }],
   }),
   component: RouteComponent,
 });

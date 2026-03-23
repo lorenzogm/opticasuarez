@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-const domain = "https://opticasuarezjaen.es";
+const domain = process.env.VITE_BASE_URL || "https://opticasuarezjaen.es";
 
 const staticRoutes = [
   "/",
@@ -47,4 +47,15 @@ ${allRoutes
 </urlset>`;
 
 fs.writeFileSync(path.join(process.cwd(), "public/sitemap.xml"), sitemap);
-console.log(`Generated sitemap.xml with ${allRoutes.length} URLs`);
+console.log(
+  `Generated sitemap.xml with ${allRoutes.length} URLs for domain: ${domain}`
+);
+
+const robotsTxt = `User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: ${domain}/sitemap.xml
+`;
+fs.writeFileSync(path.join(process.cwd(), "public/robots.txt"), robotsTxt);
+console.log("Generated robots.txt");

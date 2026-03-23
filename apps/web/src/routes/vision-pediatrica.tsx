@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import VisionPediatrica from "~/pages/vision-pediatrica/vision-pediatrica";
 
 const visionPediatricaKeywords = generatePageKeywords("vision-pediatrica");
@@ -33,14 +34,14 @@ export const Route = createFileRoute("/vision-pediatrica")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/vision-pediatrica",
+        content: `${getBaseUrl()}/vision-pediatrica`,
       },
       { name: "robots", content: "index, follow" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://opticasuarezjaen.es/vision-pediatrica",
+        href: `${getBaseUrl()}/vision-pediatrica`,
       },
     ],
   }),
@@ -49,11 +50,11 @@ export const Route = createFileRoute("/vision-pediatrica")({
 
 function RouteComponent() {
   const breadcrumbItems = [
-    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
-    { name: "Servicios", url: "https://opticasuarezjaen.es/servicios" },
+    { name: "Inicio", url: `${getBaseUrl()}/` },
+    { name: "Servicios", url: `${getBaseUrl()}/servicios` },
     {
       name: "Visión Infantil",
-      url: "https://opticasuarezjaen.es/vision-pediatrica",
+      url: `${getBaseUrl()}/vision-pediatrica`,
     },
   ];
 

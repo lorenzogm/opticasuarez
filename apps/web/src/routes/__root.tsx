@@ -7,6 +7,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { getBaseUrl } from "~/lib/utils";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -60,7 +61,7 @@ export const Route = createRootRoute({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Óptica Suárez",
-          url: "https://opticasuarezjaen.es",
+          url: getBaseUrl(),
           description:
             "Óptica y centro de optometría avanzada en Jaén. Especialistas en contactología, control de miopía, ortoqueratología y terapia visual.",
         }),
@@ -71,8 +72,8 @@ export const Route = createRootRoute({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Óptica Suárez",
-          url: "https://opticasuarezjaen.es",
-          logo: "https://opticasuarezjaen.es/images/optica-suarez-logo.webp",
+          url: getBaseUrl(),
+          logo: `${getBaseUrl()}/images/optica-suarez-logo.webp`,
           sameAs: [
             "https://www.instagram.com/opticasuarezjaen/",
             "https://www.facebook.com/opticasuarezjaen/",

@@ -47,7 +47,7 @@ Sí, aunque es poco frecuente. Para que una mujer tenga daltonismo, ambos cromos
 
 ## ¿Cómo se detecta el daltonismo?
 
-El daltonismo se detecta mediante pruebas específicas de visión del color, como test con láminas de colores diseñadas para identificar confusiones cromáticas. En **Óptica Suárez**, contamos con las herramientas necesarias para realizar una [evaluación visual completa](https://opticasuarezjaen.es/examen-visual) que incluye la detección del daltonismo.
+El daltonismo se detecta mediante pruebas específicas de visión del color, como test con láminas de colores diseñadas para identificar confusiones cromáticas. En **Óptica Suárez**, contamos con las herramientas necesarias para realizar una [evaluación visual completa](/examen-visual) que incluye la detección del daltonismo.
 
 ## ¿El daltonismo empeora con el tiempo?
 

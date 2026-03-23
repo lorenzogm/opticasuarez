@@ -23,7 +23,7 @@
         "image": "/images/vision-pediatrica/examen-visual-infantil.webp",
         "imageTitle": "Examen visual en Jaén",
         "imageAlt": "Examen visual en Jaén",
-        "link": "https://opticasuarezjaen.es/examen-visual"
+        "link": "/examen-visual"
       },
       {
         "title": "Detección Temprana",
@@ -40,7 +40,7 @@
         "image": "/images/vision-pediatrica/terapia-visual-pediatrica.webp",
         "imageTitle": "Terapia Visual en Jaén",
         "imageAlt": "Terapia Visual en Jaén",
-        "link": "https://opticasuarezjaen.es/terapia-visual"
+        "link": "/terapia-visual"
       },
       {
         "title": "Gafas Infantiles",
@@ -57,7 +57,7 @@
         "image": "/images/vision-pediatrica/control-de-miopia.webp",
         "imageTitle": "Control de Miopía en Jaén",
         "imageAlt": "Control de Miopía en Jaén",
-        "link": "https://opticasuarezjaen.es/control-de-miopia"
+        "link": "/control-de-miopia"
       },
       {
         "title": "Salud Ocular",

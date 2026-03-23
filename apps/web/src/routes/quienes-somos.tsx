@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import Quienessomos from "~/pages/quienes-somos/quienes-somos";
 
 const quienesSomosKeywords = generatePageKeywords("quienes-somos", [
@@ -36,23 +37,21 @@ export const Route = createFileRoute("/quienes-somos")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/quienes-somos",
+        content: `${getBaseUrl()}/quienes-somos`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [
-      { rel: "canonical", href: "https://opticasuarezjaen.es/quienes-somos" },
-    ],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/quienes-somos` }],
   }),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const breadcrumbItems = [
-    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
+    { name: "Inicio", url: `${getBaseUrl()}/` },
     {
       name: "¿Quiénes Somos?",
-      url: "https://opticasuarezjaen.es/quienes-somos",
+      url: `${getBaseUrl()}/quienes-somos`,
     },
   ];
 

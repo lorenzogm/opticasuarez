@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import VisionDeportiva from "~/pages/vision-deportiva/vision-deportiva";
 
 const visionDeportivaKeywords = generatePageKeywords("vision-deportiva");
@@ -30,14 +31,14 @@ export const Route = createFileRoute("/vision-deportiva")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/vision-deportiva",
+        content: `${getBaseUrl()}/vision-deportiva`,
       },
       { name: "robots", content: "index, follow" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://opticasuarezjaen.es/vision-deportiva",
+        href: `${getBaseUrl()}/vision-deportiva`,
       },
     ],
   }),

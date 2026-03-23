@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import TerapiaVisual from "~/pages/terapia-visual/terapia-visual";
 
 const terapiaVisualKeywords = generatePageKeywords("terapia-visual");
@@ -33,24 +34,22 @@ export const Route = createFileRoute("/terapia-visual")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/terapia-visual",
+        content: `${getBaseUrl()}/terapia-visual`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [
-      { rel: "canonical", href: "https://opticasuarezjaen.es/terapia-visual" },
-    ],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/terapia-visual` }],
   }),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const breadcrumbItems = [
-    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
-    { name: "Servicios", url: "https://opticasuarezjaen.es/servicios" },
+    { name: "Inicio", url: `${getBaseUrl()}/` },
+    { name: "Servicios", url: `${getBaseUrl()}/servicios` },
     {
       name: "Terapia Visual",
-      url: "https://opticasuarezjaen.es/terapia-visual",
+      url: `${getBaseUrl()}/terapia-visual`,
     },
   ];
 

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import ControlDeMiopia from "~/pages/control-de-miopia/control-de-miopia";
 
 const controlMiopiaKeywords = generatePageKeywords("control-miopia");
@@ -28,14 +29,14 @@ export const Route = createFileRoute("/control-de-miopia")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/control-de-miopia",
+        content: `${getBaseUrl()}/control-de-miopia`,
       },
       { name: "robots", content: "index, follow" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://opticasuarezjaen.es/control-de-miopia",
+        href: `${getBaseUrl()}/control-de-miopia`,
       },
     ],
   }),

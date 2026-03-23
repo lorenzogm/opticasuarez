@@ -24,7 +24,7 @@ Esta condición se desarrolla durante los primeros años de vida, cuando el sist
 
 **Tipos principales de ambliopía:**
 
-- **Ambliopía estrábica**: Causada por un desalineamiento de los ojos ([estrabismo](https://opticasuarezjaen.es/vision-pediatrica)). El cerebro suprime la imagen del ojo desviado para evitar visión doble.
+- **Ambliopía estrábica**: Causada por un desalineamiento de los ojos ([estrabismo](/vision-pediatrica)). El cerebro suprime la imagen del ojo desviado para evitar visión doble.
 
 - **Ambliopía refractiva**: Se produce cuando hay una diferencia significativa en la graduación entre ambos ojos (anisometropía) o un error refractivo alto en ambos ojos que no se corrige.
 
@@ -60,7 +60,7 @@ La detección temprana es crucial para el tratamiento exitoso de la ambliopía. 
 - Quejas de dolores de cabeza o fatiga visual
 - Evita actividades que requieren visión de cerca o de lejos
 
-### La importancia de los [exámenes visuales regulares](https://opticasuarezjaen.es/examen-visual)
+### La importancia de los [exámenes visuales regulares](/examen-visual)
 
 Muchos casos de ambliopía pasan desapercibidos porque el niño puede ver bien con el ojo dominante y no se queja de problemas visuales. Por eso es fundamental realizar exámenes visuales completos:
 
@@ -68,11 +68,11 @@ Muchos casos de ambliopía pasan desapercibidos porque el niño puede ver bien c
 - **Siguientes revisiones**: A los 3 años y antes de comenzar el colegio
 - **Revisiones periódicas**: Anualmente durante toda la edad escolar
 
-En **Óptica Suárez** en Jaén, realizamos [exámenes visuales pediátricos](https://opticasuarezjaen.es/vision-pediatrica) completos con equipamiento especializado que permite detectar la ambliopía incluso en niños muy pequeños que aún no pueden leer letras.
+En **Óptica Suárez** en Jaén, realizamos [exámenes visuales pediátricos](/vision-pediatrica) completos con equipamiento especializado que permite detectar la ambliopía incluso en niños muy pequeños que aún no pueden leer letras.
 
 ## El papel esencial del óptico-optometrista
 
-El óptico-optometrista juega un rol fundamental en la detección y tratamiento de la ambliopía. A diferencia de un simple test de agudeza visual, un [examen visual completo](https://opticasuarezjaen.es/examen-visual) incluye:
+El óptico-optometrista juega un rol fundamental en la detección y tratamiento de la ambliopía. A diferencia de un simple test de agudeza visual, un [examen visual completo](/examen-visual) incluye:
 
 ![Examen visual completo en Óptica Suárez](/images/blog/ambliopia-4.webp)
 
@@ -114,7 +114,7 @@ Antes de cualquier otro tratamiento, es fundamental corregir cualquier error ref
 
 ### Terapia Visual: El tratamiento más efectivo
 
-**En Óptica Suárez enfatizamos especialmente la [terapia visual](https://opticasuarezjaen.es/terapia-visual) como el método más efectivo para tratar la ambliopía**, por razones fundamentales:
+**En Óptica Suárez enfatizamos especialmente la [terapia visual](/terapia-visual) como el método más efectivo para tratar la ambliopía**, por razones fundamentales:
 
 **Ventajas de la terapia visual:**
 
@@ -193,7 +193,7 @@ En **Óptica Suárez en Jaén**, hemos tratado con éxito a pacientes adultos qu
 
 ## Por qué elegir Óptica Suárez para el tratamiento de la ambliopía
 
-Con más de **80 años de experiencia** sirviendo a las familias de Jaén, en **Óptica Suárez** nos hemos convertido en referentes en el cuidado visual infantil y [terapia visual](https://opticasuarezjaen.es/terapia-visual).
+Con más de **80 años de experiencia** sirviendo a las familias de Jaén, en **Óptica Suárez** nos hemos convertido en referentes en el cuidado visual infantil y [terapia visual](/terapia-visual).
 
 **Nuestras ventajas:**
 
@@ -209,7 +209,7 @@ Con más de **80 años de experiencia** sirviendo a las familias de Jaén, en **
 
 Además del tratamiento de la ambliopía, en Óptica Suárez ofrecemos servicios complementarios:
 
-- [Control de miopía](https://opticasuarezjaen.es/control-de-miopia) en niños y adolescentes
+- [Control de miopía](/control-de-miopia) en niños y adolescentes
 - Exámenes visuales completos para toda la familia
 - Adaptación de lentes de contacto especializadas
 - Asesoramiento en salud visual preventiva
@@ -218,17 +218,17 @@ Además del tratamiento de la ambliopía, en Óptica Suárez ofrecemos servicios
 
 Si buscas información sobre **ambliopía en Jaén**, **tratamiento de ojo vago**, **terapia visual infantil**, **optometrista pediátrico en Jaén**, o **detección de ambliopía**, en **Óptica Suárez** encontrarás la experiencia y profesionalidad que necesitas.
 
-Nuestros servicios de **optometría pediátrica en Jaén** incluyen [exámenes visuales completos](https://opticasuarezjaen.es/examen-visual), diagnóstico preciso de problemas visuales infantiles, y programas de [terapia visual](https://opticasuarezjaen.es/terapia-visual) personalizados. También ofrecemos [control de miopía](https://opticasuarezjaen.es/control-de-miopia) para frenar su progresión en edad temprana.
+Nuestros servicios de **optometría pediátrica en Jaén** incluyen [exámenes visuales completos](/examen-visual), diagnóstico preciso de problemas visuales infantiles, y programas de [terapia visual](/terapia-visual) personalizados. También ofrecemos [control de miopía](/control-de-miopia) para frenar su progresión en edad temprana.
 
 ## Conclusión: La importancia de actuar a tiempo
 
 La ambliopía es una condición seria pero tratable, especialmente cuando se detecta temprano. Como padres, es fundamental:
 
 - Estar atentos a las señales de alerta
-- Realizar [exámenes visuales regulares](https://opticasuarezjaen.es/examen-visual) desde la primera infancia
-- Confiar en profesionales especializados en [visión pediátrica](https://opticasuarezjaen.es/vision-pediatrica)
+- Realizar [exámenes visuales regulares](/examen-visual) desde la primera infancia
+- Confiar en profesionales especializados en [visión pediátrica](/vision-pediatrica)
 - Seguir rigurosamente el tratamiento prescrito
-- Priorizar la [terapia visual](https://opticasuarezjaen.es/terapia-visual) que respeta y desarrolla la binocularidad
+- Priorizar la [terapia visual](/terapia-visual) que respeta y desarrolla la binocularidad
 
 Recuerda: **nunca es tarde para tratar la ambliopía**. Aunque los mejores resultados se obtienen en la infancia, los adultos también pueden beneficiarse del tratamiento.
 
@@ -236,7 +236,7 @@ Recuerda: **nunca es tarde para tratar la ambliopía**. Aunque los mejores resul
 
 ### ¿Preocupado por la visión de tu hijo?
 
-Si sospechas que tu hijo puede tener ambliopía, o simplemente quieres asegurar una evaluación visual completa, visítanos en cualquiera de nuestros dos centros en Jaén o [agenda tu cita](https://opticasuarezjaen.es/) hoy mismo.
+Si sospechas que tu hijo puede tener ambliopía, o simplemente quieres asegurar una evaluación visual completa, visítanos en cualquiera de nuestros dos centros en Jaén o [agenda tu cita](/) hoy mismo.
 
 En **Óptica Suárez**, cuidamos de la visión de las familias jiennenses desde hace más de 80 años. La visión de tu hijo es demasiado importante como para dejarla al azar.
 
