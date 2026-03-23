@@ -1,3 +1,5 @@
+import { getBaseUrl } from "~/lib/utils";
+
 interface StructuredDataProps {
   schema: Record<string, unknown>;
 }
@@ -22,19 +24,18 @@ export function WebsiteSchema() {
     alternateName: "Óptica Suárez Jaén",
     description:
       "Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.",
-    url: "https://opticasuarezjaen.es",
+    url: getBaseUrl(),
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate:
-          "https://opticasuarezjaen.es/blog?search={search_term_string}",
+        urlTemplate: `${getBaseUrl()}/blog?search={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
     mainEntity: {
       "@type": "LocalBusiness",
-      "@id": "https://opticasuarezjaen.es/#organization",
+      "@id": `${getBaseUrl()}/#organization`,
     },
   };
 
@@ -46,9 +47,9 @@ export function OrganizationSchema() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://opticasuarezjaen.es/#organization",
+    "@id": `${getBaseUrl()}/#organization`,
     name: "Óptica Suárez",
-    image: "https://opticasuarezjaen.es/og-image.jpg",
+    image: `${getBaseUrl()}/og-image.jpg`,
     telephone: "+34953123456",
     address: {
       "@type": "PostalAddress",
@@ -63,8 +64,8 @@ export function OrganizationSchema() {
       latitude: 37.7749,
       longitude: -3.79,
     },
-    url: "https://opticasuarezjaen.es",
-    logo: "https://opticasuarezjaen.es/logo.png",
+    url: getBaseUrl(),
+    logo: `${getBaseUrl()}/logo.png`,
     description:
       "Centro de Optometría y Terapia Visual en Jaén con más de 80 años de experiencia. Especializados en visión infantil, terapia visual, control de miopía y contactología.",
     foundingDate: "1940",

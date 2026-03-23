@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { getBlogPosts } from "~/lib/blog";
+import { getBaseUrl } from "~/lib/utils";
 import Blog from "~/pages/blog/blog";
 
 interface BlogSearch {
@@ -35,11 +36,11 @@ export const Route = createFileRoute("/blog/")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/blog",
+        content: `${getBaseUrl()}/blog`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://opticasuarezjaen.es/blog" }],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/blog` }],
   }),
   loader: () => {
     const articles = getBlogPosts();
@@ -51,8 +52,8 @@ export const Route = createFileRoute("/blog/")({
 function RouteComponent() {
   const { articles } = Route.useLoaderData();
   const breadcrumbItems = [
-    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
-    { name: "Blog", url: "https://opticasuarezjaen.es/blog" },
+    { name: "Inicio", url: `${getBaseUrl()}/` },
+    { name: "Blog", url: `${getBaseUrl()}/blog` },
   ];
 
   return (

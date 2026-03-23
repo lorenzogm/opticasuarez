@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import Ortoqueratologia from "~/pages/ortoqueratologia/ortoqueratologia";
 
 const ortoqueratologiaKeywords = generatePageKeywords("ortoqueratologia");
@@ -28,14 +29,14 @@ export const Route = createFileRoute("/ortoqueratologia")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/ortoqueratologia",
+        content: `${getBaseUrl()}/ortoqueratologia`,
       },
       { name: "robots", content: "index, follow" },
     ],
     links: [
       {
         rel: "canonical",
-        href: "https://opticasuarezjaen.es/ortoqueratologia",
+        href: `${getBaseUrl()}/ortoqueratologia`,
       },
     ],
   }),

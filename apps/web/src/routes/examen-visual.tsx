@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import ExamenVisual from "~/pages/examen-visual/examen-visual";
 
 const examenVisualKeywords = generatePageKeywords("examen-visual");
@@ -31,13 +32,11 @@ export const Route = createFileRoute("/examen-visual")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/examen-visual",
+        content: `${getBaseUrl()}/examen-visual`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [
-      { rel: "canonical", href: "https://opticasuarezjaen.es/examen-visual" },
-    ],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/examen-visual` }],
   }),
   component: RouteComponent,
 });

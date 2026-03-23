@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import PlanVeo from "~/pages/plan-veo/plan-veo";
 
 const planVeoKeywords = generatePageKeywords("plan-veo");
@@ -41,22 +42,22 @@ export const Route = createFileRoute("/planveo")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/planveo",
+        content: `${getBaseUrl()}/planveo`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://opticasuarezjaen.es/planveo" }],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/planveo` }],
   }),
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const breadcrumbItems = [
-    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
-    { name: "Servicios", url: "https://opticasuarezjaen.es/servicios" },
+    { name: "Inicio", url: `${getBaseUrl()}/` },
+    { name: "Servicios", url: `${getBaseUrl()}/servicios` },
     {
       name: "Plan VEO",
-      url: "https://opticasuarezjaen.es/planveo",
+      url: `${getBaseUrl()}/planveo`,
     },
   ];
 

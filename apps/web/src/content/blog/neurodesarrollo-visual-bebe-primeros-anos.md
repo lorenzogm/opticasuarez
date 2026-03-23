@@ -10,7 +10,7 @@ slug: 'neurodesarrollo-visual-bebe-primeros-anos'
 
 # Neurodesarrollo Visual del Bebé: De la Gestación a los Primeros Años
 
-El desarrollo visual es un proceso fascinante que comienza mucho antes del nacimiento y continúa evolucionando durante los primeros años de vida. En [**Óptica Suárez**](https://opticasuarezjaen.es/), con más de 80 años de experiencia en el cuidado visual en Jaén, comprendemos la importancia crucial de este proceso y cómo una intervención temprana puede marcar la diferencia en el futuro visual de los niños.
+El desarrollo visual es un proceso fascinante que comienza mucho antes del nacimiento y continúa evolucionando durante los primeros años de vida. En [**Óptica Suárez**](/), con más de 80 años de experiencia en el cuidado visual en Jaén, comprendemos la importancia crucial de este proceso y cómo una intervención temprana puede marcar la diferencia en el futuro visual de los niños.
 
 ## El comienzo: desarrollo visual durante la gestación
 
@@ -58,7 +58,7 @@ Este período marca el inicio de habilidades visuales más complejas:
 
 **Coordinación ojo-mano**: Los bebés comienzan a alcanzar objetos con mayor precisión, integrando la información visual con el control motor.
 
-En [Óptica Suárez en Jaén](https://opticasuarezjaen.es/vision-pediatrica), realizamos evaluaciones especializadas para detectar cualquier alteración en este período crítico del desarrollo visual infantil.
+En [Óptica Suárez en Jaén](/vision-pediatrica), realizamos evaluaciones especializadas para detectar cualquier alteración en este período crítico del desarrollo visual infantil.
 
 ## De 6 a 12 meses: refinamiento y exploración
 
@@ -108,7 +108,7 @@ Aunque el desarrollo visual básico se completa hacia los 3 años, el refinamien
 
 **Flexibilidad acomodativa**: El sistema de enfoque alcanza su máxima eficiencia, permitiendo cambios rápidos entre visión de lejos y cerca sin fatiga.
 
-Es fundamental realizar un [examen visual completo](https://opticasuarezjaen.es/examen-visual) antes del inicio de la escolarización para detectar cualquier problema que pueda interferir con el aprendizaje.
+Es fundamental realizar un [examen visual completo](/examen-visual) antes del inicio de la escolarización para detectar cualquier problema que pueda interferir con el aprendizaje.
 
 ## Problemas frecuentes en el neurodesarrollo visual
 
@@ -138,7 +138,7 @@ El estrabismo es la desviación de uno o ambos ojos. Puede presentarse desde el 
 
 Los defectos de refracción pueden estar presentes desde el nacimiento o desarrollarse durante la infancia:
 
-**Miopía infantil**: Aunque menos frecuente en bebés, puede aparecer en edad preescolar. El [control de miopía](https://opticasuarezjaen.es/control-de-miopia) temprano es fundamental para prevenir la progresión.
+**Miopía infantil**: Aunque menos frecuente en bebés, puede aparecer en edad preescolar. El [control de miopía](/control-de-miopia) temprano es fundamental para prevenir la progresión.
 
 **Hipermetropía**: Común en bebés y niños pequeños. Hipermetropías moderadas a altas pueden causar estrabismo convergente y ambliopía si no se corrigen.
 
@@ -155,7 +155,7 @@ Problemas en los movimientos oculares pueden afectar el desarrollo visual y el f
 
 ## El papel del óptico-optometrista en el neurodesarrollo visual
 
-En [Óptica Suárez](https://opticasuarezjaen.es/), como ópticos-optometristas especializados en visión infantil en Jaén, ofrecemos servicios integrales para el cuidado del desarrollo visual:
+En [Óptica Suárez](/), como ópticos-optometristas especializados en visión infantil en Jaén, ofrecemos servicios integrales para el cuidado del desarrollo visual:
 
 ### Evaluaciones especializadas
 
@@ -182,7 +182,7 @@ Ofrecemos diversas opciones de tratamiento según las necesidades:
 
 **Corrección óptica**: Gafas diseñadas específicamente para niños, con monturas resistentes y seguras, y lentes de alta calidad adaptadas a las necesidades visuales infantiles.
 
-**[Terapia visual](https://opticasuarezjaen.es/terapia-visual)**: Programas personalizados de ejercicios para mejorar habilidades visuales específicas, tratar ambliopía, mejorar la coordinación binocular o desarrollar habilidades visuomotoras.
+**[Terapia visual](/terapia-visual)**: Programas personalizados de ejercicios para mejorar habilidades visuales específicas, tratar ambliopía, mejorar la coordinación binocular o desarrollar habilidades visuomotoras.
 
 **Seguimiento del desarrollo**: Control periódico del desarrollo visual con ajustes del tratamiento según la evolución y educación a los padres sobre estimulación visual adecuada.
 
@@ -256,7 +256,7 @@ Los padres deben estar atentos a estas señales que pueden indicar problemas en 
 - Evita actividades de cerca o deportes
 - Entrecierra los ojos para ver
 
-Si observa cualquiera de estas señales, es fundamental acudir a un profesional. En [Óptica Suárez en Jaén](https://opticasuarezjaen.es/vision-pediatrica), estamos especializados en la evaluación visual infantil y podemos detectar y tratar estos problemas de manera temprana.
+Si observa cualquiera de estas señales, es fundamental acudir a un profesional. En [Óptica Suárez en Jaén](/vision-pediatrica), estamos especializados en la evaluación visual infantil y podemos detectar y tratar estos problemas de manera temprana.
 
 ## La importancia de la prevención y el seguimiento
 
@@ -299,7 +299,7 @@ En **Óptica Suárez**, utilizamos tecnología de vanguardia para la evaluación
 
 El neurodesarrollo visual es un proceso maravilloso y complejo que sienta las bases para el aprendizaje, la coordinación motora y la calidad de vida futura. Como padres y profesionales de la visión, tenemos la responsabilidad de garantizar que cada niño tenga la oportunidad de desarrollar su máximo potencial visual.
 
-En [**Óptica Suárez**](https://opticasuarezjaen.es/), con nuestra larga trayectoria de más de 80 años sirviendo a las familias de Jaén, estamos comprometidos con el cuidado visual infantil. Nuestro equipo de ópticos-optometristas especializados en [visión pediátrica](https://opticasuarezjaen.es/vision-pediatrica) está preparado para acompañar a su hijo en cada etapa de su desarrollo visual.
+En [**Óptica Suárez**](/), con nuestra larga trayectoria de más de 80 años sirviendo a las familias de Jaén, estamos comprometidos con el cuidado visual infantil. Nuestro equipo de ópticos-optometristas especializados en [visión pediátrica](/vision-pediatrica) está preparado para acompañar a su hijo en cada etapa de su desarrollo visual.
 
 No espere a que aparezcan problemas evidentes. La prevención y detección temprana son las mejores herramientas para garantizar un desarrollo visual óptimo. Contacte con nosotros para programar una evaluación visual infantil y asegurar el mejor futuro visual para su hijo.
 

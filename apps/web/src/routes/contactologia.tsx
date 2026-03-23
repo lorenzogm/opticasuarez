@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { getBaseUrl } from "~/lib/utils";
 import Contactologia from "~/pages/contactologia/contactologia";
 
 const contactologiaKeywords = generatePageKeywords("contactologia");
@@ -30,13 +31,11 @@ export const Route = createFileRoute("/contactologia")({
       },
       {
         property: "og:url",
-        content: "https://opticasuarezjaen.es/contactologia",
+        content: `${getBaseUrl()}/contactologia`,
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [
-      { rel: "canonical", href: "https://opticasuarezjaen.es/contactologia" },
-    ],
+    links: [{ rel: "canonical", href: `${getBaseUrl()}/contactologia` }],
   }),
   component: RouteComponent,
 });
