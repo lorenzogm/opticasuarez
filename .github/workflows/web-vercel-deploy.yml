@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   check-changes:
     runs-on: ubuntu-latest
@@ -51,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Infrastructure Deploy
     environment: development
+    outputs:
+      project-id: ${{ steps.export-outputs.outputs.project-id }}
     env:
       TF_VAR_ENVIRONMENT: development
       TF_VAR_VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -75,6 +80,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+          terraform_wrapper: false
 
       - name: Terraform Init
         working-directory: infra/vercel/src
@@ -112,49 +118,46 @@ jobs:
       - name: Export Terraform Outputs
         id: export-outputs
         working-directory: infra/vercel/src
-        if: success()
         run: |
           PROJECT_ID=$(terraform output -raw OPTICASUAREZ_WEB_VERCEL_PROJECT_ID)
           echo "Vercel Project ID: $PROJECT_ID"
-          gh variable set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID --body "$PROJECT_ID"
+          echo "project-id=$PROJECT_ID" >> $GITHUB_OUTPUT
+          if [ -n "${{ secrets.GH_BOT_TOKEN }}" ]; then
+            gh variable set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID --body "$PROJECT_ID"
+            echo "GitHub variable set successfully"
+          else
+            echo "GH_BOT_TOKEN not configured — set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID variable manually to: $PROJECT_ID"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
 
       - name: Encrypt Terraform State
         working-directory: infra/vercel/src
-        if: success()
         run: |
           if [ -f "terraform.tfstate" ]; then
             echo "${{ secrets.TERRAFORM_STATE_ENCRYPT_KEY }}" | openssl enc -aes-256-cbc -in "terraform.tfstate" -out "terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc" -pass stdin
             rm -f terraform.tfstate
             echo "State file encrypted successfully"
-            ls -la terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc
           else
             echo "Error: No terraform.tfstate file found to encrypt"
             exit 1
           fi
 
       - name: Configure Git
-        if: success()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit Encrypted State
-        if: success()
         run: |
           cd ${{ github.workspace }}
           git fetch origin main
           STATE_FILE="infra/vercel/src/terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
-          if git diff --quiet "$STATE_FILE" 2>/dev/null || [ ! -f "$STATE_FILE" ]; then
-            echo "State file has changes, committing..."
-            git add "$STATE_FILE"
-            git commit -m "chore: update terraform state for ${{ env.TF_VAR_ENVIRONMENT }} environment" || true
-            git push https://x-access-token:${{ secrets.GH_BOT_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
-            echo "State file committed and pushed"
-          else
-            echo "No changes to state file"
-          fi
+          git add "$STATE_FILE"
+          git diff --staged --quiet && echo "No changes to state file" && exit 0
+          git commit -m "chore: update terraform state for ${{ env.TF_VAR_ENVIRONMENT }} environment"
+          git push origin HEAD:main
+          echo "State file committed and pushed"
 
   app-deploy:
     needs: [check-changes, infra-deploy]
@@ -165,6 +168,8 @@ jobs:
     runs-on: ubuntu-latest
     name: App Deploy
     environment: development
+    env:
+      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
     steps:
       - name: Checkout
@@ -189,16 +194,13 @@ jobs:
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
       - name: Deploy to Vercel Production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
