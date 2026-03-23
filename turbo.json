@@ -1,0 +1,38 @@
+{
+  "$schema": "./node_modules/turbo/schema.json",
+  "ui": "stream",
+  "envMode": "loose",
+  "tasks": {
+    "prepare": {
+      "dependsOn": ["^prepare"],
+      "outputs": [".env", "dist"],
+      "outputLogs": "new-only"
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "persistent": true,
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist", "build", ".output", "storybook-static"],
+      "outputLogs": "new-only"
+    },
+    "//#check": {},
+    "//#check:linter": {
+      "dependsOn": ["^build"],
+      "outputLogs": "new-only"
+    },
+    "check:tests": {
+      "dependsOn": ["^build"],
+      "outputLogs": "new-only"
+    },
+    "check:types": {
+      "dependsOn": ["^build"],
+      "outputLogs": "new-only"
+    },
+    "//#fix": {
+      "cache": false
+    }
+  }
+}

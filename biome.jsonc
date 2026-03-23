@@ -1,0 +1,60 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite"],
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noUnknownAtRules": "off",
+        "noConsole": "off",
+        "useAwait": "off",
+        "noArrayIndexKey": "off",
+        "noEvolvingTypes": "off",
+        "noGlobalIsNan": "off",
+        "noAlert": "off"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "off",
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off",
+        "noNoninteractiveElementInteractions": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "performance": {
+        "noNamespaceImport": "off",
+        "useTopLevelRegex": "off",
+        "noImgElement": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "style": {
+        "noMagicNumbers": "off",
+        "useNodejsImportProtocol": "off",
+        "useBlockStatements": "off",
+        "noNestedTernary": "off",
+        "useConsistentBuiltinInstantiation": "off",
+        "noHeadElement": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "off"
+      },
+      "correctness": {
+        "useParseIntRadix": "off",
+        "useExhaustiveDependencies": "off",
+        "noUnusedFunctionParameters": "off"
+      },
+      "nursery": {
+        "useConsistentTypeDefinitions": "off",
+        "noShadow": "off",
+        "useImageSize": "off"
+      }
+    }
+  }
+}

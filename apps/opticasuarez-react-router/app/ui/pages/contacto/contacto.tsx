@@ -1,42 +1,42 @@
-import ContactHero from './sections/contact-hero';
-import ContactInfo from './sections/contact-info';
-import ContactLocations from './sections/contact-locations';
-import ContactForm from './sections/contact-form';
-import ContactSocialMedia from './sections/contact-social-media';
-import content from '../../../content/contacto.json';
+import content from "../../../content/contacto.json" with { type: "json" };
+import ContactForm from "./sections/contact-form";
+import ContactHero from "./sections/contact-hero";
+import ContactInfo from "./sections/contact-info";
+import ContactLocations from "./sections/contact-locations";
+import ContactSocialMedia from "./sections/contact-social-media";
 
 export default function ContactoPage() {
   return (
     <main>
       <ContactHero
-        title={content.hero.title}
-        subtitle={content.hero.subtitle}
         description={content.hero.description}
+        subtitle={content.hero.subtitle}
+        title={content.hero.title}
       />
       <ContactInfo
-        title={content.contactInfo.title}
-        subtitle={content.contactInfo.subtitle}
-        phone={content.contactInfo.phone}
         email={content.contactInfo.email}
         generalInfo={content.contactInfo.generalInfo}
+        phone={content.contactInfo.phone}
+        subtitle={content.contactInfo.subtitle}
+        title={content.contactInfo.title}
         whatsapp={content.contactInfo.whatsapp}
       />
       <ContactLocations
-        title={content.locations.title}
-        subtitle={content.locations.subtitle}
         locations={content.locations.locations}
+        subtitle={content.locations.subtitle}
+        title={content.locations.title}
       />
       <ContactForm
-        title={content.contactForm.title}
-        subtitle={content.contactForm.subtitle}
         description={content.contactForm.description}
         form={content.contactForm.form}
+        subtitle={content.contactForm.subtitle}
+        title={content.contactForm.title}
       />
       <ContactSocialMedia
-        title={content.socialMedia.title}
-        subtitle={content.socialMedia.subtitle}
-        instagram={content.socialMedia.instagram}
         facebook={content.socialMedia.facebook}
+        instagram={content.socialMedia.instagram}
+        subtitle={content.socialMedia.subtitle}
+        title={content.socialMedia.title}
         youtube={content.socialMedia.youtube}
       />
     </main>

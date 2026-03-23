@@ -1,5 +1,5 @@
-import { Text } from '../../../components/text';
-import { Button } from '../../../components/button';
+import { Button } from "../../../components/button";
+import { Text } from "../../../components/text";
 
 interface TerapiaVisualCtaProps {
   title: string;
@@ -15,31 +15,31 @@ export default function TerapiaVisualCta({
   buttonLink,
 }: TerapiaVisualCtaProps) {
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-blue-900">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
+    <section className="bg-blue-900 py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto max-w-4xl px-4 text-center sm:px-6">
         <Text
           as="p"
-          variant="heading-2"
-          colour="white"
           className="mb-6 uppercase tracking-wide"
+          colour="white"
+          variant="heading-2"
         >
           {title}
         </Text>
         <Text
-          variant="body-lg"
-          colour="white"
           className="mb-8 leading-relaxed opacity-90"
+          colour="white"
+          variant="body-lg"
         >
           {description}
         </Text>
         <Button
+          className="border-white bg-white text-blue-900 hover:bg-gray-100"
           href={buttonLink}
-          variant="primary"
-          target={buttonLink.startsWith('http') ? '_blank' : undefined}
           rel={
-            buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined
+            buttonLink.startsWith("http") ? "noopener noreferrer" : undefined
           }
-          className="bg-white text-blue-900 hover:bg-gray-100 border-white"
+          target={buttonLink.startsWith("http") ? "_blank" : undefined}
+          variant="primary"
         >
           {buttonText}
         </Button>

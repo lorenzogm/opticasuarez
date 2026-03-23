@@ -1,5 +1,5 @@
-import { Text } from '../../../components/text';
-import Image from '../../../components/image';
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface TeamMember {
   name: string;
@@ -15,39 +15,39 @@ interface TeamMembersProps {
 
 export default function TeamMembers({ title, members }: TeamMembersProps) {
   return (
-    <section className="bg-white py-16 px-4 sm:px-6">
+    <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
         <Text
-          as="h2"
-          variant="heading-2"
           align="center"
+          as="h2"
           className="mb-12 text-gray-900 uppercase tracking-wide"
+          variant="heading-2"
         >
           {title}
         </Text>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {members.map((member, index) => (
-            <div key={index} className="text-center">
+            <div className="text-center" key={index}>
               <figure className="mb-6">
                 <Image
-                  src={member.image}
                   alt={member.name}
-                  className="w-full h-80 object-cover rounded-lg shadow-lg"
+                  className="h-80 w-full rounded-lg object-cover shadow-lg"
+                  src={member.image}
                 />
               </figure>
 
               <div>
                 <Text
                   as="h3"
-                  variant="heading-4"
                   className="mb-2 text-gray-900 uppercase tracking-wide"
+                  variant="heading-4"
                 >
                   {member.name}
                 </Text>
                 <Text
+                  className="mb-4 font-medium text-blue-800"
                   variant="body-lg"
-                  className="mb-4 text-blue-800 font-medium"
                 >
                   {member.role}
                 </Text>
@@ -56,9 +56,9 @@ export default function TeamMembers({ title, members }: TeamMembersProps) {
                   <div className="space-y-2">
                     {member.details.map((detail, detailIndex) => (
                       <Text
+                        className="text-gray-600"
                         key={detailIndex}
                         variant="body-sm"
-                        className="text-gray-600"
                       >
                         {detail}
                       </Text>

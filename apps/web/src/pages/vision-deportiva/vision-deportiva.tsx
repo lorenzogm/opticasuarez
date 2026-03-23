@@ -1,19 +1,19 @@
-import { Text } from '../../components/text';
-import { Button } from '../../components/button';
-import Services from './sections/services';
-import CustomerTestimonials from '../../sections/customer-testimonials';
-import Image from '../../components/image';
-import FAQAccordion from '../../components/faq-accordion';
-import content from '../../content/vision-deportiva.json';
+import { Button } from "../../components/button";
+import FAQAccordion from "../../components/faq-accordion";
+import Image from "../../components/image";
+import { Text } from "../../components/text";
+import content from "../../content/vision-deportiva.json" with { type: "json" };
+import CustomerTestimonials from "../../sections/customer-testimonials";
+import Services from "./sections/services";
 
 function VisionDeportivaHero() {
   return (
-    <section className="bg-gradient-to-r from-blue-600 to-blue-800 py-20 px-4 sm:px-6">
+    <section className="bg-gradient-to-r from-blue-600 to-blue-800 px-4 py-20 sm:px-6">
       <div className="container mx-auto max-w-6xl text-center">
         <Text
           as="h1"
-          variant="heading-1"
           className="mb-4 text-white uppercase tracking-wide"
+          variant="heading-1"
         >
           {content.hero.title}
         </Text>
@@ -22,17 +22,17 @@ function VisionDeportivaHero() {
         </Text>
         <Text
           as="p"
+          className="mx-auto mb-8 max-w-3xl text-blue-100"
           variant="body-lg"
-          className="mb-8 text-blue-100 max-w-3xl mx-auto"
         >
           {content.hero.description}
         </Text>
         <Button
-          variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
           href="https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20reservar%20una%20evaluación%20de%20visión%20deportiva"
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
+          variant="primary"
         >
           RESERVAR EVALUACIÓN
         </Button>
@@ -43,39 +43,39 @@ function VisionDeportivaHero() {
 
 function VisionDeportivaIntroduction() {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-white">
+    <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <Text
               as="h2"
-              variant="heading-2"
               className="mb-6 text-gray-900 uppercase tracking-wide"
+              variant="heading-2"
             >
               {content.introduction.title}
             </Text>
             <Text
               as="p"
-              variant="body-lg"
               className="mb-8 text-gray-600 leading-relaxed"
+              variant="body-lg"
             >
               {content.introduction.description}
             </Text>
             <div className="space-y-4">
               {content.introduction.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <div className="flex items-center" key={index}>
+                  <div className="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-600">
                     <svg
-                      className="w-3 h-3 text-white"
+                      className="h-3 w-3 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path
+                        d="M5 13l4 4L19 7"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={3}
-                        d="M5 13l4 4L19 7"
                       />
                     </svg>
                   </div>
@@ -88,10 +88,10 @@ function VisionDeportivaIntroduction() {
           </div>
           <div className="relative">
             <Image
-              src="/images/vision-deportiva/vision-deportiva-intro.webp"
               alt="Evaluación visual deportiva"
+              className="h-96 w-full rounded-lg object-cover shadow-lg"
+              src="/images/vision-deportiva/vision-deportiva-intro.webp"
               title="Evaluación visual deportiva"
-              className="w-full h-96 object-cover rounded-lg shadow-lg"
             />
           </div>
         </div>
@@ -102,52 +102,52 @@ function VisionDeportivaIntroduction() {
 
 function TerapiaVisualDeportiva() {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-gray-50">
+    <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
         <Text
           as="h2"
-          variant="heading-2"
           className="mb-8 text-center text-gray-900 uppercase tracking-wide"
+          variant="heading-2"
         >
           {content.visualTherapy.title}
         </Text>
         <Text
           as="p"
+          className="mx-auto mb-12 max-w-4xl text-center text-gray-600"
           variant="body-lg"
-          className="mb-12 text-center text-gray-600 max-w-4xl mx-auto"
         >
           {content.visualTherapy.description}
         </Text>
 
         {/* Skills Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {content.visualTherapy.skills.map((skill, index) => (
             <div
+              className="rounded-lg bg-white p-6 text-center shadow-md transition-shadow duration-300 hover:shadow-lg"
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
             >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="h-8 w-8 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                   <path
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                   />
                 </svg>
               </div>
-              <Text as="h3" variant="heading-4" className="mb-3 text-gray-900">
+              <Text as="h3" className="mb-3 text-gray-900" variant="heading-4">
                 {skill.title}
               </Text>
               <Text as="p" className="text-gray-600">
@@ -158,31 +158,31 @@ function TerapiaVisualDeportiva() {
         </div>
 
         {/* Improvements and Images Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <Text
               as="h3"
-              variant="heading-3"
               className="mb-6 text-gray-900 uppercase tracking-wide"
+              variant="heading-3"
             >
               {content.visualTherapy.improvements.title}
             </Text>
-            <div className="space-y-4 mb-8">
+            <div className="mb-8 space-y-4">
               {content.visualTherapy.improvements.items.map(
                 (improvement, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="flex items-center" key={index}>
+                    <div className="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-600">
                       <svg
-                        className="w-3 h-3 text-white"
+                        className="h-3 w-3 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
                         <path
+                          d="M5 13l4 4L19 7"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={3}
-                          d="M5 13l4 4L19 7"
                         />
                       </svg>
                     </div>
@@ -194,23 +194,23 @@ function TerapiaVisualDeportiva() {
               )}
             </div>
             <Button
-              variant="primary"
-              className="bg-green-600 hover:bg-green-700 text-white"
+              className="bg-green-600 text-white hover:bg-green-700"
               href={`${content.visualTherapy.ctaButton.url}?text=${encodeURIComponent(content.visualTherapy.ctaButton.message)}`}
-              target="_blank"
               rel="noopener noreferrer"
+              target="_blank"
+              variant="primary"
             >
               {content.visualTherapy.ctaButton.text}
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-4">
             {content.visualTherapy.images.map((image, index) => (
-              <div key={index} className="relative">
+              <div className="relative" key={index}>
                 <Image
-                  src={image.src}
                   alt={image.alt}
+                  className="h-64 w-full rounded-lg object-cover shadow-lg"
+                  src={image.src}
                   title={image.title}
-                  className="w-full h-64 object-cover rounded-lg shadow-lg"
                 />
               </div>
             ))}
@@ -223,30 +223,30 @@ function TerapiaVisualDeportiva() {
 
 function CallToAction() {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-blue-600">
+    <section className="bg-blue-600 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-4xl text-center">
         <Text
           as="h2"
-          variant="heading-2"
           className="mb-6 text-white uppercase tracking-wide"
+          variant="heading-2"
         >
           {content.cta.title}
         </Text>
-        <Text as="p" variant="body-lg" className="mb-8 text-blue-100">
+        <Text as="p" className="mb-8 text-blue-100" variant="body-lg">
           {content.cta.description}
         </Text>
         <Button
-          variant="primary"
           className="bg-white text-blue-600 hover:bg-blue-50"
           href={content.cta.buttonUrl}
-          target={
-            content.cta.buttonUrl.startsWith('http') ? '_blank' : undefined
-          }
           rel={
-            content.cta.buttonUrl.startsWith('http')
-              ? 'noopener noreferrer'
+            content.cta.buttonUrl.startsWith("http")
+              ? "noopener noreferrer"
               : undefined
           }
+          target={
+            content.cta.buttonUrl.startsWith("http") ? "_blank" : undefined
+          }
+          variant="primary"
         >
           {content.cta.buttonText}
         </Button>
@@ -260,14 +260,14 @@ export default function VisionDeportiva() {
     <main>
       <VisionDeportivaHero />
       <VisionDeportivaIntroduction />
-      <Services title={content.services.title} items={content.services.items} />
+      <Services items={content.services.items} title={content.services.title} />
       <TerapiaVisualDeportiva />
       <CustomerTestimonials
-        title={content.testimonials.title}
-        testimonials={content.testimonials.items}
         moreReviewsLink=""
+        testimonials={content.testimonials.items}
+        title={content.testimonials.title}
       />
-      <FAQAccordion title={content.faq.title} items={content.faq.items} />
+      <FAQAccordion items={content.faq.items} title={content.faq.title} />
       <CallToAction />
     </main>
   );

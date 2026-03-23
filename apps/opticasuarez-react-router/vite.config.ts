@@ -1,9 +1,9 @@
-import { reactRouter } from '@react-router/dev/vite';
-import { defineConfig } from 'vite';
-import tailwindcss from '@tailwindcss/postcss';
+import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/postcss";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: '/',
+  base: "/",
   plugins: [reactRouter()],
   css: {
     postcss: {

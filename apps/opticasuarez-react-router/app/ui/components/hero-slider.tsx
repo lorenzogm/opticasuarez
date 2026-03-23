@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import Image from './image';
+import { useEffect, useState } from "react";
+import Image from "./image";
 
 interface HeroSliderProps {
   images: {
@@ -37,8 +37,8 @@ export default function HeroSlider({
   // Parallax effect on scroll
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const goToSlide = (index: number) => {
@@ -62,7 +62,7 @@ export default function HeroSlider({
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Image with Parallax */}
-      <div 
+      <div
         className="absolute inset-0 will-change-transform"
         style={{
           transform: `translateY(${scrollY * 0.5}px)`,
@@ -71,19 +71,19 @@ export default function HeroSlider({
         <div className="relative h-[120%] w-full">
           {images.map((image, index) => (
             <div
-              key={index}
               className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentSlide ? 'opacity-100' : 'opacity-0'
+                index === currentSlide ? "opacity-100" : "opacity-0"
               }`}
+              key={index}
             >
               <Image
-                src={image.src}
                 alt={image.alt}
-                className="h-full w-full object-cover scale-105 hero-zoom-animation"
+                className="hero-zoom-animation h-full w-full scale-105 object-cover"
                 priority={index === 0}
+                src={image.src}
               />
               {/* Watermark overlay for better text readability */}
-              <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+              <div className="absolute inset-0 bg-black bg-opacity-20" />
             </div>
           ))}
         </div>
@@ -93,17 +93,17 @@ export default function HeroSlider({
       <div className="relative z-10 flex h-full items-center justify-center">
         <div className="container mx-auto max-w-6xl px-4 text-center text-white">
           <div className="hero-content-animation">
-            <h1 className="mb-4 text-4xl font-bold uppercase tracking-wide drop-shadow-lg sm:text-5xl md:text-6xl">
+            <h1 className="mb-4 font-bold text-4xl uppercase tracking-wide drop-shadow-lg sm:text-5xl md:text-6xl">
               {currentImage.title}
             </h1>
-            <h2 className="mb-6 text-2xl font-semibold uppercase tracking-wide drop-shadow-lg sm:text-3xl md:text-4xl text-blue-300">
+            <h2 className="mb-6 font-semibold text-2xl text-blue-300 uppercase tracking-wide drop-shadow-lg sm:text-3xl md:text-4xl">
               {currentImage.subtitle}
             </h2>
-            <h3 className="mb-8 text-lg font-medium uppercase tracking-wide drop-shadow-lg sm:text-xl md:text-2xl">
+            <h3 className="mb-8 font-medium text-lg uppercase tracking-wide drop-shadow-lg sm:text-xl md:text-2xl">
               {currentImage.description}
             </h3>
             {cta && (
-              <button className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="inline-block transform rounded-lg bg-blue-600 px-8 py-3 font-semibold text-lg text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700 hover:shadow-xl">
                 {cta}
               </button>
             )}
@@ -115,21 +115,41 @@ export default function HeroSlider({
       {images.length > 1 && (
         <>
           <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white bg-opacity-20 p-3 text-white backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 hover:scale-110"
             aria-label="Previous slide"
+            className="-translate-y-1/2 absolute top-1/2 left-4 z-20 rounded-full bg-white bg-opacity-20 p-3 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-opacity-30"
+            onClick={prevSlide}
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15 19l-7-7 7-7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
             </svg>
           </button>
           <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white bg-opacity-20 p-3 text-white backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 hover:scale-110"
             aria-label="Next slide"
+            className="-translate-y-1/2 absolute top-1/2 right-4 z-20 rounded-full bg-white bg-opacity-20 p-3 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-opacity-30"
+            onClick={nextSlide}
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
             </svg>
           </button>
         </>
@@ -137,25 +157,26 @@ export default function HeroSlider({
 
       {/* Slide Indicators */}
       {images.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 space-x-2">
+        <div className="-translate-x-1/2 absolute bottom-8 left-1/2 z-20 flex space-x-2">
           {images.map((_, index) => (
             <button
-              key={index}
-              onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
               className={`h-3 w-3 rounded-full transition-all duration-300 ${
                 index === currentSlide
-                  ? 'bg-white'
-                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                  ? "bg-white"
+                  : "bg-white bg-opacity-50 hover:bg-opacity-75"
               }`}
-              aria-label={`Go to slide ${index + 1}`}
+              key={index}
+              onClick={() => goToSlide(index)}
             />
           ))}
         </div>
       )}
 
       {/* Inline styles for animations */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
           .hero-zoom-animation {
             animation: heroZoomIn 20s ease-out infinite alternate;
           }
@@ -176,8 +197,9 @@ export default function HeroSlider({
               transform: translateY(0);
             }
           }
-        `
-      }} />
+        `,
+        }}
+      />
     </section>
   );
 }

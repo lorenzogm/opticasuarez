@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface Study {
   title: string;
@@ -18,39 +18,39 @@ export default function MyopiaScience({
   studies,
 }: MyopiaScienceProps) {
   return (
-    <section className="bg-blue-900 py-16 px-4 sm:px-6">
+    <section className="bg-blue-900 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="mb-12 text-center">
           <Text
             as="h2"
-            variant="heading-2"
-            colour="white"
             className="mb-6 uppercase tracking-wide"
+            colour="white"
+            variant="heading-2"
           >
             {title}
           </Text>
           <Text
-            variant="body-lg"
+            className="mx-auto max-w-4xl leading-relaxed opacity-90"
             colour="white"
-            className="max-w-4xl mx-auto leading-relaxed opacity-90"
+            variant="body-lg"
           >
             {description}
           </Text>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {studies.map((study, index) => (
             <div
+              className="rounded-lg bg-white p-8 text-center transition-shadow hover:shadow-lg"
               key={index}
-              className="bg-white rounded-lg p-8 text-center hover:shadow-lg transition-shadow"
             >
               <div className="mb-4">
-                <Text variant="heading-1" className="text-blue-600">
+                <Text className="text-blue-600" variant="heading-1">
                   {study.percentage}
                 </Text>
                 <Text
-                  variant="body-sm"
                   className="text-gray-500 uppercase tracking-wider"
+                  variant="body-sm"
                 >
                   REDUCCIÓN
                 </Text>
@@ -61,7 +61,7 @@ export default function MyopiaScience({
               >
                 {study.title}
               </Text>
-              <Text variant="body-sm" className="text-gray-600 leading-relaxed">
+              <Text className="text-gray-600 leading-relaxed" variant="body-sm">
                 {study.description}
               </Text>
             </div>

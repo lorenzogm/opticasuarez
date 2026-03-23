@@ -1,0 +1,35 @@
+{
+  "name": "opticasuarez",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": "22"
+  },
+  "packageManager": "pnpm@10.5.0",
+  "scripts": {
+    "prepare": "turbo run prepare --continue",
+    "dev": "turbo run dev",
+    "build": "turbo run build --continue",
+    "check": "turbo run build check:linter check:tests check:types --continue",
+    "check:linter": "ultracite check",
+    "check:tests": "turbo run check:tests --continue",
+    "check:types": "turbo run check:types --continue",
+    "fix": "ultracite fix",
+    "clean": "run-s clean:*",
+    "clean:turbo": "find . -name '.turbo' -type d -prune -exec rm -rf '{}' +",
+    "clean:dist": "find . -name 'dist' -type d -prune -exec rm -rf '{}' +",
+    "clean:build": "find . -name 'build' -type d -prune -exec rm -rf '{}' +",
+    "clean:coverage": "find . -name 'coverage' -type d -prune -exec rm -rf '{}' +",
+    "clean:node_modules": "shx --verbose rm -rf **/node_modules"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.7",
+    "@vitest/coverage-v8": "3.0.7",
+    "lefthook": "2.0.0",
+    "npm-run-all": "4.1.5",
+    "shx": "0.3.4",
+    "turbo": "2.5.6",
+    "ultracite": "5.6.4",
+    "vitest": "4.0.1"
+  }
+}

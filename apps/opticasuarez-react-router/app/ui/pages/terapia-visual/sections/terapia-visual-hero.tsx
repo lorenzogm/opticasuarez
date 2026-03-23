@@ -1,7 +1,7 @@
-import { Text } from '../../../components/text';
-import { Button } from '../../../components/button';
-import Image from '../../../components/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
+import { Button } from "../../../components/button";
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface TerapiaVisualHeroProps {
   title: string;
@@ -30,44 +30,41 @@ export default function TerapiaVisualHero({
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+    <section className="relative overflow-hidden px-4 py-32 sm:px-6">
       <div className="absolute inset-0" ref={parallaxRef}>
         <Image
-          src={backgroundImage}
           alt="terapia visual en jaen"
-          title="terapia visual en jaen"
-          className="w-full h-full object-cover transform scale-110"
+          className="h-full w-full scale-110 transform object-cover"
           priority
           sizes="100vw"
+          src={backgroundImage}
+          title="terapia visual en jaen"
         />
       </div>
-      <div className="relative container mx-auto max-w-6xl text-center z-10">
+      <div className="container relative z-10 mx-auto max-w-6xl text-center">
         <Text
           as="h1"
-          variant="heading-1"
           className="mb-4 text-white uppercase tracking-wide drop-shadow-lg"
+          variant="heading-1"
         >
           {title}
         </Text>
-        <Text 
-          as="h2" 
-          className="mb-6 text-white drop-shadow-lg"
-        >
+        <Text as="h2" className="mb-6 text-white drop-shadow-lg">
           {subtitle}
         </Text>
         <Text
+          className="mx-auto mb-8 max-w-4xl text-white leading-relaxed drop-shadow-lg"
           variant="body-lg"
-          className="mb-8 text-white max-w-4xl mx-auto leading-relaxed drop-shadow-lg"
         >
           {description}
         </Text>
         {ctaText && ctaLink && (
-          <Button href={ctaLink} variant="primary" className="mt-4">
+          <Button className="mt-4" href={ctaLink} variant="primary">
             {ctaText}
           </Button>
         )}

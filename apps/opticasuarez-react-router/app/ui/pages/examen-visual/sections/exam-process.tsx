@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface ProcessStep {
   step: string;
@@ -18,20 +18,20 @@ export default function ExamProcess({
   steps,
 }: ExamProcessProps) {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-white">
+    <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="mb-12 text-center">
           <Text
             as="h2"
-            variant="heading-2"
             className="mb-6 text-gray-900 uppercase tracking-wide"
+            variant="heading-2"
           >
             {title}
           </Text>
           <Text
             as="p"
+            className="mx-auto max-w-3xl text-gray-600"
             variant="body-lg"
-            className="text-gray-600 max-w-3xl mx-auto"
           >
             {description}
           </Text>
@@ -39,32 +39,32 @@ export default function ExamProcess({
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200 hidden md:block"></div>
+          <div className="absolute top-0 bottom-0 left-8 hidden w-0.5 bg-blue-200 md:block" />
 
           <div className="space-y-8">
             {steps.map((step, index) => (
               <div
-                key={index}
                 className="relative flex items-start md:items-center"
+                key={index}
               >
                 {/* Step number */}
-                <div className="flex-shrink-0 w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold z-10">
+                <div className="z-10 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 font-bold text-white text-xl">
                   {step.step}
                 </div>
 
                 {/* Content */}
-                <div className="ml-8 md:ml-12 flex-1">
+                <div className="ml-8 flex-1 md:ml-12">
                   <Text
                     as="h3"
-                    variant="heading-4"
                     className="mb-3 text-gray-900 uppercase"
+                    variant="heading-4"
                   >
                     {step.title}
                   </Text>
                   <Text
                     as="p"
-                    variant="body-md"
                     className="text-gray-600 leading-relaxed"
+                    variant="body-md"
                   >
                     {step.description}
                   </Text>

@@ -1,59 +1,61 @@
-import TerapiaVisualHero from './sections/terapia-visual-hero';
-import TerapiaVisualInfo from './sections/terapia-visual-info';
-import TerapiaVisualConditions from './sections/terapia-visual-conditions';
-import TerapiaVisualProcess from './sections/terapia-visual-process';
-import Testimonials from './sections/testimonials';
-import FAQAccordion from '../../components/faq-accordion';
-import TerapiaVisualCta from './sections/terapia-visual-cta';
-import content from '../../../content/terapia-visual.json';
+import content from "../../../content/terapia-visual.json" with {
+  type: "json",
+};
+import FAQAccordion from "../../components/faq-accordion";
+import TerapiaVisualConditions from "./sections/terapia-visual-conditions";
+import TerapiaVisualCta from "./sections/terapia-visual-cta";
+import TerapiaVisualHero from "./sections/terapia-visual-hero";
+import TerapiaVisualInfo from "./sections/terapia-visual-info";
+import TerapiaVisualProcess from "./sections/terapia-visual-process";
+import Testimonials from "./sections/testimonials";
 
 export default function TerapiaVisual() {
   return (
     <main>
       {/* Hero Section */}
       <TerapiaVisualHero
-        title={content.hero.title}
-        subtitle={content.hero.subtitle}
-        description={content.hero.description}
         backgroundImage={content.hero.backgroundImage}
+        description={content.hero.description}
+        subtitle={content.hero.subtitle}
+        title={content.hero.title}
       />
 
       {/* What is Visual Therapy */}
       <TerapiaVisualInfo
-        title={content.whatIs.title}
-        description={content.whatIs.description}
         benefits={content.whatIs.benefits}
+        description={content.whatIs.description}
+        title={content.whatIs.title}
       />
 
       {/* Conditions We Treat */}
       <TerapiaVisualConditions
-        title={content.conditions.title}
-        subtitle={content.conditions.subtitle}
         items={content.conditions.items}
+        subtitle={content.conditions.subtitle}
+        title={content.conditions.title}
       />
 
       {/* Our Process */}
       <TerapiaVisualProcess
-        title={content.process.title}
-        subtitle={content.process.subtitle}
         steps={content.process.steps}
+        subtitle={content.process.subtitle}
+        title={content.process.title}
       />
 
       {/* Testimonials */}
       <Testimonials
-        title={content.testimonials.title}
         testimonials={content.testimonials.items}
+        title={content.testimonials.title}
       />
 
       {/* FAQ Section */}
-      <FAQAccordion title={content.faq.title} items={content.faq.items} />
+      <FAQAccordion items={content.faq.items} title={content.faq.title} />
 
       {/* CTA */}
       <TerapiaVisualCta
-        title={content.cta.title}
-        description={content.cta.description}
-        buttonText={content.cta.buttonText}
         buttonLink={content.cta.buttonLink}
+        buttonText={content.cta.buttonText}
+        description={content.cta.description}
+        title={content.cta.title}
       />
     </main>
   );

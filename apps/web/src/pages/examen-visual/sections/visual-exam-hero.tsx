@@ -1,6 +1,6 @@
-import { Text } from '../../../components/text';
-import Image from '../../../components/image';
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface VisualExamHeroProps {
   title: string;
@@ -16,39 +16,41 @@ export default function VisualExamHero({
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
-      const parallax = document.querySelector('.parallax-element') as HTMLElement;
+      const parallax = document.querySelector(
+        ".parallax-element"
+      ) as HTMLElement;
       if (parallax) {
         parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 parallax-element">
+    <section className="relative overflow-hidden px-4 py-32 sm:px-6">
+      <div className="parallax-element absolute inset-0">
         <Image
-          src={backgroundImage}
           alt={title}
-          className="w-full h-full object-cover transform scale-110"
+          className="h-full w-full scale-110 transform object-cover"
           priority
           sizes="100vw"
+          src={backgroundImage}
         />
       </div>
-      <div className="relative container mx-auto max-w-6xl text-center z-10">
+      <div className="container relative z-10 mx-auto max-w-6xl text-center">
         <Text
           as="h1"
-          variant="heading-1"
           className="mb-8 text-white uppercase tracking-wide drop-shadow-lg"
+          variant="heading-1"
         >
           {title}
         </Text>
-        <Text 
-          as="p" 
+        <Text
+          as="p"
+          className="mx-auto max-w-3xl text-white drop-shadow-lg"
           variant="body-lg"
-          className="text-white max-w-3xl mx-auto drop-shadow-lg"
         >
           {subtitle}
         </Text>

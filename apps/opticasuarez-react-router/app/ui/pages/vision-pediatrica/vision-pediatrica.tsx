@@ -1,72 +1,74 @@
-import PediatricHero from './sections/pediatric-hero';
-import IntroductionSection from './sections/introduction-section';
-import PediatricServices from './sections/pediatric-services';
-import AgeGroups from './sections/age-groups';
-import WarningSigns from './sections/warning-signs';
-import CTASection from './sections/cta-section';
-import CustomerTestimonials from '../../sections/customer-testimonials';
-import FAQAccordion from '../../components/faq-accordion';
-import content from '../../../content/vision-pediatrica.json';
+import content from "../../../content/vision-pediatrica.json" with {
+  type: "json",
+};
+import FAQAccordion from "../../components/faq-accordion";
+import CustomerTestimonials from "../../sections/customer-testimonials";
+import AgeGroups from "./sections/age-groups";
+import CTASection from "./sections/cta-section";
+import IntroductionSection from "./sections/introduction-section";
+import PediatricHero from "./sections/pediatric-hero";
+import PediatricServices from "./sections/pediatric-services";
+import WarningSigns from "./sections/warning-signs";
 
 export default function VisionPediatrica() {
   return (
     <main>
       {/* Hero Section */}
       <PediatricHero
-        title={content.hero.title}
-        subtitle={content.hero.subtitle}
         description={content.hero.description}
         image={content.hero.image}
-        imageTitle={content.hero.imageTitle}
         imageAlt={content.hero.imageAlt}
+        imageTitle={content.hero.imageTitle}
+        subtitle={content.hero.subtitle}
+        title={content.hero.title}
       />
 
       {/* Introduction */}
       <IntroductionSection
-        title={content.introduction.title}
         content={content.introduction.content}
+        title={content.introduction.title}
       />
 
       {/* Services */}
       <PediatricServices
-        title={content.services.title}
-        subtitle={content.services.subtitle}
         items={content.services.items}
+        subtitle={content.services.subtitle}
+        title={content.services.title}
       />
 
       {/* Age Groups */}
       <AgeGroups
-        title={content.ageGroups.title}
-        subtitle={content.ageGroups.subtitle}
         groups={content.ageGroups.groups}
+        subtitle={content.ageGroups.subtitle}
+        title={content.ageGroups.title}
       />
 
       {/* Warning Signs */}
       <WarningSigns
-        title={content.warningSign.title}
-        subtitle={content.warningSign.subtitle}
         description={content.warningSign.description}
         signs={content.warningSign.signs}
+        subtitle={content.warningSign.subtitle}
+        title={content.warningSign.title}
       />
 
       {/* Testimonials */}
       <CustomerTestimonials
-        title={content.testimonials.title}
-        testimonials={content.testimonials.items}
         moreReviewsLink=""
+        testimonials={content.testimonials.items}
+        title={content.testimonials.title}
       />
 
       {/* CTA */}
       <CTASection
-        title={content.cta.title}
-        subtitle={content.cta.subtitle}
-        description={content.cta.description}
-        buttonText={content.cta.buttonText}
         buttonLink={content.cta.buttonLink}
+        buttonText={content.cta.buttonText}
+        description={content.cta.description}
+        subtitle={content.cta.subtitle}
+        title={content.cta.title}
       />
 
       {/* FAQ */}
-      <FAQAccordion title={content.faq.title} items={content.faq.items} />
+      <FAQAccordion items={content.faq.items} title={content.faq.title} />
     </main>
   );
 }

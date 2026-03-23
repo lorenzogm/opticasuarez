@@ -1,62 +1,59 @@
-import { createFileRoute } from '@tanstack/react-router'
-import Servicios from '~/pages/servicios/servicios'
-import { BreadcrumbSchema } from '~/components/structured-data'
-import {
-  generatePageKeywords,
-  generateMetaKeywords,
-} from '~/lib/seo-keywords'
+import { createFileRoute } from "@tanstack/react-router";
+import { BreadcrumbSchema } from "~/components/structured-data";
+import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import Servicios from "~/pages/servicios/servicios";
 
-const serviciosKeywords = generatePageKeywords('servicios', [
-  'Servicios ópticos',
-  'Servicios optométricos',
-  'Especialidades ópticas',
-])
+const serviciosKeywords = generatePageKeywords("servicios", [
+  "Servicios ópticos",
+  "Servicios optométricos",
+  "Especialidades ópticas",
+]);
 
-export const Route = createFileRoute('/servicios')({
+export const Route = createFileRoute("/servicios")({
   head: () => ({
     meta: [
-      { title: 'Servicios - Óptica Suárez' },
+      { title: "Servicios - Óptica Suárez" },
       {
-        name: 'description',
+        name: "description",
         content:
-          '¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.',
+          "¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.",
       },
       {
-        name: 'keywords',
+        name: "keywords",
         content: generateMetaKeywords(serviciosKeywords),
       },
       {
-        property: 'og:title',
-        content: 'Servicios - Óptica Suárez',
+        property: "og:title",
+        content: "Servicios - Óptica Suárez",
       },
       {
-        property: 'og:description',
+        property: "og:description",
         content:
-          '¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.',
+          "¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.",
       },
       {
-        property: 'og:url',
-        content: 'https://opticasuarezjaen.es/servicios',
+        property: "og:url",
+        content: "https://opticasuarezjaen.es/servicios",
       },
-      { name: 'robots', content: 'index, follow' },
+      { name: "robots", content: "index, follow" },
     ],
     links: [
-      { rel: 'canonical', href: 'https://opticasuarezjaen.es/servicios' },
+      { rel: "canonical", href: "https://opticasuarezjaen.es/servicios" },
     ],
   }),
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
-    { name: 'Servicios', url: 'https://opticasuarezjaen.es/servicios' },
-  ]
+    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
+    { name: "Servicios", url: "https://opticasuarezjaen.es/servicios" },
+  ];
 
   return (
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
       <Servicios />
     </>
-  )
+  );
 }

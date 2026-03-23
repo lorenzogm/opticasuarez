@@ -1,47 +1,45 @@
-import VisionDeportiva from '../ui/pages/vision-deportiva/vision-deportiva';
 import {
-  generatePageKeywords,
   generateMetaKeywords,
-} from '../ui/lib/seo-keywords';
+  generatePageKeywords,
+} from "../ui/lib/seo-keywords";
+import VisionDeportiva from "../ui/pages/vision-deportiva/vision-deportiva";
 
 export function links() {
   return [
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/vision-deportiva' },
+    { rel: "canonical", href: "https://opticasuarezjaen.es/vision-deportiva" },
   ];
 }
 
 export function meta() {
-  const visionDeportivaKeywords = generatePageKeywords('vision-deportiva');
+  const visionDeportivaKeywords = generatePageKeywords("vision-deportiva");
 
   return [
     {
-      title:
-        'Visión Deportiva en Jaén | Óptica Suárez',
+      title: "Visión Deportiva en Jaén | Óptica Suárez",
     },
     {
-      name: 'description',
+      name: "description",
       content:
-        'Optimiza tu rendimiento deportivo con nuestros servicios de visión deportiva. Evaluaciones especializadas, entrenamiento visual y equipamiento para deportistas en Jaén.',
+        "Optimiza tu rendimiento deportivo con nuestros servicios de visión deportiva. Evaluaciones especializadas, entrenamiento visual y equipamiento para deportistas en Jaén.",
     },
     {
-      name: 'keywords',
+      name: "keywords",
       content: generateMetaKeywords(visionDeportivaKeywords),
     },
     {
-      property: 'og:title',
-      content:
-        'Visión Deportiva en Jaén | Óptica Suárez',
+      property: "og:title",
+      content: "Visión Deportiva en Jaén | Óptica Suárez",
     },
     {
-      property: 'og:description',
+      property: "og:description",
       content:
-        'Optimiza tu rendimiento deportivo con nuestros servicios de visión deportiva. Evaluaciones especializadas, entrenamiento visual y equipamiento para deportistas en Jaén.',
+        "Optimiza tu rendimiento deportivo con nuestros servicios de visión deportiva. Evaluaciones especializadas, entrenamiento visual y equipamiento para deportistas en Jaén.",
     },
     {
-      property: 'og:url',
-      content: 'https://opticasuarezjaen.es/vision-deportiva',
+      property: "og:url",
+      content: "https://opticasuarezjaen.es/vision-deportiva",
     },
-    { name: 'robots', content: 'index, follow' },
+    { name: "robots", content: "index, follow" },
   ];
 }
 

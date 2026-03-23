@@ -6,29 +6,29 @@ interface BrandsProps {
 
 export default function Brands({ title, description, brands }: BrandsProps) {
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-white">
+    <section className="bg-white py-12 sm:py-16 md:py-20">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+        <div className="mb-12 text-center sm:mb-16">
+          <h2 className="mb-6 font-bold text-3xl text-gray-900 sm:text-4xl md:text-5xl">
             {title}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="mx-auto max-w-3xl text-gray-600 text-lg sm:text-xl">
             {description}
           </p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 md:grid-cols-4 lg:grid-cols-6">
           {brands.map((brand, index) => (
             <div
+              className="flex min-h-[80px] items-center justify-center rounded-lg bg-gray-50 p-4 transition-shadow duration-300 hover:shadow-md sm:p-6"
               key={index}
-              className="bg-gray-50 p-4 sm:p-6 rounded-lg flex items-center justify-center hover:shadow-md transition-shadow duration-300 min-h-[80px]"
             >
-              <span className="text-gray-700 font-semibold text-sm sm:text-base text-center">
+              <span className="text-center font-semibold text-gray-700 text-sm sm:text-base">
                 {brand}
               </span>
             </div>
           ))}
         </div>
-        <div className="text-center mt-8 sm:mt-12">
+        <div className="mt-8 text-center sm:mt-12">
           <p className="text-gray-500 text-sm">
             Y muchas marcas más disponibles en nuestra tienda
           </p>

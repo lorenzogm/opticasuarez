@@ -1,5 +1,5 @@
-import { Text } from '../../../components/text';
-import { Button } from '../../../components/button';
+import { Button } from "../../../components/button";
+import { Text } from "../../../components/text";
 
 interface CTASectionProps {
   title: string;
@@ -17,33 +17,33 @@ export default function CTASection({
   buttonLink,
 }: CTASectionProps) {
   return (
-    <section className="bg-blue-900 py-16 px-4 sm:px-6">
+    <section className="bg-blue-900 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-4xl text-center">
         <Text
           as="h2"
-          variant="heading-2"
-          colour="white"
           className="mb-4 uppercase tracking-wide"
+          colour="white"
+          variant="heading-2"
         >
           {title}
         </Text>
-        <div className="text-2xl font-semibold tracking-tight text-white mb-6">
+        <div className="mb-6 font-semibold text-2xl text-white tracking-tight">
           {subtitle}
         </div>
         <Text
-          variant="body-lg"
-          colour="white"
           className="mb-8 leading-relaxed opacity-90"
+          colour="white"
+          variant="body-lg"
         >
           {description}
         </Text>
         <Button
           href={buttonLink}
-          variant="primary"
-          target={buttonLink.startsWith('http') ? '_blank' : undefined}
           rel={
-            buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined
+            buttonLink.startsWith("http") ? "noopener noreferrer" : undefined
           }
+          target={buttonLink.startsWith("http") ? "_blank" : undefined}
+          variant="primary"
         >
           {buttonText}
         </Button>

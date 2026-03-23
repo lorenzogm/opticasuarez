@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface AgeGroup {
   title: string;
@@ -14,23 +14,23 @@ interface AgeGroupsProps {
 
 export default function AgeGroups({ title, subtitle, groups }: AgeGroupsProps) {
   return (
-    <section className="bg-white py-16 px-4 sm:px-6">
+    <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <div className="text-3xl font-bold tracking-tight mb-4 text-gray-900 uppercase tracking-wide">
+        <div className="mb-12 text-center">
+          <div className="mb-4 font-bold text-3xl text-gray-900 uppercase tracking-tight tracking-wide">
             {title}
           </div>
-          <Text variant="body-lg" className="text-gray-600">
+          <Text className="text-gray-600" variant="body-lg">
             {subtitle}
           </Text>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {groups.map((group, index) => (
             <div
+              className="rounded-lg bg-blue-50 p-6 text-center transition-colors hover:bg-blue-100"
               key={index}
-              className="bg-blue-50 rounded-lg p-6 text-center hover:bg-blue-100 transition-colors"
             >
-              <div className="text-2xl font-semibold tracking-tight mb-4 text-blue-900">
+              <div className="mb-4 font-semibold text-2xl text-blue-900 tracking-tight">
                 {group.title}
               </div>
               <Text className="mb-4 text-gray-700 leading-relaxed">
@@ -39,9 +39,9 @@ export default function AgeGroups({ title, subtitle, groups }: AgeGroupsProps) {
               <div className="space-y-2">
                 {group.recommendations.map((rec, recIndex) => (
                   <Text
+                    className="border-blue-400 border-l-2 pl-3 text-left text-gray-600"
                     key={recIndex}
                     variant="body-sm"
-                    className="text-gray-600 border-l-2 border-blue-400 pl-3 text-left"
                   >
                     {rec}
                   </Text>

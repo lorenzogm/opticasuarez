@@ -1,49 +1,46 @@
-import { createFileRoute } from '@tanstack/react-router'
-import Contactologia from '~/pages/contactologia/contactologia'
-import {
-  generatePageKeywords,
-  generateMetaKeywords,
-} from '~/lib/seo-keywords'
+import { createFileRoute } from "@tanstack/react-router";
+import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import Contactologia from "~/pages/contactologia/contactologia";
 
-const contactologiaKeywords = generatePageKeywords('contactologia')
+const contactologiaKeywords = generatePageKeywords("contactologia");
 
-export const Route = createFileRoute('/contactologia')({
+export const Route = createFileRoute("/contactologia")({
   head: () => ({
     meta: [
       {
-        title: 'Lentes de contacto en Jaén | Óptica Suárez',
+        title: "Lentes de contacto en Jaén | Óptica Suárez",
       },
       {
-        name: 'description',
+        name: "description",
         content:
-          'Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.',
+          "Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.",
       },
       {
-        name: 'keywords',
+        name: "keywords",
         content: generateMetaKeywords(contactologiaKeywords),
       },
       {
-        property: 'og:title',
-        content: 'Lentes de contacto en Jaén | Óptica Suárez',
+        property: "og:title",
+        content: "Lentes de contacto en Jaén | Óptica Suárez",
       },
       {
-        property: 'og:description',
+        property: "og:description",
         content:
-          'Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.',
+          "Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.",
       },
       {
-        property: 'og:url',
-        content: 'https://opticasuarezjaen.es/contactologia',
+        property: "og:url",
+        content: "https://opticasuarezjaen.es/contactologia",
       },
-      { name: 'robots', content: 'index, follow' },
+      { name: "robots", content: "index, follow" },
     ],
     links: [
-      { rel: 'canonical', href: 'https://opticasuarezjaen.es/contactologia' },
+      { rel: "canonical", href: "https://opticasuarezjaen.es/contactologia" },
     ],
   }),
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <Contactologia />
+  return <Contactologia />;
 }

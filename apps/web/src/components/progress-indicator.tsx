@@ -16,24 +16,24 @@ export default function ProgressIndicator({
           const isCompleted = stepNumber < currentStep;
 
           return (
-            <div key={stepNumber} className="flex items-center">
+            <div className="flex items-center" key={stepNumber}>
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                className={`flex h-8 w-8 items-center justify-center rounded-full font-medium text-sm ${
                   isActive
-                    ? 'bg-blue-600 text-white'
+                    ? "bg-blue-600 text-white"
                     : isCompleted
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-200 text-gray-500'
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-200 text-gray-500"
                 }`}
               >
                 {stepNumber}
               </div>
               {stepNumber < totalSteps && (
                 <div
-                  className={`w-16 h-1 mx-2 ${
-                    stepNumber < currentStep ? 'bg-green-600' : 'bg-gray-200'
+                  className={`mx-2 h-1 w-16 ${
+                    stepNumber < currentStep ? "bg-green-600" : "bg-gray-200"
                   }`}
-                ></div>
+                />
               )}
             </div>
           );

@@ -1,6 +1,6 @@
-import { Text } from '../components/text';
-import { Button } from '../components/button';
-import Image from '../components/image';
+import { Button } from "../components/button";
+import Image from "../components/image";
+import { Text } from "../components/text";
 
 interface Location {
   name: string;
@@ -14,22 +14,22 @@ interface LocationsInfoProps {
 
 export default function LocationsInfo({ locations }: LocationsInfoProps) {
   return (
-    <section className="bg-white py-16 px-4 sm:px-6">
+    <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {locations.map((location, index) => (
-            <div key={index} className="text-center">
+            <div className="text-center" key={index}>
               <figure className="mb-6">
                 <a
-                  href={location.mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="block"
+                  href={location.mapLink}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <Image
-                    src={location.image}
                     alt={location.name}
-                    className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    className="h-64 w-full rounded-lg object-cover shadow-lg transition-shadow duration-300 hover:shadow-xl"
+                    src={location.image}
                   />
                 </a>
               </figure>
@@ -37,23 +37,23 @@ export default function LocationsInfo({ locations }: LocationsInfoProps) {
               <div>
                 <Text
                   as="h3"
-                  variant="heading-3"
                   className="mb-4 text-gray-900"
+                  variant="heading-3"
                 >
                   <a
+                    className="transition-colors duration-300 hover:text-blue-800"
                     href={location.mapLink}
-                    target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-blue-800 transition-colors duration-300"
+                    target="_blank"
                   >
                     {location.name}
                   </a>
                 </Text>
 
                 <Button
+                  className="mt-4"
                   href={location.mapLink}
                   variant="primary"
-                  className="mt-4"
                 >
                   Ver en el mapa
                 </Button>
