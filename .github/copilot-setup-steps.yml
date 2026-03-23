@@ -6,4 +6,4 @@ steps:
   - uses: actions/setup-node@v4
     with:
       node-version: "20"
-  - run: npm ci
+  - run: cd apps/opticasuarez-react-router && npm ci

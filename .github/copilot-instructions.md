@@ -1,5 +1,26 @@
 # GitHub Copilot Instructions
 
+## Repository Structure
+
+This is a monorepo. The main application lives in `apps/opticasuarez-react-router/`.
+
+```
+├── .agents/              # Copilot agent customizations
+├── .github/              # GitHub workflows, Copilot config
+├── apps/
+│   └── opticasuarez-react-router/   # Main web application
+│       ├── app/           # React Router v7 application source
+│       ├── public/        # Static assets
+│       ├── tests/         # E2E tests (Playwright)
+│       ├── docs/          # Documentation
+│       └── ...            # Config files (package.json, vite.config.ts, etc.)
+├── backlog/              # Issue tracking artifacts
+├── skills-lock.json      # Copilot skills lock file
+└── README.md
+```
+
+All `npm` commands must be run from `apps/opticasuarez-react-router/`.
+
 ## Development Workflow
 
 ### Pull Request Checks
@@ -7,6 +28,7 @@
 **Important:** Always run `npm run check` before submitting pull requests. This script runs TypeScript checks and ESLint to ensure code quality and consistency.
 
 ```bash
+cd apps/opticasuarez-react-router
 npm run check
 ```
 
@@ -27,7 +49,7 @@ For code formatting, you can run Prettier separately:
 
 ### File and Folder Naming Convention
 
-**Important:** All files and folders in the `app/` directory must follow **kebab-case** naming convention.
+**Important:** All files and folders in the `apps/opticasuarez-react-router/app/` directory must follow **kebab-case** naming convention.
 
 Examples:
 
@@ -42,7 +64,7 @@ Examples:
 While file names should be kebab-case, React component names should still follow PascalCase:
 
 ```tsx
-// File: app/ui/components/book-appointment.tsx
+// File: apps/opticasuarez-react-router/app/ui/components/book-appointment.tsx
 export default function BookAppointment() {
   // Component implementation
 }
@@ -66,7 +88,7 @@ import { Button } from '../ui/components/Button';
 
 1. Always use kebab-case for file and folder names
 2. Use descriptive names that clearly indicate the purpose
-3. Follow the existing project structure under `app/ui/`
+3. Follow the existing project structure under `apps/opticasuarez-react-router/app/ui/`
 
 This convention ensures consistency across the codebase and follows modern web development best practices.
 
@@ -80,6 +102,7 @@ Required CI commands to run in order:
 
 1. **Install dependencies**:
    ```bash
+   cd apps/opticasuarez-react-router
    npm ci
    ```
 
@@ -132,6 +155,7 @@ When working on GitHub Issues as the Copilot coding agent (cloud), follow this w
 Before marking a PR as ready for review, all of these must pass:
 
 ```bash
+cd apps/opticasuarez-react-router
 npm run check    # TypeScript + ESLint
 npm run build    # Full production build
 ```
