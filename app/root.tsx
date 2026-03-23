@@ -1,4 +1,5 @@
-import { Links, Meta, Scripts, ScrollRestoration, Outlet } from 'react-router';
+import { Links, Meta, Scripts, ScrollRestoration, Outlet, redirect } from 'react-router';
+import type { LoaderFunctionArgs } from 'react-router';
 import './global.css';
 import GlobalNavigation from './ui/components/global-navigation';
 import GoogleTagManager from './ui/components/google-tag-manager';
@@ -6,6 +7,15 @@ import {
   WebsiteSchema,
   OrganizationSchema,
 } from './ui/components/structured-data';
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  // Redirect trailing-slash URLs to canonical non-trailing-slash URLs (except root "/")
+  if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+    return redirect(`${url.pathname.slice(0, -1)}${url.search}${url.hash}`, 301);
+  }
+  return null;
+}
 
 export default function App() {
   // Google Tag Manager Container ID
