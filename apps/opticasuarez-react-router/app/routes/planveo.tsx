@@ -35,6 +35,9 @@ export function meta() {
         "plan veo ministerio sanidad jaen",
       ]),
     },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
       content: "Plan VEO en Jaén | Óptica Suárez",
@@ -47,6 +50,20 @@ export function meta() {
     {
       property: "og:url",
       content: "https://opticasuarezjaen.es/planveo",
+    },
+    {
+      property: "og:image",
+      content: "https://opticasuarezjaen.es/og-image.jpg",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Plan VEO en Jaén | Óptica Suárez",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "En Óptica Suárez Jaén tramitamos el Plan VEO para que tu hijo obtenga gafas o lentillas con hasta 100€ de ayuda del Ministerio de Sanidad.",
     },
     { name: "robots", content: "index, follow" },
   ];

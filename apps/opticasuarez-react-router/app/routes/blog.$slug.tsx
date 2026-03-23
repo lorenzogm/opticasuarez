@@ -37,6 +37,9 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
   return [
     { title: `${data.post.title} - Óptica Suárez` },
     { name: "description", content: data.post.excerpt },
+    { property: "og:type", content: "article" },
+    { property: "og:locale", content: "es_ES" },
+    { property: "og:site_name", content: "Óptica Suárez" },
     {
       property: "og:title",
       content: `${data.post.title} - Óptica Suárez`,
@@ -48,6 +51,19 @@ export function meta({ data }: { data: { post: BlogPostType } | null }) {
     {
       property: "og:url",
       content: `https://opticasuarezjaen.es/blog/${data.post.slug}`,
+    },
+    {
+      property: "og:image",
+      content: "https://opticasuarezjaen.es/og-image.jpg",
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: `${data.post.title} - Óptica Suárez`,
+    },
+    {
+      name: "twitter:description",
+      content: data.post.excerpt,
     },
     { name: "robots", content: "index, follow" },
   ];
