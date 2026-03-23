@@ -88,7 +88,11 @@ jobs:
             ENV_SHORT=$(echo "${{ env.TF_VAR_ENVIRONMENT }}" | cut -c1-3)
             PROJECT_NAME="opticasuarez-web-${ENV_SHORT}"
             echo "No state found. Checking for existing project: $PROJECT_NAME"
-            PROJECT_ID=$(curl -sf -H "Authorization: Bearer ${TF_VAR_VERCEL_TOKEN}" "https://api.vercel.com/v9/projects/${PROJECT_NAME}?teamId=${TF_VAR_VERCEL_ORG_ID}" | jq -r '.id // empty')
+            TEAM_PARAM=""
+            if [ -n "${TF_VAR_VERCEL_ORG_ID}" ]; then
+              TEAM_PARAM="?teamId=${TF_VAR_VERCEL_ORG_ID}"
+            fi
+            PROJECT_ID=$(curl -sf -H "Authorization: Bearer ${TF_VAR_VERCEL_TOKEN}" "https://api.vercel.com/v9/projects/${PROJECT_NAME}${TEAM_PARAM}" | jq -r '.id // empty')
             if [ -n "$PROJECT_ID" ]; then
               echo "Found existing project $PROJECT_ID — importing into state"
               terraform import -var-file="config.${{ env.TF_VAR_ENVIRONMENT }}.json" vercel_project.main "$PROJECT_ID"
