@@ -10,6 +10,11 @@
       ],
       "destination": "https://opticasuarezjaen.es/$1",
       "permanent": true
+    },
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "permanent": true
     }
   ],
   "headers": [
