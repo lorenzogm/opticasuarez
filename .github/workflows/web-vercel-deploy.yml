@@ -200,6 +200,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Resolve Vercel Org ID
+        id: resolve-org
+        run: |
+          ORG_ID="${{ secrets.VERCEL_ORG_ID }}"
+          if [ -z "$ORG_ID" ]; then
+            echo "VERCEL_ORG_ID secret is empty — resolving from Vercel API (personal account)"
+            ORG_ID=$(curl -sf -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" "https://api.vercel.com/v2/user" | jq -r '.user.id')
+            echo "Resolved org ID: $ORG_ID"
+          fi
+          echo "org-id=$ORG_ID" >> $GITHUB_OUTPUT
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
@@ -218,14 +229,14 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
 
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
 
       - name: Deploy to Vercel Production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
