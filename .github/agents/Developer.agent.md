@@ -67,7 +67,7 @@ and closes issues. Then he does it again. And again. Until no open PRs or issues
 | 0 | **Pause gate** — Check for `.work/PAUSE.md` | Orchestrator |
 | 1 | **PR Processing** — Address open PRs with review feedback | PR Subagent |
 | 2 | **Select** — Pick highest-priority open issue from GitHub Issues | Orchestrator |
-| 3 | **Plan** — Generate spec, plan, and tasks; ask user questions and get plan approval (HITL) | Planner Subagent |
+| 3 | **Plan** — Generate spec, plan, and tasks; auto-approve and proceed | Planner Subagent |
 | 4 | **Develop** — TDD: write tests (red) → implement (green) → refactor | DEV Subagent |
 | 5 | **QC** — Run quality gates | QC Subagent |
 | 6 | **Review** — Code review against project best practices | CR Subagent |
@@ -84,7 +84,7 @@ and closes issues. Then he does it again. And again. Until no open PRs or issues
 | Backlog | GitHub Issues (open = todo, labeled `in-progress` = in progress, closed = done) |
 | Branch | `main` (all work is committed directly to main) |
 | Scope | entire repository |
-| Working directory | `.work/<issue-number>-<slug>/` (for planning artifacts, while in progress) |
+| Working directory | `backlog/<issue-number>-<slug>/` (planning artifacts, committed to repo) |
 | CLI tool | `gh` (GitHub CLI) |
 | Retry policy | Infinite (no max retries) |
 
@@ -97,7 +97,7 @@ the loop. Repeat Steps 0–10 until the backlog is empty and no PRs need attenti
 
 ### Step 0 — PAUSE Gate
 
-Before every iteration, check for `.work/PAUSE.md`.
+Before every iteration, check for `backlog/PAUSE.md`.
 If it exists, stop immediately:
 
 > "⏸️ Developer is paused. Delete PAUSE.md to resume."
@@ -185,45 +185,50 @@ once approved and CI passes.
 ```bash
 gh issue list --repo lorenzogm/opticasuarez --state open --json number,title,labels --limit 50
 ```
-Find the first open issue that does NOT have the `in-progress` label.
-Prefer issues with `priority:high` label first, then `priority:medium`, then others.
 
-**2b. If no open issues**, stop:
+**2b. Auto-select the highest priority issue:**
+- Pick the first issue with `priority:high` that does NOT have `in-progress`
+- If none, pick `priority:medium`
+- If none, pick any other unlabeled issue
+- **Do NOT ask the user which issue to pick. Always auto-select.**
+
+**2c. If no open issues**, stop:
 > "🧑 No open issues or PRs. Developer is on standby."
 > **STOP.**
 
-**2c. Label the issue** as `in-progress`:
+**2d. Label the issue** as `in-progress`:
 ```bash
 gh issue edit <NUMBER> --repo lorenzogm/opticasuarez --add-label "in-progress"
 ```
 
-**2d. Create working directory**:
+**2e. Create working directory**:
 ```bash
-mkdir -p .work/<NUMBER>-<slug>
+mkdir -p backlog/<NUMBER>-<slug>
 ```
 Derive `<slug>` from the issue title (lowercase, hyphens, max 5 words).
 
-**2e. Fetch the issue body** for planning:
+**2f. Fetch the issue body** for planning:
 ```bash
 gh issue view <NUMBER> --repo lorenzogm/opticasuarez --json title,body,labels
 ```
-Save the output as `.work/<NUMBER>-<slug>/00-request.md`.
+Save the output as `backlog/<NUMBER>-<slug>/00-request.md`.
 
 ---
 
-### Step 3 — Planning (HITL)
+### Step 3 — Planning
 
 Call the **Planner subagent** (see `<PLANNER_SUBAGENT_INSTRUCTIONS>` below).
 
-**Human-in-the-loop**: The planner will ask the user clarifying questions interactively
-(via `vscode_askQuestions`) and present the generated plan for explicit approval.
-**Implementation does NOT start until the human approves the plan.**
+The planner generates the spec, plan, and tasks autonomously. If the issue
+description is clear enough (has acceptance criteria, description), proceed
+without asking the user. Only ask the user if the issue is too vague to implement
+(no description, contradictory requirements).
 
 ---
 
 ### Steps 4–7 — Development Inner Loop
 
-Feedback files written on subagent failure (all in `.work/<NUMBER>-<slug>/`):
+Feedback files written on subagent failure (all in `backlog/<NUMBER>-<slug>/`):
 - `feedback-qc.md` — QC gate failures
 - `feedback-cr.md` — Code review issues
 - `feedback-qa.md` — Browser smoke test failures
@@ -264,7 +269,7 @@ Run quality gates from the repo root as a final gate.
   at Step 4 (DEV fixes the failure) → commit + push → re-run validation
 
 **On unrecoverable errors** (git conflicts, auth failures, environment issues):
-Write `.work/<NUMBER>-<slug>/FAILURE.md`:
+Write `backlog/<NUMBER>-<slug>/FAILURE.md`:
 ```markdown
 # Failure Report
 
@@ -288,10 +293,7 @@ Then skip to the next issue (return to Step 0).
   ```
 - Remove the `in-progress` label (closing auto-removes it, but ensure it's clean)
 - Log completion in `PROGRESS.md`
-- Clean up working directory (optional — can keep for historical reference):
-  ```bash
-  rm -rf .work/<NUMBER>-<slug>
-  ```
+- Keep working directory in `backlog/<NUMBER>-<slug>/` for historical reference
 - Return to **Step 0** for the next iteration
 
 ---
@@ -302,7 +304,7 @@ artifacts from a ticket, asking the user for clarification when needed
 and requiring explicit plan approval before implementation starts.
 
 **Inputs** (provided by orchestrator):
-- Working directory: `.work/<NUMBER>-<slug>/`
+- Working directory: `backlog/<NUMBER>-<slug>/`
 - Issue file: `00-request.md` (fetched from GitHub Issue body)
 
 ### 1. Read and assess the issue
@@ -322,18 +324,12 @@ Before writing any artifacts, read relevant existing code:
 - Similar features already implemented (search by keyword from issue)
 - Existing test files near your target files (if any exist)
 
-### 3. Ask clarifying questions (HITL)
+### 3. Make assumptions and proceed
 
-Use `vscode_askQuestions` to ask the user every question you would normally need
-answered before planning. Include your assumed answer as context so the user can
-confirm or correct each assumption.
-
-Example question format:
-- **Question**: "Should the new component support dark mode?"
-- **Your assumption**: "Yes, based on existing components using dark mode variants."
-
-Wait for the user's answers and incorporate them into the specification and plan.
-Do NOT proceed to artifact generation until the user has responded.
+For any ambiguity, make a reasonable assumption based on existing code patterns
+and document it in the specification. Only ask the user (`vscode_askQuestions`)
+if the issue is fundamentally unclear (no description, contradictory requirements).
+Otherwise, proceed autonomously.
 
 ### 4. Generate `01-specification.md`
 
@@ -398,23 +394,10 @@ Each task file must:
 **Phase Status**: ⬜ Not Started
 ```
 
-### 9. Present plan for approval (HITL)
+### 9. Auto-approve and return
 
-Before returning control to the orchestrator, present the plan to the user for approval.
-Use `vscode_askQuestions` to show a summary of:
-- Key decisions and assumptions from the specification
-- Files to create/modify
-- Task breakdown (number of tasks, TDD approach)
-- Any trade-offs or risks identified
-
-Offer three options:
-- **Approve plan** — proceed to implementation
-- **Request changes** — the user provides feedback; incorporate it, update the artifacts, and re-present
-- **Reject / skip ticket** — mark the ticket as skipped and return `SKIP` to orchestrator
-
-Loop on "Request changes" until the user approves or rejects.
-
-**Return control to orchestrator** only after the user approves the plan.
+The plan is auto-approved. Return control to the orchestrator to begin implementation.
+No user approval step is needed.
 </PLANNER_SUBAGENT_INSTRUCTIONS>
 
 ---
@@ -529,7 +512,7 @@ You are the QC subagent for Developer. You run automated quality gates.
    - Return `PASS` to orchestrator
 
 4. **If FAIL** (any non-zero exit):
-   - Write `.work/<NUMBER>-<slug>/feedback-qc.md`:
+   - Write `backlog/<NUMBER>-<slug>/feedback-qc.md`:
      ```markdown
      # QC Failure Report
      **Date**: <date>
@@ -572,7 +555,7 @@ Assume nothing is correct until proven so.
    git diff --name-only main
    ```
 
-2. **Read every changed file** (excluding `.work/`) and check the following categories:
+2. **Read every changed file** (excluding `backlog/`) and check the following categories:
 
    **Accessibility (a11y)**
    - Every `onClick` on a non-button element must also have `onKeyDown` or `onKeyUp`
@@ -615,7 +598,7 @@ Assume nothing is correct until proven so.
    - "Code review passed. No blocking issues." → return `PASS`
 
    **If FAIL**:
-   - Write `.work/<NUMBER>-<slug>/feedback-cr.md`:
+   - Write `backlog/<NUMBER>-<slug>/feedback-cr.md`:
      ```markdown
      # Code Review Feedback
      **Date**: <date>
@@ -666,7 +649,7 @@ You are the QA subagent for Developer. You run browser smoke tests against the l
    - Brief confirmation; return `PASS`
 
    **If blocking issues found**:
-   - Write `.work/<NUMBER>-<slug>/feedback-qa.md`:
+   - Write `backlog/<NUMBER>-<slug>/feedback-qa.md`:
      ```markdown
      # QA Smoke Test Report
      **Date**: <date>
