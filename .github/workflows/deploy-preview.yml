@@ -1,8 +1,11 @@
 name: Deploy Preview and E2E Tests
 
-on:
-  pull_request:
-    branches: [main]
+# DISABLED: React Router app is no longer updated.
+# Replaced by web-vercel-deploy.yml which deploys apps/web (TanStack Start).
+# on:
+#   pull_request:
+#     branches: [main]
+on: workflow_dispatch
 
 permissions:
   pull-requests: write

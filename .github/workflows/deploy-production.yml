@@ -1,8 +1,11 @@
 name: Deploy to Production
 
-on:
-  push:
-    branches: [main]
+# DISABLED: React Router app is no longer updated.
+# Replaced by web-vercel-deploy.yml which deploys apps/web (TanStack Start).
+# on:
+#   push:
+#     branches: [main]
+on: workflow_dispatch
 
 jobs:
   deploy-production:
