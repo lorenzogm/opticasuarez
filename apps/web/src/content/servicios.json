@@ -1,0 +1,42 @@
+{
+  "title": "Nuestros Servicios",
+  "description": "Descubre la amplia gama de servicios especializados en salud visual que ofrecemos en Óptica Suárez. Desde exámenes visuales completos hasta tratamientos especializados, estamos aquí para cuidar tu visión.",
+  "services": [
+    {
+      "title": "EXAMEN VISUAL",
+      "description": "Evaluación exhaustiva de todas las habilidades implicadas en el proceso visual",
+      "url": "/examen-visual",
+      "image": "/images/homepage/services/vision-binocular.webp"
+    },
+    {
+      "title": "TERAPIA VISUAL",
+      "description": "Corrige ojo vago, estrabismo o problemas visuales sin necesidad de parche",
+      "url": "/terapia-visual",
+      "image": "/images/homepage/services/terapia-visual.webp"
+    },
+    {
+      "title": "CONTACTOLOGÍA",
+      "description": "Adaptaciones de lentes de contacto personalizadas a cada paciente",
+      "url": "/contactologia",
+      "image": "/images/homepage/services/contactologia.webp"
+    },
+    {
+      "title": "VISIÓN PEDIÁTRICA",
+      "description": "Porque una buena visión es clave para crecer feliz, cuidamos los ojos de los pequeños de la familia",
+      "url": "/vision-pediatrica",
+      "image": "/images/homepage/services/vision-pediatrica.webp"
+    },
+    {
+      "title": "CONTROL DE MIOPÍA",
+      "description": "¿Subida de Miopía sin parar? Te decimos como frenarla",
+      "url": "/control-de-miopia",
+      "image": "/images/homepage/services/control-de-miopia.webp"
+    },
+    {
+      "title": "VISIÓN DEPORTIVA",
+      "description": "Si eres exigente, lleva tu visión al limite y gana la competición",
+      "url": "/vision-deportiva",
+      "image": "/images/homepage/services/vision-deportiva.webp"
+    }
+  ]
+}
