@@ -69,3 +69,6 @@ public/images/blog-backup/
 sitemap.xml
 public/sitemap.xml
 build/client/sitemap.xml
+
+# Agent working directory
+.work/
