@@ -1,0 +1,17 @@
+# Placeholder for Plan VEO images
+# 
+# The following images need to be downloaded from Google Drive, converted to WebP format, 
+# and placed in this directory:
+# 
+# 1. plan-veo-hero.webp - From: https://drive.google.com/file/d/1Ro-FUmstuUbN554Z9tzX0uDEePjlRhF5/view?usp=sharing
+# 2. gafas-graduadas-plan-veo.webp - From: https://drive.google.com/file/d/1AzYVWVQP_EGXTo6yzbG5P9UFhFXSt83V/view?usp=sharing
+# 3. lentillas-plan-veo.webp - From: https://drive.google.com/file/d/1tLch0U_sIEz9djE9zOTNsw7jasIJ0yYj/view?usp=sharing
+# 4. solucion-lentillas-plan-veo.webp - From: https://drive.google.com/file/d/1UnFr4QGmfBgtDSHtR3Jl1R7Lf-rfhP9m/view?usp=sharing
+# 5. Additional image available (optional): https://drive.google.com/file/d/1hSBbYrOfdJFem70E6en5z3vyceWYjlu2/view?usp=sharing
+#
+# Instructions:
+# 1. Download each image from the Google Drive links
+# 2. Convert JPG to WebP format using tools like cwebp or online converters
+# 3. Resize images appropriately for web display (max width ~1200px recommended)
+# 4. Save with the filenames listed above
+# 5. Ensure alt text and titles are properly set in the content JSON

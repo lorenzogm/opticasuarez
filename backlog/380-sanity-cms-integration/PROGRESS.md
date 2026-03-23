@@ -11,9 +11,9 @@
 
 | Task | Title | Status | Notes |
 |------|-------|--------|-------|
-| 01 | Bootstrap Sanity Studio + schemas | ⬜ Not Started | |
-| 02 | Sanity client + query helpers | ⬜ Not Started | Depends on 01 |
-| 03 | Content backup + migration script | ⬜ Not Started | Depends on 01 |
+| 01 | Bootstrap Sanity Studio + schemas | ✅ Completed | Committed 5ba4c89 |
+| 02 | Sanity client + query helpers | ✅ Completed | Committed b26db31 |
+| 03 | Content backup + migration script | ✅ Completed | Backup in /content/, script in scripts/migrate-to-sanity.ts |
 
 ### Phase 2: Page Migration
 
