@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@forge42/seo-tools": "^1.4.5",
+    "@portabletext/react": "6.0.3",
     "@radix-ui/react-slot": "^1.2.3",
+    "@sanity/client": "7.20.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tanstack/react-router": "^1.121.0",
     "@tanstack/react-start": "^1.121.0",
