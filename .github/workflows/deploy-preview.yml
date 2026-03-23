@@ -24,6 +24,7 @@ jobs:
 
       - name: Deploy to Vercel Preview
         id: deploy
+        working-directory: apps/opticasuarez-react-router
         run: |
           url=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes)
           echo "preview-url=$url" >> $GITHUB_OUTPUT
@@ -49,11 +50,14 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: apps/opticasuarez-react-router/package-lock.json
 
       - name: Install dependencies
+        working-directory: apps/opticasuarez-react-router
         run: npm ci
 
       - name: Install Playwright Browsers
+        working-directory: apps/opticasuarez-react-router
         run: npx playwright install --with-deps
 
       - name: Verify preview deployment
@@ -65,6 +69,7 @@ jobs:
 
       - name: Run Playwright tests
         id: test-run
+        working-directory: apps/opticasuarez-react-router
         run: |
           if npm run test:e2e; then
             echo "test-result=✅" >> $GITHUB_OUTPUT
@@ -83,7 +88,7 @@ jobs:
         if: always()
         with:
           name: playwright-report-preview
-          path: playwright-report/
+          path: apps/opticasuarez-react-router/playwright-report/
           retention-days: 30
 
   update-pr-description:

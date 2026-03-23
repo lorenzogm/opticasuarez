@@ -17,6 +17,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel Production
+        working-directory: apps/opticasuarez-react-router
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_TEAM_ID }}

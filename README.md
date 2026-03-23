@@ -1,12 +1,22 @@
-# opticasuarez-new
+# Óptica Suárez
 
-🌐 **Live Demo:** [https://opticasuarezjaen.es/](https://opticasuarezjaen.es)
+🌐 **Live:** [https://opticasuarezjaen.es/](https://opticasuarezjaen.es)
 
-Optica Suarez web application built with React Router v7.
+## Repository structure
+
+```
+├── apps/
+│   └── opticasuarez-react-router/   # Main web application (React Router v7)
+├── .agents/                          # Copilot agent customizations
+├── .github/                          # GitHub workflows and Copilot config
+├── backlog/                          # Issue tracking artifacts
+└── skills-lock.json
+```
 
 ## Development
 
 ```bash
+cd apps/opticasuarez-react-router
 npm install
 npm run dev
 ```
@@ -14,9 +24,13 @@ npm run dev
 ## Building
 
 ```bash
+cd apps/opticasuarez-react-router
 npm run build
 ```
 
-## Deployment
+## Quality checks
 
-This application can be built for production deployment.
+```bash
+cd apps/opticasuarez-react-router
+npm run check
+```
