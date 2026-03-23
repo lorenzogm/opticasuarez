@@ -2,48 +2,48 @@
 
 ## Repository Structure
 
-This is a monorepo. The main application lives in `apps/opticasuarez-react-router/`.
+This is a monorepo managed with pnpm workspaces and Turborepo.
 
 ```
 ├── .agents/              # Copilot agent customizations
 ├── .github/              # GitHub workflows, Copilot config
 ├── apps/
-│   └── opticasuarez-react-router/   # Main web application
-│       ├── app/           # React Router v7 application source
-│       ├── public/        # Static assets
-│       ├── tests/         # E2E tests (Playwright)
-│       ├── docs/          # Documentation
-│       └── ...            # Config files (package.json, vite.config.ts, etc.)
+│   ├── opticasuarez-react-router/   # Main web application (React Router v7)
+│   │   ├── app/           # Application source
+│   │   ├── public/        # Static assets
+│   │   ├── tests/         # E2E tests (Playwright)
+│   │   ├── docs/          # Documentation
+│   │   └── ...
+│   └── web/               # TanStack Start application
+│       └── src/
+├── configs/               # Shared TypeScript configs (@opticasuarez/configs)
+│   └── typescript/
 ├── backlog/              # Issue tracking artifacts
 ├── skills-lock.json      # Copilot skills lock file
 └── README.md
 ```
 
-All `npm` commands must be run from `apps/opticasuarez-react-router/`.
+All commands must be run from the **monorepo root**.
 
 ## Development Workflow
 
 ### Pull Request Checks
 
-**Important:** Always run `npm run check` before submitting pull requests. This script runs TypeScript checks and ESLint to ensure code quality and consistency.
+**Important:** Always run `pnpm check` before submitting pull requests. This command uses Turbo to run all quality checks across the monorepo.
 
 ```bash
-cd apps/opticasuarez-react-router
-npm run check
+pnpm check
 ```
 
-This single command executes:
+This single command executes (via Turbo):
 
-- `npm run typecheck` - TypeScript type checking
-- `npm run lint` - ESLint code quality checks
+- `pnpm check:types` - TypeScript type checking across all workspaces
+- `pnpm check:linter` - Biome linting and formatting checks
+- `pnpm build` - Build validation
 
-If any issues are found, use the fix commands:
+If any issues are found, use the fix command:
 
-- `npm run lint:fix` - Auto-fix ESLint issues
-
-For code formatting, you can run Prettier separately:
-- `npm run format` - Prettier code formatting validation
-- `npm run format:fix` - Auto-fix Prettier formatting
+- `pnpm fix` - Auto-fix Biome linting and formatting issues
 
 ## Code Style Guidelines
 
@@ -98,32 +98,32 @@ This convention ensures consistency across the codebase and follows modern web d
 
 **Critical:** Always run the exact same commands that are executed in the CI checks before making any code changes. These commands must all pass successfully, and any failures must be fixed immediately.
 
-Required CI commands to run in order:
+Required CI commands to run from the repo root:
 
 1. **Install dependencies**:
    ```bash
-   cd apps/opticasuarez-react-router
-   npm ci
+   pnpm install
    ```
 
 2. **Code quality checks**:
    ```bash
-   npm run check
+   pnpm check
    ```
-   This executes:
-   - `npm run typecheck` - TypeScript type checking
-   - `npm run lint` - ESLint code quality checks
+   This executes (via Turbo):
+   - TypeScript type checking
+   - Biome linting and formatting
+   - Build validation
 
-3. **Build validation**:
+3. **Build validation** (already included in `pnpm check`, but can be run separately):
    ```bash
-   npm run build
+   pnpm build
    ```
 
 ### Validation Workflow
 
 1. **Before making changes**: Run all CI commands to establish baseline
 2. **After making changes**: Re-run all CI commands to ensure nothing is broken
-3. **Fix any failures**: Use available fix commands like `npm run lint:fix` if needed
+3. **Fix any failures**: Use `pnpm fix` for auto-fixable issues
 4. **Verify success**: All commands must complete with exit code 0
 
 **Important**: Never submit changes if any of these CI commands fail. Always investigate and fix the root cause of failures rather than ignoring them.
@@ -155,9 +155,8 @@ When working on GitHub Issues as the Copilot coding agent (cloud), follow this w
 Before marking a PR as ready for review, all of these must pass:
 
 ```bash
-cd apps/opticasuarez-react-router
-npm run check    # TypeScript + ESLint
-npm run build    # Full production build
+pnpm check    # TypeScript + Biome linting + Build
+pnpm build    # Full production build
 ```
 
 ### Issue workflow
