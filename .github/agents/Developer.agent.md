@@ -1,5 +1,5 @@
 ---
-name: "Developer 2"
+name: "Developer"
 model: Claude Opus 4.6 (copilot)
 description: >
   Autonomous developer agent that continuously processes GitHub Issues from
