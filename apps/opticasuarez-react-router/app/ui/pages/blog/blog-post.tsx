@@ -34,11 +34,15 @@ function parseMarkdownToHTML(markdown: string): string {
         /\*\*(.+?)\*\*/g,
         '<strong class="font-bold text-gray-900">$1</strong>'
       )
-      // Handle inline images first
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
-        const imageSrc = src.startsWith("/") ? `${basePath}${src}` : src;
-        return `<div class="my-8"><img src="${imageSrc}" alt="${alt}" class="w-full h-64 object-cover rounded-lg shadow-lg mx-auto" /></div>`;
-      })
+      // Handle inline images first (supports optional title: ![alt](url "title"))
+      .replace(
+        /!\[([^\]]*)\]\(([^\s")]+)(?:\s+"([^"]*)")?\)/g,
+        (match, alt, src, title) => {
+          const imageSrc = src.startsWith("/") ? `${basePath}${src}` : src;
+          const titleAttr = title ? ` title="${title}"` : "";
+          return `<div class="my-8"><img src="${imageSrc}" alt="${alt}"${titleAttr} class="w-full h-64 object-cover rounded-lg shadow-lg mx-auto" /></div>`;
+        }
+      )
       // Handle links (exclude image patterns by using a more specific pattern)
       .replace(/(?:^|[^!])\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
         // If the match starts with a character other than !, preserve that character
@@ -145,6 +149,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                 alt={post.title}
                 className="h-96 w-full object-cover"
                 src={post.featured_image}
+                title={post.title}
               />
             </div>
           </div>

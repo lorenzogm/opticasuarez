@@ -23,7 +23,7 @@ Lo que hace al glaucoma especialmente peligroso es que, en su forma más frecuen
 
 Por este motivo, el glaucoma recibe el nombre de **"el ladrón silencioso de la visión"**.
 
-![Estructura del ojo y daño del nervio óptico por glaucoma](/images/blog/glaucoma-vision.webp)
+![Estructura del ojo y daño del nervio óptico por glaucoma](/images/blog/glaucoma-vision.webp "Estructura del ojo y daño del nervio óptico causado por el glaucoma")
 
 ## Tipos de Glaucoma
 
@@ -35,7 +35,7 @@ Existen diferentes formas de glaucoma, aunque todas afectan al nervio óptico:
 - **Glaucoma secundario**: Aparece como consecuencia de otras condiciones como traumatismos, inflamaciones o ciertos medicamentos (como los corticoides).
 - **Glaucoma congénito**: Presente desde el nacimiento, afecta a recién nacidos y bebés.
 
-![Tipos de glaucoma: ángulo abierto y ángulo cerrado](/images/blog/glaucoma-tipos.webp)
+![Tipos de glaucoma: ángulo abierto y ángulo cerrado](/images/blog/glaucoma-tipos.webp "Tipos de glaucoma: glaucoma de ángulo abierto y glaucoma de ángulo cerrado")
 
 ## Factores de Riesgo: ¿Quién Tiene Más Posibilidades de Desarrollar Glaucoma?
 
@@ -58,7 +58,7 @@ Aquí es donde el óptico-optometrista tiene un papel absolutamente clave. Dado 
 
 En **Óptica Suárez**, contamos con el equipamiento y la formación necesarios para realizar las pruebas de detección precoz del glaucoma, integrando estas exploraciones dentro de nuestro [examen visual completo](/examen-visual).
 
-![Óptico-optometrista realizando revisión ocular en Jaén](/images/blog/glaucoma-optico-optometrista.webp)
+![Óptico-optometrista realizando revisión ocular en Jaén](/images/blog/glaucoma-optico-optometrista.webp "Óptico-optometrista midiendo la presión intraocular para detectar el glaucoma en Jaén")
 
 ### Medida de la Presión Intraocular (Tonometría)
 
