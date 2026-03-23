@@ -17,7 +17,7 @@ resource "vercel_project" "main" {
   root_directory             = var.vercel.project.root_directory
   framework                  = var.vercel.project.framework
   public_source              = var.vercel.project.public_source
-  install_command            = var.vercel.project.install_command
+  install_command            = var.vercel.project.install_command != null ? var.vercel.project.install_command : null
   auto_assign_custom_domains = var.vercel.project.auto_assign_custom_domains
   vercel_authentication      = var.vercel.project.vercel_authentication
 }
