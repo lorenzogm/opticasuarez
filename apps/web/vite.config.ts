@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import viteReact from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/postcss'
-import path from 'node:path'
+import path from "node:path";
+import tailwindcss from "@tailwindcss/postcss";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   server: {
@@ -10,7 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, './src'),
+      "~": path.resolve(__dirname, "./src"),
     },
   },
   plugins: [
@@ -27,4 +27,4 @@ export default defineConfig({
       plugins: [tailwindcss],
     },
   },
-})
+});

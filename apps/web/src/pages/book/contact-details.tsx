@@ -1,98 +1,97 @@
-import { useState } from 'react';
-import { Link, useNavigate, useSearch } from '@tanstack/react-router';
-import ProgressIndicator from '../../components/progress-indicator';
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { useState } from "react";
+import ProgressIndicator from "../../components/progress-indicator";
 
 const appointmentTypes = {
-  'phone-consultation': 'Cita telefónica',
-  'refraction-exam': 'Cita refracción',
-  'visual-efficiency-eval': 'Cita Evaluación de eficacia visual',
-  'child-exam': 'Cita Examen Infantil',
-  'contact-lens': 'Cita Contactología',
-  'sports-vision': 'Cita Visión Deportiva',
+  "phone-consultation": "Cita telefónica",
+  "refraction-exam": "Cita refracción",
+  "visual-efficiency-eval": "Cita Evaluación de eficacia visual",
+  "child-exam": "Cita Examen Infantil",
+  "contact-lens": "Cita Contactología",
+  "sports-vision": "Cita Visión Deportiva",
 };
 
 export default function ContactDetails() {
   const searchParams = useSearch({ strict: false }) as Record<string, string>;
   const navigate = useNavigate();
-  const appointmentType = searchParams.type || '';
-  const location = searchParams.location || '';
+  const appointmentType = searchParams.type || "";
+  const location = searchParams.location || "";
   const dateParam = searchParams.date;
-  const period = searchParams.period || '';
+  const period = searchParams.period || "";
 
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [observations, setObservations] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [ageError, setAgeError] = useState('');
-  const [phoneError, setPhoneError] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [observations, setObservations] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [ageError, setAgeError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const selectedDate = dateParam ? new Date(dateParam) : null;
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('es-ES', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+  const formatDate = (date: Date) =>
+    date.toLocaleDateString("es-ES", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
-  };
 
   const validateName = (value: string) => {
     if (!value.trim()) {
-      setNameError('El nombre es requerido');
+      setNameError("El nombre es requerido");
       return false;
     }
     if (value.trim().length < 2) {
-      setNameError('El nombre debe tener al menos 2 caracteres');
+      setNameError("El nombre debe tener al menos 2 caracteres");
       return false;
     }
-    setNameError('');
+    setNameError("");
     return true;
   };
 
   const validatePhone = (value: string) => {
     if (!value.trim()) {
-      setPhoneError('El teléfono móvil es requerido');
+      setPhoneError("El teléfono móvil es requerido");
       return false;
     }
     // Spanish mobile phone validation (9 digits starting with 6, 7, or 9)
     const phoneRegex = /^[679]\d{8}$/;
-    const cleanPhone = value.replace(/\s/g, '');
+    const cleanPhone = value.replace(/\s/g, "");
     if (!phoneRegex.test(cleanPhone)) {
-      setPhoneError('Introduce un número de móvil válido (9 dígitos)');
+      setPhoneError("Introduce un número de móvil válido (9 dígitos)");
       return false;
     }
-    setPhoneError('');
+    setPhoneError("");
     return true;
   };
 
   const validateAge = (value: string) => {
     if (!value.trim()) {
-      setAgeError('La edad es requerida');
+      setAgeError("La edad es requerida");
       return false;
     }
-    const age = parseInt(value);
+    const age = Number.parseInt(value);
     if (isNaN(age) || age < 0 || age > 120) {
-      setAgeError('Introduce una edad válida');
+      setAgeError("Introduce una edad válida");
       return false;
     }
-    setAgeError('');
+    setAgeError("");
     return true;
   };
 
   const validateEmail = (value: string) => {
     if (!value.trim()) {
-      setEmailError('El email es requerido');
+      setEmailError("El email es requerido");
       return false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      setEmailError('Introduce un email válido');
+      setEmailError("Introduce un email válido");
       return false;
     }
-    setEmailError('');
+    setEmailError("");
     return true;
   };
 
@@ -136,15 +135,15 @@ export default function ContactDetails() {
 
     if (isNameValid && isAgeValid && isPhoneValid && isEmailValid) {
       navigate({
-        to: '/cita/confirmacion',
+        to: "/cita/confirmacion",
         search: {
           type: appointmentType,
           location,
-          date: dateParam || '',
+          date: dateParam || "",
           period,
           name: name.trim(),
           age: age.trim(),
-          phone: phone.replace(/\s/g, ''),
+          phone: phone.replace(/\s/g, ""),
           email: email.trim(),
           observations: observations.trim(),
         },
@@ -152,61 +151,62 @@ export default function ContactDetails() {
     }
   };
 
-  const canContinue = 
-    name.trim() && 
-    age.trim() && 
-    phone.trim() && 
+  const canContinue =
+    name.trim() &&
+    age.trim() &&
+    phone.trim() &&
     email.trim() &&
-    !nameError && 
-    !ageError && 
+    !nameError &&
+    !ageError &&
     !phoneError &&
     !emailError;
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+      <header className="border-b bg-white shadow-sm">
+        <div className="mx-auto max-w-4xl px-4 py-4">
           <div className="flex items-center justify-between">
             <Link
-              to="/cita/horario" search={{ type: appointmentType, location }}
-              className="text-blue-600 hover:text-blue-800 flex items-center gap-2 transition-colors"
+              className="flex items-center gap-2 text-blue-600 transition-colors hover:text-blue-800"
+              search={{ type: appointmentType, location }}
+              to="/cita/horario"
             >
               ← Volver
             </Link>
             <div className="text-right">
-              <h1 className="text-xl font-semibold text-gray-900">
+              <h1 className="font-semibold text-gray-900 text-xl">
                 Óptica Suárez
               </h1>
-              <p className="text-sm text-gray-600">Reservar cita</p>
+              <p className="text-gray-600 text-sm">Reservar cita</p>
             </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="mx-auto max-w-4xl px-4 py-8">
         {/* Progress Indicator */}
         <div className="mb-8">
           <ProgressIndicator currentStep={4} totalSteps={5} />
-          <div className="text-center mt-4">
-            <h2 className="text-2xl font-bold text-gray-900">
+          <div className="mt-4 text-center">
+            <h2 className="font-bold text-2xl text-gray-900">
               Datos de contacto
             </h2>
-            <p className="text-gray-600 mt-2">
+            <p className="mt-2 text-gray-600">
               Introduce tus datos para confirmar la cita
             </p>
           </div>
         </div>
 
         {/* Appointment Summary */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-          <h3 className="font-semibold text-blue-900 mb-2">
+        <div className="mb-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <h3 className="mb-2 font-semibold text-blue-900">
             Resumen de tu cita
           </h3>
-          <div className="text-sm text-blue-800">
+          <div className="text-blue-800 text-sm">
             <p>
-              <span className="font-medium">Tipo:</span>{' '}
+              <span className="font-medium">Tipo:</span>{" "}
               {
                 appointmentTypes[
                   appointmentType as keyof typeof appointmentTypes
@@ -215,18 +215,21 @@ export default function ContactDetails() {
             </p>
             {selectedDate && (
               <p>
-                <span className="font-medium">Fecha:</span>{' '}
+                <span className="font-medium">Fecha:</span>{" "}
                 {formatDate(selectedDate)}
               </p>
             )}
             <p>
-              <span className="font-medium">Hora:</span> {period === 'morning' ? 'Mañana (9:30-13:00)' : 'Tarde (17:00-20:00)'}
+              <span className="font-medium">Hora:</span>{" "}
+              {period === "morning"
+                ? "Mañana (9:30-13:00)"
+                : "Tarde (17:00-20:00)"}
             </p>
           </div>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 max-w-2xl mx-auto">
+        <div className="mx-auto max-w-2xl rounded-lg border bg-white p-6 shadow-sm">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -237,50 +240,50 @@ export default function ContactDetails() {
               {/* Name Field */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-700 text-sm"
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   Nombre completo *
                 </label>
                 <input
-                  type="text"
-                  id="name"
-                  value={name}
-                  onChange={handleNameChange}
-                  onBlur={() => validateName(name)}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
-                    nameError ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full rounded-lg border px-4 py-3 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+                    nameError ? "border-red-500" : "border-gray-300"
                   }`}
+                  id="name"
+                  onBlur={() => validateName(name)}
+                  onChange={handleNameChange}
                   placeholder="Introduce tu nombre completo"
+                  type="text"
+                  value={name}
                 />
                 {nameError && (
-                  <p className="mt-1 text-sm text-red-600">{nameError}</p>
+                  <p className="mt-1 text-red-600 text-sm">{nameError}</p>
                 )}
               </div>
 
               {/* Phone Field */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-700 text-sm"
                   htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   Teléfono móvil *
                 </label>
                 <input
-                  type="tel"
-                  id="phone"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  onBlur={() => validatePhone(phone)}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
-                    phoneError ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full rounded-lg border px-4 py-3 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+                    phoneError ? "border-red-500" : "border-gray-300"
                   }`}
+                  id="phone"
+                  onBlur={() => validatePhone(phone)}
+                  onChange={handlePhoneChange}
                   placeholder="Ej: 612345678"
+                  type="tel"
+                  value={phone}
                 />
                 {phoneError && (
-                  <p className="mt-1 text-sm text-red-600">{phoneError}</p>
+                  <p className="mt-1 text-red-600 text-sm">{phoneError}</p>
                 )}
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-gray-500 text-sm">
                   Introduce un número de móvil español (9 dígitos)
                 </p>
               </div>
@@ -288,68 +291,68 @@ export default function ContactDetails() {
               {/* Age Field */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-700 text-sm"
                   htmlFor="age"
-                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   Edad del paciente *
                 </label>
                 <input
-                  type="number"
-                  id="age"
-                  value={age}
-                  onChange={handleAgeChange}
-                  onBlur={() => validateAge(age)}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
-                    ageError ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full rounded-lg border px-4 py-3 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+                    ageError ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Edad"
-                  min="0"
+                  id="age"
                   max="120"
+                  min="0"
+                  onBlur={() => validateAge(age)}
+                  onChange={handleAgeChange}
+                  placeholder="Edad"
+                  type="number"
+                  value={age}
                 />
                 {ageError && (
-                  <p className="mt-1 text-sm text-red-600">{ageError}</p>
+                  <p className="mt-1 text-red-600 text-sm">{ageError}</p>
                 )}
               </div>
 
               {/* Email Field */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-700 text-sm"
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   Email *
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  onBlur={() => validateEmail(email)}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
-                    emailError ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full rounded-lg border px-4 py-3 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ${
+                    emailError ? "border-red-500" : "border-gray-300"
                   }`}
+                  id="email"
+                  onBlur={() => validateEmail(email)}
+                  onChange={handleEmailChange}
                   placeholder="tu@email.com"
+                  type="email"
+                  value={email}
                 />
                 {emailError && (
-                  <p className="mt-1 text-sm text-red-600">{emailError}</p>
+                  <p className="mt-1 text-red-600 text-sm">{emailError}</p>
                 )}
               </div>
 
               {/* Observations Field */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-700 text-sm"
                   htmlFor="observations"
-                  className="block text-sm font-medium text-gray-700 mb-2"
                 >
                   Observaciones (opcional)
                 </label>
                 <textarea
+                  className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   id="observations"
-                  value={observations}
                   onChange={(e) => setObservations(e.target.value)}
-                  rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
                   placeholder="Cuéntanos cualquier información adicional que consideres relevante para tu cita..."
+                  rows={3}
+                  value={observations}
                 />
               </div>
             </div>
@@ -357,21 +360,22 @@ export default function ContactDetails() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-between mt-8">
+        <div className="mt-8 flex items-center justify-between">
           <Link
-            to="/cita/horario" search={{ type: appointmentType, location }}
-            className="px-6 py-3 text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-6 py-3 text-gray-600 transition-colors hover:text-gray-800"
+            search={{ type: appointmentType, location }}
+            to="/cita/horario"
           >
             Volver
           </Link>
           <button
-            onClick={handleContinue}
-            disabled={!canContinue}
-            className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
+            className={`rounded-lg px-8 py-3 font-medium transition-all duration-200 ${
               canContinue
-                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                ? "bg-blue-600 text-white shadow-md hover:bg-blue-700"
+                : "cursor-not-allowed bg-gray-200 text-gray-400"
             }`}
+            disabled={!canContinue}
+            onClick={handleContinue}
           >
             Continuar
           </button>

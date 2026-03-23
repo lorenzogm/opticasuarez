@@ -1,5 +1,5 @@
-import { Text } from '../../../components/text';
-import Image from '../../../components/image';
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface BenefitItem {
   title: string;
@@ -22,37 +22,41 @@ export default function BenefitsSection({
   items,
 }: BenefitsSectionProps) {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-gray-50">
+    <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <Text as="h2" variant="heading-2" className="mb-4 text-gray-900">
+        <div className="mb-12 text-center">
+          <Text as="h2" className="mb-4 text-gray-900" variant="heading-2">
             {title}
           </Text>
-          <Text variant="body-lg" className="text-gray-600">
+          <Text className="text-gray-600" variant="body-lg">
             {subtitle}
           </Text>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {items.map((item, index) => (
             <div
+              className="overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-lg"
               key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               {item.image && (
                 <div className="h-48 overflow-hidden">
                   <Image
-                    src={item.image}
                     alt={item.imageAlt || item.title}
+                    className="h-full w-full object-cover"
+                    src={item.image}
                     title={item.imageTitle}
-                    className="w-full h-full object-cover"
                   />
                 </div>
               )}
               <div className="p-6">
-                <Text as="h3" variant="heading-4" className="mb-3 text-gray-900">
+                <Text
+                  as="h3"
+                  className="mb-3 text-gray-900"
+                  variant="heading-4"
+                >
                   {item.title}
                 </Text>
-                <Text variant="body-md" className="text-gray-600">
+                <Text className="text-gray-600" variant="body-md">
                   {item.description}
                 </Text>
               </div>

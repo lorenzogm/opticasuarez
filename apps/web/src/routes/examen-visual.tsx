@@ -1,47 +1,47 @@
-import { createFileRoute } from '@tanstack/react-router'
-import ExamenVisual from '~/pages/examen-visual/examen-visual'
-import {
-  generatePageKeywords,
-  generateMetaKeywords,
-} from '~/lib/seo-keywords'
+import { createFileRoute } from "@tanstack/react-router";
+import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import ExamenVisual from "~/pages/examen-visual/examen-visual";
 
-const examenVisualKeywords = generatePageKeywords('examen-visual')
+const examenVisualKeywords = generatePageKeywords("examen-visual");
 
-export const Route = createFileRoute('/examen-visual')({
+export const Route = createFileRoute("/examen-visual")({
   head: () => ({
     meta: [
-      { title: 'Examen Visual en Jaén | Óptica Suárez - Graduación de la vista' },
       {
-        name: 'description',
-        content:
-          'Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!',
+        title: "Examen Visual en Jaén | Óptica Suárez - Graduación de la vista",
       },
       {
-        name: 'keywords',
+        name: "description",
+        content:
+          "Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!",
+      },
+      {
+        name: "keywords",
         content: generateMetaKeywords(examenVisualKeywords),
       },
       {
-        property: 'og:title',
-        content: 'Examen Visual en Jaén | Óptica Suárez - Graduación de la vista',
-      },
-      {
-        property: 'og:description',
+        property: "og:title",
         content:
-          'Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!',
+          "Examen Visual en Jaén | Óptica Suárez - Graduación de la vista",
       },
       {
-        property: 'og:url',
-        content: 'https://opticasuarezjaen.es/examen-visual',
+        property: "og:description",
+        content:
+          "Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!",
       },
-      { name: 'robots', content: 'index, follow' },
+      {
+        property: "og:url",
+        content: "https://opticasuarezjaen.es/examen-visual",
+      },
+      { name: "robots", content: "index, follow" },
     ],
     links: [
-      { rel: 'canonical', href: 'https://opticasuarezjaen.es/examen-visual' },
+      { rel: "canonical", href: "https://opticasuarezjaen.es/examen-visual" },
     ],
   }),
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <ExamenVisual />
+  return <ExamenVisual />;
 }

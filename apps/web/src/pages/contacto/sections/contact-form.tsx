@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Text } from '../../../components/text';
-import { Button } from '../../../components/button';
+import { useState } from "react";
+import { Button } from "../../../components/button";
+import { Text } from "../../../components/text";
 
 interface FormData {
   nameLabel: string;
@@ -41,14 +41,14 @@ export default function ContactForm({
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-gray-900 text-white">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-        <div className="text-center mb-12">
+    <section className="bg-gray-900 py-16 text-white sm:py-20">
+      <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="mb-12 text-center">
           <Text
-            as="h2"
-            variant="heading-2"
             align="center"
+            as="h2"
             className="mb-4 uppercase tracking-wide"
+            variant="heading-2"
           >
             {title}
           </Text>
@@ -56,100 +56,100 @@ export default function ContactForm({
             {subtitle}
           </Text>
           <Text
-            variant="body-lg"
             align="center"
-            className="text-gray-300 max-w-2xl mx-auto"
+            className="mx-auto max-w-2xl text-gray-300"
+            variant="body-lg"
           >
             {description}
           </Text>
         </div>
 
         {isSubmitted ? (
-          <div className="bg-green-600 text-white p-6 rounded-lg text-center">
+          <div className="rounded-lg bg-green-600 p-6 text-center text-white">
             <svg
-              className="w-12 h-12 mx-auto mb-4"
+              className="mx-auto mb-4 h-12 w-12"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path
+                d="M5 13l4 4L19 7"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M5 13l4 4L19 7"
               />
             </svg>
             <Text>{form.successMessage}</Text>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Name */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-300 text-sm"
                   htmlFor="name"
-                  className="block text-sm font-medium mb-2 text-gray-300"
                 >
                   {form.nameLabel} *
                 </label>
                 <input
-                  type="text"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   id="name"
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder={form.namePlaceholder}
+                  required
+                  type="text"
                 />
               </div>
 
               {/* Email */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-300 text-sm"
                   htmlFor="email"
-                  className="block text-sm font-medium mb-2 text-gray-300"
                 >
                   {form.emailLabel} *
                 </label>
                 <input
-                  type="email"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   id="email"
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder={form.emailPlaceholder}
+                  required
+                  type="email"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Phone */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-300 text-sm"
                   htmlFor="phone"
-                  className="block text-sm font-medium mb-2 text-gray-300"
                 >
                   {form.phoneLabel}
                 </label>
                 <input
-                  type="tel"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   id="phone"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder={form.phonePlaceholder}
+                  type="tel"
                 />
               </div>
 
               {/* Subject */}
               <div>
                 <label
+                  className="mb-2 block font-medium text-gray-300 text-sm"
                   htmlFor="subject"
-                  className="block text-sm font-medium mb-2 text-gray-300"
                 >
                   {form.subjectLabel} *
                 </label>
                 <input
-                  type="text"
+                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                   id="subject"
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder={form.subjectPlaceholder}
+                  required
+                  type="text"
                 />
               </div>
             </div>
@@ -157,29 +157,29 @@ export default function ContactForm({
             {/* Message */}
             <div>
               <label
+                className="mb-2 block font-medium text-gray-300 text-sm"
                 htmlFor="message"
-                className="block text-sm font-medium mb-2 text-gray-300"
               >
                 {form.messageLabel} *
               </label>
               <textarea
+                className="w-full resize-none rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                 id="message"
-                rows={6}
-                required
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 resize-none"
                 placeholder={form.messagePlaceholder}
+                required
+                rows={6}
               />
             </div>
 
             {/* Privacy Notice */}
-            <div className="text-xs text-gray-400">{form.privacy}</div>
+            <div className="text-gray-400 text-xs">{form.privacy}</div>
 
             {/* Submit Button */}
             <div className="text-center">
               <Button
+                className="bg-blue-600 px-8 hover:bg-blue-700"
                 type="submit"
                 variant="primary"
-                className="bg-blue-600 hover:bg-blue-700 px-8"
               >
                 {form.submitButton}
               </Button>

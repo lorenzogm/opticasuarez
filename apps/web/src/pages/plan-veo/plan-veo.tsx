@@ -1,66 +1,63 @@
-import PlanVeoHero from './sections/plan-veo-hero';
-import IntroductionSection from './sections/introduction-section';
-import BenefitsSection from './sections/benefits-section';
-import RequirementsSection from './sections/requirements-section';
-import ProcessSection from './sections/process-section';
-import FAQAccordion from '../../components/faq-accordion';
-import CTASection from './sections/cta-section';
-import content from '../../content/plan-veo.json';
+import FAQAccordion from "../../components/faq-accordion";
+import content from "../../content/plan-veo.json" with { type: "json" };
+import BenefitsSection from "./sections/benefits-section";
+import CTASection from "./sections/cta-section";
+import IntroductionSection from "./sections/introduction-section";
+import PlanVeoHero from "./sections/plan-veo-hero";
+import ProcessSection from "./sections/process-section";
+import RequirementsSection from "./sections/requirements-section";
 
 export default function PlanVeo() {
   return (
     <main>
       {/* Hero Section */}
       <PlanVeoHero
-        title={content.hero.title}
-        subtitle={content.hero.subtitle}
         description={content.hero.description}
         image={content.hero.image}
-        imageTitle={content.hero.imageTitle}
         imageAlt={content.hero.imageAlt}
+        imageTitle={content.hero.imageTitle}
+        subtitle={content.hero.subtitle}
+        title={content.hero.title}
       />
 
       {/* Introduction */}
       <IntroductionSection
-        title={content.introduction.title}
         content={content.introduction.content}
+        title={content.introduction.title}
       />
 
       {/* Benefits - What does Plan VEO cover */}
       <BenefitsSection
-        title={content.benefits.title}
-        subtitle={content.benefits.subtitle}
         items={content.benefits.items}
+        subtitle={content.benefits.subtitle}
+        title={content.benefits.title}
       />
 
       {/* Requirements - Who can benefit */}
       <RequirementsSection
-        title={content.requirements.title}
-        subtitle={content.requirements.subtitle}
         description={content.requirements.description}
         items={content.requirements.items}
+        subtitle={content.requirements.subtitle}
+        title={content.requirements.title}
       />
 
       {/* Process - How to apply */}
       <ProcessSection
-        title={content.howItWorks.title}
-        subtitle={content.howItWorks.subtitle}
         steps={content.howItWorks.steps}
+        subtitle={content.howItWorks.subtitle}
+        title={content.howItWorks.title}
       />
 
       {/* FAQ */}
-      <FAQAccordion
-        title={content.faq.title}
-        items={content.faq.items}
-      />
+      <FAQAccordion items={content.faq.items} title={content.faq.title} />
 
       {/* CTA */}
       <CTASection
-        title={content.cta.title}
-        subtitle={content.cta.subtitle}
-        description={content.cta.description}
-        buttonText={content.cta.buttonText}
         buttonLink={content.cta.buttonLink}
+        buttonText={content.cta.buttonText}
+        description={content.cta.description}
+        subtitle={content.cta.subtitle}
+        title={content.cta.title}
       />
     </main>
   );

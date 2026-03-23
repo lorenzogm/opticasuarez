@@ -1,22 +1,24 @@
-import { Text } from '../../components/text';
-import MyopiaHero from './sections/myopia-hero';
-import MyopiaInfo from './sections/myopia-info';
-import MyopiaTreatments from './sections/myopia-treatments';
-import MyopiaScience from './sections/myopia-science';
-import FAQAccordion from '../../components/faq-accordion';
-import BookAppointment from '../../sections/book-appointment';
-import content from '../../content/control-de-miopia.json';
+import FAQAccordion from "../../components/faq-accordion";
+import { Text } from "../../components/text";
+import content from "../../content/control-de-miopia.json" with {
+  type: "json",
+};
+import BookAppointment from "../../sections/book-appointment";
+import MyopiaHero from "./sections/myopia-hero";
+import MyopiaInfo from "./sections/myopia-info";
+import MyopiaScience from "./sections/myopia-science";
+import MyopiaTreatments from "./sections/myopia-treatments";
 
 export default function ControlDeMiopia() {
   return (
     <main>
       {/* Main heading */}
-      <section className="bg-white py-16 px-4 sm:px-6">
+      <section className="bg-white px-4 py-16 sm:px-6">
         <div className="container mx-auto max-w-6xl text-center">
           <Text
             as="h1"
-            variant="heading-1"
             className="mb-8 text-gray-900 uppercase tracking-wide"
+            variant="heading-1"
           >
             {content.mainTitle}
           </Text>
@@ -25,19 +27,19 @@ export default function ControlDeMiopia() {
 
       {/* Hero Section */}
       <MyopiaHero
-        title={content.hero.title}
-        subtitle={content.hero.subtitle}
         description={content.hero.description}
         image={content.hero.image}
         imageAlt={content.hero.imageAlt}
         imageTitle={content.hero.imageTitle}
+        subtitle={content.hero.subtitle}
+        title={content.hero.title}
       />
 
       {/* Myopia Information */}
       <MyopiaInfo
-        title={content.info.title}
         description={content.info.description}
         features={content.info.features}
+        title={content.info.title}
       />
 
       {/* Treatment Options */}
@@ -48,22 +50,19 @@ export default function ControlDeMiopia() {
 
       {/* Science Behind */}
       <MyopiaScience
-        title={content.science.title}
         description={content.science.description}
         studies={content.science.studies}
+        title={content.science.title}
       />
 
       {/* FAQ Section */}
-      <FAQAccordion
-        title={content.faq.title}
-        items={content.faq.items}
-      />
+      <FAQAccordion items={content.faq.items} title={content.faq.title} />
 
       {/* Book Appointment */}
       <BookAppointment
-        title={content.bookAppointment.title}
-        description={content.bookAppointment.description}
         buttonText={content.bookAppointment.buttonText}
+        description={content.bookAppointment.description}
+        title={content.bookAppointment.title}
         whatsappMessage={content.bookAppointment.whatsappMessage}
       />
     </main>

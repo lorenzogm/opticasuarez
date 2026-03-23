@@ -1,43 +1,43 @@
-import ExamenVisual from '../ui/pages/examen-visual/examen-visual';
 import {
-  generatePageKeywords,
   generateMetaKeywords,
-} from '../ui/lib/seo-keywords';
+  generatePageKeywords,
+} from "../ui/lib/seo-keywords";
+import ExamenVisual from "../ui/pages/examen-visual/examen-visual";
 
 export function links() {
   return [
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/examen-visual' },
+    { rel: "canonical", href: "https://opticasuarezjaen.es/examen-visual" },
   ];
 }
 
 export function meta() {
-  const examenVisualKeywords = generatePageKeywords('examen-visual');
+  const examenVisualKeywords = generatePageKeywords("examen-visual");
 
   return [
-    { title: 'Examen Visual en Jaén | Óptica Suárez - Graduación de la vista' },
+    { title: "Examen Visual en Jaén | Óptica Suárez - Graduación de la vista" },
     {
-      name: 'description',
+      name: "description",
       content:
-        'Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!',
+        "Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!",
     },
     {
-      name: 'keywords',
+      name: "keywords",
       content: generateMetaKeywords(examenVisualKeywords),
     },
     {
-      property: 'og:title',
-      content: 'Examen Visual en Jaén | Óptica Suárez - Graduación de la vista',
+      property: "og:title",
+      content: "Examen Visual en Jaén | Óptica Suárez - Graduación de la vista",
     },
     {
-      property: 'og:description',
+      property: "og:description",
       content:
-        'Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!',
+        "Realiza un examen visual completo en Óptica Suárez, Jaén. Detectamos problemas como ambliopía, ojo vago o estrabismo. ¡Reserva tu cita hoy!",
     },
     {
-      property: 'og:url',
-      content: 'https://opticasuarezjaen.es/examen-visual',
+      property: "og:url",
+      content: "https://opticasuarezjaen.es/examen-visual",
     },
-    { name: 'robots', content: 'index, follow' },
+    { name: "robots", content: "index, follow" },
   ];
 }
 

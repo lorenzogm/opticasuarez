@@ -1,5 +1,5 @@
-import { Text } from '../components/text';
-import { Button } from '../components/button';
+import { Button } from "../components/button";
+import { Text } from "../components/text";
 
 interface Testimonial {
   rating: number;
@@ -18,32 +18,31 @@ export default function CustomerTestimonials({
   testimonials,
   moreReviewsLink,
 }: CustomerTestimonialsProps) {
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
+  const renderStars = (rating: number) =>
+    Array.from({ length: 5 }, (_, i) => (
       <span
+        className={i < rating ? "text-yellow-400" : "text-gray-300"}
         key={i}
-        className={i < rating ? 'text-yellow-400' : 'text-gray-300'}
       >
         ★
       </span>
     ));
-  };
 
   return (
-    <section className="bg-gray-50 py-16 px-4 sm:px-6">
+    <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-3xl font-bold tracking-tight text-center mb-12 text-gray-900 uppercase tracking-wide">
+        <div className="mb-12 text-center font-bold text-3xl text-gray-900 uppercase tracking-tight tracking-wide">
           {title}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="flex mb-4 text-xl">
+            <div className="rounded-lg bg-white p-6 shadow-lg" key={index}>
+              <div className="mb-4 flex text-xl">
                 {renderStars(testimonial.rating)}
               </div>
 
-              <div className="text-lg font-semibold tracking-tight mb-4 text-gray-900">
+              <div className="mb-4 font-semibold text-gray-900 text-lg tracking-tight">
                 {testimonial.name}
               </div>
 

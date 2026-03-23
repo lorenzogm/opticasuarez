@@ -1,6 +1,6 @@
-import { Text } from '../../../components/text';
-import { Button } from '../../../components/button';
-import Image from '../../../components/image';
+import { Button } from "../../../components/button";
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface LocationSchedule {
   weekdays: string;
@@ -33,18 +33,18 @@ export default function ContactLocations({
   locations,
 }: ContactLocationsProps) {
   return (
-    <section className="py-16 sm:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-        <div className="text-center mb-12">
+    <section className="bg-gray-50 py-16 sm:py-20">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-12 text-center">
           <Text
-            as="h2"
-            variant="heading-2"
             align="center"
+            as="h2"
             className="mb-4 uppercase tracking-wide"
+            variant="heading-2"
           >
             {title}
           </Text>
-          <Text variant="body-lg" align="center" className="max-w-2xl mx-auto">
+          <Text align="center" className="mx-auto max-w-2xl" variant="body-lg">
             {subtitle}
           </Text>
         </div>
@@ -52,16 +52,16 @@ export default function ContactLocations({
         <div className="space-y-12">
           {locations.map((location, index) => (
             <div
+              className="overflow-hidden rounded-lg bg-white shadow-lg"
               key={index}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <div className="grid grid-cols-1 gap-0 lg:grid-cols-2">
                 {/* Image */}
                 <div className="aspect-video lg:aspect-square">
                   <Image
-                    src={location.image}
                     alt={location.name}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
+                    src={location.image}
                   />
                 </div>
 
@@ -69,25 +69,25 @@ export default function ContactLocations({
                 <div className="p-8">
                   <Text
                     as="h3"
-                    variant="heading-3"
                     className="mb-6 text-blue-900 uppercase"
+                    variant="heading-3"
                   >
                     {location.name}
                   </Text>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
                     {/* Location */}
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                      <div className="mb-3 flex items-center space-x-2">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="h-5 w-5 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
                           <path
-                            fillRule="evenodd"
-                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                             clipRule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            fillRule="evenodd"
                           />
                         </svg>
                         <Text className="uppercase">UBICACIÓN</Text>
@@ -97,16 +97,16 @@ export default function ContactLocations({
 
                     {/* Schedule */}
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                      <div className="mb-3 flex items-center space-x-2">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="h-5 w-5 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
                           <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
                             clipRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                            fillRule="evenodd"
                           />
                         </svg>
                         <Text className="uppercase">HORARIOS</Text>
@@ -125,9 +125,9 @@ export default function ContactLocations({
 
                     {/* Contact */}
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                      <div className="mb-3 flex items-center space-x-2">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="h-5 w-5 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -136,8 +136,8 @@ export default function ContactLocations({
                         <Text className="uppercase">TELÉFONO</Text>
                       </div>
                       <a
+                        className="font-medium text-blue-600 hover:text-blue-800"
                         href={location.phoneUrl}
-                        className="text-blue-600 hover:text-blue-800 font-medium"
                       >
                         {location.phone}
                       </a>
@@ -145,9 +145,9 @@ export default function ContactLocations({
 
                     {/* Email */}
                     <div className="space-y-2">
-                      <div className="flex items-center space-x-2 mb-3">
+                      <div className="mb-3 flex items-center space-x-2">
                         <svg
-                          className="w-5 h-5 text-blue-600"
+                          className="h-5 w-5 text-blue-600"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -157,8 +157,8 @@ export default function ContactLocations({
                         <Text className="uppercase">EMAIL</Text>
                       </div>
                       <a
+                        className="break-all font-medium text-blue-600 hover:text-blue-800"
                         href={`mailto:${location.email}`}
-                        className="text-blue-600 hover:text-blue-800 font-medium break-all"
                       >
                         {location.email}
                       </a>
@@ -167,13 +167,13 @@ export default function ContactLocations({
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3">
-                    <Button variant="primary" href={location.whatsappUrl}>
+                    <Button href={location.whatsappUrl} variant="primary">
                       WhatsApp
                     </Button>
-                    <Button variant="primary" href={location.phoneUrl}>
+                    <Button href={location.phoneUrl} variant="primary">
                       Llamar
                     </Button>
-                    <Button variant="primary" href={location.mapUrl}>
+                    <Button href={location.mapUrl} variant="primary">
                       Ver en Google Maps
                     </Button>
                   </div>

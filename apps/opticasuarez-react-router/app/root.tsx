@@ -1,65 +1,78 @@
-import { Links, Meta, Scripts, ScrollRestoration, Outlet, redirect } from 'react-router';
-import type { LoaderFunctionArgs } from 'react-router';
-import './global.css';
-import GlobalNavigation from './ui/components/global-navigation';
-import GoogleTagManager from './ui/components/google-tag-manager';
+import type { LoaderFunctionArgs } from "react-router";
 import {
-  WebsiteSchema,
+  Links,
+  Meta,
+  Outlet,
+  redirect,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
+import "./global.css";
+import GlobalNavigation from "./ui/components/global-navigation";
+import GoogleTagManager from "./ui/components/google-tag-manager";
+import {
   OrganizationSchema,
-} from './ui/components/structured-data';
+  WebsiteSchema,
+} from "./ui/components/structured-data";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   // Redirect trailing-slash URLs to canonical non-trailing-slash URLs (except root "/")
-  if (url.pathname !== '/' && url.pathname.endsWith('/')) {
-    return redirect(`${url.pathname.slice(0, -1)}${url.search}${url.hash}`, 301);
+  if (url.pathname !== "/" && url.pathname.endsWith("/")) {
+    return redirect(
+      `${url.pathname.slice(0, -1)}${url.search}${url.hash}`,
+      301
+    );
   }
   return null;
 }
 
 export default function App() {
   // Google Tag Manager Container ID
-  const GTM_CONTAINER_ID = 'GTM-57936PD5';
+  const GTM_CONTAINER_ID = "GTM-57936PD5";
 
   return (
     <html lang="es">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+
         {/* Pinterest domain verification */}
-        <meta name="p:domain_verify" content="aa1ce7e96c3e34d07a40e64732398337" />
+        <meta
+          content="aa1ce7e96c3e34d07a40e64732398337"
+          name="p:domain_verify"
+        />
 
         {/* Favicon */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link href="/favicon.ico" rel="icon" type="image/x-icon" />
         <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
           href="/favicon-16x16.png"
-        />
-        <link
           rel="icon"
+          sizes="16x16"
           type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
         />
         <link
+          href="/favicon-32x32.png"
+          rel="icon"
+          sizes="32x32"
+          type="image/png"
+        />
+        <link
+          href="/apple-touch-icon.png"
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/apple-touch-icon.png"
         />
         <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
           href="/icon-192x192.png"
+          rel="icon"
+          sizes="192x192"
+          type="image/png"
         />
         <link
-          rel="icon"
-          type="image/png"
-          sizes="512x512"
           href="/icon-512x512.png"
+          rel="icon"
+          sizes="512x512"
+          type="image/png"
         />
 
         <Meta />
@@ -72,10 +85,11 @@ export default function App() {
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
             height="0"
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
             width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
         <GlobalNavigation />

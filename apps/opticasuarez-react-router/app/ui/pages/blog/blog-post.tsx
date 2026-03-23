@@ -1,8 +1,8 @@
-import { Link } from 'react-router';
-import { Button } from '../../components/button';
-import Image from '../../components/image';
-import SocialShare from '../../components/social-share';
-import type { BlogPost as BlogPostType } from '../../lib/blog';
+import { Link } from "react-router";
+import { Button } from "../../components/button";
+import Image from "../../components/image";
+import SocialShare from "../../components/social-share";
+import type { BlogPost as BlogPostType } from "../../lib/blog";
 
 interface BlogPostProps {
   post: BlogPostType;
@@ -10,14 +10,14 @@ interface BlogPostProps {
 
 function parseMarkdownToHTML(markdown: string): string {
   const basePath =
-    typeof window !== 'undefined' &&
-    window.location.origin.includes('github.io')
-      ? '/opticasuarez-new'
-      : '';
+    typeof window !== "undefined" &&
+    window.location.origin.includes("github.io")
+      ? "/opticasuarez-new"
+      : "";
 
   return (
     markdown
-      .replace(/^# .+$/gm, '') // Remove h1 headers since we have title in hero
+      .replace(/^# .+$/gm, "") // Remove h1 headers since we have title in hero
       .replace(
         /^## (.+)$/gm,
         '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
@@ -36,18 +36,18 @@ function parseMarkdownToHTML(markdown: string): string {
       )
       // Handle inline images first
       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
-        const imageSrc = src.startsWith('/') ? `${basePath}${src}` : src;
+        const imageSrc = src.startsWith("/") ? `${basePath}${src}` : src;
         return `<div class="my-8"><img src="${imageSrc}" alt="${alt}" class="w-full h-64 object-cover rounded-lg shadow-lg mx-auto" /></div>`;
       })
       // Handle links (exclude image patterns by using a more specific pattern)
       .replace(/(?:^|[^!])\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
         // If the match starts with a character other than !, preserve that character
-        const prefix = match.charAt(0) === '[' ? '' : match.charAt(0);
+        const prefix = match.charAt(0) === "[" ? "" : match.charAt(0);
         return `${prefix}<a href="${url}" class="text-blue-600 hover:text-blue-800 underline transition-colors">${text}</a>`;
       })
       .replace(/^- (.+)$/gm, '<li class="mb-2 text-gray-700">$1</li>')
       .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
-      .split('\n')
+      .split("\n")
       .map((line) => {
         const trimmedLine = line.trim();
         // Handle inline images
@@ -55,78 +55,81 @@ function parseMarkdownToHTML(markdown: string): string {
           return line;
         }
         // Handle list items
-        if (trimmedLine.startsWith('<li')) {
+        if (trimmedLine.startsWith("<li")) {
           return line;
         }
         // Handle headings
-        if (trimmedLine.startsWith('<h')) {
+        if (trimmedLine.startsWith("<h")) {
           return line;
         }
         // Handle horizontal rules
-        if (trimmedLine === '---') {
+        if (trimmedLine === "---") {
           return '<hr class="my-8 border-gray-300">';
         }
         // Handle empty lines
-        if (trimmedLine === '') {
-          return '';
+        if (trimmedLine === "") {
+          return "";
         }
         // Regular paragraphs
         return `<p class="mb-4 text-gray-700 leading-relaxed">${line}</p>`;
       })
-      .join('\n')
-      .replace(/(<li[^>]*>.*?<\/li>\s*)+/g, (match) => {
-        return `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}</ul>`;
-      })
-      .replace(/<p class="mb-4 text-gray-700 leading-relaxed"><\/p>/g, '')
+      .join("\n")
+      .replace(
+        /(<li[^>]*>.*?<\/li>\s*)+/g,
+        (match) =>
+          `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}</ul>`
+      )
+      .replace(/<p class="mb-4 text-gray-700 leading-relaxed"><\/p>/g, "")
   );
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
   // Get current URL for sharing
-  const currentUrl = typeof window !== 'undefined' 
-    ? window.location.href 
-    : `https://opticasuarez.com/blog/${post.slug}`;
+  const currentUrl =
+    typeof window !== "undefined"
+      ? window.location.href
+      : `https://opticasuarez.com/blog/${post.slug}`;
 
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-16 px-4 sm:px-6">
+      <section className="bg-gradient-to-r from-blue-900 to-blue-700 px-4 py-16 text-white sm:px-6">
         <div className="container mx-auto max-w-4xl">
           <Link
+            className="mb-6 inline-flex items-center text-blue-200 transition-colors hover:text-white"
             to="/blog"
-            className="inline-flex items-center text-blue-200 hover:text-white mb-6 transition-colors"
           >
             ← Volver al blog
           </Link>
 
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="mb-4 flex flex-wrap gap-2">
             {post.categories.map((category) => (
               <Link
+                className="cursor-pointer rounded-full bg-blue-600 px-3 py-1 font-semibold text-sm text-white uppercase tracking-wide transition-colors hover:bg-blue-700"
                 key={category}
                 to={`/blog?category=${encodeURIComponent(category)}`}
-                className="px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-full uppercase tracking-wide hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 {category}
               </Link>
             ))}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wide">
+          <h1 className="mb-4 font-bold text-4xl uppercase tracking-wide md:text-5xl">
             {post.title}
           </h1>
 
-          <p className="text-xl text-blue-100 mb-6 leading-relaxed">
+          <p className="mb-6 text-blue-100 text-xl leading-relaxed">
             {post.excerpt}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 text-sm text-blue-200">
+          <div className="flex flex-col gap-4 text-blue-200 text-sm sm:flex-row">
             <span>Por {post.author}</span>
             <span className="hidden sm:block">•</span>
             <span>
-              {new Date(post.date).toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+              {new Date(post.date).toLocaleDateString("es-ES", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </span>
           </div>
@@ -137,11 +140,11 @@ export default function BlogPost({ post }: BlogPostProps) {
       {post.featured_image && (
         <section className="py-8">
           <div className="container mx-auto max-w-4xl px-4 sm:px-6">
-            <div className="rounded-lg overflow-hidden shadow-lg">
+            <div className="overflow-hidden rounded-lg shadow-lg">
               <Image
-                src={post.featured_image}
                 alt={post.title}
-                className="w-full h-96 object-cover"
+                className="h-96 w-full object-cover"
+                src={post.featured_image}
               />
             </div>
           </div>
@@ -149,7 +152,7 @@ export default function BlogPost({ post }: BlogPostProps) {
       )}
 
       {/* Content */}
-      <section className="py-16 px-4 sm:px-6">
+      <section className="px-4 py-16 sm:px-6">
         <div className="container mx-auto max-w-4xl">
           <article className="prose prose-lg max-w-none">
             <div
@@ -163,19 +166,15 @@ export default function BlogPost({ post }: BlogPostProps) {
       </section>
 
       {/* Social Share */}
-      <SocialShare 
-        title={post.title}
-        url={currentUrl}
-        excerpt={post.excerpt}
-      />
+      <SocialShare excerpt={post.excerpt} title={post.title} url={currentUrl} />
 
       {/* Back to Blog */}
-      <section className="bg-gray-50 py-16 px-4 sm:px-6">
+      <section className="bg-gray-50 px-4 py-16 sm:px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="mb-6 font-bold text-2xl text-gray-900">
             ¿Te gustó este artículo?
           </h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="mx-auto mb-8 max-w-2xl text-gray-600">
             Descubre más artículos sobre salud visual, cuidado de los ojos y
             novedades en óptica en nuestro blog.
           </p>

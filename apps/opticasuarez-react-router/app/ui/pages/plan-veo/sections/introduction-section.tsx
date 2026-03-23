@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface IntroductionSectionProps {
   title: string;
@@ -10,19 +10,12 @@ export default function IntroductionSection({
   content,
 }: IntroductionSectionProps) {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-white">
+    <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-4xl text-center">
-        <Text
-          as="h2"
-          variant="heading-2"
-          className="mb-8 text-gray-900"
-        >
+        <Text as="h2" className="mb-8 text-gray-900" variant="heading-2">
           {title}
         </Text>
-        <Text
-          variant="body-lg"
-          className="text-gray-600 leading-relaxed"
-        >
+        <Text className="text-gray-600 leading-relaxed" variant="body-lg">
           {content}
         </Text>
       </div>

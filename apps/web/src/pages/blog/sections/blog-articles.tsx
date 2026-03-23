@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useSearch } from '@tanstack/react-router';
-import { Button } from '../../../components/button';
-import Image from '../../../components/image';
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Button } from "../../../components/button";
+import Image from "../../../components/image";
 
 interface BlogArticle {
   title: string;
@@ -43,7 +43,7 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
   ).sort();
 
   return (
-    <section className="bg-gray-50 py-16 px-4 sm:px-6">
+    <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
         {/* Category filter - Desktop buttons */}
         {allCategories.length > 0 && (
@@ -51,17 +51,17 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
             {/* Mobile dropdown */}
             <div className="mb-8 md:hidden">
               <select
-                value={selectedCategory || ''}
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 onChange={(e) => {
                   const category = e.target.value || null;
                   setSelectedCategory(category);
                   if (category) {
-                    navigate({ to: '/blog', search: { category } });
+                    navigate({ to: "/blog", search: { category } });
                   } else {
-                    navigate({ to: '/blog', search: {} });
+                    navigate({ to: "/blog", search: {} });
                   }
                 }}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600"
+                value={selectedCategory || ""}
               >
                 <option value="">Todas las categorías</option>
                 {allCategories.map((category) => (
@@ -73,32 +73,32 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
             </div>
 
             {/* Desktop buttons */}
-            <div className="mb-8 hidden md:flex flex-wrap gap-2 justify-center">
+            <div className="mb-8 hidden flex-wrap justify-center gap-2 md:flex">
               <button
+                className={`rounded-full px-4 py-2 font-semibold text-sm uppercase tracking-wide transition-colors ${
+                  selectedCategory === null
+                    ? "bg-blue-600 text-white"
+                    : "bg-white text-blue-800 hover:bg-blue-100"
+                }`}
                 onClick={() => {
                   setSelectedCategory(null);
-                  navigate({ to: '/blog', search: {} });
+                  navigate({ to: "/blog", search: {} });
                 }}
-                className={`px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide transition-colors ${
-                  selectedCategory === null
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-blue-800 hover:bg-blue-100'
-                }`}
               >
                 Todas
               </button>
               {allCategories.map((category) => (
                 <button
+                  className={`rounded-full px-4 py-2 font-semibold text-sm uppercase tracking-wide transition-colors ${
+                    selectedCategory === category
+                      ? "bg-blue-600 text-white"
+                      : "bg-white text-blue-800 hover:bg-blue-100"
+                  }`}
                   key={category}
                   onClick={() => {
                     setSelectedCategory(category);
-                    navigate({ to: '/blog', search: { category } });
+                    navigate({ to: "/blog", search: { category } });
                   }}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide transition-colors ${
-                    selectedCategory === category
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-blue-800 hover:bg-blue-100'
-                  }`}
                 >
                   {category}
                 </button>
@@ -107,62 +107,62 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
           </>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
           {filteredArticles.map((article) => (
             <article
+              className="overflow-hidden rounded-lg bg-white shadow-md transition-shadow hover:shadow-lg"
               key={article.slug}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
               {article.featured_image && (
-                <Link to="/blog/$slug" params={{ slug: article.slug }}>
-                  <div className="h-48 bg-gray-200 cursor-pointer">
+                <Link params={{ slug: article.slug }} to="/blog/$slug">
+                  <div className="h-48 cursor-pointer bg-gray-200">
                     <Image
-                      src={article.featured_image}
                       alt={article.title}
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover"
+                      src={article.featured_image}
                     />
                   </div>
                 </Link>
               )}
               <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-3">
+                <div className="mb-3 flex flex-wrap gap-2">
                   {article.categories.map((category) => (
                     <button
+                      className="cursor-pointer rounded-full bg-blue-100 px-2 py-1 font-semibold text-blue-800 text-xs uppercase tracking-wide transition-colors hover:bg-blue-200"
                       key={category}
                       onClick={() => {
                         setSelectedCategory(category);
-                        navigate({ to: '/blog', search: { category } });
+                        navigate({ to: "/blog", search: { category } });
                       }}
-                      className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full uppercase tracking-wide hover:bg-blue-200 transition-colors cursor-pointer"
                     >
                       {category}
                     </button>
                   ))}
                 </div>
-                <Link to="/blog/$slug" params={{ slug: article.slug }}>
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 uppercase tracking-wide cursor-pointer hover:text-blue-600 transition-colors">
+                <Link params={{ slug: article.slug }} to="/blog/$slug">
+                  <h2 className="mb-3 cursor-pointer font-bold text-gray-900 text-xl uppercase tracking-wide transition-colors hover:text-blue-600">
                     {article.title}
                   </h2>
                 </Link>
-                <p className="text-gray-600 mb-4 leading-relaxed">
+                <p className="mb-4 text-gray-600 leading-relaxed">
                   {article.excerpt}
                 </p>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm text-gray-500">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="text-gray-500 text-sm">
                     Por {article.author}
                   </span>
-                  <span className="text-sm text-gray-500">
-                    {new Date(article.date).toLocaleDateString('es-ES', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
+                  <span className="text-gray-500 text-sm">
+                    {new Date(article.date).toLocaleDateString("es-ES", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </span>
                 </div>
                 <Button
+                  className="w-full"
                   href={`/blog/${article.slug}`}
                   variant="secondary"
-                  className="w-full"
                 >
                   Leer más
                 </Button>

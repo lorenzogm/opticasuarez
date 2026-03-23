@@ -5,12 +5,12 @@ interface BlogHeroProps {
 
 export default function BlogHero({ title, subtitle }: BlogHeroProps) {
   return (
-    <section className="bg-white pt-24 pb-16 px-4 sm:px-6">
+    <section className="bg-white px-4 pt-24 pb-16 sm:px-6">
       <div className="container mx-auto max-w-6xl text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 uppercase tracking-wide">
+        <h1 className="mb-4 font-bold text-3xl text-gray-900 uppercase tracking-wide sm:text-4xl md:text-5xl">
           {title}
         </h1>
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-blue-800 uppercase tracking-wide">
+        <h3 className="font-medium text-blue-800 text-xl uppercase tracking-wide sm:text-2xl md:text-3xl">
           {subtitle}
         </h3>
       </div>

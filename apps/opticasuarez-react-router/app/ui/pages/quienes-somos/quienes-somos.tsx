@@ -1,21 +1,21 @@
-import HistoryTimeline from './sections/history-timeline';
-import TeamMembers from './sections/team-members';
-import CustomerTestimonials from '../../sections/customer-testimonials';
-import LocationsInfo from '../../sections/locations-info';
-import SocialMediaLinks from './sections/social-media-links';
-import { Text } from '../../components/text';
-import content from '../../../content/quienes-somos.json';
+import content from "../../../content/quienes-somos.json" with { type: "json" };
+import { Text } from "../../components/text";
+import CustomerTestimonials from "../../sections/customer-testimonials";
+import LocationsInfo from "../../sections/locations-info";
+import HistoryTimeline from "./sections/history-timeline";
+import SocialMediaLinks from "./sections/social-media-links";
+import TeamMembers from "./sections/team-members";
 
 export default function Quienessomos() {
   return (
     <main>
       {/* Main heading */}
-      <section className="bg-white py-16 px-4 sm:px-6">
+      <section className="bg-white px-4 py-16 sm:px-6">
         <div className="container mx-auto max-w-6xl text-center">
           <Text
             as="h1"
-            variant="heading-1"
             className="mb-8 text-gray-900 uppercase tracking-wide"
+            variant="heading-1"
           >
             {content.mainTitle}
           </Text>
@@ -24,18 +24,18 @@ export default function Quienessomos() {
 
       {/* History Timeline */}
       <HistoryTimeline
-        title={content.history.title}
         timeline={content.history.timeline}
+        title={content.history.title}
       />
 
       {/* Team Members */}
-      <TeamMembers title={content.team.title} members={content.team.members} />
+      <TeamMembers members={content.team.members} title={content.team.title} />
 
       {/* Customer Testimonials */}
       <CustomerTestimonials
-        title={content.testimonials.title}
-        testimonials={content.testimonials.items}
         moreReviewsLink={content.testimonials.moreReviewsLink}
+        testimonials={content.testimonials.items}
+        title={content.testimonials.title}
       />
 
       {/* Locations */}

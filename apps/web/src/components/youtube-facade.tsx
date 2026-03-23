@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface YouTubeFacadeProps {
   videoId: string;
@@ -8,7 +8,11 @@ interface YouTubeFacadeProps {
   className?: string;
 }
 
-export default function YouTubeFacade({ videoId, title, className = '' }: YouTubeFacadeProps) {
+export default function YouTubeFacade({
+  videoId,
+  title,
+  className = "",
+}: YouTubeFacadeProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -19,7 +23,7 @@ export default function YouTubeFacade({ videoId, title, className = '' }: YouTub
   // Intersection Observer to detect when video comes into view
   useEffect(() => {
     const currentContainer = containerRef.current;
-    
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -28,7 +32,7 @@ export default function YouTubeFacade({ videoId, title, className = '' }: YouTub
       },
       {
         root: null,
-        rootMargin: '50px', // Load when 50px before entering viewport
+        rootMargin: "50px", // Load when 50px before entering viewport
         threshold: 0.1,
       }
     );
@@ -49,7 +53,7 @@ export default function YouTubeFacade({ videoId, title, className = '' }: YouTub
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       setIsLoaded(true);
     }
@@ -59,12 +63,12 @@ export default function YouTubeFacade({ videoId, title, className = '' }: YouTub
     return (
       <div className={className} ref={containerRef}>
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-          title={title}
-          className="w-full h-full"
-          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
+          className="h-full w-full"
+          frameBorder="0"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          title={title}
         />
       </div>
     );
@@ -72,27 +76,27 @@ export default function YouTubeFacade({ videoId, title, className = '' }: YouTub
 
   return (
     <div
-      ref={containerRef}
-      className={`${className} relative cursor-pointer group`}
+      aria-label={`Play video: ${title}`}
+      className={`${className} group relative cursor-pointer`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      tabIndex={0}
+      ref={containerRef}
       role="button"
-      aria-label={`Play video: ${title}`}
+      tabIndex={0}
     >
       {/* Thumbnail Background */}
       <img
-        src={thumbnailUrl}
         alt={`Video thumbnail: ${title}`}
-        className="w-full h-full object-cover"
-        loading={isIntersecting ? 'eager' : 'lazy'}
+        className="h-full w-full object-cover"
+        loading={isIntersecting ? "eager" : "lazy"}
+        src={thumbnailUrl}
       />
-      
+
       {/* Play Button Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300">
-        <div className="w-16 h-16 md:w-20 md:h-20 bg-red-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 transition-all duration-300 group-hover:bg-opacity-30">
+        <div className="flex h-16 w-16 transform items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform duration-300 group-hover:scale-110 md:h-20 md:w-20">
           <svg
-            className="w-6 h-6 md:w-8 md:h-8 text-white ml-1"
+            className="ml-1 h-6 w-6 text-white md:h-8 md:w-8"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -104,8 +108,8 @@ export default function YouTubeFacade({ videoId, title, className = '' }: YouTub
       {/* Preconnect hint when hovering */}
       {isIntersecting && (
         <>
-          <link rel="preconnect" href="https://www.youtube.com" />
-          <link rel="preconnect" href="https://www.google.com" />
+          <link href="https://www.youtube.com" rel="preconnect" />
+          <link href="https://www.google.com" rel="preconnect" />
         </>
       )}
     </div>

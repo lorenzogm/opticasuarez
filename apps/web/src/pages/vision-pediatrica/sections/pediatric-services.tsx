@@ -1,6 +1,6 @@
-import { Text } from '../../../components/text';
-import Image from '../../../components/image';
-import { Link } from '@tanstack/react-router';
+import { Link } from "@tanstack/react-router";
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface ServiceItem {
   title: string;
@@ -24,28 +24,28 @@ export default function PediatricServices({
   items,
 }: PediatricServicesProps) {
   return (
-    <section className="bg-gray-50 py-16 px-4 sm:px-6">
+    <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <div className="text-3xl font-bold tracking-tight mb-4 text-gray-900 uppercase tracking-wide">
+        <div className="mb-12 text-center">
+          <div className="mb-4 font-bold text-3xl text-gray-900 uppercase tracking-tight tracking-wide">
             {title}
           </div>
-          <Text variant="body-lg" className="text-gray-600">
+          <Text className="text-gray-600" variant="body-lg">
             {subtitle}
           </Text>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((service, index) => {
             const content = (
               <>
                 <Image
-                  src={service.image}
                   alt={service.imageAlt || service.title}
+                  className="h-48 w-full object-cover"
+                  src={service.image}
                   title={service.imageTitle}
-                  className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
-                  <div className="text-2xl font-semibold tracking-tight mb-3 text-blue-900">
+                  <div className="mb-3 font-semibold text-2xl text-blue-900 tracking-tight">
                     {service.title}
                   </div>
                   <Text className="text-gray-600 leading-relaxed">
@@ -57,16 +57,16 @@ export default function PediatricServices({
 
             return service.link ? (
               <Link
+                className="block overflow-hidden rounded-lg bg-white shadow-md transition-shadow hover:shadow-lg"
                 key={index}
                 to={service.link}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
               >
                 {content}
               </Link>
             ) : (
               <div
+                className="overflow-hidden rounded-lg bg-white shadow-md transition-shadow hover:shadow-lg"
                 key={index}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 {content}
               </div>

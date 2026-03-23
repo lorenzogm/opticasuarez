@@ -1,5 +1,12 @@
-import * as React from "react"
-import { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './carousel'
+import * as React from "react";
+import {
+  Carousel,
+  type CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./carousel";
 
 interface HeroCarouselProps {
   images: {
@@ -20,33 +27,33 @@ export default function HeroCarousel({
   autoSlide = true,
   slideInterval = 5000,
 }: HeroCarouselProps) {
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
 
   React.useEffect(() => {
     if (!api) {
-      return
+      return;
     }
 
-    setCurrent(api.selectedScrollSnap() + 1)
+    setCurrent(api.selectedScrollSnap() + 1);
 
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-    })
-  }, [api])
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   // Auto-slide functionality
   React.useEffect(() => {
-    if (!api || !autoSlide) {
-      return
+    if (!(api && autoSlide)) {
+      return;
     }
 
     const interval = setInterval(() => {
-      api.scrollNext()
-    }, slideInterval)
+      api.scrollNext();
+    }, slideInterval);
 
-    return () => clearInterval(interval)
-  }, [api, autoSlide, slideInterval])
+    return () => clearInterval(interval);
+  }, [api, autoSlide, slideInterval]);
 
   if (!images || images.length === 0) {
     return null;
@@ -55,25 +62,28 @@ export default function HeroCarousel({
   const currentImage = images[current - 1] || images[0];
 
   return (
-    <section className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ aspectRatio: "16/9" }}
+    >
       <div className="absolute inset-0">
-        <Carousel 
-          setApi={setApi} 
-          className="w-full h-full"
+        <Carousel
+          className="h-full w-full"
           opts={{
             align: "start",
             loop: true,
           }}
+          setApi={setApi}
         >
-          <CarouselContent className="h-full -ml-0">
+          <CarouselContent className="-ml-0 h-full">
             {images.map((image, index) => (
-              <CarouselItem key={index} className="pl-0 h-full">
+              <CarouselItem className="h-full pl-0" key={index}>
                 <div className="relative h-full w-full">
                   <img
-                    src={image.src}
                     alt={image.alt}
                     className="h-full w-full object-cover object-center"
                     loading={index === 0 ? "eager" : "lazy"}
+                    src={image.src}
                   />
                 </div>
               </CarouselItem>
@@ -83,32 +93,28 @@ export default function HeroCarousel({
           {/* Navigation Arrows - Custom styled */}
           {images.length > 1 && (
             <>
-              <CarouselPrevious 
-                className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white z-30"
-              />
-              <CarouselNext 
-                className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white z-30"
-              />
+              <CarouselPrevious className="-translate-y-1/2 absolute top-1/2 left-4 z-30 h-12 w-12 border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 hover:text-white" />
+              <CarouselNext className="-translate-y-1/2 absolute top-1/2 right-4 z-30 h-12 w-12 border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 hover:text-white" />
             </>
           )}
         </Carousel>
       </div>
 
       {/* Content Overlay */}
-      <div className="absolute inset-0 z-20 flex h-full items-center justify-center pointer-events-none">
-        <div className="container mx-auto max-w-6xl px-4 text-center text-white pointer-events-auto">
+      <div className="pointer-events-none absolute inset-0 z-20 flex h-full items-center justify-center">
+        <div className="container pointer-events-auto mx-auto max-w-6xl px-4 text-center text-white">
           <div className="animate-fade-in-up">
-            <p className="mb-2 text-2xl font-bold uppercase tracking-wide drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
+            <p className="mb-2 font-bold text-2xl uppercase tracking-wide drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
               {currentImage.title}
             </p>
-            <p className="mb-3 text-lg font-semibold uppercase tracking-wide drop-shadow-lg sm:text-2xl md:text-3xl lg:text-4xl text-blue-300">
+            <p className="mb-3 font-semibold text-blue-300 text-lg uppercase tracking-wide drop-shadow-lg sm:text-2xl md:text-3xl lg:text-4xl">
               {currentImage.subtitle}
             </p>
-            <p className="mb-4 text-sm font-medium uppercase tracking-wide drop-shadow-lg sm:text-lg md:text-xl lg:text-2xl">
+            <p className="mb-4 font-medium text-sm uppercase tracking-wide drop-shadow-lg sm:text-lg md:text-xl lg:text-2xl">
               {currentImage.description}
             </p>
             {cta && (
-              <button className="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 sm:px-6 sm:py-3 sm:text-base md:px-8 md:text-lg">
+              <button className="inline-block transform rounded-lg bg-blue-600 px-4 py-2 font-semibold text-sm text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700 hover:shadow-xl sm:px-6 sm:py-3 sm:text-base md:px-8 md:text-lg">
                 {cta}
               </button>
             )}
@@ -118,25 +124,26 @@ export default function HeroCarousel({
 
       {/* Slide Indicators */}
       {images.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 space-x-2">
+        <div className="-translate-x-1/2 absolute bottom-8 left-1/2 z-20 flex space-x-2">
           {images.map((_, index) => (
             <button
-              key={index}
-              onClick={() => api?.scrollTo(index)}
+              aria-label={`Go to slide ${index + 1}`}
               className={`h-3 w-3 rounded-full transition-all duration-300 ${
                 index === current - 1
-                  ? 'bg-white'
-                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                  ? "bg-white"
+                  : "bg-white bg-opacity-50 hover:bg-opacity-75"
               }`}
-              aria-label={`Go to slide ${index + 1}`}
+              key={index}
+              onClick={() => api?.scrollTo(index)}
             />
           ))}
         </div>
       )}
 
       {/* Simple CSS animation instead of complex animations */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
           .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out;
           }
@@ -150,8 +157,9 @@ export default function HeroCarousel({
               transform: translateY(0);
             }
           }
-        `
-      }} />
+        `,
+        }}
+      />
     </section>
-  )
+  );
 }

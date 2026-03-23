@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface WarningSingsProps {
   title: string;
@@ -14,27 +14,27 @@ export default function WarningSigns({
   signs,
 }: WarningSingsProps) {
   return (
-    <section className="bg-red-50 py-16 px-4 sm:px-6">
+    <section className="bg-red-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-12">
-          <div className="text-3xl font-bold tracking-tight mb-4 text-red-800 uppercase tracking-wide">
+        <div className="mb-12 text-center">
+          <div className="mb-4 font-bold text-3xl text-red-800 uppercase tracking-tight tracking-wide">
             {title}
           </div>
-          <div className="text-2xl font-semibold tracking-tight mb-6 text-red-700">
+          <div className="mb-6 font-semibold text-2xl text-red-700 tracking-tight">
             {subtitle}
           </div>
-          <Text variant="body-lg" className="text-gray-700 leading-relaxed">
+          <Text className="text-gray-700 leading-relaxed" variant="body-lg">
             {description}
           </Text>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {signs.map((sign, index) => (
             <div
+              className="rounded-lg border-red-400 border-l-4 bg-white p-4 shadow-sm"
               key={index}
-              className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-red-400"
             >
-              <Text className="text-gray-700 flex items-center">
-                <span className="text-red-500 mr-3 text-lg">⚠️</span>
+              <Text className="flex items-center text-gray-700">
+                <span className="mr-3 text-lg text-red-500">⚠️</span>
                 {sign}
               </Text>
             </div>

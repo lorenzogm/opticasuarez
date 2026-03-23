@@ -1,58 +1,58 @@
-import TerapiaVisual from '../ui/pages/terapia-visual/terapia-visual';
-import { BreadcrumbSchema } from '../ui/components/structured-data';
+import { BreadcrumbSchema } from "../ui/components/structured-data";
 import {
-  generatePageKeywords,
   generateMetaKeywords,
-} from '../ui/lib/seo-keywords';
+  generatePageKeywords,
+} from "../ui/lib/seo-keywords";
+import TerapiaVisual from "../ui/pages/terapia-visual/terapia-visual";
 
 export function links() {
   return [
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/terapia-visual' },
+    { rel: "canonical", href: "https://opticasuarezjaen.es/terapia-visual" },
   ];
 }
 
 export function meta() {
-  const terapiaVisualKeywords = generatePageKeywords('terapia-visual');
+  const terapiaVisualKeywords = generatePageKeywords("terapia-visual");
 
   return [
     {
       title:
-        'Terapia Visual en Jaén para Ojo Vago y Estrabismo | Óptica Suárez',
+        "Terapia Visual en Jaén para Ojo Vago y Estrabismo | Óptica Suárez",
     },
     {
-      name: 'description',
+      name: "description",
       content:
-        'Mejora tu sistema visual con terapia visual en Jaén. En Óptica Suárez ayudamos a niños y adultos a mejorar ojo vago, estrabismo y habilidades visuales para un mayor confort y rendimiento.',
+        "Mejora tu sistema visual con terapia visual en Jaén. En Óptica Suárez ayudamos a niños y adultos a mejorar ojo vago, estrabismo y habilidades visuales para un mayor confort y rendimiento.",
     },
     {
-      name: 'keywords',
+      name: "keywords",
       content: generateMetaKeywords(terapiaVisualKeywords),
     },
     {
-      property: 'og:title',
+      property: "og:title",
       content:
-        'Terapia Visual en Jaén para Ojo Vago y Estrabismo | Óptica Suárez',
+        "Terapia Visual en Jaén para Ojo Vago y Estrabismo | Óptica Suárez",
     },
     {
-      property: 'og:description',
+      property: "og:description",
       content:
-        'Mejora tu sistema visual con terapia visual en Jaén. En Óptica Suárez ayudamos a niños y adultos a mejorar ojo vago, estrabismo y habilidades visuales para un mayor confort y rendimiento.',
+        "Mejora tu sistema visual con terapia visual en Jaén. En Óptica Suárez ayudamos a niños y adultos a mejorar ojo vago, estrabismo y habilidades visuales para un mayor confort y rendimiento.",
     },
     {
-      property: 'og:url',
-      content: 'https://opticasuarezjaen.es/terapia-visual',
+      property: "og:url",
+      content: "https://opticasuarezjaen.es/terapia-visual",
     },
-    { name: 'robots', content: 'index, follow' },
+    { name: "robots", content: "index, follow" },
   ];
 }
 
 export default function TerapiaVisualPage() {
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
-    { name: 'Servicios', url: 'https://opticasuarezjaen.es/servicios' },
+    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
+    { name: "Servicios", url: "https://opticasuarezjaen.es/servicios" },
     {
-      name: 'Terapia Visual',
-      url: 'https://opticasuarezjaen.es/terapia-visual',
+      name: "Terapia Visual",
+      url: "https://opticasuarezjaen.es/terapia-visual",
     },
   ];
 

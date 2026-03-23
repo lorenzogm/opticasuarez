@@ -1,41 +1,39 @@
-import ContactoPage from '../ui/pages/contacto/contacto';
-import { BreadcrumbSchema } from '../ui/components/structured-data';
+import { BreadcrumbSchema } from "../ui/components/structured-data";
+import ContactoPage from "../ui/pages/contacto/contacto";
 
 export function links() {
-  return [
-    { rel: 'canonical', href: 'https://opticasuarezjaen.es/contacto' },
-  ];
+  return [{ rel: "canonical", href: "https://opticasuarezjaen.es/contacto" }];
 }
 
 export function meta() {
   return [
-    { title: 'Contacto - Óptica Suárez Jaén' },
+    { title: "Contacto - Óptica Suárez Jaén" },
     {
-      name: 'description',
+      name: "description",
       content:
-        '¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.',
+        "¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.",
     },
     {
-      property: 'og:title',
-      content: 'Contacto - Óptica Suárez Jaén',
+      property: "og:title",
+      content: "Contacto - Óptica Suárez Jaén",
     },
     {
-      property: 'og:description',
+      property: "og:description",
       content:
-        '¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.',
+        "¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.",
     },
     {
-      property: 'og:url',
-      content: 'https://opticasuarezjaen.es/contacto',
+      property: "og:url",
+      content: "https://opticasuarezjaen.es/contacto",
     },
-    { name: 'robots', content: 'index, follow' },
+    { name: "robots", content: "index, follow" },
   ];
 }
 
 export default function Contacto() {
   const breadcrumbItems = [
-    { name: 'Inicio', url: 'https://opticasuarezjaen.es/' },
-    { name: 'Contacto', url: 'https://opticasuarezjaen.es/contacto' },
+    { name: "Inicio", url: "https://opticasuarezjaen.es/" },
+    { name: "Contacto", url: "https://opticasuarezjaen.es/contacto" },
   ];
 
   return (

@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface TerapiaVisualInfoProps {
   title: string;
@@ -12,45 +12,48 @@ export default function TerapiaVisualInfo({
   benefits,
 }: TerapiaVisualInfoProps) {
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+    <section className="bg-gray-50 py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <Text
-          as="p"
-          variant="heading-2"
           align="center"
-          className="mb-8 sm:mb-12 text-gray-900 uppercase tracking-wide"
+          as="p"
+          className="mb-8 text-gray-900 uppercase tracking-wide sm:mb-12"
+          variant="heading-2"
         >
           {title}
         </Text>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
             <Text
-              variant="body-lg"
               className="mb-6 text-gray-600 leading-relaxed"
+              variant="body-lg"
             >
               {description}
             </Text>
           </div>
 
           <div>
-            <Text as="p" className="mb-6 text-blue-900 text-2xl font-semibold tracking-tight">
+            <Text
+              as="p"
+              className="mb-6 font-semibold text-2xl text-blue-900 tracking-tight"
+            >
               Beneficios de la Terapia Visual:
             </Text>
             <ul className="space-y-3">
               {benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start">
+                <li className="flex items-start" key={index}>
                   <svg
-                    className="w-5 h-5 text-blue-600 mt-1 mr-3 flex-shrink-0"
+                    className="mt-1 mr-3 h-5 w-5 flex-shrink-0 text-blue-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path
+                      d="M5 13l4 4L19 7"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M5 13l4 4L19 7"
                     />
                   </svg>
                   <Text className="text-gray-700">{benefit}</Text>

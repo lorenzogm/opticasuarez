@@ -1,6 +1,6 @@
-import { Text } from '../../../components/text';
-import { Button } from '../../../components/button';
-import Image from '../../../components/image';
+import { Button } from "../../../components/button";
+import Image from "../../../components/image";
+import { Text } from "../../../components/text";
 
 interface MyopiaHeroProps {
   title: string;
@@ -20,14 +20,14 @@ export default function MyopiaHero({
   imageTitle,
 }: MyopiaHeroProps) {
   return (
-    <section className="bg-blue-50 pt-24 pb-16 px-4 sm:px-6">
+    <section className="bg-blue-50 px-4 pt-24 pb-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <Text
               as="h2"
-              variant="heading-2"
               className="mb-4 text-blue-900 uppercase tracking-wide"
+              variant="heading-2"
             >
               {title}
             </Text>
@@ -38,26 +38,26 @@ export default function MyopiaHero({
               {subtitle}
             </Text>
             <Text
-              variant="body-lg"
               className="mb-8 text-gray-600 leading-relaxed"
+              variant="body-lg"
             >
               {description}
             </Text>
             <Button
-              variant="primary"
               href="https://api.whatsapp.com/send?phone=34953093062&text=Hola,%20me%20gustaría%20información%20sobre%20control%20de%20miopía"
-              target="_blank"
               rel="noopener noreferrer"
+              target="_blank"
+              variant="primary"
             >
               Solicitar Información
             </Button>
           </div>
           <div className="flex justify-center">
             <Image
-              src={image}
               alt={imageAlt || "Control de Miopía"}
+              className="h-auto max-w-full rounded-lg shadow-lg"
+              src={image}
               title={imageTitle}
-              className="rounded-lg shadow-lg max-w-full h-auto"
             />
           </div>
         </div>

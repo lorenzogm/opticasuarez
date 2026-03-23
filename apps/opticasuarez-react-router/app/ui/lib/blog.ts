@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import matter from 'gray-matter';
+import * as fs from "fs";
+import matter from "gray-matter";
+import * as path from "path";
 
 export interface BlogPost {
   title: string;
@@ -15,7 +15,7 @@ export interface BlogPost {
 
 export function getBlogPosts(): BlogPost[] {
   try {
-    const contentDir = path.join(process.cwd(), 'app/content/blog');
+    const contentDir = path.join(process.cwd(), "app/content/blog");
 
     // Check if directory exists
     if (!fs.existsSync(contentDir)) {
@@ -23,17 +23,17 @@ export function getBlogPosts(): BlogPost[] {
     }
 
     const files = fs.readdirSync(contentDir);
-    const mdFiles = files.filter((file) => file.endsWith('.md'));
+    const mdFiles = files.filter((file) => file.endsWith(".md"));
 
     const posts = mdFiles.map((file) => {
       const filePath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const fileContent = fs.readFileSync(filePath, "utf8");
       const { data, content } = matter(fileContent);
 
       return {
         ...data,
         content,
-        slug: data.slug || file.replace('.md', ''),
+        slug: data.slug || file.replace(".md", ""),
       } as BlogPost;
     });
 
@@ -42,7 +42,7 @@ export function getBlogPosts(): BlogPost[] {
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
   } catch (error) {
-    console.error('Error reading blog posts:', error);
+    console.error("Error reading blog posts:", error);
     return [];
   }
 }
@@ -52,7 +52,7 @@ export function getBlogPost(slug: string): BlogPost | null {
     const posts = getBlogPosts();
     return posts.find((post) => post.slug === slug) || null;
   } catch (error) {
-    console.error('Error reading blog post:', error);
+    console.error("Error reading blog post:", error);
     return null;
   }
 }

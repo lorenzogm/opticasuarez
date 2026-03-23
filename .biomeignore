@@ -1,0 +1,13 @@
+.pnpm-store
+node_modules
+dist
+build
+.react-router
+.output
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml
+*.tsbuildinfo
+.github/skills
+backlog

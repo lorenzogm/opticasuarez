@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface Recommendation {
   age: string;
@@ -20,40 +20,40 @@ export default function ExamBenefits({
   recommendations,
 }: ExamBenefitsProps) {
   return (
-    <section className="py-16 px-4 sm:px-6 bg-gray-50">
+    <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Benefits */}
           <div>
             <Text
               as="h2"
-              variant="heading-3"
               className="mb-8 text-gray-900 uppercase tracking-wide"
+              variant="heading-3"
             >
               {benefitsTitle}
             </Text>
             <div className="space-y-4">
               {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start">
-                  <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
+                <div className="flex items-start" key={index}>
+                  <div className="mt-1 mr-4 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-500">
                     <svg
-                      className="w-4 h-4 text-white"
+                      className="h-4 w-4 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path
+                        d="M5 13l4 4L19 7"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        d="M5 13l4 4L19 7"
                       />
                     </svg>
                   </div>
                   <Text
                     as="p"
-                    variant="body-md"
                     className="text-gray-700 leading-relaxed"
+                    variant="body-md"
                   >
                     {benefit}
                   </Text>
@@ -66,25 +66,25 @@ export default function ExamBenefits({
           <div>
             <Text
               as="h2"
-              variant="heading-3"
               className="mb-8 text-gray-900 uppercase tracking-wide"
+              variant="heading-3"
             >
               {frequencyTitle}
             </Text>
             <div className="space-y-6">
               {recommendations.map((rec, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                <div className="rounded-lg bg-white p-6 shadow-md" key={index}>
                   <Text
                     as="h3"
-                    variant="heading-5"
                     className="mb-2 text-blue-600"
+                    variant="heading-5"
                   >
                     {rec.age}
                   </Text>
                   <Text as="p" className="mb-2 text-gray-900">
                     {rec.frequency}
                   </Text>
-                  <Text as="p" variant="body-sm" className="text-gray-600">
+                  <Text as="p" className="text-gray-600" variant="body-sm">
                     {rec.reason}
                   </Text>
                 </div>

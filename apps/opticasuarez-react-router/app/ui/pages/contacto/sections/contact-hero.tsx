@@ -1,4 +1,4 @@
-import { Text } from '../../../components/text';
+import { Text } from "../../../components/text";
 
 interface ContactHeroProps {
   title: string;
@@ -12,30 +12,30 @@ export default function ContactHero({
   description,
 }: ContactHeroProps) {
   return (
-    <section className="pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-900 to-blue-800 text-white">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
+    <section className="bg-gradient-to-br from-blue-900 to-blue-800 pt-24 pb-16 text-white sm:pt-28 sm:pb-20 md:pt-32 md:pb-24">
+      <div className="container mx-auto max-w-4xl px-4 text-center sm:px-6">
         <Text
-          as="h1"
-          variant="heading-1"
-          colour="white"
           align="center"
+          as="h1"
           className="mb-4 uppercase tracking-wide"
+          colour="white"
+          variant="heading-1"
         >
           {title}
         </Text>
         <Text
-          as="h2"
-          colour="white"
           align="center"
+          as="h2"
           className="mb-6 text-blue-100"
+          colour="white"
         >
           {subtitle}
         </Text>
         <Text
-          variant="body-lg"
-          colour="white"
           align="center"
-          className="text-blue-50 max-w-2xl mx-auto"
+          className="mx-auto max-w-2xl text-blue-50"
+          colour="white"
+          variant="body-lg"
         >
           {description}
         </Text>
