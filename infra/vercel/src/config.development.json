@@ -5,7 +5,7 @@
       "name": "opticasuarez-web",
       "build_command": "cd ../.. && npx turbo@^2 run build --filter=opticasuarez-web",
       "root_directory": "apps/web",
-      "output_directory": ".output",
+      "output_directory": "build/client",
       "framework": "vite",
       "public_source": false,
       "install_command": "pnpm install --frozen-lockfile",
