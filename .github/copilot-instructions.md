@@ -104,3 +104,49 @@ Required CI commands to run in order:
 4. **Verify success**: All commands must complete with exit code 0
 
 **Important**: Never submit changes if any of these CI commands fail. Always investigate and fix the root cause of failures rather than ignoring them.
+
+## Copilot Coding Agent — Cloud Workflow
+
+When working on GitHub Issues as the Copilot coding agent (cloud), follow this workflow:
+
+### Branch and PR workflow
+
+- **Never push directly to `main`.** Always create a feature branch and open a pull request.
+- Branch naming: `copilot/<issue-number>-<short-slug>` (e.g. `copilot/42-add-contact-form`).
+- PR title: reference the issue number (e.g. "feat: add contact form — closes #42").
+- PR body: include a summary of changes, link to the issue, and a checklist of acceptance criteria.
+
+### Required reviewers
+
+- Always request reviews from **juanpeich** and **lorenzogm** on every PR.
+- Do **not** merge the PR yourself. Wait for an approving review from at least one of them.
+- If reviewers request changes, address every comment and re-request review.
+
+### Handling merge conflicts
+
+- If the PR has merge conflicts, rebase the branch on the latest `main` and resolve conflicts.
+- After resolving, push the updated branch and confirm all CI checks pass.
+
+### Quality gates
+
+Before marking a PR as ready for review, all of these must pass:
+
+```bash
+npm run check    # TypeScript + ESLint
+npm run build    # Full production build
+```
+
+### Issue workflow
+
+1. Read the full issue description and acceptance criteria.
+2. Create a feature branch from `main`.
+3. Implement the solution following the code style guidelines in this file.
+4. Run quality gates and fix any failures.
+5. Open a PR, request reviews from juanpeich and lorenzogm.
+6. Address any review feedback until the PR is approved.
+
+### PR review feedback
+
+- When a reviewer leaves comments or requests changes, read every comment carefully.
+- Make the requested changes, push new commits, and re-request review.
+- Do not dismiss or resolve review threads yourself — let the reviewer resolve them.

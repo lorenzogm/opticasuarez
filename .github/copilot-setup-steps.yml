@@ -1,0 +1,9 @@
+# Setup steps for GitHub Copilot coding agent
+# This file defines the environment setup when Copilot starts working on an issue.
+# Docs: https://docs.github.com/en/copilot/customizing-copilot/customizing-the-development-environment-for-copilot-coding-agent
+
+steps:
+  - uses: actions/setup-node@v4
+    with:
+      node-version: "20"
+  - run: npm ci
