@@ -7,6 +7,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import globalCss from "~/global.css?url";
 import { getBaseUrl } from "~/lib/utils";
 
 export const Route = createRootRoute({
@@ -23,6 +24,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      { rel: "stylesheet", href: globalCss },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
         rel: "icon",
