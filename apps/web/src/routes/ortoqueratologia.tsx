@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getServicePage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import Ortoqueratologia from "~/pages/ortoqueratologia/ortoqueratologia";
@@ -40,9 +41,14 @@ export const Route = createFileRoute("/ortoqueratologia")({
       },
     ],
   }),
+  loader: async () => {
+    const data = await getServicePage("ortoqueratologia");
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <Ortoqueratologia />;
+  const { data } = Route.useLoaderData();
+  return <Ortoqueratologia data={data} />;
 }

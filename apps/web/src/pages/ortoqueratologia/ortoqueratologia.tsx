@@ -4,7 +4,10 @@ import Image from "../../components/image";
 import { Text } from "../../components/text";
 import content from "../../content/ortoqueratologia.json" with { type: "json" };
 
-export default function Ortoqueratologia() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function Ortoqueratologia({ data: _data }: { data: any }) {
+  // TODO: Sanity schema needs page-specific fields for this page's unique sections
+  // Using local JSON content until schema is enhanced
   return (
     <main>
       {/* Hero Section with Image and Title */}

@@ -1,10 +1,10 @@
-import type { BlogPost } from "../../lib/blog";
 import BookAppointment from "../../sections/book-appointment";
 import BlogArticles from "./sections/blog-articles";
 import BlogHero from "./sections/blog-hero";
 
 interface BlogProps {
-  articles: BlogPost[];
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+  articles: any[];
 }
 
 export default function Blog(props: BlogProps) {

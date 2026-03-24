@@ -10,7 +10,10 @@ import PediatricHero from "./sections/pediatric-hero";
 import PediatricServices from "./sections/pediatric-services";
 import WarningSigns from "./sections/warning-signs";
 
-export default function VisionPediatrica() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function VisionPediatrica({ data: _data }: { data: any }) {
+  // TODO: Sanity schema needs page-specific fields for hero, intro, services, ageGroups, warningSigns
+  // Using local JSON content until schema is enhanced
   return (
     <main>
       {/* Hero Section */}

@@ -1,4 +1,4 @@
-import content from "../../content/homepage.json" with { type: "json" };
+import { resolveImage } from "../../lib/sanity";
 import BookAppointment from "../../sections/book-appointment";
 import ServicesGrid from "../../sections/services-grid";
 import Hero from "./sections/hero";
@@ -8,44 +8,60 @@ import SocialMedia from "./sections/social-media";
 import Specialists from "./sections/specialists";
 import VideoAbout from "./sections/video-about";
 
-export default function Homepage() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function Homepage({ data }: { data: any }) {
+  if (!data) return null;
+
+  const servicesGridItems = (data.servicesGrid?.items || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (item: any) => ({
+      ...item,
+      image: resolveImage(item.image),
+    })
+  );
+
+  const locations = (data.locations?.items || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (loc: any) => ({
+      ...loc,
+      image: resolveImage(loc.image),
+    })
+  );
+
   return (
     <main>
       <Hero
-        cta={content.hero.cta}
-        description={content.hero.description}
-        subtitle={content.hero.subtitle}
-        title={content.hero.title}
+        cta={data.hero?.cta}
+        description={data.hero?.description}
+        subtitle={data.hero?.subtitle}
+        title={data.hero?.title}
       />
-      <ServicesGrid items={content.servicesGrid.items} />
+      <ServicesGrid items={servicesGridItems} />
       <VideoAbout
-        description={content.videoAbout.description}
-        title={content.videoAbout.title}
-        videoId={content.videoAbout.videoId}
+        description={data.videoAbout?.description}
+        title={data.videoAbout?.title}
+        videoId={data.videoAbout?.videoId}
       />
       <SocialMedia
-        facebook={content.socialMedia.facebook}
-        instagram={content.socialMedia.instagram}
+        facebook={data.socialMedia?.facebook}
+        instagram={data.socialMedia?.instagram}
       />
       <Specialists
-        description={content.specialists.description}
-        subtitle={content.specialists.subtitle}
-        title={content.specialists.title}
+        description={data.specialists?.description}
+        subtitle={data.specialists?.subtitle}
+        title={data.specialists?.title}
       />
       <News
-        buttonText={content.news.buttonText}
-        title={content.news.title}
-        url={content.news.url}
+        buttonText={data.news?.buttonText}
+        title={data.news?.title}
+        url={data.news?.url}
       />
-      <Locations
-        locations={content.locations.locations}
-        title={content.locations.title}
-      />
+      <Locations locations={locations} title={data.locations?.title} />
       <BookAppointment
-        buttonText={content.bookAppointment.buttonText}
-        description={content.bookAppointment.description}
-        title={content.bookAppointment.title}
-        whatsappMessage={content.bookAppointment.whatsappMessage}
+        buttonText={data.bookAppointment?.buttonText}
+        description={data.bookAppointment?.description}
+        title={data.bookAppointment?.title}
+        whatsappMessage={data.bookAppointment?.whatsappMessage}
       />
     </main>
   );

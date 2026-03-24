@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getServicePage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import ExamenVisual from "~/pages/examen-visual/examen-visual";
@@ -38,9 +39,14 @@ export const Route = createFileRoute("/examen-visual")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/examen-visual` }],
   }),
+  loader: async () => {
+    const data = await getServicePage("examen-visual");
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <ExamenVisual />;
+  const { data } = Route.useLoaderData();
+  return <ExamenVisual data={data} />;
 }

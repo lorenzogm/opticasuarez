@@ -1,12 +1,40 @@
 import { Text } from "../../components/text";
-import content from "../../content/quienes-somos.json" with { type: "json" };
+import { resolveImage } from "../../lib/sanity";
 import CustomerTestimonials from "../../sections/customer-testimonials";
 import LocationsInfo from "../../sections/locations-info";
 import HistoryTimeline from "./sections/history-timeline";
 import SocialMediaLinks from "./sections/social-media-links";
 import TeamMembers from "./sections/team-members";
 
-export default function Quienessomos() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function Quienessomos({ data }: { data: any }) {
+  if (!data) return null;
+
+  const timeline = (data.history?.timeline || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (entry: any) => ({
+      ...entry,
+      image: resolveImage(entry.image),
+    })
+  );
+
+  const members = (data.team?.members || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (m: any) => ({
+      ...m,
+      image: resolveImage(m.image),
+    })
+  );
+
+  const locations = (data.locations || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (loc: any) => ({
+      name: loc.name,
+      image: resolveImage(loc.image),
+      mapLink: loc.mapUrl,
+    })
+  );
+
   return (
     <main>
       {/* Main heading */}
@@ -17,32 +45,37 @@ export default function Quienessomos() {
             className="mb-8 text-gray-900 uppercase tracking-wide"
             variant="heading-1"
           >
-            {content.mainTitle}
+            {data.mainTitle}
           </Text>
         </div>
       </section>
 
       {/* History Timeline */}
-      <HistoryTimeline
-        timeline={content.history.timeline}
-        title={content.history.title}
-      />
+      {timeline.length > 0 && (
+        <HistoryTimeline timeline={timeline} title={data.history?.title} />
+      )}
 
       {/* Team Members */}
-      <TeamMembers members={content.team.members} title={content.team.title} />
+      {members.length > 0 && (
+        <TeamMembers members={members} title={data.team?.title} />
+      )}
 
       {/* Customer Testimonials */}
-      <CustomerTestimonials
-        moreReviewsLink={content.testimonials.moreReviewsLink}
-        testimonials={content.testimonials.items}
-        title={content.testimonials.title}
-      />
+      {data.testimonials?.items?.length > 0 && (
+        <CustomerTestimonials
+          moreReviewsLink={data.testimonials.moreReviewsLink || ""}
+          testimonials={data.testimonials.items}
+          title={data.testimonials.title}
+        />
+      )}
 
       {/* Locations */}
-      <LocationsInfo locations={content.locations} />
+      {locations.length > 0 && <LocationsInfo locations={locations} />}
 
       {/* Social Media */}
-      <SocialMediaLinks socialMedia={content.socialMedia} />
+      {data.socialMedia?.length > 0 && (
+        <SocialMediaLinks socialMedia={data.socialMedia} />
+      )}
     </main>
   );
 }

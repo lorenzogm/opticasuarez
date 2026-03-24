@@ -1,11 +1,12 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { type BlogPost, getBlogPost } from "~/lib/blog";
+import { getBlogPost } from "~/lib/sanity";
 import { getBaseUrl } from "~/lib/utils";
 import BlogPostPage from "~/pages/blog/blog-post";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
-    const post = (loaderData as { post: BlogPost } | undefined)?.post;
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape
+    const post = (loaderData as { post: any } | undefined)?.post;
     if (!post) {
       return {
         meta: [
@@ -41,8 +42,8 @@ export const Route = createFileRoute("/blog/$slug")({
       ],
     };
   },
-  loader: ({ params }) => {
-    const post = getBlogPost(params.slug);
+  loader: async ({ params }) => {
+    const post = await getBlogPost(params.slug);
     if (!post) {
       throw notFound();
     }
@@ -52,6 +53,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function RouteComponent() {
-  const loaderData = Route.useLoaderData() as { post: BlogPost };
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+  const loaderData = Route.useLoaderData() as { post: any };
   return <BlogPostPage post={loaderData.post} />;
 }

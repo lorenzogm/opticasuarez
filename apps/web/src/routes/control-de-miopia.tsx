@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getServicePage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import ControlDeMiopia from "~/pages/control-de-miopia/control-de-miopia";
@@ -40,9 +41,14 @@ export const Route = createFileRoute("/control-de-miopia")({
       },
     ],
   }),
+  loader: async () => {
+    const data = await getServicePage("control-de-miopia");
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <ControlDeMiopia />;
+  const { data } = Route.useLoaderData();
+  return <ControlDeMiopia data={data} />;
 }

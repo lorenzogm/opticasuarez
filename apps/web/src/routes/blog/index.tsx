@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getBlogPosts } from "~/lib/blog";
+import { getBlogPosts } from "~/lib/sanity";
 import { getBaseUrl } from "~/lib/utils";
 import Blog from "~/pages/blog/blog";
 
@@ -42,15 +42,16 @@ export const Route = createFileRoute("/blog/")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/blog` }],
   }),
-  loader: () => {
-    const articles = getBlogPosts();
+  loader: async () => {
+    const articles = await getBlogPosts();
     return { articles };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { articles } = Route.useLoaderData();
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+  const { articles } = Route.useLoaderData() as { articles: any[] };
   const breadcrumbItems = [
     { name: "Inicio", url: `${getBaseUrl()}/` },
     { name: "Blog", url: `${getBaseUrl()}/blog` },

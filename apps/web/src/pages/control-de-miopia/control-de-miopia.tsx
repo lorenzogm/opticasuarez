@@ -9,7 +9,10 @@ import MyopiaInfo from "./sections/myopia-info";
 import MyopiaScience from "./sections/myopia-science";
 import MyopiaTreatments from "./sections/myopia-treatments";
 
-export default function ControlDeMiopia() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function ControlDeMiopia({ data: _data }: { data: any }) {
+  // TODO: Sanity schema needs page-specific fields for hero, info, treatments, science
+  // Using local JSON content until schema is enhanced
   return (
     <main>
       {/* Main heading */}

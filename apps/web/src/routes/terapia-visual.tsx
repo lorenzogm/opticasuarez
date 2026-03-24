@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
+import { getServicePage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import TerapiaVisual from "~/pages/terapia-visual/terapia-visual";
@@ -40,10 +41,15 @@ export const Route = createFileRoute("/terapia-visual")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/terapia-visual` }],
   }),
+  loader: async () => {
+    const data = await getServicePage("terapia-visual");
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { data } = Route.useLoaderData();
   const breadcrumbItems = [
     { name: "Inicio", url: `${getBaseUrl()}/` },
     { name: "Servicios", url: `${getBaseUrl()}/servicios` },
@@ -56,7 +62,7 @@ function RouteComponent() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
-      <TerapiaVisual />
+      <TerapiaVisual data={data} />
     </>
   );
 }

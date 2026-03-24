@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getServicePage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import Contactologia from "~/pages/contactologia/contactologia";
@@ -37,9 +38,14 @@ export const Route = createFileRoute("/contactologia")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/contactologia` }],
   }),
+  loader: async () => {
+    const data = await getServicePage("contactologia");
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <Contactologia />;
+  const { data } = Route.useLoaderData();
+  return <Contactologia data={data} />;
 }

@@ -2,6 +2,7 @@ import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/button";
 import Image from "../../../components/image";
+import { resolveImage } from "../../../lib/sanity";
 
 interface BlogArticle {
   title: string;
@@ -9,7 +10,8 @@ interface BlogArticle {
   date: string;
   author: string;
   slug: string;
-  featured_image?: string;
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity image object
+  featured_image?: any;
   categories: string[];
 }
 
@@ -119,7 +121,7 @@ export default function BlogArticles({ articles }: BlogArticlesProps) {
                     <Image
                       alt={article.title}
                       className="h-full w-full object-cover"
-                      src={article.featured_image}
+                      src={resolveImage(article.featured_image)}
                     />
                   </div>
                 </Link>
