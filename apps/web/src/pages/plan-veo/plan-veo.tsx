@@ -7,7 +7,10 @@ import PlanVeoHero from "./sections/plan-veo-hero";
 import ProcessSection from "./sections/process-section";
 import RequirementsSection from "./sections/requirements-section";
 
-export default function PlanVeo() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function PlanVeo({ data: _data }: { data: any }) {
+  // TODO: Migrate to use Sanity data fields (hero, intro, benefits, requirements, howItWorks)
+  // Using local JSON content until schema alignment verified
   return (
     <main>
       {/* Hero Section */}

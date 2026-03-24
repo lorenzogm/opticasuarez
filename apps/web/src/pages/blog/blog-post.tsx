@@ -1,87 +1,86 @@
+import { PortableText } from "@portabletext/react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "../../components/button";
 import Image from "../../components/image";
 import SocialShare from "../../components/social-share";
-import type { BlogPost as BlogPostType } from "../../lib/blog";
+import { resolveImage } from "../../lib/sanity";
 
 interface BlogPostProps {
-  post: BlogPostType;
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+  post: any;
 }
 
-function parseMarkdownToHTML(markdown: string): string {
-  const basePath =
-    typeof window !== "undefined" &&
-    window.location.origin.includes("github.io")
-      ? "/opticasuarez-new"
-      : "";
-
-  return (
-    markdown
-      .replace(/^# .+$/gm, "") // Remove h1 headers since we have title in hero
-      .replace(
-        /^## (.+)$/gm,
-        '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 uppercase tracking-wide">$1</h2>'
-      )
-      .replace(
-        /^### (.+)$/gm,
-        '<h3 class="text-xl font-semibold text-gray-800 mt-6 mb-3 uppercase tracking-wide">$1</h3>'
-      )
-      .replace(
-        /^#### (.+)$/gm,
-        '<h4 class="text-lg font-semibold text-gray-700 mt-4 mb-2">$1</h4>'
-      )
-      .replace(
-        /\*\*(.+?)\*\*/g,
-        '<strong class="font-bold text-gray-900">$1</strong>'
-      )
-      // Handle inline images first
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
-        const imageSrc = src.startsWith("/") ? `${basePath}${src}` : src;
-        return `<div class="my-8"><img src="${imageSrc}" alt="${alt}" class="w-full h-64 object-cover rounded-lg shadow-lg mx-auto" /></div>`;
-      })
-      // Handle links (exclude image patterns by using a more specific pattern)
-      .replace(/(?:^|[^!])\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
-        // If the match starts with a character other than !, preserve that character
-        const prefix = match.charAt(0) === "[" ? "" : match.charAt(0);
-        return `${prefix}<a href="${url}" class="text-blue-600 hover:text-blue-800 underline transition-colors">${text}</a>`;
-      })
-      .replace(/^- (.+)$/gm, '<li class="mb-2 text-gray-700">$1</li>')
-      .replace(/^(\d+)\. (.+)$/gm, '<li class="mb-2 text-gray-700">$2</li>')
-      .split("\n")
-      .map((line) => {
-        const trimmedLine = line.trim();
-        // Handle inline images
-        if (trimmedLine.startsWith('<div class="my-8"><img')) {
-          return line;
-        }
-        // Handle list items
-        if (trimmedLine.startsWith("<li")) {
-          return line;
-        }
-        // Handle headings
-        if (trimmedLine.startsWith("<h")) {
-          return line;
-        }
-        // Handle horizontal rules
-        if (trimmedLine === "---") {
-          return '<hr class="my-8 border-gray-300">';
-        }
-        // Handle empty lines
-        if (trimmedLine === "") {
-          return "";
-        }
-        // Regular paragraphs
-        return `<p class="mb-4 text-gray-700 leading-relaxed">${line}</p>`;
-      })
-      .join("\n")
-      .replace(
-        /(<li[^>]*>.*?<\/li>\s*)+/g,
-        (match) =>
-          `<ul class="list-disc list-inside space-y-2 mb-6 ml-4">${match}</ul>`
-      )
-      .replace(/<p class="mb-4 text-gray-700 leading-relaxed"><\/p>/g, "")
-  );
-}
+const portableTextComponents = {
+  block: {
+    h2: ({ children }: { children?: React.ReactNode }) => (
+      <h2 className="mt-8 mb-4 font-bold text-2xl text-gray-900 uppercase tracking-wide">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: { children?: React.ReactNode }) => (
+      <h3 className="mt-6 mb-3 font-semibold text-gray-800 text-xl uppercase tracking-wide">
+        {children}
+      </h3>
+    ),
+    h4: ({ children }: { children?: React.ReactNode }) => (
+      <h4 className="mt-4 mb-2 font-semibold text-gray-700 text-lg">
+        {children}
+      </h4>
+    ),
+    normal: ({ children }: { children?: React.ReactNode }) => (
+      <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>
+    ),
+  },
+  marks: {
+    strong: ({ children }: { children?: React.ReactNode }) => (
+      <strong className="font-bold text-gray-900">{children}</strong>
+    ),
+    link: ({
+      value,
+      children,
+    }: {
+      value?: { href?: string };
+      children?: React.ReactNode;
+    }) => (
+      <a
+        className="text-blue-600 underline transition-colors hover:text-blue-800"
+        href={value?.href}
+      >
+        {children}
+      </a>
+    ),
+  },
+  list: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <ul className="mb-6 ml-4 list-inside list-disc space-y-2">{children}</ul>
+    ),
+    number: ({ children }: { children?: React.ReactNode }) => (
+      <ol className="mb-6 ml-4 list-inside list-decimal space-y-2">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <li className="mb-2 text-gray-700">{children}</li>
+    ),
+    number: ({ children }: { children?: React.ReactNode }) => (
+      <li className="mb-2 text-gray-700">{children}</li>
+    ),
+  },
+  types: {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity image block shape
+    image: ({ value }: { value: any }) => (
+      <div className="my-8">
+        <img
+          alt={value.alt || ""}
+          className="mx-auto h-64 w-full rounded-lg object-cover shadow-lg"
+          src={resolveImage(value)}
+        />
+      </div>
+    ),
+  },
+};
 
 export default function BlogPost({ post }: BlogPostProps) {
   // Get current URL for sharing
@@ -103,7 +102,7 @@ export default function BlogPost({ post }: BlogPostProps) {
           </Link>
 
           <div className="mb-4 flex flex-wrap gap-2">
-            {post.categories.map((category) => (
+            {post.categories.map((category: string) => (
               <Link
                 className="cursor-pointer rounded-full bg-blue-600 px-3 py-1 font-semibold text-sm text-white uppercase tracking-wide transition-colors hover:bg-blue-700"
                 key={category}
@@ -145,7 +144,7 @@ export default function BlogPost({ post }: BlogPostProps) {
               <Image
                 alt={post.title}
                 className="h-96 w-full object-cover"
-                src={post.featured_image}
+                src={resolveImage(post.featured_image)}
               />
             </div>
           </div>
@@ -156,12 +155,14 @@ export default function BlogPost({ post }: BlogPostProps) {
       <section className="px-4 py-16 sm:px-6">
         <div className="container mx-auto max-w-4xl">
           <article className="prose prose-lg max-w-none">
-            <div
-              className="leading-relaxed"
-              dangerouslySetInnerHTML={{
-                __html: parseMarkdownToHTML(post.content),
-              }}
-            />
+            <div className="leading-relaxed">
+              {post.body ? (
+                <PortableText
+                  components={portableTextComponents}
+                  value={post.body}
+                />
+              ) : null}
+            </div>
           </article>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getHomepage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import Homepage from "~/pages/homepage/homepage";
@@ -51,9 +52,14 @@ export const Route = createFileRoute("/")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/` }],
   }),
+  loader: async () => {
+    const homepage = await getHomepage();
+    return { homepage };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <Homepage />;
+  const { homepage } = Route.useLoaderData();
+  return <Homepage data={homepage} />;
 }

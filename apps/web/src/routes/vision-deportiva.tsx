@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getServicePage } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import VisionDeportiva from "~/pages/vision-deportiva/vision-deportiva";
@@ -42,9 +43,14 @@ export const Route = createFileRoute("/vision-deportiva")({
       },
     ],
   }),
+  loader: async () => {
+    const data = await getServicePage("vision-deportiva");
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <VisionDeportiva />;
+  const { data } = Route.useLoaderData();
+  return <VisionDeportiva data={data} />;
 }

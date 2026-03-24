@@ -7,7 +7,10 @@ import TerapiaVisualInfo from "./sections/terapia-visual-info";
 import TerapiaVisualProcess from "./sections/terapia-visual-process";
 import Testimonials from "./sections/testimonials";
 
-export default function TerapiaVisual() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function TerapiaVisual({ data: _data }: { data: any }) {
+  // TODO: Sanity schema needs page-specific fields for hero, whatIs, conditions, testimonials
+  // Using local JSON content until schema is enhanced
   return (
     <main>
       {/* Hero Section */}

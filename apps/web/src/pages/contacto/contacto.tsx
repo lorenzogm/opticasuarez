@@ -5,7 +5,10 @@ import ContactInfo from "./sections/contact-info";
 import ContactLocations from "./sections/contact-locations";
 import ContactSocialMedia from "./sections/contact-social-media";
 
-export default function ContactoPage() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function ContactoPage({ data: _data }: { data: any }) {
+  // TODO: Sanity schema needs page-specific fields for contactInfo, contactForm
+  // Using local JSON content until schema is enhanced
   return (
     <main>
       <ContactHero

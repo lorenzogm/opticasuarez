@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
+import { getContactPage } from "~/lib/sanity";
 import { getBaseUrl } from "~/lib/utils";
 import ContactoPage from "~/pages/contacto/contacto";
 
@@ -29,10 +30,15 @@ export const Route = createFileRoute("/contacto")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/contacto` }],
   }),
+  loader: async () => {
+    const data = await getContactPage();
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { data } = Route.useLoaderData();
   const breadcrumbItems = [
     { name: "Inicio", url: `${getBaseUrl()}/` },
     { name: "Contacto", url: `${getBaseUrl()}/contacto` },
@@ -41,7 +47,7 @@ function RouteComponent() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
-      <ContactoPage />
+      <ContactoPage data={data} />
     </>
   );
 }

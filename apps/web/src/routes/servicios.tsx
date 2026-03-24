@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
+import { getServiciosOverview } from "~/lib/sanity";
 import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
 import { getBaseUrl } from "~/lib/utils";
 import Servicios from "~/pages/servicios/servicios";
@@ -40,10 +41,15 @@ export const Route = createFileRoute("/servicios")({
     ],
     links: [{ rel: "canonical", href: `${getBaseUrl()}/servicios` }],
   }),
+  loader: async () => {
+    const data = await getServiciosOverview();
+    return { data };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { data } = Route.useLoaderData();
   const breadcrumbItems = [
     { name: "Inicio", url: `${getBaseUrl()}/` },
     { name: "Servicios", url: `${getBaseUrl()}/servicios` },
@@ -52,7 +58,7 @@ function RouteComponent() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
-      <Servicios />
+      <Servicios data={data} />
     </>
   );
 }

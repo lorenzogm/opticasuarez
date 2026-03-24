@@ -255,7 +255,10 @@ function CallToAction() {
   );
 }
 
-export default function VisionDeportiva() {
+// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
+export default function VisionDeportiva({ data: _data }: { data: any }) {
+  // TODO: Sanity schema needs page-specific fields for hero, intro, training
+  // Using local JSON content until schema is enhanced
   return (
     <main>
       <VisionDeportivaHero />

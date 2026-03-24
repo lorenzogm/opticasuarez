@@ -149,6 +149,22 @@ export default function Image({
       return "100vw";
     })();
 
+  // External URLs (e.g. Sanity CDN) — skip responsive srcSet generation
+  if (src.startsWith("https://")) {
+    return (
+      <img
+        alt={alt}
+        className={className}
+        decoding="async"
+        height={height}
+        loading={priority ? "eager" : "lazy"}
+        src={src}
+        title={title}
+        width={width}
+      />
+    );
+  }
+
   return (
     <picture>
       {/* WebP sources with responsive sizes */}

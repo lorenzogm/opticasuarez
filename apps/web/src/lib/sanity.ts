@@ -1,27 +1,33 @@
-import { createClient } from "@sanity/client";
-
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
 const apiVersion = "2026-03-23";
 
-export const sanityClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true,
-});
+const SANITY_API_URL = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}`;
+const SANITY_CDN_URL = `https://${projectId}.apicdn.sanity.io/v${apiVersion}/data/query/${dataset}`;
 
-export const previewClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: false,
-  perspective: "previewDrafts",
-  token: process.env.SANITY_API_TOKEN,
-});
-
-export function getClient(preview = false) {
-  return preview ? previewClient : sanityClient;
+async function sanityFetch<T>(
+  query: string,
+  params?: Record<string, string>,
+  preview = false
+): Promise<T> {
+  const baseUrl = preview ? SANITY_API_URL : SANITY_CDN_URL;
+  const url = new URL(baseUrl);
+  url.searchParams.set("query", query);
+  if (params) {
+    for (const [key, value] of Object.entries(params)) {
+      url.searchParams.set(`$${key}`, `"${value}"`);
+    }
+  }
+  const headers: Record<string, string> = {};
+  if (preview && process.env.SANITY_API_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.SANITY_API_TOKEN}`;
+  }
+  const res = await fetch(url.toString(), { headers });
+  if (!res.ok) {
+    throw new Error(`Sanity query failed: ${res.status} ${res.statusText}`);
+  }
+  const json = (await res.json()) as { result: T };
+  return json.result;
 }
 
 // Image URL helper — converts Sanity image reference to CDN URL
@@ -82,8 +88,8 @@ const teamMemberProjection = `{
 
 // Homepage
 export async function getHomepage(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "homepage"][0]{
+  return sanityFetch(
+    `*[_type == "homepage"][0]{
     hero,
     servicesGrid{
       items[]{
@@ -124,13 +130,15 @@ export async function getHomepage(preview = false) {
     bookAppointment,
     contact,
     seo
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Service page by slug
 export async function getServicePage(slug: string, preview = false) {
-  const client = getClient(preview);
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "servicePage" && slug.current == $slug][0]{
       mainTitle,
       subtitle,
@@ -165,14 +173,15 @@ export async function getServicePage(slug: string, preview = false) {
       "locations": locations[]->${locationProjection},
       seo
     }`,
-    { slug }
+    { slug },
+    preview
   );
 }
 
 // About page
 export async function getAboutPage(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "aboutPage"][0]{
+  return sanityFetch(
+    `*[_type == "aboutPage"][0]{
     mainTitle,
     history{
       title,
@@ -195,13 +204,16 @@ export async function getAboutPage(preview = false) {
     "locations": locations[]->${locationProjection},
     socialMedia[],
     seo
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Contact page
 export async function getContactPage(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "contactPage"][0]{
+  return sanityFetch(
+    `*[_type == "contactPage"][0]{
     hero,
     contactInfo,
     locations{
@@ -212,13 +224,16 @@ export async function getContactPage(preview = false) {
     contactForm,
     socialMedia,
     seo
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Servicios overview
 export async function getServiciosOverview(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "serviciosOverview"][0]{
+  return sanityFetch(
+    `*[_type == "serviciosOverview"][0]{
     title,
     description,
     services[]{
@@ -230,13 +245,16 @@ export async function getServiciosOverview(preview = false) {
       imageTitle
     },
     seo
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Plan VEO page
 export async function getPlanVeoPage(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "planVeoPage"][0]{
+  return sanityFetch(
+    `*[_type == "planVeoPage"][0]{
     mainTitle,
     hero{
       title,
@@ -275,13 +293,16 @@ export async function getPlanVeoPage(preview = false) {
     faq,
     cta,
     seo
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Site settings
 export async function getSiteSettings(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "siteSettings"][0]{
+  return sanityFetch(
+    `*[_type == "siteSettings"][0]{
     siteName,
     phone,
     phoneUrl,
@@ -290,13 +311,16 @@ export async function getSiteSettings(preview = false) {
     address,
     socialMedia[],
     navigationItems[]
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Blog posts (listing)
 export async function getBlogPosts(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "blogPost"] | order(date desc) {
+  return sanityFetch(
+    `*[_type == "blogPost"] | order(date desc) {
     _id,
     title,
     "slug": slug.current,
@@ -305,13 +329,15 @@ export async function getBlogPosts(preview = false) {
     author,
     categories,
     "featured_image": featuredImage ${imageProjection}
-  }`);
+  }`,
+    undefined,
+    preview
+  );
 }
 
 // Single blog post by slug
 export async function getBlogPost(slug: string, preview = false) {
-  const client = getClient(preview);
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "blogPost" && slug.current == $slug][0]{
       _id,
       title,
@@ -324,18 +350,25 @@ export async function getBlogPost(slug: string, preview = false) {
       body,
       seo
     }`,
-    { slug }
+    { slug },
+    preview
   );
 }
 
 // All blog slugs (for sitemap)
 export async function getAllBlogSlugs(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "blogPost"]{ "slug": slug.current }`);
+  return sanityFetch(
+    `*[_type == "blogPost"]{ "slug": slug.current }`,
+    undefined,
+    preview
+  );
 }
 
 // All service page slugs (for sitemap)
 export async function getAllServiceSlugs(preview = false) {
-  const client = getClient(preview);
-  return client.fetch(`*[_type == "servicePage"]{ "slug": slug.current }`);
+  return sanityFetch(
+    `*[_type == "servicePage"]{ "slug": slug.current }`,
+    undefined,
+    preview
+  );
 }
