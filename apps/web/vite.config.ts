@@ -15,13 +15,12 @@ export default defineConfig({
     },
   },
   plugins: [
-    tanstackStart({
-      prerender: {
-        enabled: true,
-        crawlLinks: true,
+    tanstackStart(),
+    nitro({
+      routeRules: {
+        "/**": { swr: 60 },
       },
     }),
-    nitro(),
     viteReact(),
   ],
   css: {

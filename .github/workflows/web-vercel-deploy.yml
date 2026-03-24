@@ -4,8 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  repository_dispatch:
-    types: [sanity-content-update]
 
 permissions:
   contents: write
@@ -27,10 +25,10 @@ jobs:
       - name: Check for changes
         id: check
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            echo "infra-changed=false" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "infra-changed=true" >> $GITHUB_OUTPUT
             echo "app-changed=true" >> $GITHUB_OUTPUT
-            echo "Manual/webhook trigger — deploying app"
+            echo "Manual trigger — deploying everything"
             exit 0
           fi
 
