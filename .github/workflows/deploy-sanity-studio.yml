@@ -29,6 +29,6 @@ jobs:
         run: pnpm install
 
       - name: Deploy Sanity Studio
-        run: pnpm --filter opticasuarez-sanity-studio deploy
+        run: pnpm --filter opticasuarez-sanity-studio run deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
