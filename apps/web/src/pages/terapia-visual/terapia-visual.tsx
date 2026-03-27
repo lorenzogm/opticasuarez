@@ -1,5 +1,5 @@
 import FAQAccordion from "../../components/faq-accordion";
-import content from "../../content/terapia-visual.json" with { type: "json" };
+import { resolveImage } from "../../lib/sanity";
 import TerapiaVisualConditions from "./sections/terapia-visual-conditions";
 import TerapiaVisualCta from "./sections/terapia-visual-cta";
 import TerapiaVisualHero from "./sections/terapia-visual-hero";
@@ -8,56 +8,77 @@ import TerapiaVisualProcess from "./sections/terapia-visual-process";
 import Testimonials from "./sections/testimonials";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
-export default function TerapiaVisual({ data: _data }: { data: any }) {
-  // TODO: Sanity schema needs page-specific fields for hero, whatIs, conditions, testimonials
-  // Using local JSON content until schema is enhanced
+export default function TerapiaVisual({ data }: { data: any }) {
+  if (!data) return null;
+
+  const steps = (data.process?.steps || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (s: any) => ({
+      step: String(s.stepNumber || s.step),
+      title: s.title,
+      description: s.description,
+    })
+  );
+
   return (
     <main>
       {/* Hero Section */}
       <TerapiaVisualHero
-        backgroundImage={content.hero.backgroundImage}
-        description={content.hero.description}
-        subtitle={content.hero.subtitle}
-        title={content.hero.title}
+        backgroundImage={resolveImage(data.heroImage)}
+        description={data.heroDescription || data.intro?.description}
+        subtitle={data.subtitle}
+        title={data.mainTitle}
       />
 
       {/* What is Visual Therapy */}
-      <TerapiaVisualInfo
-        benefits={content.whatIs.benefits}
-        description={content.whatIs.description}
-        title={content.whatIs.title}
-      />
+      {data.intro && (
+        <TerapiaVisualInfo
+          benefits={data.benefits?.items || []}
+          description={data.intro.description}
+          title={data.intro.title}
+        />
+      )}
 
       {/* Conditions We Treat */}
-      <TerapiaVisualConditions
-        items={content.conditions.items}
-        subtitle={content.conditions.subtitle}
-        title={content.conditions.title}
-      />
+      {data.items?.length > 0 && (
+        <TerapiaVisualConditions
+          items={data.items}
+          subtitle={data.itemsSectionSubtitle}
+          title={data.itemsSectionTitle}
+        />
+      )}
 
       {/* Our Process */}
-      <TerapiaVisualProcess
-        steps={content.process.steps}
-        subtitle={content.process.subtitle}
-        title={content.process.title}
-      />
+      {steps.length > 0 && (
+        <TerapiaVisualProcess
+          steps={steps}
+          subtitle={data.process?.description}
+          title={data.process?.title}
+        />
+      )}
 
       {/* Testimonials */}
-      <Testimonials
-        testimonials={content.testimonials.items}
-        title={content.testimonials.title}
-      />
+      {data.testimonials?.items?.length > 0 && (
+        <Testimonials
+          testimonials={data.testimonials.items}
+          title={data.testimonials.title}
+        />
+      )}
 
       {/* FAQ Section */}
-      <FAQAccordion items={content.faq.items} title={content.faq.title} />
+      {data.faq?.items?.length > 0 && (
+        <FAQAccordion items={data.faq.items} title={data.faq.title} />
+      )}
 
       {/* CTA */}
-      <TerapiaVisualCta
-        buttonLink={content.cta.buttonLink}
-        buttonText={content.cta.buttonText}
-        description={content.cta.description}
-        title={content.cta.title}
-      />
+      {data.cta && (
+        <TerapiaVisualCta
+          buttonLink={data.cta.buttonLink}
+          buttonText={data.cta.buttonText}
+          description={data.cta.description}
+          title={data.cta.title}
+        />
+      )}
     </main>
   );
 }
