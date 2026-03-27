@@ -3,9 +3,18 @@ import { useState } from "react";
 import { servicePages } from "../lib/services";
 import Image from "./image";
 
+const shopCategories = [
+  { name: "Monturas", slug: "monturas" },
+  { name: "Gafas de Sol", slug: "gafas-de-sol" },
+  { name: "Contactología", slug: "contactologia" },
+  { name: "Salud Ocular", slug: "salud-ocular" },
+  { name: "Outlet", slug: "outlet" },
+];
+
 export default function GlobalNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isTiendaOpen, setIsTiendaOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -14,10 +23,15 @@ export default function GlobalNavigation() {
   const closeMenu = () => {
     setIsMenuOpen(false);
     setIsServicesOpen(false);
+    setIsTiendaOpen(false);
   };
 
   const toggleServices = () => {
     setIsServicesOpen(!isServicesOpen);
+  };
+
+  const toggleTienda = () => {
+    setIsTiendaOpen(!isTiendaOpen);
   };
 
   return (
@@ -104,6 +118,73 @@ export default function GlobalNavigation() {
                       to={service.url}
                     >
                       {service.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Tienda Dropdown */}
+            <div
+              className="relative"
+              onBlur={(e) => {
+                if (
+                  !(
+                    e.relatedTarget && e.currentTarget.contains(e.relatedTarget)
+                  )
+                ) {
+                  setIsTiendaOpen(false);
+                }
+              }}
+              onFocus={() => setIsTiendaOpen(true)}
+              onMouseEnter={() => setIsTiendaOpen(true)}
+              onMouseLeave={() => setIsTiendaOpen(false)}
+            >
+              <Link
+                aria-expanded={isTiendaOpen ? "true" : "false"}
+                aria-haspopup="true"
+                className="flex items-center gap-1 px-3 py-2 font-medium text-gray-700 text-sm transition-colors duration-200 hover:text-blue-600"
+                to="/tienda"
+              >
+                Tienda
+                <svg
+                  aria-hidden="true"
+                  className={`h-4 w-4 transition-transform duration-200 ${isTiendaOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 9l-7 7-7-7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                  />
+                </svg>
+              </Link>
+
+              {isTiendaOpen && (
+                <div
+                  aria-label="Categorías de tienda"
+                  className="absolute left-0 z-50 mt-0 w-48 rounded-md border border-gray-200 bg-white py-2 shadow-lg"
+                  role="menu"
+                >
+                  <Link
+                    className="block px-4 py-2 font-medium text-gray-700 text-sm transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
+                    role="menuitem"
+                    to="/tienda"
+                  >
+                    Ver toda la tienda
+                  </Link>
+                  {shopCategories.map((cat) => (
+                    <Link
+                      className="block px-4 py-2 text-gray-700 text-sm transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
+                      key={cat.slug}
+                      role="menuitem"
+                      search={{ categoria: cat.slug }}
+                      to="/tienda"
+                    >
+                      {cat.name}
                     </Link>
                   ))}
                 </div>
@@ -250,6 +331,62 @@ export default function GlobalNavigation() {
                         to={service.url}
                       >
                         {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Tienda Section with Collapsible Menu */}
+              <div>
+                <button
+                  aria-controls="mobile-tienda-menu"
+                  aria-expanded={isTiendaOpen ? "true" : "false"}
+                  className="flex w-full items-center justify-between rounded-md px-3 py-2 font-medium text-base text-gray-700 transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
+                  onClick={toggleTienda}
+                >
+                  Tienda
+                  <svg
+                    aria-hidden="true"
+                    className={`h-5 w-5 transition-transform duration-200 ${isTiendaOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 9l-7 7-7-7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
+                  </svg>
+                </button>
+
+                {isTiendaOpen && (
+                  <div
+                    aria-label="Categorías de tienda"
+                    className="mt-1 space-y-1 pl-4"
+                    id="mobile-tienda-menu"
+                    role="menu"
+                  >
+                    <Link
+                      className="block rounded-md px-3 py-2 font-medium text-gray-600 text-sm transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
+                      onClick={closeMenu}
+                      role="menuitem"
+                      to="/tienda"
+                    >
+                      Ver toda la tienda
+                    </Link>
+                    {shopCategories.map((cat) => (
+                      <Link
+                        className="block rounded-md px-3 py-2 text-gray-600 text-sm transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
+                        key={cat.slug}
+                        onClick={closeMenu}
+                        role="menuitem"
+                        search={{ categoria: cat.slug }}
+                        to="/tienda"
+                      >
+                        {cat.name}
                       </Link>
                     ))}
                   </div>
