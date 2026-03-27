@@ -9,17 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VisionPediatricaRouteImport } from './routes/vision-pediatrica'
-import { Route as VisionDeportivaRouteImport } from './routes/vision-deportiva'
 import { Route as TiendaRouteImport } from './routes/tienda'
-import { Route as TerapiaVisualRouteImport } from './routes/terapia-visual'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
 import { Route as PlanveoRouteImport } from './routes/planveo'
-import { Route as OrtoqueratologiaRouteImport } from './routes/ortoqueratologia'
-import { Route as ExamenVisualRouteImport } from './routes/examen-visual'
-import { Route as ControlDeMiopiaRouteImport } from './routes/control-de-miopia'
-import { Route as ContactologiaRouteImport } from './routes/contactologia'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as CitaRouteImport } from './routes/cita'
 import { Route as SplatRouteImport } from './routes/$'
@@ -27,30 +20,16 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CitaIndexRouteImport } from './routes/cita/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as TiendaSlugRouteImport } from './routes/tienda.$slug'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 import { Route as CitaHorarioRouteImport } from './routes/cita/horario'
 import { Route as CitaContactoRouteImport } from './routes/cita/contacto'
 import { Route as CitaConfirmacionRouteImport } from './routes/cita/confirmacion'
 import { Route as CitaCentroRouteImport } from './routes/cita/centro'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
-const VisionPediatricaRoute = VisionPediatricaRouteImport.update({
-  id: '/vision-pediatrica',
-  path: '/vision-pediatrica',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VisionDeportivaRoute = VisionDeportivaRouteImport.update({
-  id: '/vision-deportiva',
-  path: '/vision-deportiva',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TiendaRoute = TiendaRouteImport.update({
   id: '/tienda',
   path: '/tienda',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TerapiaVisualRoute = TerapiaVisualRouteImport.update({
-  id: '/terapia-visual',
-  path: '/terapia-visual',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosRoute = ServiciosRouteImport.update({
@@ -66,26 +45,6 @@ const QuienesSomosRoute = QuienesSomosRouteImport.update({
 const PlanveoRoute = PlanveoRouteImport.update({
   id: '/planveo',
   path: '/planveo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrtoqueratologiaRoute = OrtoqueratologiaRouteImport.update({
-  id: '/ortoqueratologia',
-  path: '/ortoqueratologia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExamenVisualRoute = ExamenVisualRouteImport.update({
-  id: '/examen-visual',
-  path: '/examen-visual',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ControlDeMiopiaRoute = ControlDeMiopiaRouteImport.update({
-  id: '/control-de-miopia',
-  path: '/control-de-miopia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactologiaRoute = ContactologiaRouteImport.update({
-  id: '/contactologia',
-  path: '/contactologia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -123,6 +82,11 @@ const TiendaSlugRoute = TiendaSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TiendaRoute,
 } as any)
+const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServiciosRoute,
+} as any)
 const CitaHorarioRoute = CitaHorarioRouteImport.update({
   id: '/horario',
   path: '/horario',
@@ -154,22 +118,16 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/cita': typeof CitaRouteWithChildren
   '/contacto': typeof ContactoRoute
-  '/contactologia': typeof ContactologiaRoute
-  '/control-de-miopia': typeof ControlDeMiopiaRoute
-  '/examen-visual': typeof ExamenVisualRoute
-  '/ortoqueratologia': typeof OrtoqueratologiaRoute
   '/planveo': typeof PlanveoRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRoute
-  '/terapia-visual': typeof TerapiaVisualRoute
+  '/servicios': typeof ServiciosRouteWithChildren
   '/tienda': typeof TiendaRouteWithChildren
-  '/vision-deportiva': typeof VisionDeportivaRoute
-  '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/cita/centro': typeof CitaCentroRoute
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/cita/': typeof CitaIndexRoute
@@ -178,22 +136,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/contacto': typeof ContactoRoute
-  '/contactologia': typeof ContactologiaRoute
-  '/control-de-miopia': typeof ControlDeMiopiaRoute
-  '/examen-visual': typeof ExamenVisualRoute
-  '/ortoqueratologia': typeof OrtoqueratologiaRoute
   '/planveo': typeof PlanveoRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRoute
-  '/terapia-visual': typeof TerapiaVisualRoute
+  '/servicios': typeof ServiciosRouteWithChildren
   '/tienda': typeof TiendaRouteWithChildren
-  '/vision-deportiva': typeof VisionDeportivaRoute
-  '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/cita/centro': typeof CitaCentroRoute
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog': typeof BlogIndexRoute
   '/cita': typeof CitaIndexRoute
@@ -204,22 +156,16 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/cita': typeof CitaRouteWithChildren
   '/contacto': typeof ContactoRoute
-  '/contactologia': typeof ContactologiaRoute
-  '/control-de-miopia': typeof ControlDeMiopiaRoute
-  '/examen-visual': typeof ExamenVisualRoute
-  '/ortoqueratologia': typeof OrtoqueratologiaRoute
   '/planveo': typeof PlanveoRoute
   '/quienes-somos': typeof QuienesSomosRoute
-  '/servicios': typeof ServiciosRoute
-  '/terapia-visual': typeof TerapiaVisualRoute
+  '/servicios': typeof ServiciosRouteWithChildren
   '/tienda': typeof TiendaRouteWithChildren
-  '/vision-deportiva': typeof VisionDeportivaRoute
-  '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/cita/centro': typeof CitaCentroRoute
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/cita/': typeof CitaIndexRoute
@@ -231,22 +177,16 @@ export interface FileRouteTypes {
     | '/$'
     | '/cita'
     | '/contacto'
-    | '/contactologia'
-    | '/control-de-miopia'
-    | '/examen-visual'
-    | '/ortoqueratologia'
     | '/planveo'
     | '/quienes-somos'
     | '/servicios'
-    | '/terapia-visual'
     | '/tienda'
-    | '/vision-deportiva'
-    | '/vision-pediatrica'
     | '/blog/$slug'
     | '/cita/centro'
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
+    | '/servicios/$slug'
     | '/tienda/$slug'
     | '/blog/'
     | '/cita/'
@@ -255,22 +195,16 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/contacto'
-    | '/contactologia'
-    | '/control-de-miopia'
-    | '/examen-visual'
-    | '/ortoqueratologia'
     | '/planveo'
     | '/quienes-somos'
     | '/servicios'
-    | '/terapia-visual'
     | '/tienda'
-    | '/vision-deportiva'
-    | '/vision-pediatrica'
     | '/blog/$slug'
     | '/cita/centro'
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
+    | '/servicios/$slug'
     | '/tienda/$slug'
     | '/blog'
     | '/cita'
@@ -280,22 +214,16 @@ export interface FileRouteTypes {
     | '/$'
     | '/cita'
     | '/contacto'
-    | '/contactologia'
-    | '/control-de-miopia'
-    | '/examen-visual'
-    | '/ortoqueratologia'
     | '/planveo'
     | '/quienes-somos'
     | '/servicios'
-    | '/terapia-visual'
     | '/tienda'
-    | '/vision-deportiva'
-    | '/vision-pediatrica'
     | '/blog/$slug'
     | '/cita/centro'
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
+    | '/servicios/$slug'
     | '/tienda/$slug'
     | '/blog/'
     | '/cita/'
@@ -306,49 +234,21 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   CitaRoute: typeof CitaRouteWithChildren
   ContactoRoute: typeof ContactoRoute
-  ContactologiaRoute: typeof ContactologiaRoute
-  ControlDeMiopiaRoute: typeof ControlDeMiopiaRoute
-  ExamenVisualRoute: typeof ExamenVisualRoute
-  OrtoqueratologiaRoute: typeof OrtoqueratologiaRoute
   PlanveoRoute: typeof PlanveoRoute
   QuienesSomosRoute: typeof QuienesSomosRoute
-  ServiciosRoute: typeof ServiciosRoute
-  TerapiaVisualRoute: typeof TerapiaVisualRoute
+  ServiciosRoute: typeof ServiciosRouteWithChildren
   TiendaRoute: typeof TiendaRouteWithChildren
-  VisionDeportivaRoute: typeof VisionDeportivaRoute
-  VisionPediatricaRoute: typeof VisionPediatricaRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/vision-pediatrica': {
-      id: '/vision-pediatrica'
-      path: '/vision-pediatrica'
-      fullPath: '/vision-pediatrica'
-      preLoaderRoute: typeof VisionPediatricaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/vision-deportiva': {
-      id: '/vision-deportiva'
-      path: '/vision-deportiva'
-      fullPath: '/vision-deportiva'
-      preLoaderRoute: typeof VisionDeportivaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tienda': {
       id: '/tienda'
       path: '/tienda'
       fullPath: '/tienda'
       preLoaderRoute: typeof TiendaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terapia-visual': {
-      id: '/terapia-visual'
-      path: '/terapia-visual'
-      fullPath: '/terapia-visual'
-      preLoaderRoute: typeof TerapiaVisualRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/servicios': {
@@ -370,34 +270,6 @@ declare module '@tanstack/react-router' {
       path: '/planveo'
       fullPath: '/planveo'
       preLoaderRoute: typeof PlanveoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ortoqueratologia': {
-      id: '/ortoqueratologia'
-      path: '/ortoqueratologia'
-      fullPath: '/ortoqueratologia'
-      preLoaderRoute: typeof OrtoqueratologiaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/examen-visual': {
-      id: '/examen-visual'
-      path: '/examen-visual'
-      fullPath: '/examen-visual'
-      preLoaderRoute: typeof ExamenVisualRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/control-de-miopia': {
-      id: '/control-de-miopia'
-      path: '/control-de-miopia'
-      fullPath: '/control-de-miopia'
-      preLoaderRoute: typeof ControlDeMiopiaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contactologia': {
-      id: '/contactologia'
-      path: '/contactologia'
-      fullPath: '/contactologia'
-      preLoaderRoute: typeof ContactologiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -448,6 +320,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/tienda/$slug'
       preLoaderRoute: typeof TiendaSlugRouteImport
       parentRoute: typeof TiendaRoute
+    }
+    '/servicios/$slug': {
+      id: '/servicios/$slug'
+      path: '/$slug'
+      fullPath: '/servicios/$slug'
+      preLoaderRoute: typeof ServiciosSlugRouteImport
+      parentRoute: typeof ServiciosRoute
     }
     '/cita/horario': {
       id: '/cita/horario'
@@ -505,6 +384,18 @@ const CitaRouteChildren: CitaRouteChildren = {
 
 const CitaRouteWithChildren = CitaRoute._addFileChildren(CitaRouteChildren)
 
+interface ServiciosRouteChildren {
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
+}
+
+const ServiciosRouteChildren: ServiciosRouteChildren = {
+  ServiciosSlugRoute: ServiciosSlugRoute,
+}
+
+const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
+  ServiciosRouteChildren,
+)
+
 interface TiendaRouteChildren {
   TiendaSlugRoute: typeof TiendaSlugRoute
 }
@@ -521,17 +412,10 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   CitaRoute: CitaRouteWithChildren,
   ContactoRoute: ContactoRoute,
-  ContactologiaRoute: ContactologiaRoute,
-  ControlDeMiopiaRoute: ControlDeMiopiaRoute,
-  ExamenVisualRoute: ExamenVisualRoute,
-  OrtoqueratologiaRoute: OrtoqueratologiaRoute,
   PlanveoRoute: PlanveoRoute,
   QuienesSomosRoute: QuienesSomosRoute,
-  ServiciosRoute: ServiciosRoute,
-  TerapiaVisualRoute: TerapiaVisualRoute,
+  ServiciosRoute: ServiciosRouteWithChildren,
   TiendaRoute: TiendaRouteWithChildren,
-  VisionDeportivaRoute: VisionDeportivaRoute,
-  VisionPediatricaRoute: VisionPediatricaRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
 }

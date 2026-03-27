@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getPlanVeoPage } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchPlanVeoPage } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import PlanVeo from "~/pages/plan-veo/plan-veo";
 
@@ -21,10 +21,7 @@ export const Route = createFileRoute("/planveo")({
       },
     });
   },
-  loader: async () => {
-    const data = await getPlanVeoPage();
-    return { data };
-  },
+  loader: () => fetchPlanVeoPage(),
   component: RouteComponent,
 });
 
