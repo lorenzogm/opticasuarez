@@ -1,6 +1,7 @@
 import { resolveImage } from "../../lib/sanity";
 import BookAppointment from "../../sections/book-appointment";
 import ServicesGrid from "../../sections/services-grid";
+import FeaturedProducts from "./sections/featured-products";
 import Hero from "./sections/hero";
 import Locations from "./sections/locations";
 import News from "./sections/news";
@@ -8,8 +9,15 @@ import SocialMedia from "./sections/social-media";
 import Specialists from "./sections/specialists";
 import VideoAbout from "./sections/video-about";
 
-// biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
-export default function Homepage({ data }: { data: any }) {
+export default function Homepage({
+  data,
+  featuredProducts,
+}: {
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+  data: any;
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+  featuredProducts?: any[];
+}) {
   if (!data) return null;
 
   const servicesGridItems = (data.servicesGrid?.items || []).map(
@@ -36,6 +44,9 @@ export default function Homepage({ data }: { data: any }) {
         subtitle={data.hero?.subtitle}
         title={data.hero?.title}
       />
+      {featuredProducts && featuredProducts.length > 0 && (
+        <FeaturedProducts products={featuredProducts} />
+      )}
       <ServicesGrid items={servicesGridItems} />
       <VideoAbout
         description={data.videoAbout?.description}

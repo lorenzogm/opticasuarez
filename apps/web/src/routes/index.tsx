@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getHomepage } from "~/lib/sanity";
+import { getFeaturedProducts, getHomepage, getProducts } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import Homepage from "~/pages/homepage/homepage";
 
@@ -20,13 +20,21 @@ export const Route = createFileRoute("/")({
     });
   },
   loader: async () => {
-    const homepage = await getHomepage();
-    return { homepage };
+    const [homepage, featuredProducts, allProducts] = await Promise.all([
+      getHomepage(),
+      getFeaturedProducts(),
+      getProducts(),
+    ]);
+    // Use featured products, fallback to 4 most recent if none featured
+    const featured = featuredProducts as Record<string, unknown>[];
+    const all = allProducts as Record<string, unknown>[];
+    const products = featured?.length > 0 ? featured : (all || []).slice(0, 4);
+    return { homepage, featuredProducts: products };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { homepage } = Route.useLoaderData();
-  return <Homepage data={homepage} />;
+  const { homepage, featuredProducts } = Route.useLoaderData();
+  return <Homepage data={homepage} featuredProducts={featuredProducts} />;
 }
