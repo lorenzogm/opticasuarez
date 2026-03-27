@@ -132,6 +132,318 @@ export const servicePage = defineType({
       of: [{ type: "reference", to: [{ type: "location" }] }],
     }),
     defineField({
+      name: "heroDescription",
+      title: "Descripción del héroe",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "introduction",
+      title: "Introducción (contenido largo)",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "content",
+          title: "Contenido",
+          type: "text",
+          rows: 5,
+        }),
+        defineField({
+          name: "description",
+          title: "Descripción",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "benefits",
+          title: "Beneficios",
+          type: "array",
+          of: [{ type: "string" }],
+        }),
+      ],
+    }),
+    defineField({
+      name: "testimonials",
+      title: "Testimonios",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "items",
+          title: "Testimonios",
+          type: "array",
+          of: [{ type: "testimonialItem" }],
+        }),
+      ],
+    }),
+    defineField({
+      name: "visualTherapy",
+      title: "Terapia visual deportiva",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "description",
+          title: "Descripción",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "skills",
+          title: "Habilidades",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "title",
+                  title: "Título",
+                  type: "string",
+                }),
+                defineField({
+                  name: "description",
+                  title: "Descripción",
+                  type: "text",
+                  rows: 2,
+                }),
+              ],
+            },
+          ],
+        }),
+        defineField({
+          name: "improvements",
+          title: "Mejoras",
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Título",
+              type: "string",
+            }),
+            defineField({
+              name: "items",
+              title: "Elementos",
+              type: "array",
+              of: [{ type: "string" }],
+            }),
+          ],
+        }),
+        defineField({
+          name: "images",
+          title: "Imágenes",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "src",
+                  title: "Imagen",
+                  type: "image",
+                  options: { hotspot: true },
+                }),
+                defineField({
+                  name: "alt",
+                  title: "Alt",
+                  type: "string",
+                }),
+                defineField({
+                  name: "title",
+                  title: "Título",
+                  type: "string",
+                }),
+              ],
+            },
+          ],
+        }),
+        defineField({
+          name: "ctaButton",
+          title: "Botón CTA",
+          type: "object",
+          fields: [
+            defineField({
+              name: "text",
+              title: "Texto",
+              type: "string",
+            }),
+            defineField({ name: "url", title: "URL", type: "string" }),
+            defineField({
+              name: "message",
+              title: "Mensaje",
+              type: "string",
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "ageGroups",
+      title: "Grupos de edad",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "subtitle",
+          title: "Subtítulo",
+          type: "string",
+        }),
+        defineField({
+          name: "groups",
+          title: "Grupos",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "title",
+                  title: "Título",
+                  type: "string",
+                }),
+                defineField({
+                  name: "description",
+                  title: "Descripción",
+                  type: "text",
+                }),
+                defineField({
+                  name: "recommendations",
+                  title: "Recomendaciones",
+                  type: "array",
+                  of: [{ type: "string" }],
+                }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "warningSign",
+      title: "Signos de alerta",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "subtitle",
+          title: "Subtítulo",
+          type: "string",
+        }),
+        defineField({
+          name: "description",
+          title: "Descripción",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "signs",
+          title: "Signos",
+          type: "array",
+          of: [{ type: "string" }],
+        }),
+      ],
+    }),
+    defineField({
+      name: "science",
+      title: "Estudios científicos",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "description",
+          title: "Descripción",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "studies",
+          title: "Estudios",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "title",
+                  title: "Título",
+                  type: "string",
+                }),
+                defineField({
+                  name: "description",
+                  title: "Descripción",
+                  type: "text",
+                  rows: 2,
+                }),
+                defineField({
+                  name: "percentage",
+                  title: "Porcentaje",
+                  type: "string",
+                }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "candidates",
+      title: "Candidatos ideales",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "description",
+          title: "Descripción",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "disclaimer",
+          title: "Aviso legal",
+          type: "text",
+          rows: 2,
+        }),
+        defineField({
+          name: "items",
+          title: "Candidatos",
+          type: "array",
+          of: [{ type: "string" }],
+        }),
+      ],
+    }),
+    defineField({
+      name: "whyChooseUs",
+      title: "Por qué elegirnos",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título", type: "string" }),
+        defineField({
+          name: "items",
+          title: "Razones",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "title",
+                  title: "Título",
+                  type: "string",
+                }),
+                defineField({
+                  name: "description",
+                  title: "Descripción",
+                  type: "text",
+                  rows: 2,
+                }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: "seo",
       title: "SEO",
       type: "seo",

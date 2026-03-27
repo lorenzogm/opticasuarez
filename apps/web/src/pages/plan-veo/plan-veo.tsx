@@ -1,5 +1,5 @@
 import FAQAccordion from "../../components/faq-accordion";
-import content from "../../content/plan-veo.json" with { type: "json" };
+import { resolveImage } from "../../lib/sanity";
 import BenefitsSection from "./sections/benefits-section";
 import CTASection from "./sections/cta-section";
 import IntroductionSection from "./sections/introduction-section";
@@ -8,60 +8,84 @@ import ProcessSection from "./sections/process-section";
 import RequirementsSection from "./sections/requirements-section";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
-export default function PlanVeo({ data: _data }: { data: any }) {
-  // TODO: Migrate to use Sanity data fields (hero, intro, benefits, requirements, howItWorks)
-  // Using local JSON content until schema alignment verified
+export default function PlanVeo({ data }: { data: any }) {
+  if (!data) return null;
+
+  const benefitItems = (data.benefits?.items || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (item: any) => ({
+      ...item,
+      image: resolveImage(item.image),
+    })
+  );
+
+  const steps = (data.howItWorks?.steps || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (s: any) => ({
+      number: String(s.stepNumber || s.number || s.step),
+      title: s.title,
+      description: s.description,
+    })
+  );
+
   return (
     <main>
-      {/* Hero Section */}
-      <PlanVeoHero
-        description={content.hero.description}
-        image={content.hero.image}
-        imageAlt={content.hero.imageAlt}
-        imageTitle={content.hero.imageTitle}
-        subtitle={content.hero.subtitle}
-        title={content.hero.title}
-      />
+      {data.hero && (
+        <PlanVeoHero
+          description={data.hero.description}
+          image={resolveImage(data.hero.image)}
+          imageAlt={data.hero.imageAlt}
+          imageTitle={data.hero.imageTitle}
+          subtitle={data.hero.subtitle}
+          title={data.hero.title}
+        />
+      )}
 
-      {/* Introduction */}
-      <IntroductionSection
-        content={content.introduction.content}
-        title={content.introduction.title}
-      />
+      {data.introduction && (
+        <IntroductionSection
+          content={data.introduction.content}
+          title={data.introduction.title}
+        />
+      )}
 
-      {/* Benefits - What does Plan VEO cover */}
-      <BenefitsSection
-        items={content.benefits.items}
-        subtitle={content.benefits.subtitle}
-        title={content.benefits.title}
-      />
+      {benefitItems.length > 0 && (
+        <BenefitsSection
+          items={benefitItems}
+          subtitle={data.benefits?.subtitle}
+          title={data.benefits?.title}
+        />
+      )}
 
-      {/* Requirements - Who can benefit */}
-      <RequirementsSection
-        description={content.requirements.description}
-        items={content.requirements.items}
-        subtitle={content.requirements.subtitle}
-        title={content.requirements.title}
-      />
+      {data.requirements && (
+        <RequirementsSection
+          description={data.requirements.description}
+          items={data.requirements.items || []}
+          subtitle={data.requirements.subtitle}
+          title={data.requirements.title}
+        />
+      )}
 
-      {/* Process - How to apply */}
-      <ProcessSection
-        steps={content.howItWorks.steps}
-        subtitle={content.howItWorks.subtitle}
-        title={content.howItWorks.title}
-      />
+      {steps.length > 0 && (
+        <ProcessSection
+          steps={steps}
+          subtitle={data.howItWorks?.subtitle}
+          title={data.howItWorks?.title}
+        />
+      )}
 
-      {/* FAQ */}
-      <FAQAccordion items={content.faq.items} title={content.faq.title} />
+      {data.faq?.items?.length > 0 && (
+        <FAQAccordion items={data.faq.items} title={data.faq.title} />
+      )}
 
-      {/* CTA */}
-      <CTASection
-        buttonLink={content.cta.buttonLink}
-        buttonText={content.cta.buttonText}
-        description={content.cta.description}
-        subtitle={content.cta.subtitle}
-        title={content.cta.title}
-      />
+      {data.cta && (
+        <CTASection
+          buttonLink={data.cta.buttonLink}
+          buttonText={data.cta.buttonText}
+          description={data.cta.description}
+          subtitle={data.cta.subtitle}
+          title={data.cta.title}
+        />
+      )}
     </main>
   );
 }

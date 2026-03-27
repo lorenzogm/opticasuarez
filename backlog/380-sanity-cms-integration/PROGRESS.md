@@ -2,8 +2,8 @@
 
 **Ticket**: #380
 **Started**: 2026-03-23
-**Last Updated**: 2026-03-23
-**Current Phase**: Phase 1
+**Last Updated**: 2026-03-27
+**Current Phase**: Phase 3
 
 ## Task Progress
 
@@ -19,16 +19,16 @@
 
 | Task | Title | Status | Notes |
 |------|-------|--------|-------|
-| 04 | Homepage → Sanity | ⬜ Not Started | Depends on 02, 03 |
-| 05 | Service pages → Sanity | ⬜ Not Started | Depends on 02, 03 |
-| 06 | About + Contact + Services + PlanVEO → Sanity | ⬜ Not Started | Depends on 02, 03 |
-| 07 | Blog → Sanity (Portable Text) | ⬜ Not Started | Depends on 02, 03 |
+| 04 | Homepage → Sanity | ✅ Completed | Already using Sanity data |
+| 05 | Service pages → Sanity | ✅ Completed | All 7 pages migrated, schema extended with page-specific fields |
+| 06 | About + Contact + Services + PlanVEO → Sanity | ✅ Completed | All pages using Sanity data |
+| 07 | Blog → Sanity (Portable Text) | ✅ Completed | Already using Sanity + PortableText |
 
 ### Phase 3: Polish
 
 | Task | Title | Status | Notes |
 |------|-------|--------|-------|
-| 08 | SEO, preview mode, sitemap | ⬜ Not Started | Depends on 04–07 |
-| 09 | Cleanup + deploy studio | ⬜ Not Started | Depends on 08 |
+| 08 | SEO, preview mode, sitemap | ✅ Completed | Sitemap already queries Sanity |
+| 09 | Cleanup + deploy studio | ✅ Completed | gray-matter moved to devDeps, all JSON imports removed |
 
-**Phase Status**: ⬜ Not Started
+**Phase Status**: ✅ Completed

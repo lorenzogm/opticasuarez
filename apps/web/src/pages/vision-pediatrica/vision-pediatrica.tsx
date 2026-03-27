@@ -1,7 +1,5 @@
 import FAQAccordion from "../../components/faq-accordion";
-import content from "../../content/vision-pediatrica.json" with {
-  type: "json",
-};
+import { resolveImage } from "../../lib/sanity";
 import CustomerTestimonials from "../../sections/customer-testimonials";
 import AgeGroups from "./sections/age-groups";
 import CTASection from "./sections/cta-section";
@@ -11,67 +9,89 @@ import PediatricServices from "./sections/pediatric-services";
 import WarningSigns from "./sections/warning-signs";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
-export default function VisionPediatrica({ data: _data }: { data: any }) {
-  // TODO: Sanity schema needs page-specific fields for hero, intro, services, ageGroups, warningSigns
-  // Using local JSON content until schema is enhanced
+export default function VisionPediatrica({ data }: { data: any }) {
+  if (!data) return null;
+
+  const serviceItems = (data.items || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (item: any) => ({
+      ...item,
+      image: resolveImage(item.image),
+    })
+  );
+
   return (
     <main>
       {/* Hero Section */}
       <PediatricHero
-        description={content.hero.description}
-        image={content.hero.image}
-        imageAlt={content.hero.imageAlt}
-        imageTitle={content.hero.imageTitle}
-        subtitle={content.hero.subtitle}
-        title={content.hero.title}
+        description={data.heroDescription}
+        image={resolveImage(data.heroImage)}
+        imageAlt={data.heroImage?.asset?.url ? data.mainTitle : undefined}
+        imageTitle={data.mainTitle}
+        subtitle={data.subtitle}
+        title={data.mainTitle}
       />
 
       {/* Introduction */}
-      <IntroductionSection
-        content={content.introduction.content}
-        title={content.introduction.title}
-      />
+      {(data.introduction || data.intro) && (
+        <IntroductionSection
+          content={data.introduction?.content || data.intro?.description}
+          title={data.introduction?.title || data.intro?.title}
+        />
+      )}
 
       {/* Services */}
-      <PediatricServices
-        items={content.services.items}
-        subtitle={content.services.subtitle}
-        title={content.services.title}
-      />
+      {serviceItems.length > 0 && (
+        <PediatricServices
+          items={serviceItems}
+          subtitle={data.itemsSectionSubtitle}
+          title={data.itemsSectionTitle}
+        />
+      )}
 
       {/* Age Groups */}
-      <AgeGroups
-        groups={content.ageGroups.groups}
-        subtitle={content.ageGroups.subtitle}
-        title={content.ageGroups.title}
-      />
+      {data.ageGroups?.groups?.length > 0 && (
+        <AgeGroups
+          groups={data.ageGroups.groups}
+          subtitle={data.ageGroups.subtitle}
+          title={data.ageGroups.title}
+        />
+      )}
 
       {/* Warning Signs */}
-      <WarningSigns
-        description={content.warningSign.description}
-        signs={content.warningSign.signs}
-        subtitle={content.warningSign.subtitle}
-        title={content.warningSign.title}
-      />
+      {data.warningSign && (
+        <WarningSigns
+          description={data.warningSign.description}
+          signs={data.warningSign.signs || []}
+          subtitle={data.warningSign.subtitle}
+          title={data.warningSign.title}
+        />
+      )}
 
       {/* Testimonials */}
-      <CustomerTestimonials
-        moreReviewsLink=""
-        testimonials={content.testimonials.items}
-        title={content.testimonials.title}
-      />
+      {data.testimonials?.items?.length > 0 && (
+        <CustomerTestimonials
+          moreReviewsLink=""
+          testimonials={data.testimonials.items}
+          title={data.testimonials.title}
+        />
+      )}
 
       {/* CTA */}
-      <CTASection
-        buttonLink={content.cta.buttonLink}
-        buttonText={content.cta.buttonText}
-        description={content.cta.description}
-        subtitle={content.cta.subtitle}
-        title={content.cta.title}
-      />
+      {data.cta && (
+        <CTASection
+          buttonLink={data.cta.buttonLink}
+          buttonText={data.cta.buttonText}
+          description={data.cta.description}
+          subtitle={data.cta.subtitle}
+          title={data.cta.title}
+        />
+      )}
 
       {/* FAQ */}
-      <FAQAccordion items={content.faq.items} title={content.faq.title} />
+      {data.faq?.items?.length > 0 && (
+        <FAQAccordion items={data.faq.items} title={data.faq.title} />
+      )}
     </main>
   );
 }

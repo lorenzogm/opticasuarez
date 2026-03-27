@@ -143,7 +143,9 @@ export async function getServicePage(slug: string, preview = false) {
       mainTitle,
       subtitle,
       "heroImage": heroImage ${imageProjection},
+      heroDescription,
       intro,
+      introduction,
       itemsSectionTitle,
       itemsSectionSubtitle,
       items[]{
@@ -170,6 +172,31 @@ export async function getServicePage(slug: string, preview = false) {
       frequency,
       faq,
       cta,
+      testimonials{
+        title,
+        items[]
+      },
+      visualTherapy{
+        title,
+        description,
+        skills[],
+        improvements,
+        images[]{
+          "src": src ${imageProjection},
+          alt,
+          title
+        },
+        ctaButton
+      },
+      ageGroups{
+        title,
+        subtitle,
+        groups[]
+      },
+      warningSign,
+      science,
+      candidates,
+      whyChooseUs,
       "locations": locations[]->${locationProjection},
       seo
     }`,

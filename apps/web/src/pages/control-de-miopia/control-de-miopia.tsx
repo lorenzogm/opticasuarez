@@ -1,8 +1,6 @@
 import FAQAccordion from "../../components/faq-accordion";
 import { Text } from "../../components/text";
-import content from "../../content/control-de-miopia.json" with {
-  type: "json",
-};
+import { resolveImage } from "../../lib/sanity";
 import BookAppointment from "../../sections/book-appointment";
 import MyopiaHero from "./sections/myopia-hero";
 import MyopiaInfo from "./sections/myopia-info";
@@ -10,9 +8,17 @@ import MyopiaScience from "./sections/myopia-science";
 import MyopiaTreatments from "./sections/myopia-treatments";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
-export default function ControlDeMiopia({ data: _data }: { data: any }) {
-  // TODO: Sanity schema needs page-specific fields for hero, info, treatments, science
-  // Using local JSON content until schema is enhanced
+export default function ControlDeMiopia({ data }: { data: any }) {
+  if (!data) return null;
+
+  const treatmentItems = (data.items || []).map(
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    (item: any) => ({
+      ...item,
+      image: resolveImage(item.image),
+    })
+  );
+
   return (
     <main>
       {/* Main heading */}
@@ -23,51 +29,61 @@ export default function ControlDeMiopia({ data: _data }: { data: any }) {
             className="mb-8 text-gray-900 uppercase tracking-wide"
             variant="heading-1"
           >
-            {content.mainTitle}
+            {data.mainTitle}
           </Text>
         </div>
       </section>
 
       {/* Hero Section */}
       <MyopiaHero
-        description={content.hero.description}
-        image={content.hero.image}
-        imageAlt={content.hero.imageAlt}
-        imageTitle={content.hero.imageTitle}
-        subtitle={content.hero.subtitle}
-        title={content.hero.title}
+        description={data.heroDescription}
+        image={resolveImage(data.heroImage)}
+        imageAlt={data.mainTitle}
+        imageTitle={data.mainTitle}
+        subtitle={data.subtitle}
+        title={data.mainTitle}
       />
 
       {/* Myopia Information */}
-      <MyopiaInfo
-        description={content.info.description}
-        features={content.info.features}
-        title={content.info.title}
-      />
+      {data.intro && (
+        <MyopiaInfo
+          description={data.intro.description}
+          features={data.intro.features || []}
+          title={data.intro.title}
+        />
+      )}
 
       {/* Treatment Options */}
-      <MyopiaTreatments
-        title={content.treatments.title}
-        treatments={content.treatments.items}
-      />
+      {treatmentItems.length > 0 && (
+        <MyopiaTreatments
+          title={data.itemsSectionTitle || "Tratamientos"}
+          treatments={treatmentItems}
+        />
+      )}
 
       {/* Science Behind */}
-      <MyopiaScience
-        description={content.science.description}
-        studies={content.science.studies}
-        title={content.science.title}
-      />
+      {data.science && (
+        <MyopiaScience
+          description={data.science.description}
+          studies={data.science.studies || []}
+          title={data.science.title}
+        />
+      )}
 
       {/* FAQ Section */}
-      <FAQAccordion items={content.faq.items} title={content.faq.title} />
+      {data.faq?.items?.length > 0 && (
+        <FAQAccordion items={data.faq.items} title={data.faq.title} />
+      )}
 
       {/* Book Appointment */}
-      <BookAppointment
-        buttonText={content.bookAppointment.buttonText}
-        description={content.bookAppointment.description}
-        title={content.bookAppointment.title}
-        whatsappMessage={content.bookAppointment.whatsappMessage}
-      />
+      {data.cta && (
+        <BookAppointment
+          buttonText={data.cta.buttonText}
+          description={data.cta.description}
+          title={data.cta.title}
+          whatsappMessage={data.cta.whatsappMessage}
+        />
+      )}
     </main>
   );
 }

@@ -476,9 +476,21 @@ async function migrateServicePages(
       _id: `service-${slug}`,
       slug: { _type: "slug", current: slug },
       mainTitle: data.mainTitle,
-      subtitle: data.subtitle,
-      heroImage,
-      intro: data.intro,
+      subtitle: data.subtitle || data.hero?.subtitle,
+      heroImage:
+        heroImage ||
+        (await uploadImageFromPath(
+          data.hero?.image || data.hero?.backgroundImage
+        )),
+      heroDescription: data.hero?.description,
+      intro:
+        data.intro ||
+        (data.whatIs
+          ? { title: data.whatIs.title, description: data.whatIs.description }
+          : data.info
+            ? { title: data.info.title, description: data.info.description }
+            : undefined),
+      introduction: data.introduction,
       itemsSectionTitle: itemsSection.title,
       itemsSectionSubtitle: itemsSection.subtitle,
       items,
@@ -491,7 +503,9 @@ async function migrateServicePages(
         : undefined,
       benefits: data.benefits?.title
         ? { title: data.benefits.title, items: data.benefits.items }
-        : undefined,
+        : data.whatIs?.benefits
+          ? { title: "Beneficios", items: data.whatIs.benefits }
+          : undefined,
       frequency: data.frequency,
       faq: data.faq
         ? {
@@ -504,17 +518,44 @@ async function migrateServicePages(
             })),
           }
         : undefined,
-      cta: data.cta
+      cta:
+        data.cta || data.bookAppointment
+          ? {
+              _type: "bookAppointmentBlock",
+              title: (data.cta || data.bookAppointment).title,
+              description:
+                (data.cta || data.bookAppointment).description ||
+                (data.cta || data.bookAppointment).subtitle,
+              buttonText: (data.cta || data.bookAppointment).buttonText,
+              whatsappMessage: (data.cta || data.bookAppointment)
+                .whatsappMessage,
+              buttonLink:
+                (data.cta || data.bookAppointment).buttonLink ||
+                (data.cta || data.bookAppointment).buttonUrl,
+            }
+          : undefined,
+      locations: locationRefs,
+      // Page-specific fields
+      testimonials: data.testimonials
         ? {
-            _type: "bookAppointmentBlock",
-            title: data.cta.title,
-            description: data.cta.description,
-            buttonText: data.cta.buttonText,
-            whatsappMessage: data.cta.whatsappMessage,
-            buttonLink: data.cta.buttonLink,
+            title: data.testimonials.title,
+            items: (data.testimonials.items || []).map(
+              (t: Record<string, unknown>) => ({
+                _type: "testimonialItem",
+                _key: generateKey(),
+                name: t.name,
+                text: t.text || t.review,
+                rating: t.rating,
+              })
+            ),
           }
         : undefined,
-      locations: locationRefs,
+      visualTherapy: data.visualTherapy,
+      ageGroups: data.ageGroups,
+      warningSign: data.warningSign,
+      science: data.science,
+      candidates: data.candidates,
+      whyChooseUs: data["why-optica-suarez"],
     };
 
     await client.createOrReplace(doc);
