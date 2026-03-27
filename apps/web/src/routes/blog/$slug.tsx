@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { getBlogPost } from "~/lib/sanity";
-import { getBaseUrl } from "~/lib/utils";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import BlogPostPage from "~/pages/blog/blog-post";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -16,31 +16,17 @@ export const Route = createFileRoute("/blog/$slug")({
       };
     }
 
-    return {
-      meta: [
-        { title: `${post.title} - Óptica Suárez` },
-        { name: "description", content: post.excerpt },
-        {
-          property: "og:title",
-          content: `${post.title} - Óptica Suárez`,
-        },
-        {
-          property: "og:description",
-          content: post.excerpt,
-        },
-        {
-          property: "og:url",
-          content: `${getBaseUrl()}/blog/${post.slug}`,
-        },
-        { name: "robots", content: "index, follow" },
-      ],
-      links: [
-        {
-          rel: "canonical",
-          href: `${getBaseUrl()}/blog/${post.slug}`,
-        },
-      ],
-    };
+    return buildHeadFromSanitySeo({
+      seo: post.seo,
+      path: `/blog/${post.slug}`,
+      fallback: {
+        title: `${post.title} - Óptica Suárez`,
+        description: post.excerpt || "",
+        keywords: post.categories
+          ? `${post.categories.join(", ")}, óptica Jaén, salud visual Jaén`
+          : "óptica Jaén, salud visual Jaén",
+      },
+    });
   },
   loader: async ({ params }) => {
     const post = await getBlogPost(params.slug);

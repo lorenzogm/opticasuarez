@@ -1,48 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getServicePage } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
-import { getBaseUrl } from "~/lib/utils";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import VisionDeportiva from "~/pages/vision-deportiva/vision-deportiva";
 
-const visionDeportivaKeywords = generatePageKeywords("vision-deportiva");
-
 export const Route = createFileRoute("/vision-deportiva")({
-  head: () => ({
-    meta: [
-      {
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/vision-deportiva",
+      fallback: {
         title: "Visión Deportiva en Jaén | Óptica Suárez",
-      },
-      {
-        name: "description",
-        content:
+        description:
           "Optimiza tu rendimiento deportivo con nuestros servicios de visión deportiva. Evaluaciones especializadas, entrenamiento visual y equipamiento para deportistas en Jaén.",
+        keywords:
+          "visión deportiva Jaén, entrenamiento visual deportistas Jaén, gafas deportivas Jaén",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(visionDeportivaKeywords),
-      },
-      {
-        property: "og:title",
-        content: "Visión Deportiva en Jaén | Óptica Suárez",
-      },
-      {
-        property: "og:description",
-        content:
-          "Optimiza tu rendimiento deportivo con nuestros servicios de visión deportiva. Evaluaciones especializadas, entrenamiento visual y equipamiento para deportistas en Jaén.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/vision-deportiva`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [
-      {
-        rel: "canonical",
-        href: `${getBaseUrl()}/vision-deportiva`,
-      },
-    ],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getServicePage("vision-deportiva");
     return { data };

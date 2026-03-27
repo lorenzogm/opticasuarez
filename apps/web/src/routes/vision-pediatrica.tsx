@@ -1,51 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { getServicePage } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { getBaseUrl } from "~/lib/utils";
 import VisionPediatrica from "~/pages/vision-pediatrica/vision-pediatrica";
 
-const visionPediatricaKeywords = generatePageKeywords("vision-pediatrica");
-
 export const Route = createFileRoute("/vision-pediatrica")({
-  head: () => ({
-    meta: [
-      {
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/vision-pediatrica",
+      fallback: {
         title:
           "Visión Pediátrica y Examen Visual Infantil en Jaén – Óptica Suárez",
-      },
-      {
-        name: "description",
-        content:
+        description:
           "Realizamos exámenes visuales infantiles en Jaén para detectar de forma temprana ojo vago, miopía o estrabismo. Prevención y cuidado visual desde la infancia.",
+        keywords:
+          "visión pediátrica Jaén, examen visual infantil Jaén, óptica infantil Jaén, ojo vago niños Jaén",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(visionPediatricaKeywords),
-      },
-      {
-        property: "og:title",
-        content:
-          "Visión Pediátrica y Examen Visual Infantil en Jaén – Óptica Suárez",
-      },
-      {
-        property: "og:description",
-        content:
-          "Realizamos exámenes visuales infantiles en Jaén para detectar de forma temprana ojo vago, miopía o estrabismo. Prevención y cuidado visual desde la infancia.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/vision-pediatrica`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [
-      {
-        rel: "canonical",
-        href: `${getBaseUrl()}/vision-pediatrica`,
-      },
-    ],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getServicePage("vision-pediatrica");
     return { data };
