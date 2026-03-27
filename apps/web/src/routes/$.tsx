@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import SectionRenderer from "~/components/sections/section-renderer";
 import { Text } from "~/components/text";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchPage } from "~/lib/server-fns";
 
 // biome-ignore lint/suspicious/noExplicitAny: dynamic page data from Sanity
@@ -15,6 +16,18 @@ export const Route = createFileRoute("/$")({
       throw new Error("Page not found");
     }
     return { page };
+  },
+  head: ({ loaderData }) => {
+    const page = (loaderData as { page: PageData } | undefined)?.page;
+    const path = page?.path || "/";
+    return buildHeadFromSanitySeo({
+      seo: page?.seo,
+      path,
+      fallback: {
+        title: `${page?.title || "Página"} | Óptica Suárez`,
+        description: "Óptica Suárez — tu óptica de confianza en Jaén.",
+      },
+    });
   },
   errorComponent: NotFoundPage,
   component: PageComponent,

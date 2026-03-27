@@ -77,15 +77,6 @@ const locationProjection = `{
   contactUrl
 }`;
 
-// Team member projection
-const teamMemberProjection = `{
-  _id,
-  name,
-  role,
-  "image": image ${imageProjection},
-  details
-}`;
-
 // Homepage
 export async function getHomepage(preview = false) {
   return sanityFetch(
@@ -205,58 +196,6 @@ export async function getServicePage(slug: string, preview = false) {
   );
 }
 
-// About page
-export async function getAboutPage(preview = false) {
-  return sanityFetch(
-    `*[_type == "aboutPage"][0]{
-    mainTitle,
-    history{
-      title,
-      timeline[]{
-        year,
-        title,
-        description,
-        "image": image ${imageProjection}
-      }
-    },
-    team{
-      title,
-      "members": members[]->${teamMemberProjection}
-    },
-    testimonials{
-      title,
-      moreReviewsLink,
-      items[]
-    },
-    "locations": locations[]->${locationProjection},
-    socialMedia[],
-    seo
-  }`,
-    undefined,
-    preview
-  );
-}
-
-// Contact page
-export async function getContactPage(preview = false) {
-  return sanityFetch(
-    `*[_type == "contactPage"][0]{
-    hero,
-    contactInfo,
-    locations{
-      title,
-      subtitle,
-      "items": items[]->${locationProjection}
-    },
-    contactForm,
-    socialMedia,
-    seo
-  }`,
-    undefined,
-    preview
-  );
-}
-
 // Servicios overview
 export async function getServiciosOverview(preview = false) {
   return sanityFetch(
@@ -271,54 +210,6 @@ export async function getServiciosOverview(preview = false) {
       alt,
       imageTitle
     },
-    seo
-  }`,
-    undefined,
-    preview
-  );
-}
-
-// Plan VEO page
-export async function getPlanVeoPage(preview = false) {
-  return sanityFetch(
-    `*[_type == "planVeoPage"][0]{
-    mainTitle,
-    hero{
-      title,
-      subtitle,
-      description,
-      ctaText,
-      ctaUrl,
-      "image": image ${imageProjection},
-      imageTitle,
-      imageAlt
-    },
-    introduction,
-    benefits{
-      title,
-      subtitle,
-      items[]{
-        title,
-        description,
-        icon,
-        "image": image ${imageProjection},
-        imageTitle,
-        imageAlt
-      }
-    },
-    requirements,
-    howItWorks{
-      title,
-      subtitle,
-      steps[]{
-        stepNumber,
-        title,
-        description,
-        "image": image ${imageProjection}
-      }
-    },
-    faq,
-    cta,
     seo
   }`,
     undefined,

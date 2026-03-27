@@ -61,11 +61,10 @@ export default function SectionSocialMedia({ section }: { section: any }) {
               key={item._key || item.platform}
             >
               <a
-                aria-hidden="true"
+                aria-label={`${item.title || item.platform}`}
                 className="text-blue-600 transition-colors duration-300 hover:text-blue-800"
                 href={item.url}
                 rel="noopener noreferrer"
-                tabIndex={-1}
                 target="_blank"
               >
                 {getIconSvg(item.platform || item.icon)}

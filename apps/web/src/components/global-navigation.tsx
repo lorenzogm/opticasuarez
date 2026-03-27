@@ -60,7 +60,8 @@ export default function GlobalNavigation() {
             </Link>
             <Link
               className="px-3 py-2 font-medium text-gray-700 text-sm transition-colors duration-200 hover:text-blue-600"
-              to="/quienes-somos"
+              params={{ _splat: "quienes-somos" }}
+              to="/$"
             >
               Quienes Somos
             </Link>
@@ -199,7 +200,8 @@ export default function GlobalNavigation() {
             </Link>
             <Link
               className="px-3 py-2 font-medium text-gray-700 text-sm transition-colors duration-200 hover:text-blue-600"
-              to="/contacto"
+              params={{ _splat: "contacto" }}
+              to="/$"
             >
               Contacto
             </Link>
@@ -277,7 +279,8 @@ export default function GlobalNavigation() {
               <Link
                 className="block rounded-md px-3 py-2 font-medium text-base text-gray-700 transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
                 onClick={closeMenu}
-                to="/quienes-somos"
+                params={{ _splat: "quienes-somos" }}
+                to="/$"
               >
                 Quienes Somos
               </Link>
@@ -403,7 +406,8 @@ export default function GlobalNavigation() {
               <Link
                 className="block rounded-md px-3 py-2 font-medium text-base text-gray-700 transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
                 onClick={closeMenu}
-                to="/contacto"
+                params={{ _splat: "contacto" }}
+                to="/$"
               >
                 Contacto
               </Link>
