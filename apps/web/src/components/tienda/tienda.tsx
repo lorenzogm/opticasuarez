@@ -1,6 +1,6 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import BookAppointment from "../../sections/book-appointment";
+import BookAppointment from "~/components/sections/book-appointment";
 import ProductCard from "./sections/product-card";
 import ProductFilters from "./sections/product-filters";
 
@@ -14,8 +14,8 @@ interface TiendaProps {
 }
 
 export default function Tienda({ products, categories, brands }: TiendaProps) {
-  const search = useSearch({ from: "/tienda" });
-  const navigate = useNavigate({ from: "/tienda" });
+  const search = useSearch({ from: "/tienda/" });
+  const navigate = useNavigate({ from: "/tienda/" });
 
   const [query, setQuery] = useState(search.q ?? "");
 

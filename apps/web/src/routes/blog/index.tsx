@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Blog from "~/components/blog/blog";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchBlogPosts } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
-import Blog from "~/pages/blog/blog";
 
 interface BlogSearch {
   category?: string;

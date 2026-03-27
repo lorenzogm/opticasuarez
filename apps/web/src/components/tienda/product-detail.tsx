@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import BookAppointment from "~/components/sections/book-appointment";
 import StructuredData from "~/components/structured-data";
 import { resolveImage } from "~/lib/sanity";
 import { getBaseUrl } from "~/lib/utils";
-import BookAppointment from "~/sections/book-appointment";
 import FrameDiagram from "./sections/frame-diagram";
 import PortableTextBlock from "./sections/portable-text-block";
 import ProductCard from "./sections/product-card";

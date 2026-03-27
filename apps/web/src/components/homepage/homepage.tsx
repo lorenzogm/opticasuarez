@@ -1,6 +1,6 @@
-import { resolveImage } from "../../lib/sanity";
-import BookAppointment from "../../sections/book-appointment";
-import ServicesGrid from "../../sections/services-grid";
+import BookAppointment from "~/components/sections/book-appointment";
+import ServicesGrid from "~/components/sections/services-grid";
+import { resolveImage } from "~/lib/sanity";
 import FeaturedProducts from "./sections/featured-products";
 import Hero from "./sections/hero";
 import Locations from "./sections/locations";

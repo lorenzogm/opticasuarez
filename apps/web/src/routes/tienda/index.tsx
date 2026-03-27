@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
+import Tienda from "~/components/tienda/tienda";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchTiendaData } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
-import Tienda from "~/pages/tienda/tienda";
 
 interface TiendaSearch {
   q?: string;
@@ -14,7 +14,7 @@ interface TiendaSearch {
   precioMax?: number;
 }
 
-export const Route = createFileRoute("/tienda")({
+export const Route = createFileRoute("/tienda/")({
   validateSearch: (search: Record<string, unknown>): TiendaSearch => ({
     q: typeof search.q === "string" ? search.q : undefined,
     categoria:

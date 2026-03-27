@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import ServicesGrid from "~/components/sections/services-grid";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { resolveImage } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchServiciosOverview } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
-import ServicesGrid from "~/sections/services-grid";
 
-export const Route = createFileRoute("/servicios")({
+export const Route = createFileRoute("/servicios/")({
   head: ({ loaderData }) => {
     // biome-ignore lint/suspicious/noExplicitAny: Sanity data
     const data = (loaderData as any)?.data;

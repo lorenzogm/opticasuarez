@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import Image from "../../../components/image";
+import Image from "~/components/image";
 
 interface LocationSchedule {
   weekdays: string;

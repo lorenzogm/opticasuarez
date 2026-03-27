@@ -1,4 +1,4 @@
-import YouTubeFacade from "../../../components/youtube-facade";
+import YouTubeFacade from "~/components/youtube-facade";
 
 interface VideoAboutProps {
   title: string;

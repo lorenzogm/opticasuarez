@@ -1,6 +1,6 @@
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
-import ProgressIndicator from "../../components/progress-indicator";
+import ProgressIndicator from "~/components/progress-indicator";
 
 // Generate available dates for the next 2 weeks
 const generateAvailableDates = () => {

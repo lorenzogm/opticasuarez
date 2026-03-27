@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
+import ProductDetail from "~/components/tienda/product-detail";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchProduct } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
-import ProductDetail from "~/pages/tienda/product-detail";
 
 export const Route = createFileRoute("/tienda/$slug")({
   head: ({ loaderData }) => {

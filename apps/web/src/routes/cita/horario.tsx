@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import DateTimeSelection from "~/pages/book/date-time";
+import DateTimeSelection from "~/components/book/date-time";
 
 export const Route = createFileRoute("/cita/horario")({
   head: () => ({
