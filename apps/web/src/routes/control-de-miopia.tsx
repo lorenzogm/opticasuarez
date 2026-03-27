@@ -1,46 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getServicePage } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
-import { getBaseUrl } from "~/lib/utils";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import ControlDeMiopia from "~/pages/control-de-miopia/control-de-miopia";
 
-const controlMiopiaKeywords = generatePageKeywords("control-miopia");
-
 export const Route = createFileRoute("/control-de-miopia")({
-  head: () => ({
-    meta: [
-      { title: "Control de Miopía Jaén - Óptica Suárez" },
-      {
-        name: "description",
-        content:
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/control-de-miopia",
+      fallback: {
+        title: "Control de Miopía Jaén - Óptica Suárez",
+        description:
           "Especialistas en control de miopía en Jaén. Ofrecemos tratamientos avanzados para frenar la progresión de la miopía en niños y adolescentes.",
+        keywords:
+          "control miopía Jaén, frenar miopía Jaén, miopía infantil Jaén, ortoqueratología Jaén",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(controlMiopiaKeywords),
-      },
-      {
-        property: "og:title",
-        content: "Control de Miopía Jaén - Óptica Suárez",
-      },
-      {
-        property: "og:description",
-        content:
-          "Especialistas en control de miopía en Jaén. Ofrecemos tratamientos avanzados para frenar la progresión de la miopía en niños y adolescentes.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/control-de-miopia`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [
-      {
-        rel: "canonical",
-        href: `${getBaseUrl()}/control-de-miopia`,
-      },
-    ],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getServicePage("control-de-miopia");
     return { data };

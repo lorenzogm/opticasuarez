@@ -1,46 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getServicePage } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
-import { getBaseUrl } from "~/lib/utils";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import Ortoqueratologia from "~/pages/ortoqueratologia/ortoqueratologia";
 
-const ortoqueratologiaKeywords = generatePageKeywords("ortoqueratologia");
-
 export const Route = createFileRoute("/ortoqueratologia")({
-  head: () => ({
-    meta: [
-      { title: "Ortoqueratología en Jaén | Óptica Suárez" },
-      {
-        name: "description",
-        content:
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/ortoqueratologia",
+      fallback: {
+        title: "Ortoqueratología en Jaén | Óptica Suárez",
+        description:
           "En Óptica Suárez somos especialistas en ortoqueratología, para frenar la miopía y mejorar la visión sin necesidad de gafas. Más de 80 años de experiencia nos avalan ofreciendo Orto-K en Jaén.",
+        keywords:
+          "ortoqueratología Jaén, orto-k Jaén, lentes nocturnas Jaén, frenar miopía sin gafas Jaén",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(ortoqueratologiaKeywords),
-      },
-      {
-        property: "og:title",
-        content: "Ortoqueratología en Jaén | Óptica Suárez",
-      },
-      {
-        property: "og:description",
-        content:
-          "En Óptica Suárez somos especialistas en ortoqueratología, para frenar la miopía y mejorar la visión sin necesidad de gafas. Más de 80 años de experiencia nos avalan ofreciendo Orto-K en Jaén.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/ortoqueratologia`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [
-      {
-        rel: "canonical",
-        href: `${getBaseUrl()}/ortoqueratologia`,
-      },
-    ],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getServicePage("ortoqueratologia");
     return { data };

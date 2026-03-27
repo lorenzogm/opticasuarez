@@ -1,46 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { getServiciosOverview } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { getBaseUrl } from "~/lib/utils";
 import Servicios from "~/pages/servicios/servicios";
 
-const serviciosKeywords = generatePageKeywords("servicios", [
-  "Servicios ópticos",
-  "Servicios optométricos",
-  "Especialidades ópticas",
-]);
-
 export const Route = createFileRoute("/servicios")({
-  head: () => ({
-    meta: [
-      { title: "Servicios - Óptica Suárez" },
-      {
-        name: "description",
-        content:
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/servicios",
+      fallback: {
+        title: "Servicios - Óptica Suárez",
+        description:
           "¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.",
+        keywords:
+          "servicios ópticos Jaén, optometría Jaén, terapia visual Jaén, lentes de contacto Jaén",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(serviciosKeywords),
-      },
-      {
-        property: "og:title",
-        content: "Servicios - Óptica Suárez",
-      },
-      {
-        property: "og:description",
-        content:
-          "¿Conoces nuestros servicios? Entra y y fíjate en todo lo que Óptica Suárez puede ofrecerte: exámenes visuales, terapia visual, contactología y más.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/servicios`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${getBaseUrl()}/servicios` }],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getServiciosOverview();
     return { data };

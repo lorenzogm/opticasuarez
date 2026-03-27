@@ -1,35 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { getContactPage } from "~/lib/sanity";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { getBaseUrl } from "~/lib/utils";
 import ContactoPage from "~/pages/contacto/contacto";
 
 export const Route = createFileRoute("/contacto")({
-  head: () => ({
-    meta: [
-      { title: "Contacto - Óptica Suárez Jaén" },
-      {
-        name: "description",
-        content:
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/contacto",
+      fallback: {
+        title: "Contacto - Óptica Suárez Jaén",
+        description:
           "¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.",
+        keywords:
+          "contacto óptica Jaén, cita optometría Jaén, teléfono óptica Jaén",
       },
-      {
-        property: "og:title",
-        content: "Contacto - Óptica Suárez Jaén",
-      },
-      {
-        property: "og:description",
-        content:
-          "¿Tienes alguna duda o pregunta? Ponte en contacto con nosotros. Encuentra nuestra información de contacto y ubicación.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/contacto`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${getBaseUrl()}/contacto` }],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getContactPage();
     return { data };

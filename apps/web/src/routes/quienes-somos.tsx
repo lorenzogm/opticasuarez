@@ -1,49 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { getAboutPage } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { getBaseUrl } from "~/lib/utils";
 import Quienessomos from "~/pages/quienes-somos/quienes-somos";
 
-const quienesSomosKeywords = generatePageKeywords("quienes-somos", [
-  "Historia óptica",
-  "Equipo profesional",
-  "Experiencia óptica",
-  "Desde 1940",
-  "Tradición familiar",
-  "Optometristas Jaén",
-]);
-
 export const Route = createFileRoute("/quienes-somos")({
-  head: () => ({
-    meta: [
-      { title: "Quiénes somos | Óptica Suárez - Expertos en salud visual" },
-      {
-        name: "description",
-        content:
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/quienes-somos",
+      fallback: {
+        title: "Quiénes somos | Óptica Suárez - Expertos en salud visual",
+        description:
           "Desde 1940 cuidando de tu visión. Conoce nuestro equipo y trayectoria profesional de Óptica Suárez en Jaén.",
+        keywords:
+          "historia óptica Jaén, equipo profesional Jaén, optometristas Jaén, desde 1940",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(quienesSomosKeywords),
-      },
-      {
-        property: "og:title",
-        content: "Quiénes somos | Óptica Suárez - Expertos en salud visual",
-      },
-      {
-        property: "og:description",
-        content:
-          "Desde 1940 cuidando de tu visión. Conoce nuestro equipo y trayectoria profesional de Óptica Suárez en Jaén.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/quienes-somos`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${getBaseUrl()}/quienes-somos` }],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getAboutPage();
     return { data };

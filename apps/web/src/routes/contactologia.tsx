@@ -1,43 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getServicePage } from "~/lib/sanity";
-import { generateMetaKeywords, generatePageKeywords } from "~/lib/seo-keywords";
-import { getBaseUrl } from "~/lib/utils";
+import { buildHeadFromSanitySeo } from "~/lib/seo";
 import Contactologia from "~/pages/contactologia/contactologia";
 
-const contactologiaKeywords = generatePageKeywords("contactologia");
-
 export const Route = createFileRoute("/contactologia")({
-  head: () => ({
-    meta: [
-      {
+  head: ({ loaderData }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+    const data = (loaderData as any)?.data;
+    return buildHeadFromSanitySeo({
+      seo: data?.seo,
+      path: "/contactologia",
+      fallback: {
         title: "Lentes de contacto en Jaén | Óptica Suárez",
-      },
-      {
-        name: "description",
-        content:
+        description:
           "Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.",
+        keywords:
+          "contactología Jaén, lentes de contacto Jaén, lentillas Jaén, adaptación lentillas Jaén",
       },
-      {
-        name: "keywords",
-        content: generateMetaKeywords(contactologiaKeywords),
-      },
-      {
-        property: "og:title",
-        content: "Lentes de contacto en Jaén | Óptica Suárez",
-      },
-      {
-        property: "og:description",
-        content:
-          "Óptica Suárez, tu centro de contactología en Jaén. Adaptamos tus lentillas con precisión, confort y la última tecnología óptica.",
-      },
-      {
-        property: "og:url",
-        content: `${getBaseUrl()}/contactologia`,
-      },
-      { name: "robots", content: "index, follow" },
-    ],
-    links: [{ rel: "canonical", href: `${getBaseUrl()}/contactologia` }],
-  }),
+    });
+  },
   loader: async () => {
     const data = await getServicePage("contactologia");
     return { data };
