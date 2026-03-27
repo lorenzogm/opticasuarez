@@ -82,11 +82,11 @@ export default function GlobalNavigation() {
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
             >
-              <Link
+              <a
                 aria-expanded={isServicesOpen ? "true" : "false"}
                 aria-haspopup="true"
                 className="flex items-center gap-1 px-3 py-2 font-medium text-gray-700 text-sm transition-colors duration-200 hover:text-blue-600"
-                to="/servicios"
+                href="/servicios"
               >
                 Servicios
                 <svg
@@ -103,7 +103,7 @@ export default function GlobalNavigation() {
                     strokeWidth={2}
                   />
                 </svg>
-              </Link>
+              </a>
 
               {isServicesOpen && (
                 <div
@@ -112,14 +112,14 @@ export default function GlobalNavigation() {
                   role="menu"
                 >
                   {servicePages.map((service) => (
-                    <Link
+                    <a
                       className="block px-4 py-2 text-gray-700 text-sm transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
+                      href={service.url}
                       key={service.url}
                       role="menuitem"
-                      to={service.url}
                     >
                       {service.name}
-                    </Link>
+                    </a>
                   ))}
                 </div>
               )}
@@ -317,24 +317,24 @@ export default function GlobalNavigation() {
                     id="mobile-services-menu"
                     role="menu"
                   >
-                    <Link
+                    <a
                       className="block rounded-md px-3 py-2 font-medium text-gray-600 text-sm transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
+                      href="/servicios"
                       onClick={closeMenu}
                       role="menuitem"
-                      to="/servicios"
                     >
                       Ver todos los servicios
-                    </Link>
+                    </a>
                     {servicePages.map((service) => (
-                      <Link
+                      <a
                         className="block rounded-md px-3 py-2 text-gray-600 text-sm transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
+                        href={service.url}
                         key={service.url}
                         onClick={closeMenu}
                         role="menuitem"
-                        to={service.url}
                       >
                         {service.name}
-                      </Link>
+                      </a>
                     ))}
                   </div>
                 )}

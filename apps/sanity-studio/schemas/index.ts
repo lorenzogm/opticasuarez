@@ -7,8 +7,6 @@ import { page } from "./documents/page";
 import { product } from "./documents/product";
 import { productCategory } from "./documents/product-category";
 import { service } from "./documents/service";
-import { servicePage } from "./documents/service-page";
-import { serviciosOverview } from "./documents/servicios-overview";
 import { siteSettings } from "./documents/site-settings";
 import { teamMember } from "./documents/team-member";
 
@@ -19,7 +17,6 @@ import { cardItem } from "./objects/card-item";
 import { faqItem } from "./objects/faq-item";
 import { featureItem } from "./objects/feature-item";
 import { frameDimensions } from "./objects/frame-dimensions";
-import { frequencyRecommendation } from "./objects/frequency-recommendation";
 import { heroBlock } from "./objects/hero-block";
 import { partnerItem } from "./objects/partner-item";
 import { processStep } from "./objects/process-step";
@@ -27,7 +24,6 @@ import { productColor } from "./objects/product-color";
 import { schedule } from "./objects/schedule";
 import { seo } from "./objects/seo";
 import { serviceGridItem } from "./objects/service-grid-item";
-import { serviceItem } from "./objects/service-item";
 import { socialMediaLink } from "./objects/social-media-link";
 import { testimonialItem } from "./objects/testimonial-item";
 import { timelineEntry } from "./objects/timeline-entry";
@@ -56,7 +52,6 @@ export const schemaTypes = [
   faqItem,
   featureItem,
   frameDimensions,
-  frequencyRecommendation,
   heroBlock,
   partnerItem,
   processStep,
@@ -64,7 +59,6 @@ export const schemaTypes = [
   schedule,
   seo,
   serviceGridItem,
-  serviceItem,
   socialMediaLink,
   testimonialItem,
   timelineEntry,
@@ -94,8 +88,6 @@ export const schemaTypes = [
   product,
   productCategory,
   service,
-  servicePage,
-  serviciosOverview,
   siteSettings,
   teamMember,
 ];
@@ -103,7 +95,6 @@ export const schemaTypes = [
 // Singleton document types (only one instance allowed)
 export const singletonTypes = new Set([
   "homepage",
-  "serviciosOverview",
   "planVeoPage",
   "siteSettings",
 ]);

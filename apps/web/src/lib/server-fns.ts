@@ -18,8 +18,6 @@ import {
   getProduct,
   getProductCategories,
   getProducts,
-  getServicePage,
-  getServiciosOverview,
 } from "~/lib/sanity";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity queries return unknown; we use any for server function compatibility
@@ -43,24 +41,6 @@ export const fetchHomepageData = createServerFn({ method: "GET" }).handler(
     };
   }
 );
-
-// ─── Service pages ───────────────────────────────────────────
-
-export const fetchServicePage = createServerFn({ method: "GET" })
-  .inputValidator((slug: string) => slug)
-  .handler(async ({ data: slug }) => {
-    const data = await getServicePage(slug);
-    return { data: data as SanityData };
-  });
-
-// ─── Servicios overview ──────────────────────────────────────
-
-export const fetchServiciosOverview = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  const data = await getServiciosOverview();
-  return { data: data as SanityData };
-});
 
 // ─── Blog ────────────────────────────────────────────────────
 

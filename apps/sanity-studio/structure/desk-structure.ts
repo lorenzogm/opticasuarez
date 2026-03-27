@@ -54,38 +54,5 @@ export function structure(S: StructureBuilder) {
         .child(
           S.document().schemaType("siteSettings").documentId("siteSettings")
         ),
-
-      S.divider(),
-
-      // Legacy (hidden from main nav after migration)
-      S.listItem()
-        .title("⚠️ Legacy")
-        .child(
-          S.list()
-            .title("Contenido antiguo")
-            .items([
-              S.listItem()
-                .title("Página de inicio (legacy)")
-                .id("homepage")
-                .child(
-                  S.document().schemaType("homepage").documentId("homepage")
-                ),
-              S.listItem()
-                .title("Servicios vista general (legacy)")
-                .id("serviciosOverview")
-                .child(
-                  S.document()
-                    .schemaType("serviciosOverview")
-                    .documentId("serviciosOverview")
-                ),
-              S.listItem()
-                .title("Páginas de servicio (legacy)")
-                .child(
-                  S.documentTypeList("servicePage").title(
-                    "Páginas de servicio (legacy)"
-                  )
-                ),
-            ])
-        ),
     ]);
 }
