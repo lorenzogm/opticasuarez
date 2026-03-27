@@ -11,9 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TiendaRouteImport } from './routes/tienda'
 import { Route as ServiciosRouteImport } from './routes/servicios'
-import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
-import { Route as PlanveoRouteImport } from './routes/planveo'
-import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as CitaRouteImport } from './routes/cita'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
@@ -35,21 +32,6 @@ const TiendaRoute = TiendaRouteImport.update({
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
   path: '/servicios',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuienesSomosRoute = QuienesSomosRouteImport.update({
-  id: '/quienes-somos',
-  path: '/quienes-somos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlanveoRoute = PlanveoRouteImport.update({
-  id: '/planveo',
-  path: '/planveo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactoRoute = ContactoRouteImport.update({
-  id: '/contacto',
-  path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CitaRoute = CitaRouteImport.update({
@@ -117,9 +99,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/cita': typeof CitaRouteWithChildren
-  '/contacto': typeof ContactoRoute
-  '/planveo': typeof PlanveoRoute
-  '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRouteWithChildren
   '/tienda': typeof TiendaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -135,9 +114,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/contacto': typeof ContactoRoute
-  '/planveo': typeof PlanveoRoute
-  '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRouteWithChildren
   '/tienda': typeof TiendaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -155,9 +131,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/cita': typeof CitaRouteWithChildren
-  '/contacto': typeof ContactoRoute
-  '/planveo': typeof PlanveoRoute
-  '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRouteWithChildren
   '/tienda': typeof TiendaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -176,9 +149,6 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/cita'
-    | '/contacto'
-    | '/planveo'
-    | '/quienes-somos'
     | '/servicios'
     | '/tienda'
     | '/blog/$slug'
@@ -194,9 +164,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$'
-    | '/contacto'
-    | '/planveo'
-    | '/quienes-somos'
     | '/servicios'
     | '/tienda'
     | '/blog/$slug'
@@ -213,9 +180,6 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/cita'
-    | '/contacto'
-    | '/planveo'
-    | '/quienes-somos'
     | '/servicios'
     | '/tienda'
     | '/blog/$slug'
@@ -233,9 +197,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   CitaRoute: typeof CitaRouteWithChildren
-  ContactoRoute: typeof ContactoRoute
-  PlanveoRoute: typeof PlanveoRoute
-  QuienesSomosRoute: typeof QuienesSomosRoute
   ServiciosRoute: typeof ServiciosRouteWithChildren
   TiendaRoute: typeof TiendaRouteWithChildren
   BlogSlugRoute: typeof BlogSlugRoute
@@ -256,27 +217,6 @@ declare module '@tanstack/react-router' {
       path: '/servicios'
       fullPath: '/servicios'
       preLoaderRoute: typeof ServiciosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quienes-somos': {
-      id: '/quienes-somos'
-      path: '/quienes-somos'
-      fullPath: '/quienes-somos'
-      preLoaderRoute: typeof QuienesSomosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/planveo': {
-      id: '/planveo'
-      path: '/planveo'
-      fullPath: '/planveo'
-      preLoaderRoute: typeof PlanveoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contacto': {
-      id: '/contacto'
-      path: '/contacto'
-      fullPath: '/contacto'
-      preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cita': {
@@ -411,9 +351,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   CitaRoute: CitaRouteWithChildren,
-  ContactoRoute: ContactoRoute,
-  PlanveoRoute: PlanveoRoute,
-  QuienesSomosRoute: QuienesSomosRoute,
   ServiciosRoute: ServiciosRouteWithChildren,
   TiendaRoute: TiendaRouteWithChildren,
   BlogSlugRoute: BlogSlugRoute,

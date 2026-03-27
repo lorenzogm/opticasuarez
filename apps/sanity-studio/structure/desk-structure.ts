@@ -71,34 +71,12 @@ export function structure(S: StructureBuilder) {
                   S.document().schemaType("homepage").documentId("homepage")
                 ),
               S.listItem()
-                .title("Quiénes somos (legacy)")
-                .id("aboutPage")
-                .child(
-                  S.document().schemaType("aboutPage").documentId("aboutPage")
-                ),
-              S.listItem()
-                .title("Contacto (legacy)")
-                .id("contactPage")
-                .child(
-                  S.document()
-                    .schemaType("contactPage")
-                    .documentId("contactPage")
-                ),
-              S.listItem()
                 .title("Servicios vista general (legacy)")
                 .id("serviciosOverview")
                 .child(
                   S.document()
                     .schemaType("serviciosOverview")
                     .documentId("serviciosOverview")
-                ),
-              S.listItem()
-                .title("Plan VEO (legacy)")
-                .id("planVeoPage")
-                .child(
-                  S.document()
-                    .schemaType("planVeoPage")
-                    .documentId("planVeoPage")
                 ),
               S.listItem()
                 .title("Páginas de servicio (legacy)")

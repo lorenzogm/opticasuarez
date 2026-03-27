@@ -1,12 +1,9 @@
 // Document schemas
-import { aboutPage } from "./documents/about-page";
 import { blogPost } from "./documents/blog-post";
 import { brand } from "./documents/brand";
-import { contactPage } from "./documents/contact-page";
 import { homepage } from "./documents/homepage";
 import { location } from "./documents/location";
 import { page } from "./documents/page";
-import { planVeoPage } from "./documents/plan-veo-page";
 import { product } from "./documents/product";
 import { productCategory } from "./documents/product-category";
 import { service } from "./documents/service";
@@ -85,14 +82,11 @@ export const schemaTypes = [
   sectionTimeline,
 
   // Documents
-  aboutPage,
   blogPost,
   brand,
-  contactPage,
   homepage,
   location,
   page,
-  planVeoPage,
   product,
   productCategory,
   service,
@@ -105,8 +99,6 @@ export const schemaTypes = [
 // Singleton document types (only one instance allowed)
 export const singletonTypes = new Set([
   "homepage",
-  "aboutPage",
-  "contactPage",
   "serviciosOverview",
   "planVeoPage",
   "siteSettings",

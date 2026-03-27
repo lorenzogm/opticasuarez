@@ -9,15 +9,12 @@
  */
 import { createServerFn } from "@tanstack/react-start";
 import {
-  getAboutPage,
   getBlogPost,
   getBlogPosts,
   getBrands,
-  getContactPage,
   getFeaturedProducts,
   getHomepage,
   getPage,
-  getPlanVeoPage,
   getProduct,
   getProductCategories,
   getProducts,
@@ -64,33 +61,6 @@ export const fetchServiciosOverview = createServerFn({
   const data = await getServiciosOverview();
   return { data: data as SanityData };
 });
-
-// ─── About page ──────────────────────────────────────────────
-
-export const fetchAboutPage = createServerFn({ method: "GET" }).handler(
-  async () => {
-    const data = await getAboutPage();
-    return { data: data as SanityData };
-  }
-);
-
-// ─── Contact page ────────────────────────────────────────────
-
-export const fetchContactPage = createServerFn({ method: "GET" }).handler(
-  async () => {
-    const data = await getContactPage();
-    return { data: data as SanityData };
-  }
-);
-
-// ─── Plan VEO page ───────────────────────────────────────────
-
-export const fetchPlanVeoPage = createServerFn({ method: "GET" }).handler(
-  async () => {
-    const data = await getPlanVeoPage();
-    return { data: data as SanityData };
-  }
-);
 
 // ─── Blog ────────────────────────────────────────────────────
 
