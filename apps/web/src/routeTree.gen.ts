@@ -26,6 +26,7 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CitaIndexRouteImport } from './routes/cita/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as TiendaSlugRouteImport } from './routes/tienda.$slug'
 import { Route as CitaHorarioRouteImport } from './routes/cita/horario'
 import { Route as CitaContactoRouteImport } from './routes/cita/contacto'
 import { Route as CitaConfirmacionRouteImport } from './routes/cita/confirmacion'
@@ -117,6 +118,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TiendaSlugRoute = TiendaSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TiendaRoute,
+} as any)
 const CitaHorarioRoute = CitaHorarioRouteImport.update({
   id: '/horario',
   path: '/horario',
@@ -156,7 +162,7 @@ export interface FileRoutesByFullPath {
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRoute
   '/terapia-visual': typeof TerapiaVisualRoute
-  '/tienda': typeof TiendaRoute
+  '/tienda': typeof TiendaRouteWithChildren
   '/vision-deportiva': typeof VisionDeportivaRoute
   '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -164,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
+  '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/cita/': typeof CitaIndexRoute
 }
@@ -179,7 +186,7 @@ export interface FileRoutesByTo {
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRoute
   '/terapia-visual': typeof TerapiaVisualRoute
-  '/tienda': typeof TiendaRoute
+  '/tienda': typeof TiendaRouteWithChildren
   '/vision-deportiva': typeof VisionDeportivaRoute
   '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByTo {
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
+  '/tienda/$slug': typeof TiendaSlugRoute
   '/blog': typeof BlogIndexRoute
   '/cita': typeof CitaIndexRoute
 }
@@ -204,7 +212,7 @@ export interface FileRoutesById {
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRoute
   '/terapia-visual': typeof TerapiaVisualRoute
-  '/tienda': typeof TiendaRoute
+  '/tienda': typeof TiendaRouteWithChildren
   '/vision-deportiva': typeof VisionDeportivaRoute
   '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
+  '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/cita/': typeof CitaIndexRoute
 }
@@ -238,6 +247,7 @@ export interface FileRouteTypes {
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
+    | '/tienda/$slug'
     | '/blog/'
     | '/cita/'
   fileRoutesByTo: FileRoutesByTo
@@ -261,6 +271,7 @@ export interface FileRouteTypes {
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
+    | '/tienda/$slug'
     | '/blog'
     | '/cita'
   id:
@@ -285,6 +296,7 @@ export interface FileRouteTypes {
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
+    | '/tienda/$slug'
     | '/blog/'
     | '/cita/'
   fileRoutesById: FileRoutesById
@@ -302,7 +314,7 @@ export interface RootRouteChildren {
   QuienesSomosRoute: typeof QuienesSomosRoute
   ServiciosRoute: typeof ServiciosRoute
   TerapiaVisualRoute: typeof TerapiaVisualRoute
-  TiendaRoute: typeof TiendaRoute
+  TiendaRoute: typeof TiendaRouteWithChildren
   VisionDeportivaRoute: typeof VisionDeportivaRoute
   VisionPediatricaRoute: typeof VisionPediatricaRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -430,6 +442,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tienda/$slug': {
+      id: '/tienda/$slug'
+      path: '/$slug'
+      fullPath: '/tienda/$slug'
+      preLoaderRoute: typeof TiendaSlugRouteImport
+      parentRoute: typeof TiendaRoute
+    }
     '/cita/horario': {
       id: '/cita/horario'
       path: '/horario'
@@ -486,6 +505,17 @@ const CitaRouteChildren: CitaRouteChildren = {
 
 const CitaRouteWithChildren = CitaRoute._addFileChildren(CitaRouteChildren)
 
+interface TiendaRouteChildren {
+  TiendaSlugRoute: typeof TiendaSlugRoute
+}
+
+const TiendaRouteChildren: TiendaRouteChildren = {
+  TiendaSlugRoute: TiendaSlugRoute,
+}
+
+const TiendaRouteWithChildren =
+  TiendaRoute._addFileChildren(TiendaRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
@@ -499,7 +529,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuienesSomosRoute: QuienesSomosRoute,
   ServiciosRoute: ServiciosRoute,
   TerapiaVisualRoute: TerapiaVisualRoute,
-  TiendaRoute: TiendaRoute,
+  TiendaRoute: TiendaRouteWithChildren,
   VisionDeportivaRoute: VisionDeportivaRoute,
   VisionPediatricaRoute: VisionPediatricaRoute,
   BlogSlugRoute: BlogSlugRoute,
