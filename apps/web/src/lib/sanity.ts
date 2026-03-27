@@ -127,96 +127,6 @@ export async function getHomepage(preview = false) {
   );
 }
 
-// Service page by slug
-export async function getServicePage(slug: string, preview = false) {
-  return sanityFetch(
-    `*[_type == "servicePage" && slug.current == $slug][0]{
-      mainTitle,
-      subtitle,
-      "heroImage": heroImage ${imageProjection},
-      heroDescription,
-      intro,
-      introduction,
-      itemsSectionTitle,
-      itemsSectionSubtitle,
-      items[]{
-        title,
-        description,
-        icon,
-        "image": image ${imageProjection},
-        imageTitle,
-        imageAlt,
-        link,
-        benefits
-      },
-      process{
-        title,
-        description,
-        steps[]{
-          stepNumber,
-          title,
-          description,
-          "image": image ${imageProjection}
-        }
-      },
-      benefits,
-      frequency,
-      faq,
-      cta,
-      testimonials{
-        title,
-        items[]
-      },
-      visualTherapy{
-        title,
-        description,
-        skills[],
-        improvements,
-        images[]{
-          "src": src ${imageProjection},
-          alt,
-          title
-        },
-        ctaButton
-      },
-      ageGroups{
-        title,
-        subtitle,
-        groups[]
-      },
-      warningSign,
-      science,
-      candidates,
-      whyChooseUs,
-      "locations": locations[]->${locationProjection},
-      seo
-    }`,
-    { slug },
-    preview
-  );
-}
-
-// Servicios overview
-export async function getServiciosOverview(preview = false) {
-  return sanityFetch(
-    `*[_type == "serviciosOverview"][0]{
-    title,
-    description,
-    services[]{
-      title,
-      description,
-      url,
-      "image": image ${imageProjection},
-      alt,
-      imageTitle
-    },
-    seo
-  }`,
-    undefined,
-    preview
-  );
-}
-
 // Site settings
 export async function getSiteSettings(preview = false) {
   return sanityFetch(
@@ -277,15 +187,6 @@ export async function getBlogPost(slug: string, preview = false) {
 export async function getAllBlogSlugs(preview = false) {
   return sanityFetch(
     `*[_type == "blogPost"]{ "slug": slug.current }`,
-    undefined,
-    preview
-  );
-}
-
-// All service page slugs (for sitemap)
-export async function getAllServiceSlugs(preview = false) {
-  return sanityFetch(
-    `*[_type == "servicePage"]{ "slug": slug.current }`,
     undefined,
     preview
   );

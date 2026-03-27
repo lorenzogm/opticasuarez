@@ -13,11 +13,9 @@ import { Route as CitaRouteImport } from './routes/cita'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TiendaIndexRouteImport } from './routes/tienda/index'
-import { Route as ServiciosIndexRouteImport } from './routes/servicios/index'
 import { Route as CitaIndexRouteImport } from './routes/cita/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as TiendaSlugRouteImport } from './routes/tienda/$slug'
-import { Route as ServiciosSlugRouteImport } from './routes/servicios/$slug'
 import { Route as CitaHorarioRouteImport } from './routes/cita/horario'
 import { Route as CitaContactoRouteImport } from './routes/cita/contacto'
 import { Route as CitaConfirmacionRouteImport } from './routes/cita/confirmacion'
@@ -44,11 +42,6 @@ const TiendaIndexRoute = TiendaIndexRouteImport.update({
   path: '/tienda/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServiciosIndexRoute = ServiciosIndexRouteImport.update({
-  id: '/servicios/',
-  path: '/servicios/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CitaIndexRoute = CitaIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -62,11 +55,6 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const TiendaSlugRoute = TiendaSlugRouteImport.update({
   id: '/tienda/$slug',
   path: '/tienda/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
-  id: '/servicios/$slug',
-  path: '/servicios/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CitaHorarioRoute = CitaHorarioRouteImport.update({
@@ -104,11 +92,9 @@ export interface FileRoutesByFullPath {
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
-  '/servicios/$slug': typeof ServiciosSlugRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/cita/': typeof CitaIndexRoute
-  '/servicios/': typeof ServiciosIndexRoute
   '/tienda/': typeof TiendaIndexRoute
 }
 export interface FileRoutesByTo {
@@ -119,11 +105,9 @@ export interface FileRoutesByTo {
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
-  '/servicios/$slug': typeof ServiciosSlugRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog': typeof BlogIndexRoute
   '/cita': typeof CitaIndexRoute
-  '/servicios': typeof ServiciosIndexRoute
   '/tienda': typeof TiendaIndexRoute
 }
 export interface FileRoutesById {
@@ -136,11 +120,9 @@ export interface FileRoutesById {
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
-  '/servicios/$slug': typeof ServiciosSlugRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/cita/': typeof CitaIndexRoute
-  '/servicios/': typeof ServiciosIndexRoute
   '/tienda/': typeof TiendaIndexRoute
 }
 export interface FileRouteTypes {
@@ -154,11 +136,9 @@ export interface FileRouteTypes {
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
-    | '/servicios/$slug'
     | '/tienda/$slug'
     | '/blog/'
     | '/cita/'
-    | '/servicios/'
     | '/tienda/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -169,11 +149,9 @@ export interface FileRouteTypes {
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
-    | '/servicios/$slug'
     | '/tienda/$slug'
     | '/blog'
     | '/cita'
-    | '/servicios'
     | '/tienda'
   id:
     | '__root__'
@@ -185,11 +163,9 @@ export interface FileRouteTypes {
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
-    | '/servicios/$slug'
     | '/tienda/$slug'
     | '/blog/'
     | '/cita/'
-    | '/servicios/'
     | '/tienda/'
   fileRoutesById: FileRoutesById
 }
@@ -198,10 +174,8 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   CitaRoute: typeof CitaRouteWithChildren
   BlogSlugRoute: typeof BlogSlugRoute
-  ServiciosSlugRoute: typeof ServiciosSlugRoute
   TiendaSlugRoute: typeof TiendaSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
-  ServiciosIndexRoute: typeof ServiciosIndexRoute
   TiendaIndexRoute: typeof TiendaIndexRoute
 }
 
@@ -235,13 +209,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TiendaIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/servicios/': {
-      id: '/servicios/'
-      path: '/servicios'
-      fullPath: '/servicios/'
-      preLoaderRoute: typeof ServiciosIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/cita/': {
       id: '/cita/'
       path: '/'
@@ -261,13 +228,6 @@ declare module '@tanstack/react-router' {
       path: '/tienda/$slug'
       fullPath: '/tienda/$slug'
       preLoaderRoute: typeof TiendaSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/servicios/$slug': {
-      id: '/servicios/$slug'
-      path: '/servicios/$slug'
-      fullPath: '/servicios/$slug'
-      preLoaderRoute: typeof ServiciosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cita/horario': {
@@ -331,10 +291,8 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   CitaRoute: CitaRouteWithChildren,
   BlogSlugRoute: BlogSlugRoute,
-  ServiciosSlugRoute: ServiciosSlugRoute,
   TiendaSlugRoute: TiendaSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
-  ServiciosIndexRoute: ServiciosIndexRoute,
   TiendaIndexRoute: TiendaIndexRoute,
 }
 export const routeTree = rootRouteImport
