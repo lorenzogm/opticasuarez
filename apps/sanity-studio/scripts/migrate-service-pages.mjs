@@ -50,8 +50,8 @@ const client = createClient({
   useCdn: false,
 });
 
-const CONTENT_DIR = resolve(import.meta.dirname, "../../content/json");
-const IMAGES_DIR = resolve(import.meta.dirname, "../../content/images");
+const CONTENT_DIR = resolve(import.meta.dirname, "../../../content/json");
+const IMAGES_DIR = resolve(import.meta.dirname, "../../../content/images");
 
 function loadJson(name) {
   const path = resolve(CONTENT_DIR, name);

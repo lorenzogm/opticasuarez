@@ -81,7 +81,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           }
           to={href}
         >
-          {props.children}
+          {/* biome-ignore lint/suspicious/noExplicitAny: React 18 ReactNode vs TanStack Router children type mismatch */}
+          {props.children as any}
         </Link>
       );
     }

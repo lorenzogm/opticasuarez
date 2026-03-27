@@ -7,9 +7,9 @@
  * Requires a Sanity write token (create at https://www.sanity.io/manage/project/2a24wmex/api#tokens).
  */
 
+import { createReadStream, existsSync, readFileSync } from "node:fs";
+import { basename, extname, resolve } from "node:path";
 import { createClient } from "@sanity/client";
-import { readFileSync, existsSync, createReadStream } from "node:fs";
-import { resolve, extname, basename } from "node:path";
 
 const PROJECT_ID = "2a24wmex";
 const DATASET = "production";
@@ -25,7 +25,9 @@ if (!TOKEN) {
     const config = JSON.parse(readFileSync(configPath, "utf-8"));
     TOKEN = config.authToken;
     if (TOKEN) {
-      console.log("Using Sanity CLI auth token from ~/.config/sanity/config.json");
+      console.log(
+        "Using Sanity CLI auth token from ~/.config/sanity/config.json"
+      );
     }
   } catch {
     // ignore
@@ -65,13 +67,13 @@ function loadJson(name) {
 const imageCache = new Map();
 
 async function uploadImage(localPath) {
-  if (!localPath || typeof localPath !== "string") return undefined;
+  if (!localPath || typeof localPath !== "string") return;
   if (imageCache.has(localPath)) return imageCache.get(localPath);
 
   const absPath = resolve(PUBLIC_DIR, localPath.replace(/^\//, ""));
   if (!existsSync(absPath)) {
     console.warn(`  ⚠ Image not found: ${absPath}`);
-    return undefined;
+    return;
   }
 
   const ext = extname(absPath).slice(1);
@@ -93,13 +95,16 @@ async function uploadImage(localPath) {
         contentType,
       }
     );
-    const ref = { _type: "image", asset: { _type: "reference", _ref: asset._id } };
+    const ref = {
+      _type: "image",
+      asset: { _type: "reference", _ref: asset._id },
+    };
     imageCache.set(localPath, ref);
     console.log(`  ✓ Uploaded ${localPath}`);
     return ref;
   } catch (err) {
     console.warn(`  ⚠ Failed to upload ${localPath}: ${err.message}`);
-    return undefined;
+    return;
   }
 }
 
@@ -503,7 +508,10 @@ async function createLocations() {
   const docs = [];
   for (const loc of locations) {
     const doc = {
-      _id: `location-${loc.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`,
+      _id: `location-${loc.name
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "")}`,
       _type: "location",
       name: loc.name,
       address: loc.address,
@@ -847,9 +855,7 @@ async function main() {
   }
 
   console.log("\n✅ Migration complete!");
-  console.log(
-    `   Images uploaded: ${imageCache.size}`
-  );
+  console.log(`   Images uploaded: ${imageCache.size}`);
   console.log(
     "   Note: Some page sections may need manual image assignments in the Sanity Studio."
   );
