@@ -21,6 +21,7 @@ import { Route as ControlDeMiopiaRouteImport } from './routes/control-de-miopia'
 import { Route as ContactologiaRouteImport } from './routes/contactologia'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as CitaRouteImport } from './routes/cita'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CitaIndexRouteImport } from './routes/cita/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
@@ -90,6 +91,11 @@ const CitaRoute = CitaRouteImport.update({
   path: '/cita',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -133,6 +139,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/cita': typeof CitaRouteWithChildren
   '/contacto': typeof ContactoRoute
   '/contactologia': typeof ContactologiaRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/contacto': typeof ContactoRoute
   '/contactologia': typeof ContactologiaRoute
   '/control-de-miopia': typeof ControlDeMiopiaRoute
@@ -177,6 +185,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/cita': typeof CitaRouteWithChildren
   '/contacto': typeof ContactoRoute
   '/contactologia': typeof ContactologiaRoute
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$'
     | '/cita'
     | '/contacto'
     | '/contactologia'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$'
     | '/contacto'
     | '/contactologia'
     | '/control-de-miopia'
@@ -244,6 +255,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/$'
     | '/cita'
     | '/contacto'
     | '/contactologia'
@@ -267,6 +279,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SplatRoute: typeof SplatRoute
   CitaRoute: typeof CitaRouteWithChildren
   ContactoRoute: typeof ContactoRoute
   ContactologiaRoute: typeof ContactologiaRoute
@@ -369,6 +382,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -448,6 +468,7 @@ const CitaRouteWithChildren = CitaRoute._addFileChildren(CitaRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SplatRoute: SplatRoute,
   CitaRoute: CitaRouteWithChildren,
   ContactoRoute: ContactoRoute,
   ContactologiaRoute: ContactologiaRoute,
