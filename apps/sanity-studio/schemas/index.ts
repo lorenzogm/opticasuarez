@@ -1,11 +1,14 @@
 // Document schemas
 import { aboutPage } from "./documents/about-page";
 import { blogPost } from "./documents/blog-post";
+import { brand } from "./documents/brand";
 import { contactPage } from "./documents/contact-page";
 import { homepage } from "./documents/homepage";
 import { location } from "./documents/location";
 import { page } from "./documents/page";
 import { planVeoPage } from "./documents/plan-veo-page";
+import { product } from "./documents/product";
+import { productCategory } from "./documents/product-category";
 import { service } from "./documents/service";
 import { servicePage } from "./documents/service-page";
 import { serviciosOverview } from "./documents/servicios-overview";
@@ -18,10 +21,12 @@ import { bookAppointmentBlock } from "./objects/book-appointment-block";
 import { cardItem } from "./objects/card-item";
 import { faqItem } from "./objects/faq-item";
 import { featureItem } from "./objects/feature-item";
+import { frameDimensions } from "./objects/frame-dimensions";
 import { frequencyRecommendation } from "./objects/frequency-recommendation";
 import { heroBlock } from "./objects/hero-block";
 import { partnerItem } from "./objects/partner-item";
 import { processStep } from "./objects/process-step";
+import { productColor } from "./objects/product-color";
 import { schedule } from "./objects/schedule";
 import { seo } from "./objects/seo";
 import { serviceGridItem } from "./objects/service-grid-item";
@@ -47,10 +52,12 @@ export const schemaTypes = [
   cardItem,
   faqItem,
   featureItem,
+  frameDimensions,
   frequencyRecommendation,
   heroBlock,
   partnerItem,
   processStep,
+  productColor,
   schedule,
   seo,
   serviceGridItem,
@@ -72,11 +79,14 @@ export const schemaTypes = [
   // Documents
   aboutPage,
   blogPost,
+  brand,
   contactPage,
   homepage,
   location,
   page,
   planVeoPage,
+  product,
+  productCategory,
   service,
   servicePage,
   serviciosOverview,

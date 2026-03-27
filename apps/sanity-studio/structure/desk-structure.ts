@@ -30,6 +30,23 @@ export function structure(S: StructureBuilder) {
 
       S.divider(),
 
+      // Tienda
+      S.listItem()
+        .title("Productos")
+        .child(S.documentTypeList("product").title("Productos")),
+
+      S.listItem()
+        .title("Marcas")
+        .child(S.documentTypeList("brand").title("Marcas")),
+
+      S.listItem()
+        .title("Categorías de producto")
+        .child(
+          S.documentTypeList("productCategory").title("Categorías de producto")
+        ),
+
+      S.divider(),
+
       // Global settings
       S.listItem()
         .title("Configuración del sitio")

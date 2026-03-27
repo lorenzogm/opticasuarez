@@ -579,3 +579,119 @@ export async function getTeamMembers(preview = false) {
     preview
   );
 }
+
+// ──────────────────────────────────────
+// Tienda — Products, Brands, Categories
+// ──────────────────────────────────────
+
+// Product listing with optional filters
+export async function getProducts(preview = false) {
+  return sanityFetch(
+    `*[_type == "product"] | order(name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      "images": images[] ${imageProjection},
+      price,
+      salePrice,
+      "brand": brand->{_id, name, "slug": slug.current, "logo": logo ${imageProjection}},
+      "category": category->{_id, name, "slug": slug.current},
+      availability,
+      tags,
+      featured
+    }`,
+    undefined,
+    preview
+  );
+}
+
+// Single product by slug
+export async function getProduct(slug: string, preview = false) {
+  return sanityFetch(
+    `*[_type == "product" && slug.current == $slug][0]{
+      _id,
+      name,
+      "slug": slug.current,
+      "images": images[] ${imageProjection},
+      price,
+      salePrice,
+      "brand": brand->{_id, name, "slug": slug.current, "logo": logo ${imageProjection}},
+      "category": category->{_id, name, "slug": slug.current},
+      description,
+      specs{
+        material,
+        gender,
+        frameDimensions
+      },
+      colors[]{
+        name,
+        hex,
+        "image": image ${imageProjection}
+      },
+      availability,
+      tags,
+      featured,
+      seo
+    }`,
+    { slug },
+    preview
+  );
+}
+
+// Featured products (for homepage)
+export async function getFeaturedProducts(preview = false) {
+  return sanityFetch(
+    `*[_type == "product" && featured == true] | order(name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      "images": images[] ${imageProjection},
+      price,
+      salePrice,
+      "brand": brand->{_id, name, "slug": slug.current},
+      "category": category->{_id, name, "slug": slug.current},
+      availability
+    }`,
+    undefined,
+    preview
+  );
+}
+
+// Brands
+export async function getBrands(preview = false) {
+  return sanityFetch(
+    `*[_type == "brand"] | order(name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      "logo": logo ${imageProjection}
+    }`,
+    undefined,
+    preview
+  );
+}
+
+// Product categories
+export async function getProductCategories(preview = false) {
+  return sanityFetch(
+    `*[_type == "productCategory"] | order(order asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      description,
+      "image": image ${imageProjection},
+      order
+    }`,
+    undefined,
+    preview
+  );
+}
+
+// All product slugs (for sitemap)
+export async function getAllProductSlugs(preview = false) {
+  return sanityFetch(
+    `*[_type == "product"]{ "slug": slug.current }`,
+    undefined,
+    preview
+  );
+}
