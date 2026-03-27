@@ -11,6 +11,8 @@ function resolveCard(item: any) {
     image: resolveImage(item.image) || resolveImage(ref?.image) || "",
     link: item.link || (ref?.slug ? `/${ref.slug}` : ref?.mapUrl || ""),
     icon: item.icon || ref?.icon || "",
+    subtitle: ref?.role || "",
+    details: ref?.details || [],
   };
 }
 
@@ -20,6 +22,7 @@ const variantClasses: Record<string, string> = {
   "grid-4": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   square: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
   landscape: "grid-cols-1 sm:grid-cols-2",
+  profile: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity section data
@@ -28,6 +31,7 @@ export default function SectionCards({ section }: { section: any }) {
   const variant = section.variant || "grid-3";
   const isLandscape = variant === "landscape";
   const isSquare = variant === "square";
+  const isProfile = variant === "profile";
 
   return (
     <section className="px-4 py-16 sm:px-6">
@@ -54,14 +58,18 @@ export default function SectionCards({ section }: { section: any }) {
           className={`grid gap-8 ${variantClasses[variant] || variantClasses["grid-3"]}`}
         >
           {/* biome-ignore lint/suspicious/noExplicitAny: dynamic cards */}
-          {items.map((card: any) => (
-            <CardItem
-              isLandscape={isLandscape}
-              isSquare={isSquare}
-              key={card.key}
-              {...card}
-            />
-          ))}
+          {items.map((card: any) =>
+            isProfile ? (
+              <ProfileCardItem key={card.key} {...card} />
+            ) : (
+              <CardItem
+                isLandscape={isLandscape}
+                isSquare={isSquare}
+                key={card.key}
+                {...card}
+              />
+            )
+          )}
         </div>
       </div>
     </section>
@@ -129,5 +137,57 @@ function CardItem({
         )}
       </div>
     </Wrapper>
+  );
+}
+
+function ProfileCardItem({
+  title,
+  image,
+  subtitle,
+  details,
+}: {
+  title: string;
+  image: string;
+  subtitle: string;
+  details: string[];
+}) {
+  return (
+    <div className="text-center">
+      {image && (
+        <figure className="mb-6">
+          <img
+            alt={title}
+            className="h-80 w-full rounded-lg object-cover shadow-lg"
+            loading="lazy"
+            src={image}
+          />
+        </figure>
+      )}
+      <div>
+        {title && (
+          <Text
+            as="h3"
+            className="mb-2 text-gray-900 uppercase tracking-wide"
+            variant="heading-4"
+          >
+            {title}
+          </Text>
+        )}
+        {subtitle && (
+          <Text className="mb-4 font-medium text-blue-800" variant="body-lg">
+            {subtitle}
+          </Text>
+        )}
+        {details.length > 0 && (
+          <div className="space-y-2">
+            {details.map((detail: string) => (
+              <Text className="text-gray-600" key={detail} variant="body-sm">
+                {detail}
+              </Text>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

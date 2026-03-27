@@ -26,6 +26,7 @@ export const sectionCards = defineType({
           { title: "4 columnas", value: "grid-4" },
           { title: "Cuadrado", value: "square" },
           { title: "Landscape", value: "landscape" },
+          { title: "Perfil", value: "profile" },
         ],
       },
       initialValue: "grid-3",
