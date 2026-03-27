@@ -391,6 +391,16 @@ const sectionProjection = `{
     title,
     description,
     "image": image ${imageProjection}
+  },
+  // sectionList
+  variant,
+  "listItems": items[],
+  // sectionStats
+  "statItems": items[]{
+    _key,
+    title,
+    description,
+    value
   }
   // sectionLocations reuses "items" with cardItemProjection (already projected above)
   // sectionCTA reuses top-level title, description, buttonText, buttonUrl (already projected above)
