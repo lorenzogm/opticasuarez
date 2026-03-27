@@ -3,9 +3,11 @@ import SectionCards from "./section-cards";
 import SectionCTA from "./section-cta";
 import SectionFeatures from "./section-features";
 import SectionHero from "./section-hero";
+import SectionList from "./section-list";
 import SectionLocations from "./section-locations";
 import SectionProcessSteps from "./section-process-steps";
 import SectionSocialMedia from "./section-social-media";
+import SectionStats from "./section-stats";
 import SectionTeaser from "./section-teaser";
 import SectionTestimonials from "./section-testimonials";
 import SectionText from "./section-text";
@@ -24,8 +26,10 @@ const sectionComponents: Record<string, SectionComponent> = {
   sectionTestimonials: SectionTestimonials,
   sectionTimeline: SectionTimeline,
   sectionSocialMedia: SectionSocialMedia,
+  sectionList: SectionList,
   sectionLocations: SectionLocations,
   sectionProcessSteps: SectionProcessSteps,
+  sectionStats: SectionStats,
   sectionCTA: SectionCTA,
 };
 

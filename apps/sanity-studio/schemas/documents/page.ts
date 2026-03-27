@@ -34,6 +34,8 @@ export const page = defineType({
         { type: "sectionSocialMedia" },
         { type: "sectionLocations" },
         { type: "sectionProcessSteps" },
+        { type: "sectionList" },
+        { type: "sectionStats" },
         { type: "sectionCTA" },
       ],
     }),
