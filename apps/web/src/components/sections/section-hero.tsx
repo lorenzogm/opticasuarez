@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Text } from "~/components/text";
 import { resolveImage } from "~/lib/sanity";
 
@@ -31,14 +32,24 @@ export default function SectionHero({ section }: { section: any }) {
             {section.description}
           </Text>
         )}
-        {section.ctaText && section.ctaUrl && (
-          <a
-            className="inline-block rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
-            href={section.ctaUrl}
-          >
-            {section.ctaText}
-          </a>
-        )}
+        {section.ctaText &&
+          section.ctaUrl &&
+          (() => {
+            const isExternal =
+              section.ctaUrl.startsWith("http") ||
+              section.ctaUrl.startsWith("//");
+            const className =
+              "inline-block rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700";
+            return isExternal ? (
+              <a className={className} href={section.ctaUrl}>
+                {section.ctaText}
+              </a>
+            ) : (
+              <Link className={className} to={section.ctaUrl}>
+                {section.ctaText}
+              </Link>
+            );
+          })()}
       </div>
     </section>
   );

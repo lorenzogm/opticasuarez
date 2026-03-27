@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Text } from "~/components/text";
 import { resolveImage } from "~/lib/sanity";
 
@@ -38,18 +39,27 @@ export default function SectionTeaser({ section }: { section: any }) {
                 {section.description}
               </Text>
             )}
-            {section.buttonText && section.buttonUrl && (
-              <a
-                className={`inline-block rounded-lg px-8 py-3 font-semibold transition ${
+            {section.buttonText &&
+              section.buttonUrl &&
+              (() => {
+                const isExternal =
+                  section.buttonUrl.startsWith("http") ||
+                  section.buttonUrl.startsWith("//");
+                const btnClassName = `inline-block rounded-lg px-8 py-3 font-semibold transition ${
                   variant !== "default"
                     ? "bg-white text-blue-900 hover:bg-gray-100"
                     : "bg-blue-600 text-white hover:bg-blue-700"
-                }`}
-                href={section.buttonUrl}
-              >
-                {section.buttonText}
-              </a>
-            )}
+                }`;
+                return isExternal ? (
+                  <a className={btnClassName} href={section.buttonUrl}>
+                    {section.buttonText}
+                  </a>
+                ) : (
+                  <Link className={btnClassName} to={section.buttonUrl}>
+                    {section.buttonText}
+                  </Link>
+                );
+              })()}
           </div>
           {image && (
             <div className="flex-1">

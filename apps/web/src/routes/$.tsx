@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import SectionRenderer from "~/components/sections/section-renderer";
 import { Text } from "~/components/text";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
@@ -48,12 +48,12 @@ function NotFoundPage() {
         <Text as="p" className="mb-8 text-gray-600" variant="body-lg">
           La página que buscas no existe.
         </Text>
-        <a
+        <Link
           className="inline-block rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
-          href="/"
+          to="/"
         >
           Volver al inicio
-        </a>
+        </Link>
       </div>
     </section>
   );

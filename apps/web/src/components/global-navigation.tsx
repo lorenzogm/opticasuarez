@@ -82,11 +82,12 @@ export default function GlobalNavigation() {
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
             >
-              <a
+              <Link
                 aria-expanded={isServicesOpen ? "true" : "false"}
                 aria-haspopup="true"
                 className="flex items-center gap-1 px-3 py-2 font-medium text-gray-700 text-sm transition-colors duration-200 hover:text-blue-600"
-                href="/servicios"
+                params={{ _splat: "servicios" }}
+                to="/$"
               >
                 Servicios
                 <svg
@@ -103,7 +104,7 @@ export default function GlobalNavigation() {
                     strokeWidth={2}
                   />
                 </svg>
-              </a>
+              </Link>
 
               {isServicesOpen && (
                 <div
@@ -112,14 +113,15 @@ export default function GlobalNavigation() {
                   role="menu"
                 >
                   {servicePages.map((service) => (
-                    <a
+                    <Link
                       className="block px-4 py-2 text-gray-700 text-sm transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600"
-                      href={service.url}
                       key={service.url}
+                      params={{ _splat: service.url.replace(/^\//, "") }}
                       role="menuitem"
+                      to="/$"
                     >
                       {service.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -317,24 +319,26 @@ export default function GlobalNavigation() {
                     id="mobile-services-menu"
                     role="menu"
                   >
-                    <a
+                    <Link
                       className="block rounded-md px-3 py-2 font-medium text-gray-600 text-sm transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
-                      href="/servicios"
                       onClick={closeMenu}
+                      params={{ _splat: "servicios" }}
                       role="menuitem"
+                      to="/$"
                     >
                       Ver todos los servicios
-                    </a>
+                    </Link>
                     {servicePages.map((service) => (
-                      <a
+                      <Link
                         className="block rounded-md px-3 py-2 text-gray-600 text-sm transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600"
-                        href={service.url}
                         key={service.url}
                         onClick={closeMenu}
+                        params={{ _splat: service.url.replace(/^\//, "") }}
                         role="menuitem"
+                        to="/$"
                       >
                         {service.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}

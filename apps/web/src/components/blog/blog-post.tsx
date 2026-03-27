@@ -41,14 +41,30 @@ const portableTextComponents = {
     }: {
       value?: { href?: string };
       children?: React.ReactNode;
-    }) => (
-      <a
-        className="text-blue-600 underline transition-colors hover:text-blue-800"
-        href={value?.href}
-      >
-        {children}
-      </a>
-    ),
+    }) => {
+      const href = value?.href;
+      if (!href) return <>{children}</>;
+      const isExternal = href.startsWith("http") || href.startsWith("//");
+      if (isExternal) {
+        return (
+          <a
+            className="text-blue-600 underline transition-colors hover:text-blue-800"
+            href={href}
+          >
+            {children}
+          </a>
+        );
+      }
+      return (
+        <Link
+          className="text-blue-600 underline transition-colors hover:text-blue-800"
+          to={href}
+        >
+          {/* biome-ignore lint/suspicious/noExplicitAny: React 18 ReactNode vs TanStack Router children type */}
+          {children as any}
+        </Link>
+      );
+    },
   },
   list: {
     bullet: ({ children }: { children?: React.ReactNode }) => (

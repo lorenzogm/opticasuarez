@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Text } from "~/components/text";
 import { resolveImage } from "~/lib/sanity";
 
@@ -93,16 +94,13 @@ function CardItem({
   isLandscape: boolean;
   isSquare: boolean;
 }) {
-  const Wrapper = link ? "a" : "div";
-  const wrapperProps = link ? { href: link } : {};
+  const isExternal = link && (link.startsWith("http") || link.startsWith("//"));
+  const cardClassName = `group overflow-hidden rounded-xl bg-white shadow-md transition hover:shadow-lg ${
+    isLandscape ? "flex flex-row" : "flex flex-col"
+  }`;
 
-  return (
-    <Wrapper
-      className={`group overflow-hidden rounded-xl bg-white shadow-md transition hover:shadow-lg ${
-        isLandscape ? "flex flex-row" : "flex flex-col"
-      }`}
-      {...wrapperProps}
-    >
+  const cardContent = (
+    <>
       {image && (
         <div className={isLandscape ? "w-1/3 flex-shrink-0" : ""}>
           <img
@@ -136,8 +134,24 @@ function CardItem({
           </Text>
         )}
       </div>
-    </Wrapper>
+    </>
   );
+
+  if (link && isExternal) {
+    return (
+      <a className={cardClassName} href={link}>
+        {cardContent}
+      </a>
+    );
+  }
+  if (link) {
+    return (
+      <Link className={cardClassName} to={link}>
+        {cardContent}
+      </Link>
+    );
+  }
+  return <div className={cardClassName}>{cardContent}</div>;
 }
 
 function ProfileCardItem({

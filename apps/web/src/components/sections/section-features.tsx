@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Text } from "~/components/text";
 import { resolveImage } from "~/lib/sanity";
 
@@ -52,13 +53,25 @@ export default function SectionFeatures({ section }: { section: any }) {
                     className="mb-2 text-gray-900"
                     variant="heading-3"
                   >
-                    {item.link ? (
-                      <a className="hover:text-blue-600" href={item.link}>
-                        {item.title}
-                      </a>
-                    ) : (
-                      item.title
-                    )}
+                    {item.link
+                      ? (() => {
+                          const isExternal =
+                            item.link.startsWith("http") ||
+                            item.link.startsWith("//");
+                          return isExternal ? (
+                            <a className="hover:text-blue-600" href={item.link}>
+                              {item.title}
+                            </a>
+                          ) : (
+                            <Link
+                              className="hover:text-blue-600"
+                              to={item.link}
+                            >
+                              {item.title}
+                            </Link>
+                          );
+                        })()
+                      : item.title}
                   </Text>
                 )}
                 {item.description && (
