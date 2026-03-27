@@ -605,7 +605,7 @@ export async function getProducts(preview = false) {
   );
 }
 
-// Single product by slug
+// Single product by slug (with related products)
 export async function getProduct(slug: string, preview = false) {
   return sanityFetch(
     `*[_type == "product" && slug.current == $slug][0]{
@@ -631,7 +631,18 @@ export async function getProduct(slug: string, preview = false) {
       availability,
       tags,
       featured,
-      seo
+      seo,
+      "relatedProducts": *[_type == "product" && slug.current != $slug && (category._ref == ^.category._ref || brand._ref == ^.brand._ref)][0..3]{
+        _id,
+        name,
+        "slug": slug.current,
+        "images": images[] ${imageProjection},
+        price,
+        salePrice,
+        "brand": brand->{_id, name, "slug": slug.current},
+        "category": category->{_id, name, "slug": slug.current},
+        availability
+      }
     }`,
     { slug },
     preview

@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { resolveImage } from "~/lib/sanity";
 
 interface ProductCardProps {
@@ -14,7 +15,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     : 0;
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md">
+    <Link
+      className="group block overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md"
+      params={{ slug: product.slug?.current || product.slug }}
+      to="/tienda/$slug"
+    >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-gray-100">
         {imageUrl ? (
@@ -80,6 +85,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
