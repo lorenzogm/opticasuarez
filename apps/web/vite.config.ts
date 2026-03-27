@@ -17,6 +17,7 @@ export default defineConfig({
   plugins: [
     tanstackStart(),
     nitro({
+      serverDir: "server",
       routeRules: {
         "/**": { swr: 60 },
       },

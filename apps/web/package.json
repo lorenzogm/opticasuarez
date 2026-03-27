@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "tsx scripts/generate-sitemap.ts && vite build",
+    "build": "vite build",
     "start": "node .output/server/index.mjs",
     "check:types": "tsc --noEmit",
     "migrate": "tsx scripts/migrate-to-sanity.ts"
