@@ -11,9 +11,9 @@ export const Route = createFileRoute("/")({
       seo: data?.seo,
       path: "/",
       fallback: {
-        title: "Óptica Suárez, tu óptica en Jaén. Desde 1940 mirando por ti",
+        title: "Óptica en Jaén | Óptica Suárez - Desde 1940 cuidando tu visión",
         description:
-          "Optometria en Jaén. Más de 80 años haciendo revisión de la vista, terapia visual, control de miopía, lentes de contacto, visión infantil, ojo vago y estrabismo.",
+          "Tu óptica en Jaén con más de 80 años de experiencia. Especialistas en revisión visual, terapia visual, control de miopía, lentes de contacto, visión infantil y deportiva.",
         keywords:
           "óptica en Jaén, optometría Jaén, revisión visual Jaén, terapia visual Jaén, control de miopía Jaén, lentes de contacto Jaén, ojo vago Jaén, estrabismo Jaén",
       },
