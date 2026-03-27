@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VisionPediatricaRouteImport } from './routes/vision-pediatrica'
 import { Route as VisionDeportivaRouteImport } from './routes/vision-deportiva'
+import { Route as TiendaRouteImport } from './routes/tienda'
 import { Route as TerapiaVisualRouteImport } from './routes/terapia-visual'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
@@ -39,6 +40,11 @@ const VisionPediatricaRoute = VisionPediatricaRouteImport.update({
 const VisionDeportivaRoute = VisionDeportivaRouteImport.update({
   id: '/vision-deportiva',
   path: '/vision-deportiva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TiendaRoute = TiendaRouteImport.update({
+  id: '/tienda',
+  path: '/tienda',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TerapiaVisualRoute = TerapiaVisualRouteImport.update({
@@ -150,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRoute
   '/terapia-visual': typeof TerapiaVisualRoute
+  '/tienda': typeof TiendaRoute
   '/vision-deportiva': typeof VisionDeportivaRoute
   '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -172,6 +179,7 @@ export interface FileRoutesByTo {
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRoute
   '/terapia-visual': typeof TerapiaVisualRoute
+  '/tienda': typeof TiendaRoute
   '/vision-deportiva': typeof VisionDeportivaRoute
   '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/quienes-somos': typeof QuienesSomosRoute
   '/servicios': typeof ServiciosRoute
   '/terapia-visual': typeof TerapiaVisualRoute
+  '/tienda': typeof TiendaRoute
   '/vision-deportiva': typeof VisionDeportivaRoute
   '/vision-pediatrica': typeof VisionPediatricaRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -221,6 +230,7 @@ export interface FileRouteTypes {
     | '/quienes-somos'
     | '/servicios'
     | '/terapia-visual'
+    | '/tienda'
     | '/vision-deportiva'
     | '/vision-pediatrica'
     | '/blog/$slug'
@@ -243,6 +253,7 @@ export interface FileRouteTypes {
     | '/quienes-somos'
     | '/servicios'
     | '/terapia-visual'
+    | '/tienda'
     | '/vision-deportiva'
     | '/vision-pediatrica'
     | '/blog/$slug'
@@ -266,6 +277,7 @@ export interface FileRouteTypes {
     | '/quienes-somos'
     | '/servicios'
     | '/terapia-visual'
+    | '/tienda'
     | '/vision-deportiva'
     | '/vision-pediatrica'
     | '/blog/$slug'
@@ -290,6 +302,7 @@ export interface RootRouteChildren {
   QuienesSomosRoute: typeof QuienesSomosRoute
   ServiciosRoute: typeof ServiciosRoute
   TerapiaVisualRoute: typeof TerapiaVisualRoute
+  TiendaRoute: typeof TiendaRoute
   VisionDeportivaRoute: typeof VisionDeportivaRoute
   VisionPediatricaRoute: typeof VisionPediatricaRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -310,6 +323,13 @@ declare module '@tanstack/react-router' {
       path: '/vision-deportiva'
       fullPath: '/vision-deportiva'
       preLoaderRoute: typeof VisionDeportivaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tienda': {
+      id: '/tienda'
+      path: '/tienda'
+      fullPath: '/tienda'
+      preLoaderRoute: typeof TiendaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terapia-visual': {
@@ -479,6 +499,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuienesSomosRoute: QuienesSomosRoute,
   ServiciosRoute: ServiciosRoute,
   TerapiaVisualRoute: TerapiaVisualRoute,
+  TiendaRoute: TiendaRoute,
   VisionDeportivaRoute: VisionDeportivaRoute,
   VisionPediatricaRoute: VisionPediatricaRoute,
   BlogSlugRoute: BlogSlugRoute,
