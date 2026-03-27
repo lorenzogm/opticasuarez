@@ -1,27 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import ServiceDetail from "~/components/service-detail";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchServicePage } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
-
-import Contactologia from "~/pages/contactologia/contactologia";
-import ControlDeMiopia from "~/pages/control-de-miopia/control-de-miopia";
-import ExamenVisual from "~/pages/examen-visual/examen-visual";
-import Ortoqueratologia from "~/pages/ortoqueratologia/ortoqueratologia";
-import TerapiaVisual from "~/pages/terapia-visual/terapia-visual";
-import VisionDeportiva from "~/pages/vision-deportiva/vision-deportiva";
-import VisionPediatrica from "~/pages/vision-pediatrica/vision-pediatrica";
-
-// biome-ignore lint/suspicious/noExplicitAny: Sanity data
-const serviceComponents: Record<string, React.ComponentType<{ data: any }>> = {
-  "examen-visual": ExamenVisual,
-  "terapia-visual": TerapiaVisual,
-  contactologia: Contactologia,
-  "control-de-miopia": ControlDeMiopia,
-  ortoqueratologia: Ortoqueratologia,
-  "vision-deportiva": VisionDeportiva,
-  "vision-pediatrica": VisionPediatrica,
-};
 
 export const Route = createFileRoute("/servicios/$slug")({
   head: ({ loaderData }) => {
@@ -59,9 +41,7 @@ function RouteComponent() {
     },
   ];
 
-  const PageComponent = serviceComponents[slug];
-
-  if (!PageComponent) {
+  if (!data) {
     return (
       <section className="flex min-h-[50vh] items-center justify-center px-4 py-16">
         <div className="text-center">
@@ -85,7 +65,7 @@ function RouteComponent() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
-      <PageComponent data={data} />
+      <ServiceDetail data={data} />
     </>
   );
 }
