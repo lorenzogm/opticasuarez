@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import LocationSelection from "~/pages/book/location-selection";
+import LocationSelection from "~/components/book/location-selection";
 
 export const Route = createFileRoute("/cita/centro")({
   head: () => ({

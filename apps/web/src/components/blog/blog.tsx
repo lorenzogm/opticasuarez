@@ -1,4 +1,4 @@
-import BookAppointment from "../../sections/book-appointment";
+import BookAppointment from "~/components/sections/book-appointment";
 import BlogArticles from "./sections/blog-articles";
 import BlogHero from "./sections/blog-hero";
 

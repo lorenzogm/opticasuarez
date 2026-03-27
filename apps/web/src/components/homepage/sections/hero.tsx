@@ -1,4 +1,4 @@
-import HeroCarousel from "../../../components/hero-carousel";
+import HeroCarousel from "~/components/hero-carousel";
 
 interface HeroProps {
   title: string;

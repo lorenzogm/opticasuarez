@@ -1,10 +1,10 @@
 import FAQAccordion from "~/components/faq-accordion";
 import Image from "~/components/image";
+import BookAppointment from "~/components/sections/book-appointment";
+import CustomerTestimonials from "~/components/sections/customer-testimonials";
+import LocationsInfo from "~/components/sections/locations-info";
 import { Text } from "~/components/text";
 import { resolveImage } from "~/lib/sanity";
-import BookAppointment from "~/sections/book-appointment";
-import CustomerTestimonials from "~/sections/customer-testimonials";
-import LocationsInfo from "~/sections/locations-info";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
 export default function ServiceDetail({ data }: { data: any }) {

@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import BlogPostPage from "~/components/blog/blog-post";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchBlogPost } from "~/lib/server-fns";
-import BlogPostPage from "~/pages/blog/blog-post";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {

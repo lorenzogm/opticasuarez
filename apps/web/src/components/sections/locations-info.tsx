@@ -1,6 +1,6 @@
-import { Button } from "../components/button";
-import Image from "../components/image";
-import { Text } from "../components/text";
+import { Button } from "../button";
+import Image from "../image";
+import { Text } from "../text";
 
 interface Location {
   name: string;

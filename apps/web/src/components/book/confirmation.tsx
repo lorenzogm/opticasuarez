@@ -1,9 +1,9 @@
 import { Link, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
-import { submitBooking } from "../../actions/submit-booking";
-import { Button } from "../../components/button";
-import ProgressIndicator from "../../components/progress-indicator";
-import { Text } from "../../components/text";
+import { submitBooking } from "~/actions/submit-booking";
+import { Button } from "~/components/button";
+import ProgressIndicator from "~/components/progress-indicator";
+import { Text } from "~/components/text";
 
 const appointmentTypes = {
   "phone-consultation": "Cita telefónica",

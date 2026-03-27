@@ -1,5 +1,5 @@
-import { Button } from "../components/button";
-import { Text } from "../components/text";
+import { Button } from "../button";
+import { Text } from "../text";
 
 interface BookAppointmentProps {
   title: string;

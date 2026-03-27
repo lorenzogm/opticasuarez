@@ -1,8 +1,8 @@
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Button } from "../../../components/button";
-import Image from "../../../components/image";
-import { resolveImage } from "../../../lib/sanity";
+import { Button } from "~/components/button";
+import Image from "~/components/image";
+import { resolveImage } from "~/lib/sanity";
 
 interface BlogArticle {
   title: string;

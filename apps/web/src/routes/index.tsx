@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Homepage from "~/components/homepage/homepage";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchHomepageData } from "~/lib/server-fns";
-import Homepage from "~/pages/homepage/homepage";
 
 export const Route = createFileRoute("/")({
   head: ({ loaderData }) => {

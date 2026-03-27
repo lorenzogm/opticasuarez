@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Confirmation from "~/pages/book/confirmation";
+import Confirmation from "~/components/book/confirmation";
 
 export const Route = createFileRoute("/cita/confirmacion")({
   head: () => ({

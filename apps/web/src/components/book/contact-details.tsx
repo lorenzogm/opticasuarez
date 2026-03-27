@@ -1,6 +1,6 @@
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
-import ProgressIndicator from "../../components/progress-indicator";
+import ProgressIndicator from "~/components/progress-indicator";
 
 const appointmentTypes = {
   "phone-consultation": "Cita telefónica",

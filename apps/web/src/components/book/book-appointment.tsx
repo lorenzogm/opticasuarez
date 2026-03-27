@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Button } from "../../components/button";
-import ProgressIndicator from "../../components/progress-indicator";
-import { Text } from "../../components/text";
+import { Button } from "~/components/button";
+import ProgressIndicator from "~/components/progress-indicator";
+import { Text } from "~/components/text";
 
 interface AppointmentType {
   id: string;

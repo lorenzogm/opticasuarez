@@ -1,9 +1,9 @@
 import { PortableText } from "@portabletext/react";
 import { Link } from "@tanstack/react-router";
-import { Button } from "../../components/button";
-import Image from "../../components/image";
-import SocialShare from "../../components/social-share";
-import { resolveImage } from "../../lib/sanity";
+import { Button } from "~/components/button";
+import Image from "~/components/image";
+import SocialShare from "~/components/social-share";
+import { resolveImage } from "~/lib/sanity";
 
 interface BlogPostProps {
   // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
