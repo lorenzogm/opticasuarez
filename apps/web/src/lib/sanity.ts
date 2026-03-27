@@ -484,7 +484,25 @@ const sectionProjection = `{
     title,
     description,
     "image": image ${imageProjection}
+  },
+  // sectionSocialMedia
+  "socialMediaItems": items[]{
+    _key,
+    platform,
+    title,
+    handle,
+    url
+  },
+  // sectionProcessSteps
+  "processStepItems": items[]{
+    _key,
+    stepNumber,
+    title,
+    description,
+    "image": image ${imageProjection}
   }
+  // sectionLocations reuses "items" with cardItemProjection (already projected above)
+  // sectionCTA reuses top-level title, description, buttonText, buttonUrl (already projected above)
 }`;
 
 // Get a page by path (new system)

@@ -31,6 +31,10 @@ export const page = defineType({
         { type: "sectionTeaser" },
         { type: "sectionTestimonials" },
         { type: "sectionTimeline" },
+        { type: "sectionSocialMedia" },
+        { type: "sectionLocations" },
+        { type: "sectionProcessSteps" },
+        { type: "sectionCTA" },
       ],
     }),
     defineField({

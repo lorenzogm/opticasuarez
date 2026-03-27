@@ -38,8 +38,12 @@ import { timelineEntry } from "./objects/timeline-entry";
 // Section schemas (page builder)
 import { sectionAccordion } from "./sections/section-accordion";
 import { sectionCards } from "./sections/section-cards";
+import { sectionCTA } from "./sections/section-cta";
 import { sectionFeatures } from "./sections/section-features";
 import { sectionHero } from "./sections/section-hero";
+import { sectionLocations } from "./sections/section-locations";
+import { sectionProcessSteps } from "./sections/section-process-steps";
+import { sectionSocialMedia } from "./sections/section-social-media";
 import { sectionTeaser } from "./sections/section-teaser";
 import { sectionTestimonials } from "./sections/section-testimonials";
 import { sectionText } from "./sections/section-text";
@@ -69,8 +73,12 @@ export const schemaTypes = [
   // Sections (page builder)
   sectionAccordion,
   sectionCards,
+  sectionCTA,
   sectionFeatures,
   sectionHero,
+  sectionLocations,
+  sectionProcessSteps,
+  sectionSocialMedia,
   sectionTeaser,
   sectionTestimonials,
   sectionText,

@@ -1,7 +1,11 @@
 import SectionAccordion from "./section-accordion";
 import SectionCards from "./section-cards";
+import SectionCTA from "./section-cta";
 import SectionFeatures from "./section-features";
 import SectionHero from "./section-hero";
+import SectionLocations from "./section-locations";
+import SectionProcessSteps from "./section-process-steps";
+import SectionSocialMedia from "./section-social-media";
 import SectionTeaser from "./section-teaser";
 import SectionTestimonials from "./section-testimonials";
 import SectionText from "./section-text";
@@ -19,6 +23,10 @@ const sectionComponents: Record<string, SectionComponent> = {
   sectionTeaser: SectionTeaser,
   sectionTestimonials: SectionTestimonials,
   sectionTimeline: SectionTimeline,
+  sectionSocialMedia: SectionSocialMedia,
+  sectionLocations: SectionLocations,
+  sectionProcessSteps: SectionProcessSteps,
+  sectionCTA: SectionCTA,
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity page data with dynamic sections
