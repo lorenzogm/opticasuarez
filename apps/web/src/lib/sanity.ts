@@ -399,3 +399,183 @@ export async function getAllServiceSlugs(preview = false) {
     preview
   );
 }
+
+// ──────────────────────────────────────
+// New Page + Sections system
+// ──────────────────────────────────────
+
+const cardItemProjection = `{
+  _key,
+  title,
+  description,
+  "image": image ${imageProjection},
+  icon,
+  link,
+  "ref": reference->{
+    _type,
+    _id,
+    title,
+    "name": name,
+    "slug": slug.current,
+    description,
+    "image": image ${imageProjection},
+    icon,
+    role,
+    details,
+    address,
+    schedule,
+    phone,
+    phoneUrl,
+    whatsappUrl,
+    email,
+    mapUrl,
+    contactUrl,
+    imageTitle
+  }
+}`;
+
+const sectionProjection = `{
+  _type,
+  _key,
+  title,
+  subtitle,
+  description,
+  // sectionHero
+  "image": image ${imageProjection},
+  imageAlt,
+  ctaText,
+  ctaUrl,
+  // sectionCards
+  variant,
+  "items": items[]${cardItemProjection},
+  // sectionFeatures
+  "featureItems": items[]{
+    _key,
+    icon,
+    title,
+    description,
+    "image": image ${imageProjection},
+    link
+  },
+  // sectionText
+  content,
+  imagePosition,
+  // sectionAccordion
+  "accordionItems": items[]{
+    _key,
+    title,
+    content
+  },
+  // sectionTeaser
+  buttonText,
+  buttonUrl,
+  // sectionTestimonials
+  moreReviewsLink,
+  "testimonialItems": items[]{
+    _key,
+    name,
+    text,
+    rating
+  },
+  // sectionTimeline
+  "timelineItems": items[]{
+    _key,
+    year,
+    title,
+    description,
+    "image": image ${imageProjection}
+  }
+}`;
+
+// Get a page by path (new system)
+export async function getPage(path: string, preview = false) {
+  return sanityFetch(
+    `*[_type == "page" && path.current == $path][0]{
+      _id,
+      title,
+      "path": path.current,
+      "sections": sections[]${sectionProjection},
+      seo
+    }`,
+    { path },
+    preview
+  );
+}
+
+// Get all pages (for sitemap)
+export async function getAllPages(preview = false) {
+  return sanityFetch(
+    `*[_type == "page"]{ _id, title, "path": path.current }`,
+    undefined,
+    preview
+  );
+}
+
+// Services (structured data)
+export async function getServices(preview = false) {
+  return sanityFetch(
+    `*[_type == "service"] | order(order asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      "image": image ${imageProjection},
+      icon,
+      order
+    }`,
+    undefined,
+    preview
+  );
+}
+
+export async function getService(slug: string, preview = false) {
+  return sanityFetch(
+    `*[_type == "service" && slug.current == $slug][0]{
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      "image": image ${imageProjection},
+      icon
+    }`,
+    { slug },
+    preview
+  );
+}
+
+// Locations (structured data)
+export async function getLocations(preview = false) {
+  return sanityFetch(
+    `*[_type == "location"]{
+      _id,
+      name,
+      "image": image ${imageProjection},
+      imageTitle,
+      address,
+      schedule,
+      phone,
+      phoneUrl,
+      whatsappUrl,
+      email,
+      mapUrl,
+      contactUrl
+    }`,
+    undefined,
+    preview
+  );
+}
+
+// Team members (structured data)
+export async function getTeamMembers(preview = false) {
+  return sanityFetch(
+    `*[_type == "teamMember"]{
+      _id,
+      name,
+      role,
+      "image": image ${imageProjection},
+      details
+    }`,
+    undefined,
+    preview
+  );
+}
