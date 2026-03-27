@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { getBlogPost } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchBlogPost } from "~/lib/server-fns";
 import BlogPostPage from "~/pages/blog/blog-post";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/blog/$slug")({
     });
   },
   loader: async ({ params }) => {
-    const post = await getBlogPost(params.slug);
+    const { post } = await fetchBlogPost({ data: params.slug });
     if (!post) {
       throw notFound();
     }

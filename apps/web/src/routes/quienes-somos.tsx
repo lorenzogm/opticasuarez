@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getAboutPage } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchAboutPage } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import Quienessomos from "~/pages/quienes-somos/quienes-somos";
 
@@ -21,10 +21,7 @@ export const Route = createFileRoute("/quienes-somos")({
       },
     });
   },
-  loader: async () => {
-    const data = await getAboutPage();
-    return { data };
-  },
+  loader: () => fetchAboutPage(),
   component: RouteComponent,
 });
 

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getServiciosOverview } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchServiciosOverview } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import Servicios from "~/pages/servicios/servicios";
 
@@ -21,10 +21,7 @@ export const Route = createFileRoute("/servicios")({
       },
     });
   },
-  loader: async () => {
-    const data = await getServiciosOverview();
-    return { data };
-  },
+  loader: () => fetchServiciosOverview(),
   component: RouteComponent,
 });
 

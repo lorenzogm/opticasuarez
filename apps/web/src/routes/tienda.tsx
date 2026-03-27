@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getBrands, getProductCategories, getProducts } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchTiendaData } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import Tienda from "~/pages/tienda/tienda";
 
@@ -38,14 +38,7 @@ export const Route = createFileRoute("/tienda")({
           "tienda óptica Jaén, gafas online Jaén, monturas Jaén, gafas de sol Jaén, lentillas online, Óptica Suárez tienda",
       },
     }),
-  loader: async () => {
-    const [products, categories, brands] = await Promise.all([
-      getProducts(),
-      getProductCategories(),
-      getBrands(),
-    ]);
-    return { products, categories, brands };
-  },
+  loader: () => fetchTiendaData(),
   component: RouteComponent,
 });
 

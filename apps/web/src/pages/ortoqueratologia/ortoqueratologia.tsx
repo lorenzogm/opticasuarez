@@ -101,8 +101,8 @@ export default function Ortoqueratologia({ data }: { data: any }) {
                   index: number
                 ) => {
                   const linkMap: Record<string, string> = {
-                    "Control de la Miopía": "/control-de-miopia",
-                    "Ideal para el Deporte": "/vision-deportiva",
+                    "Control de la Miopía": "/servicios/control-de-miopia",
+                    "Ideal para el Deporte": "/servicios/vision-deportiva",
                   };
                   const linkUrl = linkMap[benefit.title];
 
@@ -165,8 +165,8 @@ export default function Ortoqueratologia({ data }: { data: any }) {
                   index: number
                 ) => {
                   const linkMap: Record<string, string> = {
-                    "Examen Visual Completo": "/examen-visual",
-                    "Adaptación Personalizada": "/contactologia",
+                    "Examen Visual Completo": "/servicios/examen-visual",
+                    "Adaptación Personalizada": "/servicios/contactologia",
                   };
                   const linkUrl = linkMap[step.title];
 

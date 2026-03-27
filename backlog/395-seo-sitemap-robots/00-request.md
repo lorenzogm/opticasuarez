@@ -4,8 +4,8 @@
 **Priority**: High (SEO critical)
 
 ## Summary
-Create dynamic `/sitemap.xml` and `/robots.txt` server routes in the TanStack Start app 
-that query Sanity for blog posts, generating a complete sitemap. Replace the current 
+Create dynamic `/sitemap.xml` and `/robots.txt` server routes in the TanStack Start app
+that query Sanity for blog posts, generating a complete sitemap. Replace the current
 build-time static generation with runtime server routes.
 
 ## Acceptance Criteria

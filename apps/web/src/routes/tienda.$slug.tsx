@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getProduct } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchProduct } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import ProductDetail from "~/pages/tienda/product-detail";
 
@@ -32,10 +32,7 @@ export const Route = createFileRoute("/tienda/$slug")({
       },
     });
   },
-  loader: async ({ params }) => {
-    const product = await getProduct(params.slug);
-    return { product };
-  },
+  loader: ({ params }) => fetchProduct({ data: params.slug }),
   component: RouteComponent,
 });
 

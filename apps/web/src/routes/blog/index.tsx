@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getBlogPosts } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchBlogPosts } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import Blog from "~/pages/blog/blog";
 
@@ -25,10 +25,7 @@ export const Route = createFileRoute("/blog/")({
           "óptica en Jaén, salud visual Jaén, blog optometría Jaén, consejos visión Jaén",
       },
     }),
-  loader: async () => {
-    const articles = await getBlogPosts();
-    return { articles };
-  },
+  loader: () => fetchBlogPosts(),
   component: RouteComponent,
 });
 

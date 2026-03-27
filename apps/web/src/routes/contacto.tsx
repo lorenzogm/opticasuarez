@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
-import { getContactPage } from "~/lib/sanity";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
+import { fetchContactPage } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 import ContactoPage from "~/pages/contacto/contacto";
 
@@ -21,10 +21,7 @@ export const Route = createFileRoute("/contacto")({
       },
     });
   },
-  loader: async () => {
-    const data = await getContactPage();
-    return { data };
-  },
+  loader: () => fetchContactPage(),
   component: RouteComponent,
 });
 

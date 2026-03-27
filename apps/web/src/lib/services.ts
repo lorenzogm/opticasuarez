@@ -8,37 +8,37 @@ export interface ServicePage {
 export const servicePages: ServicePage[] = [
   {
     name: "Examen Visual",
-    url: "/examen-visual",
+    url: "/servicios/examen-visual",
     description: "Evaluación completa de tu salud visual",
   },
   {
     name: "Terapia Visual",
-    url: "/terapia-visual",
+    url: "/servicios/terapia-visual",
     description: "Mejora de habilidades visuales",
   },
   {
     name: "Contactología",
-    url: "/contactologia",
+    url: "/servicios/contactologia",
     description: "Adaptación de lentes de contacto",
   },
   {
     name: "Visión Pediátrica",
-    url: "/vision-pediatrica",
+    url: "/servicios/vision-pediatrica",
     description: "Cuidado visual infantil",
   },
   {
     name: "Visión Deportiva",
-    url: "/vision-deportiva",
+    url: "/servicios/vision-deportiva",
     description: "Optimización del rendimiento visual deportivo",
   },
   {
     name: "Control de Miopía",
-    url: "/control-de-miopia",
+    url: "/servicios/control-de-miopia",
     description: "Tratamientos para frenar la progresión de la miopía",
   },
   {
     name: "OrtoK",
-    url: "/ortoqueratologia",
+    url: "/servicios/ortoqueratologia",
     description: "Ortoqueratología - Corrección visual nocturna",
   },
   {

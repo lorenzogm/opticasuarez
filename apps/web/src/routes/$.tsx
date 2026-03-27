@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import SectionRenderer from "~/components/sections/section-renderer";
 import { Text } from "~/components/text";
-import { getPage } from "~/lib/sanity";
+import { fetchPage } from "~/lib/server-fns";
 
 // biome-ignore lint/suspicious/noExplicitAny: dynamic page data from Sanity
 type PageData = Record<string, any>;
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/$")({
   loader: async ({ params }) => {
     const splat = (params as Record<string, string>)._splat || "";
     const path = `/${splat}`;
-    const page = (await getPage(path)) as PageData | null;
+    const { page } = await fetchPage({ data: path });
     if (!page) {
       throw new Error("Page not found");
     }
