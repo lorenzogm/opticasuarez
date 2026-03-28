@@ -237,6 +237,25 @@ jobs:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
           NITRO_PRESET: vercel
 
+      - name: Deploy to Vercel Preview
+        id: preview-deploy
+        run: |
+          PREVIEW_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+          echo "Preview URL: $PREVIEW_URL"
+        env:
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium
+
+      - name: Run E2E Tests
+        run: pnpm --filter opticasuarez-web-e2e test:e2e
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ steps.preview-deploy.outputs.preview-url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          CI: true
+
       - name: Deploy to Vercel Production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:

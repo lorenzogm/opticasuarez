@@ -43,6 +43,13 @@ handoffs:
       Resume processing. First check for open PRs needing attention, then
       check for in-progress issues and continue from where you left off.
     send: false
+  - label: Run QA
+    agent: "QA"
+    prompt: >
+      Run a full QA cycle. Discover critical user flows with agent-browser,
+      write test cases, implement Playwright E2E tests, run gap analysis,
+      and report any bugs found.
+    send: false
 metadata:
   version: "0.2"
   owner: Lorenzo Garcia Moreno <lorenzo.garciamoreno@valtech.com>
