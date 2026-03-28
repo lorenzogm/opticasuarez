@@ -184,15 +184,17 @@ jobs:
           git push origin terraform-state
           echo "State file committed to terraform-state branch"
 
-  app-deploy:
+  deploy-preview:
     needs: [check-changes, infra-deploy]
     if: |
       always() &&
       needs.infra-deploy.result != 'failure' &&
       (needs.check-changes.outputs.app-changed == 'true' || needs.check-changes.outputs.infra-changed == 'true')
     runs-on: ubuntu-latest
-    name: App Deploy
+    name: Deploy Preview
     environment: development
+    outputs:
+      preview-url: ${{ steps.preview-deploy.outputs.preview-url }}
     env:
       VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
 
@@ -205,9 +207,7 @@ jobs:
         run: |
           ORG_ID="${{ secrets.VERCEL_ORG_ID }}"
           if [ -z "$ORG_ID" ]; then
-            echo "VERCEL_ORG_ID secret is empty — resolving from Vercel API (personal account)"
             ORG_ID=$(curl -sf -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" "https://api.vercel.com/v2/user" | jq -r '.user.id')
-            echo "Resolved org ID: $ORG_ID"
           fi
           echo "org-id=$ORG_ID" >> $GITHUB_OUTPUT
 
@@ -226,7 +226,6 @@ jobs:
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
 
-      # ── 1. Deploy to Preview ──────────────────────────────────
       - name: Pull Vercel Preview Environment
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
         env:
@@ -247,18 +246,77 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
 
-      # ── 2. Run E2E tests against Preview ────────────────────
+  e2e-tests:
+    needs: [deploy-preview]
+    runs-on: ubuntu-latest
+    name: E2E Tests
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Install Playwright Browsers
         run: npx playwright install chromium
 
       - name: Run E2E Tests
         run: pnpm --filter opticasuarez-web-e2e test:e2e
         env:
-          PLAYWRIGHT_BASE_URL: ${{ steps.preview-deploy.outputs.preview-url }}
+          PLAYWRIGHT_BASE_URL: ${{ needs.deploy-preview.outputs.preview-url }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           CI: true
 
-      # ── 3. Promote to Production ────────────────────────────
+  deploy-production:
+    needs: [check-changes, infra-deploy, e2e-tests]
+    if: |
+      always() &&
+      needs.e2e-tests.result == 'success' &&
+      needs.infra-deploy.result != 'failure'
+    runs-on: ubuntu-latest
+    name: Deploy Production
+    environment: development
+    env:
+      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve Vercel Org ID
+        id: resolve-org
+        run: |
+          ORG_ID="${{ secrets.VERCEL_ORG_ID }}"
+          if [ -z "$ORG_ID" ]; then
+            ORG_ID=$(curl -sf -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" "https://api.vercel.com/v2/user" | jq -r '.user.id')
+          fi
+          echo "org-id=$ORG_ID" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Vercel CLI
+        run: pnpm add -g vercel@latest
+
       - name: Pull Vercel Production Environment
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         env:
