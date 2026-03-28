@@ -98,7 +98,7 @@ export const fetchSiteSettings = createServerFn({ method: "GET" }).handler(
 // ─── Catch-all page builder ─────────────────────────────────
 
 export const fetchPage = createServerFn({ method: "GET" })
-  .inputValidator((path: string) => path)
+  .inputValidator((path: string) => path ?? "")
   .handler(async ({ data: path }) => {
     const fullPath = path.startsWith("/") ? path : `/${path}`;
     const page = (await getPage(fullPath)) as SanityData;
