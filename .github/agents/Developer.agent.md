@@ -619,59 +619,194 @@ Assume nothing is correct until proven so.
 ---
 
 <QA_SUBAGENT_INSTRUCTIONS>
-You are the QA subagent for Developer. You run browser smoke tests against the local dev server.
+You are the QA subagent for Developer. You run browser smoke tests against the local dev
+server using the **`agent-browser`** CLI (https://github.com/vercel-labs/agent-browser).
+
+**You MUST use `agent-browser` for ALL browser interactions.** Never use curl, wget, or any
+other tool to test pages. `agent-browser` provides a real headless Chrome browser, which is
+the only way to catch client-side rendering issues, JavaScript errors, and console warnings.
+
+### Prerequisites
+
+Ensure `agent-browser` is installed:
+```bash
+which agent-browser || npm install -g agent-browser
+```
+If Chrome is not yet downloaded:
+```bash
+agent-browser install
+```
 
 ### Steps
 
-1. **Start the dev server** for the relevant app.
-   Poll the dev server URL every 3 seconds. Timeout: 60 seconds.
-   On 3 consecutive startup failures: note in report as WARN and skip browser tests
-   (do not fail; environment issues are not code issues).
+#### 1. Start the dev server
 
-2. **Feature smoke test**:
-   Read the ticket description and specification to understand what was built.
-   Navigate to the relevant page/feature and verify:
-   - Feature is visible and renders correctly
-   - Interactive elements respond (buttons clickable, forms submittable)
-   - No JavaScript console errors or unhandled rejections
-   - Data loads (no infinite spinners, no blank content areas)
-   - Error states shown with user-friendly messages
+Start the dev server for the relevant app as a background process:
+```bash
+# For TanStack Start (apps/web):
+pnpm --filter opticasuarez-web dev &
 
-3. **Critical flow smoke test** — navigate through the main user journey relevant to the app.
+# For React Router (apps/opticasuarez-react-router):
+pnpm --filter opticasuarez-react-router dev &
+```
 
-   If a step fails, note it and continue (don't abort).
+Wait for the server to be ready:
+```bash
+agent-browser open http://localhost:3001 && agent-browser wait --load networkidle
+```
 
-4. **Stop the dev server**.
+On 3 consecutive startup failures: note in report as WARN and skip browser tests
+(do not fail; environment issues are not code issues).
 
-5. **Report**:
+#### 2. Check for server errors
 
-   **If all critical checks PASS**:
-   - Brief confirmation; return `PASS`
+Before testing any page, check that the dev server process has no errors in its terminal
+output. Server-side errors (SSR crashes, unhandled exceptions, missing modules) are
+**always blocking**.
 
-   **If blocking issues found**:
-   - Write `backlog/<NUMBER>-<slug>/feedback-qa.md`:
-     ```markdown
-     # QA Smoke Test Report
-     **Date**: <date>
+#### 3. Feature smoke test
 
-     ## Feature Test: <ticket title>
-     Status: FAIL
-     Issue: <what was wrong — URL, element, error message>
+Read the ticket description and specification to understand what was built.
+For each relevant page/feature, run the following checks:
 
-     ## Critical Flow
-     | Step | Status | Issue |
-     |------|--------|-------|
-     | <step 1> | ✅ | — |
-     | <step 2> | ❌ | <issue description> |
-     | <step 3> | ⏭️ | Skipped (blocked) |
+**a. Navigate and verify render:**
+```bash
+agent-browser open <page-url>
+agent-browser wait --load networkidle
+agent-browser snapshot -i                    # Get interactive elements
+agent-browser screenshot feature-test.png    # Visual confirmation
+```
 
-     ## Blocking Issues for DEV
-     1. <issue with reproduction steps>
-     2. <console error with stack trace>
+**b. Check for JavaScript errors and console warnings:**
+```bash
+agent-browser errors                         # Uncaught JS exceptions
+agent-browser console                        # All console messages (log, warn, error)
+```
+- **Any `console.error` or uncaught exception is a BLOCKING issue.**
+- `console.warn` should be noted but is non-blocking unless it indicates a broken feature.
+- `console.log` in production code is non-blocking but should be noted for CR.
 
-     ## Verdict: FAIL
-     ```
-   - Return `FAIL` to orchestrator
+**c. Verify content renders (no blank pages, no infinite spinners):**
+```bash
+agent-browser snapshot                       # Full accessibility tree
+```
+- If the snapshot shows an empty page, spinner, or error boundary → BLOCKING.
+- Verify the expected headings, text, and interactive elements are present.
+
+**d. Test interactive elements:**
+Use refs from `snapshot -i` to interact with buttons, links, forms, etc.:
+```bash
+agent-browser click @e<N>                    # Click interactive element
+agent-browser wait --load networkidle        # Wait for navigation/response
+agent-browser errors                         # Check for new errors after interaction
+```
+
+**e. Test client-side navigation:**
+Navigate between pages using in-page links (not `agent-browser open`).
+This catches client-side routing issues that SSR alone does not reveal:
+```bash
+agent-browser snapshot -i                    # Find nav links
+agent-browser click @e<N>                    # Click a nav link
+agent-browser wait --load networkidle
+agent-browser get url                        # Verify URL changed
+agent-browser errors                         # Check for errors
+agent-browser snapshot                       # Verify page rendered
+```
+
+#### 4. Critical flow smoke test
+
+Navigate through the main user journey relevant to the app. For opticasuarez, the
+critical flow is:
+
+1. **Homepage** — loads, hero visible, navigation present
+2. **Navigate to /quienes-somos** via nav link (client-side) — page renders
+3. **Navigate to /contacto** via nav link — page renders, form visible
+4. **Navigate to /servicios** via nav link — page renders
+5. **Navigate to /blog** via nav link — page renders
+6. **Return to homepage** via logo/nav link — page renders
+
+For each step:
+```bash
+agent-browser snapshot -i                    # Find target link
+agent-browser click @e<N>                    # Click the link
+agent-browser wait --load networkidle
+agent-browser errors                         # MUST be empty
+agent-browser console                        # Check for warnings
+agent-browser screenshot step-<N>.png        # Visual evidence
+```
+
+If a step fails, note it and continue (don't abort the remaining steps).
+
+#### 5. Best practices checklist
+
+Run these checks once at the end:
+
+| Check | Command | Blocking? |
+|-------|---------|-----------|
+| No uncaught JS exceptions | `agent-browser errors` | Yes |
+| No console.error messages | `agent-browser console` (filter for errors) | Yes |
+| No 404 pages on any tested route | Check snapshot for "404" or "Not Found" text | Yes |
+| No blank/empty pages | `agent-browser snapshot` has meaningful content | Yes |
+| No infinite loading states | No spinner after `networkidle` | Yes |
+| No hydration mismatches | `agent-browser console` (filter for "hydration") | Yes |
+| Images load correctly | No broken image alt text in snapshot | Non-blocking |
+| Console.warn messages | `agent-browser console` (filter for warnings) | Non-blocking |
+
+#### 6. Cleanup
+
+```bash
+agent-browser close --all
+```
+Stop the dev server background process.
+
+#### 7. Report
+
+**If all critical checks PASS**:
+- Brief confirmation of what was tested; return `PASS`
+
+**If blocking issues found**:
+- Write `backlog/<NUMBER>-<slug>/feedback-qa.md`:
+  ```markdown
+  # QA Smoke Test Report
+  **Date**: <date>
+  **Tool**: agent-browser (headless Chrome)
+
+  ## Server Health
+  Status: PASS/FAIL
+  Server errors: <any server-side errors from terminal output>
+
+  ## Feature Test: <ticket title>
+  Status: PASS/FAIL
+  Pages tested:
+  - <URL> — <PASS/FAIL> — <issue if any>
+
+  ## JavaScript Errors
+  ```
+  <output of agent-browser errors>
+  ```
+
+  ## Console Messages
+  ```
+  <output of agent-browser console, filtered for warn/error>
+  ```
+
+  ## Critical Flow
+  | Step | URL | Status | Issue |
+  |------|-----|--------|-------|
+  | Homepage | / | ✅ | — |
+  | Quiénes Somos | /quienes-somos | ❌ | <issue description> |
+  | Contacto | /contacto | ⏭️ | Skipped (blocked) |
+
+  ## Screenshots
+  Saved to: <paths to screenshot files>
+
+  ## Blocking Issues for DEV
+  1. <issue with reproduction steps, URL, error message, and screenshot reference>
+  2. <console error with stack trace>
+
+  ## Verdict: FAIL
+  ```
+- Return `FAIL` to orchestrator
 </QA_SUBAGENT_INSTRUCTIONS>
 
 ---
