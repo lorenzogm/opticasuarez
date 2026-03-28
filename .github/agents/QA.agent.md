@@ -232,27 +232,14 @@ Each test case file maps 1:1 to a test spec file:
 
 ### Test case format
 
-```markdown
-# <Page/Flow Name> — Test Cases
+Follow the template at `apps/web-e2e/test-cases/_template.md`. Copy it when creating
+a new test case file and fill in the sections.
 
-## Overview
-Brief description of what this test suite covers and why it's critical.
-
-## Test Cases
-
-### TC-01: <Test case title>
-- **Priority**: Critical / High / Medium
-- **Type**: Smoke / Functional / Visual / SEO
-- **Steps**:
-  1. Navigate to <URL>
-  2. <action>
-  3. <action>
-- **Expected**: <expected outcome>
-- **Implemented**: Yes / No (links to spec file and test name)
-
-### TC-02: <Test case title>
-...
-```
+Key rules from the template:
+- Use a **PREFIX** per suite (e.g., `NAV`, `HOME`, `BLOG`) so IDs are globally unique
+- Priority levels: Critical / High / Medium
+- Type labels: Smoke / Functional / Visual / SEO
+- Mark `Implemented: Yes | No` and link to the spec file when implemented
 
 ### Required test case files
 
@@ -276,39 +263,19 @@ from Step 3.
 
 ### Test style guidelines
 
-Follow these patterns (based on the existing React Router app tests):
+Follow the template at `apps/web-e2e/tests/_template.spec.ts`. Copy it when creating
+a new spec file.
 
-```typescript
-import { expect, test } from "@playwright/test";
-
-test.describe("<Suite Name>", () => {
-  test("<descriptive test name matching TC-XX>", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
-
-    // Use semantic selectors
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByText("Expected content")).toBeVisible();
-
-    // Use locator chaining for specificity
-    await expect(
-      page.locator("nav").getByRole("link", { name: "Contacto" })
-    ).toBeVisible();
-  });
-});
-```
-
-### Implementation rules
-
+Key rules from the template:
 1. **One spec file per test case file**: `test-cases/navigation.md` → `tests/navigation.spec.ts`
-2. **Match test names to TC IDs**: Each `test()` should reference its test case ID in a comment
-3. **Semantic selectors first**: `getByRole`, `getByText`, `getByLabel` over CSS selectors
+2. **Comment TC IDs**: Each `test()` must have a `// TC-PREFIX-NN` comment
+3. **Semantic selectors first**: `getByRole` → `getByText` → `getByLabel` → CSS selectors (last resort)
 4. **Test both SSR and CSR**: Use `page.goto()` for SSR, click navigation links for CSR
 5. **Always wait for networkidle**: Content comes from Sanity CMS, needs network time
 6. **Assert content, not just DOM**: Verify actual text content, not just element existence
-7. **No hardcoded content strings**: If content comes from CMS, test for structural elements
-   (headings exist, sections have text) rather than exact string matches
-8. **Clean up**: Each test should be independent — no shared state between tests
+7. **No hardcoded content strings**: Test for structural elements, not exact CMS strings
+8. **No non-null assertions (`!`)**: Use optional chaining or type narrowing instead
+9. **Each test is independent**: No shared state between tests
 
 ### Running tests locally
 
