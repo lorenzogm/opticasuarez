@@ -300,30 +300,39 @@ Each becomes its own backlog item folder in `backlog/to-do/`.
 
 ---
 
-## Step 6 — Publish to GitHub Issues
+## Step 6 — Publish to Backlog
 
 After both question rounds are complete and you have sufficient clarity:
 
-If Step 5.5 produced **multiple stories**, create a GitHub Issue for **each story** in
+If Step 5.5 produced **multiple stories**, create a backlog item for **each story** in
 dependency order (earliest dependency first).
 
-If the idea remained a **single story**, create one GitHub Issue.
+If the idea remained a **single story**, create one backlog item.
 
-### 6a. Create GitHub Issue(s)
+### 6a. Determine the next item number
 
-For each story, create a GitHub Issue using the `gh` CLI:
+Read `backlog/README.md` and scan `backlog/to-do/` and `backlog/done/` to find the
+highest existing item number. The new item number is `highest + 1`. For multi-story
+decompositions, assign sequential numbers starting from `highest + 1`.
 
 ```bash
-gh issue create \
-  --repo lorenzogm/opticasuarez \
-  --title "<Title>" \
-  --body "<issue body following template>" \
-  --label "<priority-label>,<type-label>"
+# Find the highest existing item number
+ls backlog/to-do/ backlog/done/ | grep -oE '^[0-9]+' | sort -n | tail -1
 ```
 
-Use the following body template:
+### 6b. Create backlog item folder(s)
 
-<issue_template>
+For each story, create a folder in `backlog/to-do/` and write a `00-request.md` file:
+
+```bash
+mkdir -p backlog/to-do/<NUMBER>-<slug>
+```
+
+Derive `<slug>` from the title (lowercase, hyphens, max 5 words).
+
+Write `backlog/to-do/<NUMBER>-<slug>/00-request.md` using the body template below.
+
+<item_template>
 ```markdown
 ## Description
 
@@ -366,6 +375,10 @@ product perspective — what problem does this solve for users?>
 
 <High / Medium / Low> — <brief justification>
 
+## Type
+
+<feature / chore / bug / enhancement>
+
 ## Notes
 
 <Any additional context, constraints, open questions deferred to implementation>
@@ -373,47 +386,41 @@ product perspective — what problem does this solve for users?>
 ## Related Stories
 
 <Include ONLY when this story is part of a multi-story decomposition.
-List sibling issue numbers and titles so the Developer agent understands the bigger picture.
+List sibling item numbers and titles so the Developer agent understands the bigger picture.
 Omit this section entirely for standalone stories.>
 
 - #<N> <Sibling story title> — <one-line scope summary>
 - #<M> <Sibling story title> — <one-line scope summary>
 ```
-</issue_template>
+</item_template>
 
-### 6b. Label issues
+### 6c. Update the backlog index
 
-Apply labels to categorize each issue:
-- **Priority**: `priority:high`, `priority:medium`, or `priority:low`
-- **Type**: `feature`, `chore`, `bug`, or `enhancement`
-- **Dependencies**: If a story depends on another, note it in the body under Related Stories
+After creating all item folder(s), update `backlog/README.md`:
+- Add a new row to the **To-Do** table for each item created
+- Columns: `#`, `Title`, `Type`, `Maturity` (set to `Request` for new items)
 
-Create labels if they don't exist:
-```bash
-gh label create "<label>" --repo lorenzogm/opticasuarez --description "<desc>" --color "<hex>"
-```
+### 6d. Link related stories
 
-### 6c. Link related issues
+For multi-story decompositions, ensure each story's `00-request.md` includes
+the actual item numbers of its siblings in the Related Stories section (use
+relative paths like `../NNN-slug/` for cross-references).
 
-For multi-story decompositions, after all issues are created, edit each issue body to
-include the actual issue numbers in the Related Stories section (since numbers are only
-known after creation).
-
-### 6d. Present the result
+### 6e. Present the result
 
 For **multiple stories**:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🏭 BUSINESS-ANALYST — GITHUB ISSUES CREATED
+🏭 BUSINESS-ANALYST — BACKLOG ITEMS CREATED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Decomposed idea into <N> stories:
 
-#<N> <Title>
-#<M> <Title>
+#<N> <Title> → backlog/to-do/<N>-<slug>/
+#<M> <Title> → backlog/to-do/<M>-<slug>/
 …
 
-Repo: https://github.com/lorenzogm/opticasuarez/issues
+Index updated: backlog/README.md
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Developer will process these in dependency order.
@@ -424,11 +431,11 @@ For a **single story**:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🏭 BUSINESS-ANALYST — GITHUB ISSUE CREATED
+🏭 BUSINESS-ANALYST — BACKLOG ITEM CREATED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #<N> <Title>
 
-URL: https://github.com/lorenzogm/opticasuarez/issues/<N>
+Path: backlog/to-do/<N>-<slug>/
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Use the "Start Developer" handoff to begin implementation,

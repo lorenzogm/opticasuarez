@@ -82,4 +82,176 @@ test.describe("Appointment Booking", () => {
     await expect(page).toHaveURL(/cita\/horario/);
     await expect(page.getByRole("heading", { level: 2 }).first()).toBeVisible();
   });
+
+  // TC-APPT-05
+  test("select date/time and advance to contact details", async ({ page }) => {
+    // Navigate to schedule page (steps 1-3)
+    await page.goto("/cita");
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("heading", { name: "Cita refracción" }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    const centerOption = page.getByRole("heading", { level: 3 }).first();
+    await expect(centerOption).toBeVisible();
+    await centerOption.click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveURL(/cita\/horario/);
+
+    // Select an available date from the calendar
+    const calendarDate = page
+      .locator(".space-y-1 button:not([disabled])")
+      .first();
+    await expect(calendarDate).toBeVisible();
+    await calendarDate.click();
+
+    // Select time period (Mañana)
+    await page.getByRole("button", { name: /Mañana/i }).click();
+
+    // Click continue
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+
+    // Verify navigation to contact details
+    await expect(page).toHaveURL(/cita\/contacto/);
+    await expect(
+      page.getByRole("heading", { name: /Datos de contacto/i })
+    ).toBeVisible();
+  });
+
+  // TC-APPT-06
+  test("contact details form renders with required fields", async ({
+    page,
+  }) => {
+    // Navigate to contact page (steps 1-4)
+    await page.goto("/cita");
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("heading", { name: "Cita refracción" }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    const centerOption = page.getByRole("heading", { level: 3 }).first();
+    await expect(centerOption).toBeVisible();
+    await centerOption.click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+
+    // Select date and time
+    const calendarDate = page
+      .locator(".space-y-1 button:not([disabled])")
+      .first();
+    await expect(calendarDate).toBeVisible();
+    await calendarDate.click();
+    await page.getByRole("button", { name: /Mañana/i }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveURL(/cita\/contacto/);
+
+    // Verify form fields are present
+    await expect(page.getByLabel(/Nombre completo/i)).toBeVisible();
+    await expect(page.getByLabel(/Teléfono móvil/i)).toBeVisible();
+    await expect(page.getByLabel(/Edad del paciente/i)).toBeVisible();
+    await expect(page.getByLabel(/Email/i)).toBeVisible();
+    await expect(page.getByLabel(/Observaciones/i)).toBeVisible();
+  });
+
+  // TC-APPT-07
+  test("contact form validation shows errors for empty required fields", async ({
+    page,
+  }) => {
+    // Navigate to contact page (steps 1-4)
+    await page.goto("/cita");
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("heading", { name: "Cita refracción" }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    const centerOption = page.getByRole("heading", { level: 3 }).first();
+    await expect(centerOption).toBeVisible();
+    await centerOption.click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+
+    // Select date and time
+    const calendarDate = page
+      .locator(".space-y-1 button:not([disabled])")
+      .first();
+    await expect(calendarDate).toBeVisible();
+    await calendarDate.click();
+    await page.getByRole("button", { name: /Mañana/i }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveURL(/cita\/contacto/);
+
+    // Touch each field and blur to trigger validation
+    await page.getByLabel(/Nombre completo/i).focus();
+    await page.getByLabel(/Teléfono móvil/i).focus();
+    await page.getByLabel(/Edad del paciente/i).focus();
+    await page.getByLabel(/Email/i).focus();
+    await page.getByLabel(/Observaciones/i).focus(); // blur email
+
+    // Verify validation errors appear
+    await expect(page.getByText(/El nombre es requerido/i)).toBeVisible();
+    await expect(
+      page.getByText(/El teléfono móvil es requerido/i)
+    ).toBeVisible();
+    await expect(page.getByText(/La edad es requerida/i)).toBeVisible();
+    await expect(page.getByText(/El email es requerido/i)).toBeVisible();
+  });
+
+  // TC-APPT-08
+  test("confirmation page renders with booking summary", async ({ page }) => {
+    // Navigate through all steps to confirmation
+    await page.goto("/cita");
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("heading", { name: "Cita refracción" }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    const centerOption = page.getByRole("heading", { level: 3 }).first();
+    await expect(centerOption).toBeVisible();
+    await centerOption.click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+
+    // Select date and time
+    const calendarDate = page
+      .locator(".space-y-1 button:not([disabled])")
+      .first();
+    await expect(calendarDate).toBeVisible();
+    await calendarDate.click();
+    await page.getByRole("button", { name: /Mañana/i }).click();
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveURL(/cita\/contacto/);
+
+    // Fill contact form with valid data
+    await page.getByLabel(/Nombre completo/i).fill("Test Usuario");
+    await page.getByLabel(/Teléfono móvil/i).fill("612345678");
+    await page.getByLabel(/Edad del paciente/i).fill("35");
+    await page.getByLabel(/Email/i).fill("test@example.com");
+
+    // Click continue to confirmation
+    await page.getByRole("button", { name: "Continuar" }).click();
+    await page.waitForLoadState("networkidle");
+
+    // Verify confirmation page
+    await expect(page).toHaveURL(/cita\/confirmacion/);
+    await expect(
+      page.getByRole("heading", { name: /Confirmar cita/i })
+    ).toBeVisible();
+
+    // Verify booking summary has key sections
+    await expect(page.getByText(/Tipo de servicio/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Centro/i })).toBeVisible();
+    await expect(page.getByText(/Fecha y hora/i)).toBeVisible();
+    await expect(page.getByText(/Datos de contacto/i)).toBeVisible();
+
+    // Verify contact data appears
+    await expect(page.getByText("Test Usuario")).toBeVisible();
+    await expect(page.getByText("612345678")).toBeVisible();
+    await expect(page.getByText("test@example.com")).toBeVisible();
+
+    // Verify confirm button is visible
+    await expect(
+      page.getByRole("button", { name: /Confirmar cita/i })
+    ).toBeVisible();
+  });
 });
