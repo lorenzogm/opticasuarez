@@ -1,6 +1,7 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./fixtures";
 
-test.describe("SEO", () => {
+test.describe("SEO Metadata", () => {
   // TC-SEO-01
   test("homepage has meta description", async ({ page }) => {
     await page.goto("/");
@@ -54,7 +55,6 @@ test.describe("SEO", () => {
     await page.waitForLoadState("networkidle");
     const blogTitle = await page.title();
 
-    // All titles should be different
     expect(aboutTitle).not.toBe(homepageTitle);
     expect(blogTitle).not.toBe(homepageTitle);
     expect(blogTitle).not.toBe(aboutTitle);

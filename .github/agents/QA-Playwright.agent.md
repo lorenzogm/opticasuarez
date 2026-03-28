@@ -147,28 +147,36 @@ For each unimplemented test case (marked `Implemented: No`):
 ### 3a. Determine the correct spec file
 
 Test case files map 1:1 to spec files:
-- `test-cases/navigation.md` → `tests/navigation.spec.ts`
-- `test-cases/homepage.md` → `tests/homepage.spec.ts`
-- `test-cases/blog.md` → `tests/blog.spec.ts`
-- `test-cases/content-pages.md` → `tests/content-pages.spec.ts`
-- `test-cases/error-handling.md` → `tests/error-handling.spec.ts`
-- `test-cases/seo.md` → `tests/seo.spec.ts`
+- `test-cases/landing.md` → `tests/landing.spec.ts`
+- `test-cases/site-navigation.md` → `tests/site-navigation.spec.ts`
+- `test-cases/service-discovery.md` → `tests/service-discovery.spec.ts`
+- `test-cases/blog-engagement.md` → `tests/blog-engagement.spec.ts`
+- `test-cases/error-resilience.md` → `tests/error-resilience.spec.ts`
+- `test-cases/seo-metadata.md` → `tests/seo-metadata.spec.ts`
+- `test-cases/appointment-booking.md` → `tests/appointment-booking.spec.ts`
+- `test-cases/about-contact.md` → `tests/about-contact.spec.ts`
 
 ### 3b. Write the test
 
 Add a new `test()` block to the appropriate spec file. Follow these guidelines:
 
 ```typescript
+import { test, expect } from "./fixtures";
+
 // TC-<PREFIX>-<NN> — Bug: backlog/<NNN>-<slug>/
 test("<descriptive name matching the test case>", async ({ page }) => {
-  // Navigate to the page where the bug occurs
-  await page.goto("/<route>");
+  // Entry point: SSR load (page.goto only for the first page)
+  await page.goto("/");
   await page.waitForLoadState("networkidle");
 
-  // Assert the CORRECT/EXPECTED behavior
-  // This will FAIL because the bug prevents the correct behavior
+  // CSR navigation: click links to navigate (catches client-side routing bugs)
+  await page.locator("nav").getByRole("link", { name: "Quienes Somos" }).click();
+  await page.waitForLoadState("networkidle");
+
+  // Assert destination rendered with content (URL + H1 + meaningful content)
+  await expect(page).toHaveURL(/quienes-somos/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(page.getByText(/expected content/i)).toBeVisible();
+  // JS errors are auto-detected by the fixture — no manual pageerror listener needed
 });
 ```
 
@@ -176,14 +184,16 @@ test("<descriptive name matching the test case>", async ({ page }) => {
 
 Follow the template at `apps/web-e2e/tests/_template.spec.ts`:
 
-1. **Comment TC-ID and bug ticket** — Each test must reference its TC-ID and backlog ticket
-2. **Semantic selectors first** — `getByRole` → `getByText` → `getByLabel` → CSS selectors (last resort)
-3. **Always wait for networkidle** — Content comes from Sanity CMS
-4. **Assert meaningful content** — Verify actual text/structure, not just element existence
-5. **No hardcoded CMS strings** — Test structural elements and patterns
-6. **No non-null assertions (`!`)** — Use optional chaining (`?.`) or type guards
-7. **Each test is independent** — No shared state between tests
-8. **Test CORRECT behavior** — The assertion should describe what SHOULD happen, not what currently happens
+1. **Import from fixtures** — `import { test, expect } from "./fixtures"` — NEVER from `@playwright/test`. The fixture auto-detects JS errors.
+2. **Comment TC-ID and bug ticket** — Each test must reference its TC-ID and backlog ticket
+3. **CSR-first navigation** — Use `page.goto()` ONLY for the entry point. All subsequent navigation uses clicks (CSR). This catches client-side routing bugs.
+4. **Assert destination content** — After every navigation (click), verify: URL changed + H1 visible + meaningful content rendered. Never just check URL.
+5. **Semantic selectors first** — `getByRole` → `getByText` → `getByLabel` → CSS selectors (last resort)
+6. **Always wait for networkidle** — Content comes from Sanity CMS
+7. **No hardcoded CMS strings** — Test structural elements and patterns
+8. **No non-null assertions (`!`)** — Use optional chaining (`?.`) or type guards
+9. **Each test is independent** — No shared state between tests
+10. **Test CORRECT behavior** — The assertion should describe what SHOULD happen, not what currently happens
 
 ### 3d. What the test should assert
 

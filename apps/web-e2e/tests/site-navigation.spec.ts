@@ -1,28 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./fixtures";
 
-test.describe("Navigation", () => {
-  // TC-NAV-01
-  test("navigation bar is visible on homepage", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
-    await expect(page.locator("nav")).toBeVisible();
-  });
-
-  // TC-NAV-02
-  test("navigation bar has all main links", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
-    const nav = page.locator("nav");
-    await expect(nav.getByRole("link", { name: "Inicio" })).toBeVisible();
-    await expect(
-      nav.getByRole("link", { name: "Quienes Somos" })
-    ).toBeVisible();
-    await expect(nav.getByRole("link", { name: "Blog" })).toBeVisible();
-    await expect(nav.getByRole("link", { name: "Contacto" })).toBeVisible();
-  });
-
-  // TC-NAV-03
-  test("client-side navigation to /quienes-somos", async ({ page }) => {
+test.describe("Site Navigation", () => {
+  // TC-SNAV-01
+  test("CSR navigation to Quienes Somos", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     await page
@@ -31,11 +12,11 @@ test.describe("Navigation", () => {
       .click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/quienes-somos/);
-    await expect(page.getByText("Página no encontrada")).not.toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  // TC-NAV-04
-  test("client-side navigation to /blog", async ({ page }) => {
+  // TC-SNAV-02
+  test("CSR navigation to Blog", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     await page.locator("nav").getByRole("link", { name: "Blog" }).click();
@@ -44,18 +25,20 @@ test.describe("Navigation", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  // TC-NAV-05
-  test("client-side navigation to /contacto", async ({ page }) => {
+  // TC-SNAV-03
+  test("CSR navigation to Contacto", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     await page.locator("nav").getByRole("link", { name: "Contacto" }).click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/contacto/);
-    await expect(page.getByText("Página no encontrada")).not.toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  // TC-NAV-06
-  test("servicios dropdown opens on click", async ({ page }) => {
+  // TC-SNAV-04
+  test("Servicios dropdown opens and navigates to service page", async ({
+    page,
+  }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     const serviciosLink = page
@@ -65,10 +48,14 @@ test.describe("Navigation", () => {
     await expect(
       page.getByRole("menuitem", { name: "Examen Visual" })
     ).toBeVisible();
+    await page.getByRole("menuitem", { name: "Examen Visual" }).click();
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveURL(/servicios\/examen-visual/);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  // TC-NAV-07
-  test("navigate to homepage via logo", async ({ page }) => {
+  // TC-SNAV-05
+  test("navigate back to homepage via logo", async ({ page }) => {
     await page.goto("/blog");
     await page.waitForLoadState("networkidle");
     await page
@@ -79,8 +66,8 @@ test.describe("Navigation", () => {
     await expect(page).toHaveURL(/\/$/);
   });
 
-  // TC-NAV-08
-  test("mobile menu opens", async ({ page }) => {
+  // TC-SNAV-06
+  test("mobile menu opens and shows links", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
@@ -90,5 +77,19 @@ test.describe("Navigation", () => {
     await expect(
       page.getByRole("link", { name: "Contacto", exact: true })
     ).toBeVisible();
+  });
+
+  // TC-SNAV-07
+  test("navigation bar has all main links", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    const nav = page.locator("nav");
+    await expect(nav).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Inicio" })).toBeVisible();
+    await expect(
+      nav.getByRole("link", { name: "Quienes Somos" })
+    ).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Blog" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Contacto" })).toBeVisible();
   });
 });

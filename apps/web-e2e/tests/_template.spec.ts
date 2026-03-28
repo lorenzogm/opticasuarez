@@ -1,37 +1,45 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./fixtures";
 
-test.describe("<Suite Name>", () => {
-  // TC-<PREFIX>-01
-  test("<descriptive test name matching the test case>", async ({ page }) => {
+test.describe("<Journey Name>", () => {
+  // TC-<PREFIX>-01 — Entry point: SSR load
+  test("<journey entry point>", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    // Use semantic selectors: getByRole, getByText, getByLabel
+    // Verify entry point rendered
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  // TC-<PREFIX>-02
-  test("<another test>", async ({ page }) => {
+  // TC-<PREFIX>-02 — Step: CSR navigation to next page
+  test("<navigate to destination via click>", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    // Use locator chaining for specificity
-    await expect(
-      page.locator("nav").getByRole("link", { name: "Contacto", exact: true })
-    ).toBeVisible();
+    // Click a link to navigate (CSR)
+    await page.locator("nav").getByRole("link", { name: "Blog" }).click();
+    await page.waitForLoadState("networkidle");
+
+    // Verify destination rendered with content
+    await expect(page).toHaveURL(/blog/);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 });
 
 /*
-GUIDELINES:
-- One spec file per test case file: test-cases/navigation.md → tests/navigation.spec.ts
-- Each test() must have a comment with its TC-ID (e.g. // TC-NAV-01)
+GUIDELINES — Journey-Based Tests:
+- Import { test, expect } from "./fixtures" — NEVER from "@playwright/test"
+  The fixture auto-detects JS errors; any pageerror fails the test automatically.
+- One spec file per journey: test-cases/site-navigation.md → tests/site-navigation.spec.ts
+- Each test() must have a comment with its TC-ID (e.g. // TC-SNAV-01)
+- Journey prefixes: LAND, SNAV, SERV, BLOG, ERR, SEO, APPT, ABOUT
+- Tests follow user flows: entry point (page.goto) → CSR navigation (clicks) → assertions
+- page.goto() is only for the entry point; all subsequent navigation uses clicks
+- After every navigation, assert: URL changed + H1/content visible
+  (The fixture handles JS error detection automatically)
 - Selector priority: getByRole > getByText > getByLabel > locator("css")
-- Always call page.waitForLoadState("networkidle") after navigation (content from Sanity CMS)
-- Use exact: true when a selector matches multiple elements
-- Test SSR with page.goto(), test CSR by clicking in-page links
+- Always call page.waitForLoadState("networkidle") after navigation
 - Assert meaningful content (text, headings), not just DOM existence
 - No hardcoded CMS strings — test structural elements instead
-- No shared state between tests — each test is independent
-- No non-null assertions (!) — use optional chaining (?.) or type guards
+- Each test is independent — no shared state between tests
 */

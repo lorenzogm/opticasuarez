@@ -122,16 +122,18 @@ For each bug ticket that doesn't already have a corresponding test case:
 
 ### 3a. Determine the correct test case file
 
-Map the bug to one of the existing test case files based on what it affects:
+Map the bug to one of the existing test case files based on the **user journey** it breaks:
 
-| Bug affects | Test case file |
-|-------------|---------------|
-| Page navigation, links | `navigation.md` |
-| Homepage content/sections | `homepage.md` |
-| Content pages (/quienes-somos, /contacto, etc.) | `content-pages.md` |
-| Blog list or blog posts | `blog.md` |
-| 404/500 error pages | `error-handling.md` |
-| Meta tags, SEO, canonical URLs | `seo.md` |
+| Bug affects | Test case file | Journey prefix |
+|-------------|---------------|----------------|
+| Homepage SSR load, sections, layout | `landing.md` | TC-LAND |
+| Client-side navigation between pages | `site-navigation.md` | TC-SNAV |
+| Service pages, hero CTA, servicios flow | `service-discovery.md` | TC-SERV |
+| Blog list, article detail, blog browsing | `blog-engagement.md` | TC-BLOG |
+| 404/500 errors, error recovery | `error-resilience.md` | TC-ERR |
+| Meta tags, SEO, canonical URLs | `seo-metadata.md` | TC-SEO |
+| Appointment booking multi-step flow | `appointment-booking.md` | TC-APPT |
+| Quienes Somos, Contacto pages | `about-contact.md` | TC-ABOUT |
 
 If no existing file matches, create a new one following the template format.
 
@@ -156,7 +158,7 @@ Add a new test case entry to the appropriate file. Follow the template format ex
 ### 3c. Rules for test cases
 
 - **TC-ID must be unique** — scan all existing test case files for existing IDs before assigning
-- **PREFIX matches the file**: `NAV` for navigation.md, `HOME` for homepage.md, `BLOG` for blog.md, `ERR` for error-handling.md, `SEO` for seo.md, `CONTENT` for content-pages.md
+- **PREFIX matches the journey**: `LAND` for landing.md, `SNAV` for site-navigation.md, `SERV` for service-discovery.md, `BLOG` for blog-engagement.md, `ERR` for error-resilience.md, `SEO` for seo-metadata.md, `APPT` for appointment-booking.md, `ABOUT` for about-contact.md
 - **Number sequentially** — find the highest existing TC-PREFIX-NN in the file and increment
 - **Include Bug Ticket reference** — link back to the backlog ticket so QA-Playwright and Developer can trace the chain
 - **Steps come from the bug ticket** — use the reproduction steps from the bug report
