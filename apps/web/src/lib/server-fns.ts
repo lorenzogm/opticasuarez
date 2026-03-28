@@ -101,7 +101,12 @@ export const fetchPage = createServerFn({ method: "GET" })
   .inputValidator((path: string) => path ?? "")
   .handler(async ({ data: path }) => {
     const fullPath = path.startsWith("/") ? path : `/${path}`;
-    const page = (await getPage(fullPath)) as SanityData;
+    let page: SanityData;
+    try {
+      page = (await getPage(fullPath)) as SanityData;
+    } catch {
+      return { page: null as SanityData };
+    }
 
     // Fallback: populate empty timeline sections with JSON content
     if (fullPath === "/quienes-somos" && page?.sections) {
