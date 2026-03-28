@@ -110,15 +110,41 @@ export const fetchPage = createServerFn({ method: "GET" })
 
     // Fallback: populate empty timeline sections with JSON content
     if (fullPath === "/quienes-somos" && page?.sections) {
+      let hasTimeline = false;
       for (const section of page.sections) {
-        if (
-          section._type === "sectionTimeline" &&
-          (!section.timelineItems || section.timelineItems.length === 0)
-        ) {
+        if (section._type === "sectionTimeline") {
+          hasTimeline = true;
           if (!section.title) {
             section.title = quienesNosotrosContent.history.title;
           }
-          section.timelineItems = quienesNosotrosContent.history.timeline.map(
+          if (!section.timelineItems || section.timelineItems.length === 0) {
+            section.timelineItems = quienesNosotrosContent.history.timeline.map(
+              (
+                item: {
+                  year: string;
+                  title: string;
+                  description: string;
+                  image: string;
+                },
+                i: number
+              ) => ({
+                _key: `fallback-${i}`,
+                ...item,
+              })
+            );
+          }
+        }
+      }
+      // Inject a full timeline section if Sanity has none
+      if (!hasTimeline) {
+        const teamIndex = page.sections.findIndex(
+          (s: SanityData) => s._type === "sectionTeam"
+        );
+        const timelineSection = {
+          _type: "sectionTimeline",
+          _key: "fallback-timeline",
+          title: quienesNosotrosContent.history.title,
+          timelineItems: quienesNosotrosContent.history.timeline.map(
             (
               item: {
                 year: string;
@@ -131,7 +157,12 @@ export const fetchPage = createServerFn({ method: "GET" })
               _key: `fallback-${i}`,
               ...item,
             })
-          );
+          ),
+        };
+        if (teamIndex > 0) {
+          page.sections.splice(teamIndex, 0, timelineSection);
+        } else {
+          page.sections.push(timelineSection);
         }
       }
     }
