@@ -59,14 +59,14 @@ best practices, validates with quality gates, publishes to main, then pauses.
 
 | Step | Action | Mode |
 |------|--------|------|
-| 0 | **Pause gate** — Check for `.work/QA-PAUSE.md` | Orchestrator |
+| 0 | **Pause gate** — Check for `apps/web-e2e/.work/QA-PAUSE.md` | Orchestrator |
 | 1 | **Plan** — Use agent-browser to browse the site; generate qa-spec, qa-plan, and qa-tasks | Planner Subagent |
 | 2 | **Test Cases** — Create/update test case documentation in `apps/web-e2e/test-cases/` | Test Cases Subagent |
 | 3 | **Playwright** — Write Playwright tests; create bug tickets for failures in `backlog/to-do/` | Playwright Subagent |
 | 4 | **Review** — Code review Playwright tests; loop back to Playwright until they pass | CR Subagent |
 | 5 | **Validate** — Run quality gates as final validation | Orchestrator |
 | 6 | **Publish** — Commit and push to main | Publish Subagent |
-| 7 | **Pause** — Create `.work/QA-PAUSE.md` and STOP | Orchestrator |
+| 7 | **Pause** — Create `apps/web-e2e/.work/QA-PAUSE.md` and STOP | Orchestrator |
 
 ## Configuration
 
@@ -81,7 +81,7 @@ best practices, validates with quality gates, publishes to main, then pauses.
 | Bug tickets | `backlog/to-do/<N>-<title>/00-request.md` |
 | Browser tool | `agent-browser` CLI |
 | Branch | `main` (direct push) |
-| Pause file | `.work/QA-PAUSE.md` |
+| Pause file | `apps/web-e2e/.work/QA-PAUSE.md` |
 | CLI tool | `gh` (GitHub CLI) |
 
 ## Bug Ticket Numbering
@@ -109,10 +109,10 @@ Run Steps 0–7 once per invocation.
 
 ### Step 0 — PAUSE Gate
 
-Check for `.work/QA-PAUSE.md`.
+Check for `apps/web-e2e/.work/QA-PAUSE.md`.
 If it exists, stop immediately:
 
-> "⏸️ QA is paused. Delete `.work/QA-PAUSE.md` to resume."
+> "⏸️ QA is paused. Delete `apps/web-e2e/.work/QA-PAUSE.md` to resume."
 
 ---
 
@@ -197,7 +197,7 @@ Call the **Publish subagent** (see `<PUBLISH_SUBAGENT_INSTRUCTIONS>` below).
 
 ### Step 7 — Pause
 
-Create `.work/QA-PAUSE.md` with a summary of what was done:
+Create `apps/web-e2e/.work/QA-PAUSE.md` with a summary of what was done:
 
 ```markdown
 # QA Cycle Complete
@@ -221,7 +221,7 @@ Delete this file and say "start" to run another QA cycle.
 ```
 
 **STOP.** Do not loop back. The agent terminates here.
-To run another cycle, the user must delete `.work/QA-PAUSE.md` and invoke "start" again.
+To run another cycle, the user must delete `apps/web-e2e/.work/QA-PAUSE.md` and invoke "start" again.
 
 ---
 
