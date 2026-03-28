@@ -50,6 +50,15 @@ handoffs:
       write test cases, implement Playwright E2E tests, run gap analysis,
       and report any bugs found.
     send: false
+  - label: Return to QA
+    agent: "QA"
+    prompt: >
+      Developer has finished fixing the QA-discovered bug and pushed the fix
+      to main. Re-run the failing test(s) from the original bug ticket in
+      backlog/000-*/00-request.md to verify the fix. If the test passes,
+      clean up the backlog folder and continue the QA cycle. If it still
+      fails, create a new bug ticket and hand off to Developer again.
+    send: true
 metadata:
   version: "0.2"
   owner: Lorenzo Garcia Moreno <lorenzo.garciamoreno@valtech.com>
@@ -94,6 +103,53 @@ and closes issues. Then he does it again. And again. Until no open PRs or issues
 | Working directory | `backlog/<issue-number>-<slug>/` (planning artifacts, committed to repo) |
 | CLI tool | `gh` (GitHub CLI) |
 | Retry policy | Infinite (no max retries) |
+
+## QA Bug Fix Mode
+
+When the orchestrator is invoked via the **"Fix Bug (Developer)"** handoff from the QA agent
+(the incoming prompt mentions "QA-discovered bug"), activate **QA Bug Fix Mode** instead of
+the normal Main Loop. This is a focused, fix-and-return workflow.
+
+**Do NOT enter the normal Main Loop (Steps 0–10) when in QA Bug Fix Mode.**
+
+### QA Bug Fix Workflow
+
+1. **Read the bug ticket**: Find and read the latest `backlog/000-*/00-request.md`.
+   Extract the bug description, reproduction steps, failing test, and expected behavior.
+
+2. **Create minimal task artifacts**:
+   - Create `backlog/000-<slug>/PROGRESS.md` with a single task: "Fix bug: <title>"
+   - Create `backlog/000-<slug>/03-tasks-01-fix-bug.md` with:
+     - Bug description and reproduction steps
+     - Failing test reference
+     - Acceptance criteria: the failing test passes, no regressions
+
+3. **Run the full inner loop** (same as Steps 4–7):
+   ```
+   1. → DEV subagent (fix the bug, add regression test)
+   2. → QC subagent (npm run lint && npm run build)
+        FAIL → write feedback-qc.md → back to step 1
+        PASS → continue
+   3. → CR subagent (review changed files)
+        FAIL → write feedback-cr.md → back to step 1
+        PASS → continue
+   4. → QA subagent (browser smoke test the fix)
+        FAIL → write feedback-qa.md → back to step 1
+        PASS → continue
+   ```
+
+4. **Publish**: Call the Publish subagent (commit + push to main).
+
+5. **Hand off to QA**: Use the **"Return to QA"** handoff to transfer back to the QA agent
+   for re-verification. QA will re-run the originally failing test(s) to confirm the fix.
+
+   **STOP here. Do NOT continue to the Main Loop or process other issues/PRs.**
+
+6. **On unrecoverable error**: If the fix cannot be completed (git conflicts, auth failures,
+   environment issues), write `backlog/000-<slug>/FAILURE.md` with details and still use the
+   **"Return to QA"** handoff so QA is informed and can decide next steps.
+
+---
 
 ## Main Loop
 
