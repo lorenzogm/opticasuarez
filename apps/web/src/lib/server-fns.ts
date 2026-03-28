@@ -97,6 +97,7 @@ export const fetchSiteSettings = createServerFn({ method: "GET" }).handler(
 export const fetchPage = createServerFn({ method: "GET" })
   .inputValidator((path: string) => path)
   .handler(async ({ data: path }) => {
-    const page = await getPage(path);
+    const fullPath = path.startsWith("/") ? path : `/${path}`;
+    const page = await getPage(fullPath);
     return { page: page as SanityData };
   });
