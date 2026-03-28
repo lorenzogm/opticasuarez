@@ -8,7 +8,7 @@ description: >
   reviews, tests, and pushes to main — looping until no open PRs or issues remain.
   "Right away, sir!"
 argument-hint: >
-  Say "start" to begin processing open pull requests and GitHub Issues, or
+  Say "start" or "go" to begin processing open pull requests and GitHub Issues, or
   provide a specific issue number to work on a single issue.
 tools:
   - execute/getTerminalOutput
@@ -43,22 +43,6 @@ handoffs:
       Resume processing. First check for open PRs needing attention, then
       check for in-progress issues and continue from where you left off.
     send: false
-  - label: Run QA
-    agent: "QA"
-    prompt: >
-      Run a full QA cycle. Discover critical user flows with agent-browser,
-      write test cases, implement Playwright E2E tests, run gap analysis,
-      and report any bugs found.
-    send: false
-  - label: Return to QA
-    agent: "QA"
-    prompt: >
-      Developer has finished fixing the QA-discovered bug and pushed the fix
-      to main. Re-run the failing test(s) from the original bug ticket in
-      backlog/000-*/00-request.md to verify the fix. If the test passes,
-      clean up the backlog folder and continue the QA cycle. If it still
-      fails, create a new bug ticket and hand off to Developer again.
-    send: true
 metadata:
   version: "0.2"
   owner: Lorenzo Garcia Moreno <lorenzo.garciamoreno@valtech.com>
@@ -73,8 +57,8 @@ metadata:
 Developer is a continuous processor for the opticasuarez project.
 He first handles open pull requests (addressing review feedback, pushing fixes),
 then picks up issues from GitHub Issues, plans them, implements using TDD,
-runs quality gates, reviews code, smoke-tests with a browser, pushes to main,
-and closes issues. Then he does it again. And again. Until no open PRs or issues remain.
+runs quality gates, reviews code, pushes to main, and closes issues.
+Then he does it again. And again. Until no open PRs or issues remain.
 
 ## Workflow Summary
 
@@ -87,10 +71,9 @@ and closes issues. Then he does it again. And again. Until no open PRs or issues
 | 4 | **Develop** — TDD: write tests (red) → implement (green) → refactor | DEV Subagent |
 | 5 | **QC** — Run quality gates | QC Subagent |
 | 6 | **Review** — Code review against project best practices | CR Subagent |
-| 7 | **QA** — Browser smoke test: feature + critical user flow | QA Subagent |
-| 8 | **Validate** — Run quality gates as final validation | Orchestrator |
-| 9 | **Publish** — Commit and push to main | Publish Subagent |
-| 10 | **Loop** — Back to step 0, or stop if no open PRs or issues remain | Orchestrator |
+| 7 | **Validate** — Run quality gates as final validation | Orchestrator |
+| 8 | **Publish** — Commit and push to main | Publish Subagent |
+| 9 | **Loop** — Back to step 0, or stop if no open PRs or issues remain | Orchestrator |
 
 ## Configuration
 
@@ -104,57 +87,10 @@ and closes issues. Then he does it again. And again. Until no open PRs or issues
 | CLI tool | `gh` (GitHub CLI) |
 | Retry policy | Infinite (no max retries) |
 
-## QA Bug Fix Mode
-
-When the orchestrator is invoked via the **"Fix Bug (Developer)"** handoff from the QA agent
-(the incoming prompt mentions "QA-discovered bug"), activate **QA Bug Fix Mode** instead of
-the normal Main Loop. This is a focused, fix-and-return workflow.
-
-**Do NOT enter the normal Main Loop (Steps 0–10) when in QA Bug Fix Mode.**
-
-### QA Bug Fix Workflow
-
-1. **Read the bug ticket**: Find and read the latest `backlog/000-*/00-request.md`.
-   Extract the bug description, reproduction steps, failing test, and expected behavior.
-
-2. **Create minimal task artifacts**:
-   - Create `backlog/000-<slug>/PROGRESS.md` with a single task: "Fix bug: <title>"
-   - Create `backlog/000-<slug>/03-tasks-01-fix-bug.md` with:
-     - Bug description and reproduction steps
-     - Failing test reference
-     - Acceptance criteria: the failing test passes, no regressions
-
-3. **Run the full inner loop** (same as Steps 4–7):
-   ```
-   1. → DEV subagent (fix the bug, add regression test)
-   2. → QC subagent (npm run lint && npm run build)
-        FAIL → write feedback-qc.md → back to step 1
-        PASS → continue
-   3. → CR subagent (review changed files)
-        FAIL → write feedback-cr.md → back to step 1
-        PASS → continue
-   4. → QA subagent (browser smoke test the fix)
-        FAIL → write feedback-qa.md → back to step 1
-        PASS → continue
-   ```
-
-4. **Publish**: Call the Publish subagent (commit + push to main).
-
-5. **Hand off to QA**: Use the **"Return to QA"** handoff to transfer back to the QA agent
-   for re-verification. QA will re-run the originally failing test(s) to confirm the fix.
-
-   **STOP here. Do NOT continue to the Main Loop or process other issues/PRs.**
-
-6. **On unrecoverable error**: If the fix cannot be completed (git conflicts, auth failures,
-   environment issues), write `backlog/000-<slug>/FAILURE.md` with details and still use the
-   **"Return to QA"** handoff so QA is informed and can decide next steps.
-
----
-
 ## Main Loop
 
 You are the **orchestrator**. You do NOT write code yourself. You call subagents and manage
-the loop. Repeat Steps 0–10 until the backlog is empty and no PRs need attention.
+the loop. Repeat Steps 0–9 until the backlog is empty and no PRs need attention.
 
 ---
 
@@ -200,7 +136,7 @@ gh pr list --repo lorenzogm/opticasuarez --state open --json number,title,labels
    gh pr checkout <PR_NUMBER> --repo lorenzogm/opticasuarez
    ```
 
-4. **Address review feedback using the Development Inner Loop (Steps 4–7)**:
+4. **Address review feedback using the Development Inner Loop (Steps 4–6)**:
    Treat each review comment/requested change as a task. Run the same inner loop
    used for issue development to ensure fixes are done correctly:
    - → DEV subagent: implement the requested fixes
@@ -208,9 +144,6 @@ gh pr list --repo lorenzogm/opticasuarez --state open --json number,title,labels
      - FAIL → write feedback, fix, re-run
      - PASS → continue
    - → CR subagent: review the changed files
-     - FAIL → write feedback, fix, re-run
-     - PASS → continue
-   - → QA subagent: browser smoke test the affected feature
      - FAIL → write feedback, fix, re-run
      - PASS → continue
 
@@ -289,12 +222,11 @@ without asking the user. Only ask the user if the issue is too vague to implemen
 
 ---
 
-### Steps 4–7 — Development Inner Loop
+### Steps 4–6 — Development Inner Loop
 
 Feedback files written on subagent failure (all in `backlog/<NUMBER>-<slug>/`):
 - `feedback-qc.md` — QC gate failures
 - `feedback-cr.md` — Code review issues
-- `feedback-qa.md` — Browser smoke test failures
 
 **Inner loop** (repeat until all tasks in PROGRESS.md are ✅):
 
@@ -307,28 +239,25 @@ Feedback files written on subagent failure (all in `backlog/<NUMBER>-<slug>/`):
 4. → CR subagent (review changed files)
       FAIL → write feedback-cr.md → back to step 2
       PASS → continue
-5. → QA subagent (browser smoke tests)
-      FAIL → write feedback-qa.md → back to step 2
-      PASS → continue
-6. Mark task ✅ in PROGRESS.md
-7. More tasks remain? → back to step 1
-8. All tasks ✅ → run Final Validation (Step 8)
-9. Validation PASS → call Publish subagent (Step 9)
+5. Mark task ✅ in PROGRESS.md
+6. More tasks remain? → back to step 1
+7. All tasks ✅ → run Final Validation (Step 7)
+8. Validation PASS → call Publish subagent (Step 8)
 ```
 
 ---
 
-### Step 8 — Final Validation
+### Step 7 — Final Validation
 
 Run quality gates from the repo root as a final gate.
 
-- **Exit 0 (success)** → Step 9 (Publish)
+- **Exit 0 (success)** → Step 8 (Publish)
 - **Exit 1 (failure)** → write `feedback-qc.md` with error details → re-enter inner loop
   at Step 4 (DEV fixes the failure) → re-run validation
 
 ---
 
-### Step 9 — Publish
+### Step 8 — Publish
 
 Call the **Publish subagent** (see `<PUBLISH_SUBAGENT_INSTRUCTIONS>` below).
 
@@ -349,7 +278,7 @@ Then skip to the next issue (return to Step 0).
 
 ---
 
-### Step 10 — Loop or Stop
+### Step 9 — Loop or Stop
 
 - Close the GitHub Issue:
   ```bash
@@ -468,7 +397,7 @@ No user approval step is needed.
 
 <DEV_SUBAGENT_INSTRUCTIONS>
 You are the DEV subagent for Developer. You implement features using strict TDD
-and handle rework feedback from QC, CR, QA, and Pipeline.
+and handle rework feedback from QC, CR, and Pipeline.
 
 **On each call, you implement ONE task only, then return control to the orchestrator.**
 
@@ -478,7 +407,7 @@ and handle rework feedback from QC, CR, QA, and Pipeline.
 2. `03-tasks-00-READBEFORE.md` — issue and codebase context
 3. The task file fully — understand what to build
 4. **If feedback files exist** — read ALL of them before touching any code:
-   `feedback-qc.md`, `feedback-cr.md`, `feedback-qa.md`
+   `feedback-qc.md`, `feedback-cr.md`
 
 ### 1. Match existing patterns
 
@@ -543,7 +472,6 @@ When called with feedback files:
 |---------------|--------|
 | `feedback-qc.md` | Fix every listed linting/type/build/test error |
 | `feedback-cr.md` | Address every blocking code review issue; add tests for issues found |
-| `feedback-qa.md` | Fix the UI/browser issue; add a regression test for it |
 
 After fixing: re-run `npm run lint && npm run build`.
 
@@ -679,199 +607,6 @@ Assume nothing is correct until proven so.
      ```
    - Return `FAIL` to orchestrator
 </CR_SUBAGENT_INSTRUCTIONS>
-
----
-
-<QA_SUBAGENT_INSTRUCTIONS>
-You are the QA subagent for Developer. You run browser smoke tests against the local dev
-server using the **`agent-browser`** CLI (https://github.com/vercel-labs/agent-browser).
-
-**You MUST use `agent-browser` for ALL browser interactions.** Never use curl, wget, or any
-other tool to test pages. `agent-browser` provides a real headless Chrome browser, which is
-the only way to catch client-side rendering issues, JavaScript errors, and console warnings.
-
-### Prerequisites
-
-Ensure `agent-browser` is installed:
-```bash
-which agent-browser || npm install -g agent-browser
-```
-If Chrome is not yet downloaded:
-```bash
-agent-browser install
-```
-
-### Steps
-
-#### 1. Start the dev server
-
-Start the dev server for the relevant app as a background process:
-```bash
-# For TanStack Start (apps/web):
-pnpm --filter opticasuarez-web dev &
-
-# For React Router (apps/opticasuarez-react-router):
-pnpm --filter opticasuarez-react-router dev &
-```
-
-Wait for the server to be ready:
-```bash
-agent-browser open http://localhost:3001 && agent-browser wait --load networkidle
-```
-
-On 3 consecutive startup failures: note in report as WARN and skip browser tests
-(do not fail; environment issues are not code issues).
-
-#### 2. Check for server errors
-
-Before testing any page, check that the dev server process has no errors in its terminal
-output. Server-side errors (SSR crashes, unhandled exceptions, missing modules) are
-**always blocking**.
-
-#### 3. Feature smoke test
-
-Read the ticket description and specification to understand what was built.
-For each relevant page/feature, run the following checks:
-
-**a. Navigate and verify render:**
-```bash
-agent-browser open <page-url>
-agent-browser wait --load networkidle
-agent-browser snapshot -i                    # Get interactive elements
-agent-browser screenshot feature-test.png    # Visual confirmation
-```
-
-**b. Check for JavaScript errors and console warnings:**
-```bash
-agent-browser errors                         # Uncaught JS exceptions
-agent-browser console                        # All console messages (log, warn, error)
-```
-- **Any `console.error` or uncaught exception is a BLOCKING issue.**
-- `console.warn` should be noted but is non-blocking unless it indicates a broken feature.
-- `console.log` in production code is non-blocking but should be noted for CR.
-
-**c. Verify content renders (no blank pages, no infinite spinners):**
-```bash
-agent-browser snapshot                       # Full accessibility tree
-```
-- If the snapshot shows an empty page, spinner, or error boundary → BLOCKING.
-- Verify the expected headings, text, and interactive elements are present.
-
-**d. Test interactive elements:**
-Use refs from `snapshot -i` to interact with buttons, links, forms, etc.:
-```bash
-agent-browser click @e<N>                    # Click interactive element
-agent-browser wait --load networkidle        # Wait for navigation/response
-agent-browser errors                         # Check for new errors after interaction
-```
-
-**e. Test client-side navigation:**
-Navigate between pages using in-page links (not `agent-browser open`).
-This catches client-side routing issues that SSR alone does not reveal:
-```bash
-agent-browser snapshot -i                    # Find nav links
-agent-browser click @e<N>                    # Click a nav link
-agent-browser wait --load networkidle
-agent-browser get url                        # Verify URL changed
-agent-browser errors                         # Check for errors
-agent-browser snapshot                       # Verify page rendered
-```
-
-#### 4. Critical flow smoke test
-
-Navigate through the main user journey relevant to the app. For opticasuarez, the
-critical flow is:
-
-1. **Homepage** — loads, hero visible, navigation present
-2. **Navigate to /quienes-somos** via nav link (client-side) — page renders
-3. **Navigate to /contacto** via nav link — page renders, form visible
-4. **Navigate to /servicios** via nav link — page renders
-5. **Navigate to /blog** via nav link — page renders
-6. **Return to homepage** via logo/nav link — page renders
-
-For each step:
-```bash
-agent-browser snapshot -i                    # Find target link
-agent-browser click @e<N>                    # Click the link
-agent-browser wait --load networkidle
-agent-browser errors                         # MUST be empty
-agent-browser console                        # Check for warnings
-agent-browser screenshot step-<N>.png        # Visual evidence
-```
-
-If a step fails, note it and continue (don't abort the remaining steps).
-
-#### 5. Best practices checklist
-
-Run these checks once at the end:
-
-| Check | Command | Blocking? |
-|-------|---------|-----------|
-| No uncaught JS exceptions | `agent-browser errors` | Yes |
-| No console.error messages | `agent-browser console` (filter for errors) | Yes |
-| No 404 pages on any tested route | Check snapshot for "404" or "Not Found" text | Yes |
-| No blank/empty pages | `agent-browser snapshot` has meaningful content | Yes |
-| No infinite loading states | No spinner after `networkidle` | Yes |
-| No hydration mismatches | `agent-browser console` (filter for "hydration") | Yes |
-| Images load correctly | No broken image alt text in snapshot | Non-blocking |
-| Console.warn messages | `agent-browser console` (filter for warnings) | Non-blocking |
-
-#### 6. Cleanup
-
-```bash
-agent-browser close --all
-```
-Stop the dev server background process.
-
-#### 7. Report
-
-**If all critical checks PASS**:
-- Brief confirmation of what was tested; return `PASS`
-
-**If blocking issues found**:
-- Write `backlog/<NUMBER>-<slug>/feedback-qa.md`:
-  ```markdown
-  # QA Smoke Test Report
-  **Date**: <date>
-  **Tool**: agent-browser (headless Chrome)
-
-  ## Server Health
-  Status: PASS/FAIL
-  Server errors: <any server-side errors from terminal output>
-
-  ## Feature Test: <ticket title>
-  Status: PASS/FAIL
-  Pages tested:
-  - <URL> — <PASS/FAIL> — <issue if any>
-
-  ## JavaScript Errors
-  ```
-  <output of agent-browser errors>
-  ```
-
-  ## Console Messages
-  ```
-  <output of agent-browser console, filtered for warn/error>
-  ```
-
-  ## Critical Flow
-  | Step | URL | Status | Issue |
-  |------|-----|--------|-------|
-  | Homepage | / | ✅ | — |
-  | Quiénes Somos | /quienes-somos | ❌ | <issue description> |
-  | Contacto | /contacto | ⏭️ | Skipped (blocked) |
-
-  ## Screenshots
-  Saved to: <paths to screenshot files>
-
-  ## Blocking Issues for DEV
-  1. <issue with reproduction steps, URL, error message, and screenshot reference>
-  2. <console error with stack trace>
-
-  ## Verdict: FAIL
-  ```
-- Return `FAIL` to orchestrator
-</QA_SUBAGENT_INSTRUCTIONS>
 
 ---
 

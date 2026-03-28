@@ -3,6 +3,7 @@
 import {
   createRootRoute,
   HeadContent,
+  Link,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
@@ -282,7 +283,27 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  notFoundComponent: NotFoundPage,
 });
+
+function NotFoundPage() {
+  return (
+    <section className="flex min-h-[50vh] items-center justify-center px-4 py-16">
+      <div className="text-center">
+        <h1 className="mb-4 font-bold text-3xl text-gray-900">
+          Página no encontrada
+        </h1>
+        <p className="mb-8 text-gray-600">La página que buscas no existe.</p>
+        <Link
+          className="inline-block rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
+          to="/"
+        >
+          Volver al inicio
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 const GTM_CONTAINER_ID = "GTM-57936PD5";
 
