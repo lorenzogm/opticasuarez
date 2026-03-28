@@ -115,6 +115,9 @@ export const fetchPage = createServerFn({ method: "GET" })
           section._type === "sectionTimeline" &&
           (!section.timelineItems || section.timelineItems.length === 0)
         ) {
+          if (!section.title) {
+            section.title = quienesNosotrosContent.history.title;
+          }
           section.timelineItems = quienesNosotrosContent.history.timeline.map(
             (
               item: {
