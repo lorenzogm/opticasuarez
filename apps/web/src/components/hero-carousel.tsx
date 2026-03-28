@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import * as React from "react";
 import {
   Carousel,
@@ -17,6 +18,7 @@ interface HeroCarouselProps {
     description: string;
   }[];
   cta?: string;
+  ctaHref?: string;
   autoSlide?: boolean;
   slideInterval?: number;
 }
@@ -24,6 +26,7 @@ interface HeroCarouselProps {
 export default function HeroCarousel({
   images,
   cta,
+  ctaHref,
   autoSlide = true,
   slideInterval = 5000,
 }: HeroCarouselProps) {
@@ -113,10 +116,13 @@ export default function HeroCarousel({
             <p className="mb-4 font-medium text-sm uppercase tracking-wide drop-shadow-lg sm:text-lg md:text-xl lg:text-2xl">
               {currentImage.description}
             </p>
-            {cta && (
-              <button className="inline-block transform rounded-lg bg-blue-600 px-4 py-2 font-semibold text-sm text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700 hover:shadow-xl sm:px-6 sm:py-3 sm:text-base md:px-8 md:text-lg">
+            {cta && ctaHref && (
+              <Link
+                className="inline-block transform rounded-lg bg-blue-600 px-4 py-2 font-semibold text-sm text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700 hover:shadow-xl sm:px-6 sm:py-3 sm:text-base md:px-8 md:text-lg"
+                to={ctaHref}
+              >
                 {cta}
-              </button>
+              </Link>
             )}
           </div>
         </div>

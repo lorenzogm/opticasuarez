@@ -8,6 +8,9 @@
  * NetworkError (CORS / connectivity).
  */
 import { createServerFn } from "@tanstack/react-start";
+import quienesNosotrosContent from "~/content/quienes-somos.json" with {
+  type: "json",
+};
 import {
   getBlogPost,
   getBlogPosts,
@@ -98,6 +101,32 @@ export const fetchPage = createServerFn({ method: "GET" })
   .inputValidator((path: string) => path)
   .handler(async ({ data: path }) => {
     const fullPath = path.startsWith("/") ? path : `/${path}`;
-    const page = await getPage(fullPath);
+    const page = (await getPage(fullPath)) as SanityData;
+
+    // Fallback: populate empty timeline sections with JSON content
+    if (fullPath === "/quienes-somos" && page?.sections) {
+      for (const section of page.sections) {
+        if (
+          section._type === "sectionTimeline" &&
+          (!section.timelineItems || section.timelineItems.length === 0)
+        ) {
+          section.timelineItems = quienesNosotrosContent.history.timeline.map(
+            (
+              item: {
+                year: string;
+                title: string;
+                description: string;
+                image: string;
+              },
+              i: number
+            ) => ({
+              _key: `fallback-${i}`,
+              ...item,
+            })
+          );
+        }
+      }
+    }
+
     return { page: page as SanityData };
   });

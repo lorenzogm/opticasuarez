@@ -70,3 +70,15 @@ The homepage is the main entry point and must render correctly for both SEO and 
   2. Listen for console errors
 - **Expected**: No uncaught exceptions or console.error messages
 - **Implemented**: No
+
+### TC-HOME-09: Hero CTA button navigates to services
+- **Priority**: High
+- **Type**: Functional
+- **Bug Ticket**: backlog/403-hero-cta-button-noop/
+- **Steps**:
+  1. Navigate to /
+  2. Locate the "Descubre nuestros servicios" button in the hero carousel
+  3. Click the button
+  4. Wait for navigation or scroll
+- **Expected**: Clicking the button navigates to /servicios or scrolls to the services section on the homepage (URL changes or window.scrollY increases)
+- **Implemented**: No

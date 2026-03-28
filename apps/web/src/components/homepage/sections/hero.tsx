@@ -32,5 +32,5 @@ export default function Hero({ title, subtitle, description, cta }: HeroProps) {
     },
   ];
 
-  return <HeroCarousel cta={cta} images={heroImages} />;
+  return <HeroCarousel cta={cta} ctaHref="/servicios" images={heroImages} />;
 }

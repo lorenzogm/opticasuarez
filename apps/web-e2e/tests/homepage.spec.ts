@@ -70,4 +70,23 @@ test.describe("Homepage", () => {
     await page.waitForLoadState("networkidle");
     expect(errors).toEqual([]);
   });
+
+  // TC-HOME-09 — Bug: backlog/403-hero-cta-button-noop/
+  test("hero CTA button navigates to services", async ({ page }) => {
+    const ctaButton = page.getByRole("link", {
+      name: /Descubre nuestros servicios/i,
+    });
+    await expect(ctaButton).toBeVisible();
+
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+    await ctaButton.click();
+    await page.waitForTimeout(1000);
+
+    const url = page.url();
+    const scrollAfter = await page.evaluate(() => window.scrollY);
+
+    const navigated = url.includes("/servicios");
+    const scrolled = scrollAfter > scrollBefore + 100;
+    expect(navigated || scrolled).toBe(true);
+  });
 });

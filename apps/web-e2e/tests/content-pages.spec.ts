@@ -73,4 +73,20 @@ test.describe("Content Pages — SSR", () => {
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveTitle(/Reservar Cita|Óptica Suárez/);
   });
+
+  // TC-CONTENT-10 — Bug: backlog/404-quienes-somos-empty-timeline/
+  test("/quienes-somos timeline section has content", async ({ page }) => {
+    await page.goto("/quienes-somos");
+    await page.waitForLoadState("networkidle");
+
+    const timelineHeading = page.getByRole("heading", {
+      name: /NUESTRA HISTORIA/i,
+    });
+    await expect(timelineHeading).toBeVisible();
+
+    const timelineSection = timelineHeading.locator("..").locator("..");
+    const timelineItems = timelineSection.locator("[class*='space-y'] > *");
+    const count = await timelineItems.count();
+    expect(count).toBeGreaterThanOrEqual(1);
+  });
 });
