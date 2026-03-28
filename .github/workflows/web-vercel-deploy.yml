@@ -226,32 +226,51 @@ jobs:
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
 
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      # ── 1. Deploy to Preview ──────────────────────────────────
+      - name: Pull Vercel Preview Environment
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
 
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Preview Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
           NITRO_PRESET: vercel
 
-      - name: Deploy to Vercel
-        id: deploy
+      - name: Deploy to Vercel Preview
+        id: preview-deploy
         run: |
-          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
-          echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
-          echo "Deploy URL: $DEPLOY_URL"
+          PREVIEW_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+          echo "Preview URL: $PREVIEW_URL"
         env:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
 
+      # ── 2. Run E2E tests against Preview ────────────────────
       - name: Install Playwright Browsers
         run: npx playwright install chromium
 
       - name: Run E2E Tests
         run: pnpm --filter opticasuarez-web-e2e test:e2e
         env:
-          PLAYWRIGHT_BASE_URL: ${{ steps.deploy.outputs.deploy-url }}
+          PLAYWRIGHT_BASE_URL: ${{ steps.preview-deploy.outputs.preview-url }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           CI: true
+
+      # ── 3. Promote to Production ────────────────────────────
+      - name: Pull Vercel Production Environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+
+      - name: Build Production Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          NITRO_PRESET: vercel
+
+      - name: Deploy to Vercel Production
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
