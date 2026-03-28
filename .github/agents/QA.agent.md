@@ -72,7 +72,7 @@ implemented tests, and files bugs as backlog tickets with immediate handoff to D
 | E2E workspace | `apps/web-e2e/` |
 | Test cases | `apps/web-e2e/test-cases/*.md` |
 | Tests | `apps/web-e2e/tests/*.spec.ts` |
-| Dev server | `http://localhost:3001` |
+| Dev server | `http://localhost:3000` (port 3000, defined in `apps/web/vite.config.ts`) |
 | Bug tickets | `backlog/000-<slug>/00-request.md` |
 | Browser tool | `agent-browser` CLI |
 
@@ -102,7 +102,15 @@ agent-browser install 2>/dev/null || true
 
 ### Start the dev server
 
-Start the TanStack Start dev server if not already running:
+The web app runs on **port 3000** (configured in `apps/web/vite.config.ts`).
+
+Before starting, kill any process already using port 3000:
+
+```bash
+lsof -ti :3000 | xargs kill -9 2>/dev/null || true
+```
+
+Then start the dev server:
 
 ```bash
 pnpm --filter opticasuarez-web dev &
@@ -111,7 +119,7 @@ pnpm --filter opticasuarez-web dev &
 Wait for it to be ready:
 
 ```bash
-agent-browser open http://localhost:3001
+agent-browser open http://localhost:3000
 agent-browser wait --load networkidle
 ```
 
@@ -130,7 +138,7 @@ Navigate to each known route and take a snapshot:
 
 ```bash
 # Homepage
-agent-browser open http://localhost:3001
+agent-browser open http://localhost:3000
 agent-browser wait --load networkidle
 agent-browser snapshot -i > /tmp/qa-snapshot-home.txt
 agent-browser screenshot /tmp/qa-screenshot-home.png
@@ -421,7 +429,7 @@ Create `backlog/000-<slug>/00-request.md`:
 
 ## Environment
 - App: apps/web (TanStack Start)
-- Dev server: http://localhost:3001
+- Dev server: http://localhost:3000
 - Browser: Chromium (Playwright)
 
 ## Priority

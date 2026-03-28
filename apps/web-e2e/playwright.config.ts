@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? "github" : "html",
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3001",
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000",
     trace: "on-first-retry",
     extraHTTPHeaders: process.env.VERCEL_AUTOMATION_BYPASS_SECRET
       ? {
@@ -42,7 +42,7 @@ export default defineConfig({
     ? undefined
     : {
         command: "pnpm --filter opticasuarez-web dev",
-        url: "http://localhost:3001",
+        url: "http://localhost:3000",
         reuseExistingServer: !process.env.CI,
         timeout: 60_000,
       },
