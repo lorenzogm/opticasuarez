@@ -40,12 +40,12 @@ jobs:
             echo "No changes in infra/vercel/"
           fi
 
-          if git diff --name-only HEAD~1 -- apps/web/ | grep -q .; then
+          if git diff --name-only HEAD~1 -- apps/web/ apps/web-e2e/ | grep -q .; then
             echo "app-changed=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in apps/web/"
+            echo "Changes detected in apps/web/ or apps/web-e2e/"
           else
             echo "app-changed=false" >> $GITHUB_OUTPUT
-            echo "No changes in apps/web/"
+            echo "No changes in apps/web/ or apps/web-e2e/"
           fi
 
   infra-deploy:
