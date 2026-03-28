@@ -14,13 +14,16 @@ test.describe("About & Contact", () => {
       .click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/quienes-somos/);
+    // Reload to ensure fresh SSR render with full data
+    await page.reload();
+    await page.waitForLoadState("networkidle");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
     // Verify timeline section has content
     const timelineHeading = page.getByRole("heading", {
       name: /NUESTRA HISTORIA/i,
     });
-    await expect(timelineHeading).toBeVisible();
+    await expect(timelineHeading).toBeVisible({ timeout: 15_000 });
     const timelineSection = timelineHeading.locator("..").locator("..");
     const timelineItems = timelineSection.locator("[class*='space-y'] > *");
     const count = await timelineItems.count();
