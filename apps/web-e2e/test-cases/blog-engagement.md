@@ -22,7 +22,7 @@ paths to ensure blog content renders correctly throughout the flow.
   2. Click "Blog" nav link (CSR)
   3. Wait for page load
 - **Expected**: URL changes to /blog, H1 heading visible, at least one article card with "Leer más" link visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-BLOG-02: Click article from blog list (CSR)
 
@@ -34,7 +34,7 @@ paths to ensure blog content renders correctly throughout the flow.
   2. Click the first article link (CSR)
   3. Wait for page load
 - **Expected**: URL changes to /blog/{slug}, H1 heading visible, article content renders (not "Artículo no encontrado"), no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-BLOG-03: Blog article renders via SSR
 
@@ -46,4 +46,4 @@ paths to ensure blog content renders correctly throughout the flow.
   2. Extract a real article URL from the list
   3. Navigate directly to that article URL (SSR)
 - **Expected**: Article page renders with H1, content visible (not "Artículo no encontrado"), no JS errors
-- **Implemented**: No
+- **Implemented**: Yes

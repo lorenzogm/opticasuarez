@@ -21,7 +21,7 @@ Multiple pages via SSR (page.goto for each)
   1. Navigate to /
   2. Check meta[name="description"] tag
 - **Expected**: Meta description tag exists and has more than 10 characters, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SEO-02: Homepage has Open Graph tags
 
@@ -32,7 +32,7 @@ Multiple pages via SSR (page.goto for each)
   1. Navigate to /
   2. Check og:title, og:description, og:image meta tags
 - **Expected**: All three Open Graph tags are present and non-empty, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SEO-03: Homepage has canonical URL
 
@@ -43,7 +43,7 @@ Multiple pages via SSR (page.goto for each)
   1. Navigate to /
   2. Check link[rel="canonical"] tag
 - **Expected**: Canonical link tag is present and non-empty, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SEO-04: Content pages have unique titles
 
@@ -56,4 +56,4 @@ Multiple pages via SSR (page.goto for each)
   3. Navigate to /blog — record title
   4. Compare all three titles
 - **Expected**: Each page has a distinct title (not the same as homepage), no JS errors
-- **Implemented**: No
+- **Implemented**: Yes

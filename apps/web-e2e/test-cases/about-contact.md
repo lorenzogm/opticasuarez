@@ -26,7 +26,7 @@ catch client-side routing bugs.
   5. Verify "NUESTRA HISTORIA" timeline section has content
   6. Verify "NUESTRO EQUIPO" team section is visible
 - **Expected**: URL changes to /quienes-somos, H1 visible, timeline section shows events (not empty), team section visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-ABOUT-02: Navigate to Contacto via nav click and verify content
 
@@ -40,7 +40,7 @@ catch client-side routing bugs.
   4. Verify H1 heading visible
   5. Verify contact information is present
 - **Expected**: URL changes to /contacto, H1 visible, contact page renders with content (not "Página no encontrada"), no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-ABOUT-03: Quienes Somos renders via SSR with full content
 
@@ -53,4 +53,4 @@ catch client-side routing bugs.
   3. Verify page title
   4. Verify "NUESTRA HISTORIA" timeline has events
 - **Expected**: Page renders with title matching "Quiénes Somos" or "Óptica Suárez", H1 visible, timeline section has at least one entry, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes

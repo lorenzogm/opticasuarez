@@ -20,7 +20,7 @@ render all sections with meaningful content, and have zero JavaScript errors.
 - **Steps**:
   1. Navigate to /
 - **Expected**: Title contains "Óptica Suárez", no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-LAND-02: Hero section renders with carousel controls
 
@@ -31,7 +31,7 @@ render all sections with meaningful content, and have zero JavaScript errors.
   1. Navigate to /
   2. Check hero carousel is visible
 - **Expected**: Hero carousel with "Next slide" and "Previous slide" controls is visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-LAND-03: Services grid shows service cards
 
@@ -42,7 +42,7 @@ render all sections with meaningful content, and have zero JavaScript errors.
   1. Navigate to /
   2. Scroll to services section
 - **Expected**: Service cards (Visión Binocular, Terapia Visual, Contactología) are visible with headings, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-LAND-04: Page has exactly one H1
 
@@ -53,7 +53,7 @@ render all sections with meaningful content, and have zero JavaScript errors.
   1. Navigate to /
   2. Count H1 elements
 - **Expected**: Exactly one H1 element exists on the page, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-LAND-05: WhatsApp contact link is visible
 
@@ -64,7 +64,7 @@ render all sections with meaningful content, and have zero JavaScript errors.
   1. Navigate to /
   2. Check for WhatsApp link
 - **Expected**: WhatsApp link is present and visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-LAND-06: Locations section renders
 
@@ -75,7 +75,7 @@ render all sections with meaningful content, and have zero JavaScript errors.
   1. Navigate to /
   2. Scroll to locations section
 - **Expected**: "¿Dónde estamos?" section with location info is visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-LAND-07: Book appointment CTA renders
 
@@ -86,4 +86,4 @@ render all sections with meaningful content, and have zero JavaScript errors.
   1. Navigate to /
   2. Scroll to appointment section
 - **Expected**: "Reserva tu cita" section with a booking link is visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes

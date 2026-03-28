@@ -23,7 +23,7 @@ Every navigation step verifies the destination rendered with content and no JS e
   2. Click "Quienes Somos" nav link (CSR)
   3. Wait for page load
 - **Expected**: URL changes to /quienes-somos, H1 heading visible, page content renders, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SNAV-02: CSR navigation to Blog
 
@@ -35,7 +35,7 @@ Every navigation step verifies the destination rendered with content and no JS e
   2. Click "Blog" nav link (CSR)
   3. Wait for page load
 - **Expected**: URL changes to /blog, H1 heading visible, blog articles listed, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SNAV-03: CSR navigation to Contacto
 
@@ -47,7 +47,7 @@ Every navigation step verifies the destination rendered with content and no JS e
   2. Click "Contacto" nav link (CSR)
   3. Wait for page load
 - **Expected**: URL changes to /contacto, H1 heading visible, contact info renders, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SNAV-04: Servicios dropdown opens and navigates to service page
 
@@ -60,7 +60,7 @@ Every navigation step verifies the destination rendered with content and no JS e
   3. Click "Examen Visual" from the dropdown (CSR)
   4. Wait for page load
 - **Expected**: Dropdown opens showing service sub-pages, clicking "Examen Visual" navigates to service page, H1 visible, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SNAV-05: Navigate back to homepage via logo
 
@@ -72,7 +72,7 @@ Every navigation step verifies the destination rendered with content and no JS e
   2. Click the Óptica Suárez logo in the nav (CSR)
   3. Wait for page load
 - **Expected**: URL changes to /, homepage content renders, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SNAV-06: Mobile menu opens and navigates
 
@@ -85,7 +85,7 @@ Every navigation step verifies the destination rendered with content and no JS e
   3. Click hamburger menu button
   4. Verify nav links are visible
 - **Expected**: Mobile menu opens showing Inicio, Blog, Contacto links, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SNAV-07: Navigation bar is present with all links
 
@@ -96,4 +96,4 @@ Every navigation step verifies the destination rendered with content and no JS e
   1. Navigate to /
   2. Check nav element and its links
 - **Expected**: Nav bar visible with links for Inicio, Quienes Somos, Servicios, Blog, Contacto, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes

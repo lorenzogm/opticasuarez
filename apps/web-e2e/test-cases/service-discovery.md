@@ -3,8 +3,9 @@
 ## Overview
 
 Tests the service discovery journey: user lands on homepage → clicks hero CTA or
-service card → navigates to services overview → clicks individual service → views
-service detail page. All navigation is via clicks (CSR), catching routing bugs.
+services dropdown → navigates to service pages. Service pages are served via the
+catch-all page builder route (`/$`), not dedicated `/servicios/*` routes.
+All navigation is via clicks (CSR), catching routing bugs.
 
 ## Entry Point
 
@@ -22,7 +23,7 @@ service detail page. All navigation is via clicks (CSR), catching routing bugs.
   2. Click "Descubre nuestros servicios" hero CTA link (CSR)
   3. Wait for page load
 - **Expected**: URL includes /servicios, services overview page renders with H1, no JS errors
-- **Implemented**: No
+- **Implemented**: Yes
 
 ### TC-SERV-02: Service pages render via CSR from servicios dropdown
 
@@ -34,8 +35,9 @@ service detail page. All navigation is via clicks (CSR), catching routing bugs.
   2. Click "Servicios" nav link to open dropdown
   3. Click "Terapia Visual" from dropdown (CSR)
   4. Wait for page load
-- **Expected**: URL changes to /servicios/terapia-visual, H1 heading visible, service content renders, no JS errors
-- **Implemented**: No
+- **Expected**: URL changes to service page, H1 heading visible, service content renders, no JS errors
+- **Note**: Service pages are served via the catch-all page builder route
+- **Implemented**: Yes
 
 ### TC-SERV-03: Multiple service pages render via SSR
 
@@ -49,4 +51,5 @@ service detail page. All navigation is via clicks (CSR), catching routing bugs.
   4. Navigate to /servicios/control-de-miopia — verify H1 visible
   5. Navigate to /servicios/ortoqueratologia — verify H1 visible
 - **Expected**: Each service page renders with appropriate title and H1 heading, no JS errors
-- **Implemented**: No
+- **Note**: These pages are served via the catch-all page builder route (`/$`)
+- **Implemented**: Yes
