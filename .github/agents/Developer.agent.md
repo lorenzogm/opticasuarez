@@ -88,8 +88,8 @@ and closes issues. Then he does it again. And again. Until no open PRs or issues
 | 5 | **QC** — Run quality gates | QC Subagent |
 | 6 | **Review** — Code review against project best practices | CR Subagent |
 | 7 | **QA** — Browser smoke test: feature + critical user flow | QA Subagent |
-| 8 | **Publish** — Commit and push to main | Publish Subagent |
-| 9 | **Validate** — Run quality gates as final validation | Orchestrator |
+| 8 | **Validate** — Run quality gates as final validation | Orchestrator |
+| 9 | **Publish** — Commit and push to main | Publish Subagent |
 | 10 | **Loop** — Back to step 0, or stop if no open PRs or issues remain | Orchestrator |
 
 ## Configuration
@@ -312,24 +312,25 @@ Feedback files written on subagent failure (all in `backlog/<NUMBER>-<slug>/`):
       PASS → continue
 6. Mark task ✅ in PROGRESS.md
 7. More tasks remain? → back to step 1
-8. All tasks ✅ → call Publish subagent
+8. All tasks ✅ → run Final Validation (Step 8)
+9. Validation PASS → call Publish subagent (Step 9)
 ```
 
 ---
 
-### Step 8 — Publish
-
-Call the **Publish subagent** (see `<PUBLISH_SUBAGENT_INSTRUCTIONS>` below).
-
----
-
-### Step 9 — Final Validation
+### Step 8 — Final Validation
 
 Run quality gates from the repo root as a final gate.
 
-- **Exit 0 (success)** → Step 10
+- **Exit 0 (success)** → Step 9 (Publish)
 - **Exit 1 (failure)** → write `feedback-qc.md` with error details → re-enter inner loop
-  at Step 4 (DEV fixes the failure) → commit + push → re-run validation
+  at Step 4 (DEV fixes the failure) → re-run validation
+
+---
+
+### Step 9 — Publish
+
+Call the **Publish subagent** (see `<PUBLISH_SUBAGENT_INSTRUCTIONS>` below).
 
 **On unrecoverable errors** (git conflicts, auth failures, environment issues):
 Write `backlog/<NUMBER>-<slug>/FAILURE.md`:
