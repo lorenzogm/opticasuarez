@@ -248,6 +248,7 @@ jobs:
 
   e2e-tests:
     needs: [deploy-preview]
+    if: always() && needs.deploy-preview.result == 'success'
     runs-on: ubuntu-latest
     name: E2E Tests
 
