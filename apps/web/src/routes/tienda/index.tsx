@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import Tienda from "~/components/tienda/tienda";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
-import { fetchTiendaData } from "~/lib/server-fns";
+import { fetchSiteSettings, fetchTiendaData } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 
 interface TiendaSearch {
@@ -38,7 +38,13 @@ export const Route = createFileRoute("/tienda/")({
           "tienda óptica Jaén, gafas online Jaén, monturas Jaén, gafas de sol Jaén, lentillas online, Óptica Suárez tienda",
       },
     }),
-  loader: () => fetchTiendaData(),
+  loader: async () => {
+    const { settings } = await fetchSiteSettings();
+    if (!settings?.featureFlags?.shopEnabled) {
+      throw new Error("Page not found");
+    }
+    return fetchTiendaData();
+  },
   component: RouteComponent,
 });
 

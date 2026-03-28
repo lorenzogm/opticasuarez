@@ -9,9 +9,14 @@ import {
 import type { ReactNode } from "react";
 import GlobalNavigation from "~/components/global-navigation";
 import globalCss from "~/global.css?url";
+import { fetchSiteSettings } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 
 export const Route = createRootRoute({
+  loader: async () => {
+    const { settings } = await fetchSiteSettings();
+    return { settings };
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -282,14 +287,20 @@ export const Route = createRootRoute({
 const GTM_CONTAINER_ID = "GTM-57936PD5";
 
 function RootComponent() {
+  // biome-ignore lint/suspicious/noExplicitAny: dynamic Sanity data
+  const loaderData = Route.useLoaderData() as { settings: any } | undefined;
+  const shopEnabled = loaderData?.settings?.featureFlags?.shopEnabled ?? false;
   return (
-    <RootDocument>
+    <RootDocument shopEnabled={shopEnabled}>
       <Outlet />
     </RootDocument>
   );
 }
 
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+function RootDocument({
+  children,
+  shopEnabled,
+}: Readonly<{ children: ReactNode; shopEnabled: boolean }>) {
   return (
     <html lang="es">
       <head>
@@ -316,7 +327,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             width="0"
           />
         </noscript>
-        <GlobalNavigation />
+        <GlobalNavigation shopEnabled={shopEnabled} />
         {children}
         <Scripts />
       </body>

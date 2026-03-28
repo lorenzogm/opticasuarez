@@ -138,7 +138,8 @@ export async function getSiteSettings(preview = false) {
     whatsappUrl,
     address,
     socialMedia[],
-    navigationItems[]
+    navigationItems[],
+    featureFlags
   }`,
     undefined,
     preview

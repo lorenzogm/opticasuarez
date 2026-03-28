@@ -56,6 +56,22 @@ export const siteSettings = defineType({
         },
       ],
     }),
+    defineField({
+      name: "featureFlags",
+      title: "Feature Flags",
+      type: "object",
+      description: "Activar o desactivar funcionalidades del sitio",
+      fields: [
+        defineField({
+          name: "shopEnabled",
+          title: "Tienda habilitada",
+          type: "boolean",
+          description:
+            "Mostrar u ocultar la tienda online y sus enlaces de navegación",
+          initialValue: false,
+        }),
+      ],
+    }),
   ],
   preview: {
     prepare() {

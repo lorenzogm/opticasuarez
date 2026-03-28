@@ -18,6 +18,7 @@ import {
   getProduct,
   getProductCategories,
   getProducts,
+  getSiteSettings,
 } from "~/lib/sanity";
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity queries return unknown; we use any for server function compatibility
@@ -81,6 +82,15 @@ export const fetchProduct = createServerFn({ method: "GET" })
     const product = await getProduct(slug);
     return { product: product as SanityData };
   });
+
+// ─── Site Settings ──────────────────────────────────────────
+
+export const fetchSiteSettings = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const settings = await getSiteSettings();
+    return { settings: settings as SanityData };
+  }
+);
 
 // ─── Catch-all page builder ─────────────────────────────────
 

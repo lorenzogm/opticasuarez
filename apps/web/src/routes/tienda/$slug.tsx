@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import ProductDetail from "~/components/tienda/product-detail";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
-import { fetchProduct } from "~/lib/server-fns";
+import { fetchProduct, fetchSiteSettings } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 
 export const Route = createFileRoute("/tienda/$slug")({
@@ -32,7 +32,13 @@ export const Route = createFileRoute("/tienda/$slug")({
       },
     });
   },
-  loader: ({ params }) => fetchProduct({ data: params.slug }),
+  loader: async ({ params }) => {
+    const { settings } = await fetchSiteSettings();
+    if (!settings?.featureFlags?.shopEnabled) {
+      throw new Error("Page not found");
+    }
+    return fetchProduct({ data: params.slug });
+  },
   component: RouteComponent,
 });
 
