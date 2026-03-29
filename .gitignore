@@ -14,7 +14,7 @@ dist/
 .cache/
 
 # Environment variables
-.env
+.env.keys
 .env.local
 .env.development.local
 .env.test.local

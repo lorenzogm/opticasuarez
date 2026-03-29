@@ -4,11 +4,12 @@
   "description": "Óptica Suárez web application built with TanStack Start",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "start": "node .output/server/index.mjs",
+    "dotenvx": "dotenvx",
+    "dev": "dotenvx run -- vite dev",
+    "build": "dotenvx run -- vite build",
+    "start": "dotenvx run -- node .output/server/index.mjs",
     "check:types": "tsc --noEmit",
-    "migrate": "tsx scripts/migrate-to-sanity.ts"
+    "migrate": "dotenvx run -- tsx scripts/migrate-to-sanity.ts"
   },
   "dependencies": {
     "@forge42/seo-tools": "^1.4.5",
@@ -29,13 +30,14 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "1.59.1",
     "@opticasuarez/configs": "workspace:*",
     "@types/node": "^24.2.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^4.5.2",
-    "tailwindcss": "^4.1.11",
     "gray-matter": "^4.0.3",
+    "tailwindcss": "^4.1.11",
     "tsx": "4.21.0",
     "typescript": "^5.9.2",
     "vite": "^7.0.0"

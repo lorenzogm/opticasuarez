@@ -27,6 +27,10 @@ jobs:
 
       - name: Run code quality checks
         run: pnpm check
+        env:
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
 
       - name: Build application
         run: pnpm build
+        env:
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
