@@ -236,6 +236,7 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
           NITRO_PRESET: vercel
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
 
       - name: Deploy to Vercel Preview
         id: preview-deploy
@@ -328,6 +329,7 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
           NITRO_PRESET: vercel
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
 
       - name: Deploy to Vercel Production
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
