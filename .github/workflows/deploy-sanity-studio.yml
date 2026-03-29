@@ -32,3 +32,4 @@ jobs:
         run: pnpm --filter opticasuarez-sanity-studio run deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_STUDIO_GITHUB_DEPLOY_TOKEN: ${{ secrets.SANITY_STUDIO_GITHUB_DEPLOY_TOKEN }}
