@@ -15,8 +15,8 @@ import { getBaseUrl } from "~/lib/utils";
 
 export const Route = createRootRoute({
   loader: async () => {
-    const { settings } = await fetchSiteSettings();
-    return { settings };
+    const { settings, isPreview } = await fetchSiteSettings();
+    return { settings, isPreview };
   },
   head: () => ({
     meta: [
@@ -308,11 +308,13 @@ function NotFoundPage() {
 const GTM_CONTAINER_ID = "GTM-57936PD5";
 
 function RootComponent() {
-  // biome-ignore lint/suspicious/noExplicitAny: dynamic Sanity data
-  const loaderData = Route.useLoaderData() as { settings: any } | undefined;
+  const loaderData = Route.useLoaderData() as
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic Sanity data
+    { settings: any; isPreview: boolean } | undefined;
   const shopEnabled = loaderData?.settings?.featureFlags?.shopEnabled ?? false;
+  const isPreview = loaderData?.isPreview ?? false;
   return (
-    <RootDocument shopEnabled={shopEnabled}>
+    <RootDocument isPreview={isPreview} shopEnabled={shopEnabled}>
       <Outlet />
     </RootDocument>
   );
@@ -321,7 +323,12 @@ function RootComponent() {
 function RootDocument({
   children,
   shopEnabled,
-}: Readonly<{ children: ReactNode; shopEnabled: boolean }>) {
+  isPreview,
+}: Readonly<{
+  children: ReactNode;
+  shopEnabled: boolean;
+  isPreview: boolean;
+}>) {
   return (
     <html lang="es">
       <head>
@@ -348,6 +355,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             width="0"
           />
         </noscript>
+        {isPreview && (
+          <div className="flex items-center justify-center gap-4 bg-amber-500 px-4 py-2 font-medium text-sm text-white">
+            <span>Modo vista previa — Estás viendo contenido en borrador</span>
+            <a
+              className="rounded bg-white px-3 py-1 text-amber-700 hover:bg-amber-50"
+              href="/api/preview/disable"
+            >
+              Salir
+            </a>
+          </div>
+        )}
         <GlobalNavigation shopEnabled={shopEnabled} />
         {children}
         <Scripts />

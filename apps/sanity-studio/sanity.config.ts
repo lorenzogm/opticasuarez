@@ -1,5 +1,6 @@
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
+import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./schemas";
 import { structure } from "./structure/desk-structure";
@@ -11,7 +12,17 @@ export default defineConfig({
   projectId: "2a24wmex",
   dataset: "production",
 
-  plugins: [structureTool({ structure }), visionTool()],
+  plugins: [
+    structureTool({ structure }),
+    presentationTool({
+      previewUrl: {
+        previewMode: {
+          enable: "/api/preview/enable",
+        },
+      },
+    }),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,

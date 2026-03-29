@@ -8,6 +8,7 @@
  * NetworkError (CORS / connectivity).
  */
 import { createServerFn } from "@tanstack/react-start";
+import { getCookie } from "@tanstack/react-start/server";
 import quienesNosotrosContent from "~/content/quienes-somos.json" with {
   type: "json",
 };
@@ -26,12 +27,21 @@ import {
 // biome-ignore lint/suspicious/noExplicitAny: Sanity queries return unknown; we use any for server function compatibility
 type SanityData = any;
 
+function isPreviewMode(): boolean {
+  try {
+    return getCookie("__sanity_preview") === "1";
+  } catch {
+    return false;
+  }
+}
+
 // ─── Homepage ────────────────────────────────────────────────
 
 export const fetchHomepageData = createServerFn({ method: "GET" }).handler(
   async () => {
-    const homepage = await getHomepage();
-    return { homepage: homepage as SanityData };
+    const preview = isPreviewMode();
+    const homepage = await getHomepage(preview);
+    return { homepage: homepage as SanityData, isPreview: preview };
   }
 );
 
@@ -39,31 +49,35 @@ export const fetchHomepageData = createServerFn({ method: "GET" }).handler(
 
 export const fetchBlogPosts = createServerFn({ method: "GET" }).handler(
   async () => {
-    const articles = await getBlogPosts();
-    return { articles: articles as SanityData[] };
+    const preview = isPreviewMode();
+    const articles = await getBlogPosts(preview);
+    return { articles: articles as SanityData[], isPreview: preview };
   }
 );
 
 export const fetchBlogPost = createServerFn({ method: "GET" })
   .inputValidator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
-    const post = await getBlogPost(slug);
-    return { post: post as SanityData };
+    const preview = isPreviewMode();
+    const post = await getBlogPost(slug, preview);
+    return { post: post as SanityData, isPreview: preview };
   });
 
 // ─── Tienda ──────────────────────────────────────────────────
 
 export const fetchTiendaData = createServerFn({ method: "GET" }).handler(
   async () => {
+    const preview = isPreviewMode();
     const [products, categories, brands] = await Promise.all([
-      getProducts(),
-      getProductCategories(),
-      getBrands(),
+      getProducts(preview),
+      getProductCategories(preview),
+      getBrands(preview),
     ]);
     return {
       products: products as SanityData[],
       categories: categories as SanityData[],
       brands: brands as SanityData[],
+      isPreview: preview,
     };
   }
 );
@@ -71,16 +85,18 @@ export const fetchTiendaData = createServerFn({ method: "GET" }).handler(
 export const fetchProduct = createServerFn({ method: "GET" })
   .inputValidator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
-    const product = await getProduct(slug);
-    return { product: product as SanityData };
+    const preview = isPreviewMode();
+    const product = await getProduct(slug, preview);
+    return { product: product as SanityData, isPreview: preview };
   });
 
 // ─── Site Settings ──────────────────────────────────────────
 
 export const fetchSiteSettings = createServerFn({ method: "GET" }).handler(
   async () => {
-    const settings = await getSiteSettings();
-    return { settings: settings as SanityData };
+    const preview = isPreviewMode();
+    const settings = await getSiteSettings(preview);
+    return { settings: settings as SanityData, isPreview: preview };
   }
 );
 
@@ -90,9 +106,10 @@ export const fetchPage = createServerFn({ method: "GET" })
   .inputValidator((path: string) => path ?? "")
   .handler(async ({ data: path }) => {
     const fullPath = path.startsWith("/") ? path : `/${path}`;
+    const preview = isPreviewMode();
     let page: SanityData;
     try {
-      page = (await getPage(fullPath)) as SanityData;
+      page = (await getPage(fullPath, preview)) as SanityData;
     } catch {
       return { page: null as SanityData };
     }
@@ -156,5 +173,5 @@ export const fetchPage = createServerFn({ method: "GET" })
       }
     }
 
-    return { page: page as SanityData };
+    return { page: page as SanityData, isPreview: preview };
   });
