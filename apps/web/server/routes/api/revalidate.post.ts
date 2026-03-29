@@ -1,12 +1,12 @@
 /**
  * POST /api/revalidate
  *
- * Receives Sanity webhook events on document publish and triggers a Vercel
- * deployment so that prerendered pages are rebuilt with fresh CMS content.
+ * Receives Sanity webhook events on document publish and triggers a GitHub
+ * Actions workflow so that prerendered pages are rebuilt with fresh CMS content.
  *
  * Required environment variables:
  *   SANITY_WEBHOOK_SECRET  — shared secret for HMAC-SHA256 signature verification
- *   VERCEL_DEPLOY_HOOK_URL — Vercel Deploy Hook URL (create at Vercel → Project → Settings → Git → Deploy Hooks)
+ *   GITHUB_DEPLOY_TOKEN    — GitHub PAT with actions:write scope
  *
  * Sanity webhook setup (sanity.io/manage → project → API → Webhooks):
  *   URL:        https://opticasuarezjaen.es/api/revalidate
@@ -81,10 +81,10 @@ export default defineEventHandler(async (event) => {
     return { error: "SANITY_WEBHOOK_SECRET not configured" };
   }
 
-  const deployHookUrl = process.env.VERCEL_DEPLOY_HOOK_URL;
-  if (!deployHookUrl) {
+  const githubToken = process.env.GITHUB_DEPLOY_TOKEN;
+  if (!githubToken) {
     setResponseStatus(event, 500);
-    return { error: "VERCEL_DEPLOY_HOOK_URL not configured" };
+    return { error: "GITHUB_DEPLOY_TOKEN not configured" };
   }
 
   const rawBody = await readRawBody(event);
@@ -105,7 +105,17 @@ export default defineEventHandler(async (event) => {
 
   const affectedPaths = getAffectedPaths(payload);
 
-  const deployResponse = await fetch(deployHookUrl, { method: "POST" });
+  const deployResponse = await fetch(
+    "https://api.github.com/repos/lorenzogm/opticasuarez/actions/workflows/web-vercel-deploy.yml/dispatches",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/vnd.github.v3+json",
+        Authorization: `Bearer ${githubToken}`,
+      },
+      body: JSON.stringify({ ref: "main" }),
+    }
+  );
 
   if (!deployResponse.ok) {
     setResponseStatus(event, 502);

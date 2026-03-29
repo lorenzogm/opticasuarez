@@ -7,21 +7,31 @@ export default function RebuildSiteTool() {
   const [errorMessage, setErrorMessage] = useState("");
 
   // biome-ignore lint/suspicious/noExplicitAny: Sanity Studio injects env vars at build time
-  const deployHookUrl = (import.meta as any).env
-    ?.SANITY_STUDIO_VERCEL_DEPLOY_HOOK;
+  const githubToken = (import.meta as any).env
+    ?.SANITY_STUDIO_GITHUB_DEPLOY_TOKEN;
 
   const handleRebuild = useCallback(async () => {
-    if (!deployHookUrl) {
+    if (!githubToken) {
       setStatus("error");
       setErrorMessage(
-        "SANITY_STUDIO_VERCEL_DEPLOY_HOOK no está configurado. Contacta con el administrador."
+        "SANITY_STUDIO_GITHUB_DEPLOY_TOKEN no está configurado. Contacta con el administrador."
       );
       return;
     }
 
     setStatus("loading");
     try {
-      const res = await fetch(deployHookUrl, { method: "POST" });
+      const res = await fetch(
+        "https://api.github.com/repos/lorenzogm/opticasuarez/actions/workflows/web-vercel-deploy.yml/dispatches",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+            Authorization: `Bearer ${githubToken}`,
+          },
+          body: JSON.stringify({ ref: "main" }),
+        }
+      );
       if (!res.ok) {
         throw new Error(`Error ${res.status}: ${res.statusText}`);
       }
@@ -30,7 +40,7 @@ export default function RebuildSiteTool() {
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : "Error desconocido");
     }
-  }, [deployHookUrl]);
+  }, [githubToken]);
 
   return (
     <div
