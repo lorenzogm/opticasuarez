@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Homepage from "~/components/homepage/homepage";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
-import { fetchHomepageData, fetchSiteSettings } from "~/lib/server-fns";
+import { fetchHomepageData } from "~/lib/server-fns";
 
 export const Route = createFileRoute("/")({
   head: ({ loaderData }) => {
@@ -19,25 +19,12 @@ export const Route = createFileRoute("/")({
       },
     });
   },
-  loader: async () => {
-    const [homepageData, { settings }] = await Promise.all([
-      fetchHomepageData(),
-      fetchSiteSettings(),
-    ]);
-    const shopEnabled = settings?.featureFlags?.shopEnabled ?? false;
-    return { ...homepageData, shopEnabled };
-  },
+  loader: () => fetchHomepageData(),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { homepage, featuredProducts, shopEnabled } =
-    // biome-ignore lint/suspicious/noExplicitAny: Sanity data
-    Route.useLoaderData() as any;
-  return (
-    <Homepage
-      data={homepage}
-      featuredProducts={shopEnabled ? featuredProducts : undefined}
-    />
-  );
+  // biome-ignore lint/suspicious/noExplicitAny: Sanity data
+  const { homepage } = Route.useLoaderData() as any;
+  return <Homepage data={homepage} />;
 }

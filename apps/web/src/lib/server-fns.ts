@@ -15,7 +15,6 @@ import {
   getBlogPost,
   getBlogPosts,
   getBrands,
-  getFeaturedProducts,
   getHomepage,
   getPage,
   getProduct,
@@ -31,18 +30,8 @@ type SanityData = any;
 
 export const fetchHomepageData = createServerFn({ method: "GET" }).handler(
   async () => {
-    const [homepage, featuredProducts, allProducts] = await Promise.all([
-      getHomepage(),
-      getFeaturedProducts(),
-      getProducts(),
-    ]);
-    const featured = (featuredProducts || []) as SanityData[];
-    const all = (allProducts || []) as SanityData[];
-    const products = featured?.length > 0 ? featured : (all || []).slice(0, 4);
-    return {
-      homepage: homepage as SanityData,
-      featuredProducts: products as SanityData[],
-    };
+    const homepage = await getHomepage();
+    return { homepage: homepage as SanityData };
   }
 );
 

@@ -1,7 +1,6 @@
 import BookAppointment from "~/components/sections/book-appointment";
 import ServicesGrid from "~/components/sections/services-grid";
 import { resolveImage } from "~/lib/sanity";
-import FeaturedProducts from "./sections/featured-products";
 import Hero from "./sections/hero";
 import Locations from "./sections/locations";
 import News from "./sections/news";
@@ -11,12 +10,9 @@ import VideoAbout from "./sections/video-about";
 
 export default function Homepage({
   data,
-  featuredProducts,
 }: {
   // biome-ignore lint/suspicious/noExplicitAny: Sanity data
   data: any;
-  // biome-ignore lint/suspicious/noExplicitAny: Sanity data
-  featuredProducts?: any[];
 }) {
   if (!data) return null;
 
@@ -44,9 +40,6 @@ export default function Homepage({
         subtitle={data.hero?.subtitle}
         title={data.hero?.title}
       />
-      {featuredProducts && featuredProducts.length > 0 && (
-        <FeaturedProducts products={featuredProducts} />
-      )}
       <ServicesGrid items={servicesGridItems} />
       <VideoAbout
         description={data.videoAbout?.description}
