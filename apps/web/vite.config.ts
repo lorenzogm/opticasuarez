@@ -60,8 +60,26 @@ export default defineConfig(async () => {
         prerender: {
           enabled: isBuild,
           crawlLinks: true,
-          filter: ({ path }) =>
-            !(path.startsWith("/cita") || path.startsWith("/tienda")),
+          failOnError: false,
+          filter: ({ path }) => {
+            if (path.startsWith("/cita") || path.startsWith("/tienda")) {
+              return false;
+            }
+            // Legacy service paths (moved to /servicios/ in Sanity)
+            const legacyServicePaths = [
+              "/examen-visual",
+              "/vision-pediatrica",
+              "/terapia-visual",
+              "/control-de-miopia",
+              "/contactologia",
+              "/ortoqueratologia",
+              "/vision-deportiva",
+            ];
+            if (legacyServicePaths.includes(path)) {
+              return false;
+            }
+            return true;
+          },
         },
         pages: prerenderPages,
       }),
