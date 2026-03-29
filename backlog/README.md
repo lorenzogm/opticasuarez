@@ -5,7 +5,6 @@
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
 | 210 | Comprar producto | feature | Request |
-| 409 | On-demand revalidation via Sanity webhook | feature | Request |
 | 410 | Sanity Presentation tool (live preview) | feature | Request |
 | 411 | Rebuild Site button in Sanity Studio | feature | Request |
 
@@ -13,6 +12,7 @@
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 409 | On-demand revalidation via Sanity webhook | feature | 2026-03-29 |
 | 412 | Remove products from homepage | chore | 2026-03-29 |
 | 408 | Static pre-rendering at build time | feature | 2026-03-29 |
 | 407 | E2E quiénes somos heading failure | bug |
