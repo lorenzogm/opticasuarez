@@ -71,9 +71,9 @@ jobs:
           # Infra-specific vars → TF_VAR_ prefixed + direct env
           for key in VERCEL_TOKEN VERCEL_ORG_ID TERRAFORM_STATE_ENCRYPT_KEY; do
             value=$(dotenvx get "$key" -f "$ENV_FILE" 2>/dev/null || echo "")
+            echo "TF_VAR_${key}=${value}" >> $GITHUB_ENV
+            echo "${key}=${value}" >> $GITHUB_ENV
             if [ -n "$value" ]; then
-              echo "TF_VAR_${key}=${value}" >> $GITHUB_ENV
-              echo "${key}=${value}" >> $GITHUB_ENV
               echo "::add-mask::${value}"
             fi
           done
