@@ -1,0 +1,6 @@
+# Build
+dist/
+.sanity/
+
+# Turbo
+.turbo/

@@ -1,6 +1,15 @@
 locals {
   project_env_var_name = replace(upper(var.vercel.project.name), "-", "_")
-  secrets = {}
+  secrets = {
+    VITE_BASE_URL         = var.VITE_BASE_URL
+    RESEND_API_KEY        = var.RESEND_API_KEY
+    SANITY_PROJECT_ID     = var.SANITY_PROJECT_ID
+    SANITY_DATASET        = var.SANITY_DATASET
+    SANITY_API_TOKEN      = var.SANITY_API_TOKEN
+    SANITY_WEBHOOK_SECRET = var.SANITY_WEBHOOK_SECRET
+    SANITY_PREVIEW_SECRET = var.SANITY_PREVIEW_SECRET
+    GITHUB_DEPLOY_TOKEN   = var.GITHUB_DEPLOY_TOKEN
+  }
   environments = {
     "development" = "dev"
     "staging"     = "stg"

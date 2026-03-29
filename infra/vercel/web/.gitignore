@@ -1,0 +1,10 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.enc
+tfplan
+*.tfplan
+
+# Environment (private keys — encrypted .env is committed)
+.env.keys

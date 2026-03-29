@@ -32,12 +32,12 @@ jobs:
             exit 0
           fi
 
-          if git diff --name-only HEAD~1 -- infra/vercel/ | grep -q .; then
+          if git diff --name-only HEAD~1 -- infra/vercel/web/ | grep -q .; then
             echo "infra-changed=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in infra/vercel/"
+            echo "Changes detected in infra/vercel/web/"
           else
             echo "infra-changed=false" >> $GITHUB_OUTPUT
-            echo "No changes in infra/vercel/"
+            echo "No changes in infra/vercel/web/"
           fi
 
           if git diff --name-only HEAD~1 -- apps/web/ apps/web-e2e/ | grep -q .; then
@@ -58,19 +58,43 @@ jobs:
       project-id: ${{ steps.export-outputs.outputs.project-id }}
     env:
       TF_VAR_ENVIRONMENT: development
-      TF_VAR_VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      TF_VAR_VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Decrypt infra env vars
+        run: |
+          npm install -g @dotenvx/dotenvx
+          ENV_FILE="infra/vercel/web/.env.development"
+
+          # Infra-specific vars → TF_VAR_ prefixed + direct env
+          for key in VERCEL_TOKEN VERCEL_ORG_ID TERRAFORM_STATE_ENCRYPT_KEY; do
+            value=$(dotenvx get "$key" -f "$ENV_FILE" 2>/dev/null || echo "")
+            if [ -n "$value" ]; then
+              echo "TF_VAR_${key}=${value}" >> $GITHUB_ENV
+              echo "${key}=${value}" >> $GITHUB_ENV
+              echo "::add-mask::${value}"
+            fi
+          done
+
+          # App env vars → TF_VAR_ prefixed (pushed to Vercel by Terraform)
+          for key in VITE_BASE_URL RESEND_API_KEY SANITY_PROJECT_ID SANITY_DATASET SANITY_API_TOKEN SANITY_WEBHOOK_SECRET SANITY_PREVIEW_SECRET GITHUB_DEPLOY_TOKEN; do
+            value=$(dotenvx get "$key" -f "$ENV_FILE" 2>/dev/null || echo "")
+            if [ -n "$value" ]; then
+              echo "TF_VAR_${key}=${value}" >> $GITHUB_ENV
+              echo "::add-mask::${value}"
+            fi
+          done
+        env:
+          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
+
       - name: Fetch Terraform State from state branch
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: |
           STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
           if git fetch origin terraform-state 2>/dev/null; then
-            if git show "origin/terraform-state:infra/vercel/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null; then
+            if git show "origin/terraform-state:infra/vercel/web/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null; then
               echo "State file fetched from terraform-state branch"
             else
               echo "State file not found on terraform-state branch"
@@ -80,11 +104,11 @@ jobs:
           fi
 
       - name: Decrypt Terraform State
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: |
           STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
           if [ -f "$STATE_FILE" ]; then
-            echo "${{ secrets.TERRAFORM_STATE_ENCRYPT_KEY }}" | openssl enc -aes-256-cbc -d -in "$STATE_FILE" -out "terraform.tfstate" -pass stdin
+            echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -d -in "$STATE_FILE" -out "terraform.tfstate" -pass stdin
             echo "State file decrypted"
           else
             echo "No existing state file found"
@@ -97,11 +121,11 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform Init
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: terraform init
 
       - name: Import existing project if state is missing
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         continue-on-error: true
         run: |
           if [ ! -f "terraform.tfstate" ] || [ "$(jq '.resources | length' terraform.tfstate 2>/dev/null)" = "0" ]; then
@@ -122,34 +146,27 @@ jobs:
           fi
 
       - name: Terraform Plan
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: terraform plan -var-file="config.${{ env.TF_VAR_ENVIRONMENT }}.json" -out=tfplan
 
       - name: Terraform Apply
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: terraform apply -auto-approve tfplan
 
       - name: Export Terraform Outputs
         id: export-outputs
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: |
           PROJECT_ID=$(terraform output -raw OPTICASUAREZ_WEB_VERCEL_PROJECT_ID)
           echo "Vercel Project ID: $PROJECT_ID"
           echo "project-id=$PROJECT_ID" >> $GITHUB_OUTPUT
-          if [ -n "${{ secrets.GH_BOT_TOKEN }}" ]; then
-            gh variable set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID --body "$PROJECT_ID"
-            echo "GitHub variable set successfully"
-          else
-            echo "GH_BOT_TOKEN not configured — set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID variable manually to: $PROJECT_ID"
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+          echo "Set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID variable manually to: $PROJECT_ID"
 
       - name: Encrypt Terraform State
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: |
           if [ -f "terraform.tfstate" ]; then
-            echo "${{ secrets.TERRAFORM_STATE_ENCRYPT_KEY }}" | openssl enc -aes-256-cbc -in "terraform.tfstate" -out "terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc" -pass stdin
+            echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -in "terraform.tfstate" -out "terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc" -pass stdin
             rm -f terraform.tfstate
             echo "State file encrypted successfully"
           else
@@ -163,7 +180,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit Encrypted State to state branch
-        working-directory: infra/vercel/src
+        working-directory: infra/vercel/web/src
         run: |
           STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
           cp "$STATE_FILE" "/tmp/$STATE_FILE"
@@ -176,9 +193,9 @@ jobs:
             git rm -rf . 2>/dev/null || true
           fi
 
-          mkdir -p infra/vercel/src
-          cp "/tmp/$STATE_FILE" "infra/vercel/src/$STATE_FILE"
-          git add "infra/vercel/src/$STATE_FILE"
+          mkdir -p infra/vercel/web/src
+          cp "/tmp/$STATE_FILE" "infra/vercel/web/src/$STATE_FILE"
+          git add "infra/vercel/web/src/$STATE_FILE"
           git diff --staged --quiet && echo "No changes to state file" && exit 0
           git commit -m "chore: update terraform state for ${{ env.TF_VAR_ENVIRONMENT }} environment"
           git push origin terraform-state
@@ -196,20 +213,24 @@ jobs:
     outputs:
       preview-url: ${{ steps.preview-deploy.outputs.preview-url }}
     env:
-      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
+      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Resolve Vercel Org ID
-        id: resolve-org
+      - name: Decrypt infra env vars
         run: |
-          ORG_ID="${{ secrets.VERCEL_ORG_ID }}"
-          if [ -z "$ORG_ID" ]; then
-            ORG_ID=$(curl -sf -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" "https://api.vercel.com/v2/user" | jq -r '.user.id')
-          fi
-          echo "org-id=$ORG_ID" >> $GITHUB_OUTPUT
+          npm install -g @dotenvx/dotenvx
+          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
+            value=$(dotenvx get "$key" -f infra/vercel/web/.env.development 2>/dev/null || echo "")
+            if [ -n "$value" ]; then
+              echo "${key}=${value}" >> $GITHUB_ENV
+              echo "::add-mask::${value}"
+            fi
+          done
+        env:
+          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -227,25 +248,24 @@ jobs:
         run: pnpm add -g vercel@latest
 
       - name: Pull Vercel Preview Environment
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
         env:
-          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
       - name: Build Preview Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --token=$VERCEL_TOKEN
         env:
-          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
           NITRO_PRESET: vercel
-          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
 
       - name: Deploy to Vercel Preview
         id: preview-deploy
         run: |
-          PREVIEW_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          PREVIEW_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)
           echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
           echo "Preview URL: $PREVIEW_URL"
         env:
-          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
   e2e-tests:
     needs: [deploy-preview]
@@ -289,20 +309,24 @@ jobs:
     name: Deploy Production
     environment: development
     env:
-      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
+      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Resolve Vercel Org ID
-        id: resolve-org
+      - name: Decrypt infra env vars
         run: |
-          ORG_ID="${{ secrets.VERCEL_ORG_ID }}"
-          if [ -z "$ORG_ID" ]; then
-            ORG_ID=$(curl -sf -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" "https://api.vercel.com/v2/user" | jq -r '.user.id')
-          fi
-          echo "org-id=$ORG_ID" >> $GITHUB_OUTPUT
+          npm install -g @dotenvx/dotenvx
+          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
+            value=$(dotenvx get "$key" -f infra/vercel/web/.env.development 2>/dev/null || echo "")
+            if [ -n "$value" ]; then
+              echo "${key}=${value}" >> $GITHUB_ENV
+              echo "::add-mask::${value}"
+            fi
+          done
+        env:
+          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -320,18 +344,17 @@ jobs:
         run: pnpm add -g vercel@latest
 
       - name: Pull Vercel Production Environment
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
         env:
-          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
       - name: Build Production Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token=$VERCEL_TOKEN
         env:
-          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
           NITRO_PRESET: vercel
-          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
 
       - name: Deploy to Vercel Production
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
         env:
-          VERCEL_ORG_ID: ${{ steps.resolve-org.outputs.org-id }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}

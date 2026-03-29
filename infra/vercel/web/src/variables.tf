@@ -42,3 +42,44 @@ variable "VERCEL_TOKEN" {
 variable "VERCEL_ORG_ID" {
   type = string
 }
+
+##############################
+### APP ENVIRONMENT VARS   ###
+##############################
+variable "VITE_BASE_URL" {
+  type    = string
+  default = ""
+}
+variable "RESEND_API_KEY" {
+  type      = string
+  default   = ""
+  sensitive = true
+}
+variable "SANITY_PROJECT_ID" {
+  type    = string
+  default = ""
+}
+variable "SANITY_DATASET" {
+  type    = string
+  default = ""
+}
+variable "SANITY_API_TOKEN" {
+  type      = string
+  default   = ""
+  sensitive = true
+}
+variable "SANITY_WEBHOOK_SECRET" {
+  type      = string
+  default   = ""
+  sensitive = true
+}
+variable "SANITY_PREVIEW_SECRET" {
+  type      = string
+  default   = ""
+  sensitive = true
+}
+variable "GITHUB_DEPLOY_TOKEN" {
+  type      = string
+  default   = ""
+  sensitive = true
+}

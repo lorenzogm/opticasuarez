@@ -2,15 +2,8 @@
 node_modules/
 .pnpm-store
 
-# Build outputs
-build/
-dist/
-.output/
-.react-router/
-.sanity/
-
 # Turbo
-.turbo
+.turbo/
 .cache/
 
 # Environment variables
@@ -26,10 +19,8 @@ pids
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
+# Coverage
 coverage/
-
-# nyc test coverage
 .nyc_output
 
 # Logs
@@ -38,15 +29,9 @@ logs
 
 # OS generated files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
 # IDE files
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -57,6 +42,9 @@ Thumbs.db
 
 # Vite temp files
 vite.config.ts.timestamp-*
+
+# Test outputs
+test-results/
 
 # Playwright
 test-results/

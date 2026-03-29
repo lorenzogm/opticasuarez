@@ -1,0 +1,10 @@
+# Build
+dist/
+.output/
+.tanstack/
+
+# Environment (private keys — encrypted .env is committed)
+.env.keys
+
+# Turbo
+.turbo/

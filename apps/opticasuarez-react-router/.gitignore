@@ -1,0 +1,11 @@
+# Build
+build/
+dist/
+.react-router/
+
+# Test
+test-results/
+playwright-report/
+
+# Turbo
+.turbo/
