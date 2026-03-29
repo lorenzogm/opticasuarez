@@ -8,12 +8,12 @@
 | 409 | On-demand revalidation via Sanity webhook | feature | Request |
 | 410 | Sanity Presentation tool (live preview) | feature | Request |
 | 411 | Rebuild Site button in Sanity Studio | feature | Request |
-| 412 | Remove products from homepage | chore | Request |
 
 ## Done
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 412 | Remove products from homepage | chore | 2026-03-29 |
 | 408 | Static pre-rendering at build time | feature | 2026-03-29 |
 | 407 | E2E quiénes somos heading failure | bug |
 | 406 | 500 on missing pages | bug |
