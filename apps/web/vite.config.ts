@@ -19,6 +19,7 @@ export default defineConfig({
     nitro({
       serverDir: "server",
       routeRules: {
+        "/_serverFn/**": { swr: false },
         "/**": { swr: 60 },
       },
     }),
