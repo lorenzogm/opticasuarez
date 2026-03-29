@@ -94,9 +94,12 @@ jobs:
         run: |
           STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
           if git fetch origin terraform-state 2>/dev/null; then
-            if git show "origin/terraform-state:infra/vercel/web/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null; then
-              echo "State file fetched from terraform-state branch"
+            if git show "origin/terraform-state:infra/vercel/web/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null && [ -s "$STATE_FILE" ]; then
+              echo "State file fetched from terraform-state branch (new path)"
+            elif git show "origin/terraform-state:infra/vercel/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null && [ -s "$STATE_FILE" ]; then
+              echo "State file fetched from terraform-state branch (legacy path)"
             else
+              rm -f "$STATE_FILE"
               echo "State file not found on terraform-state branch"
             fi
           else
@@ -107,9 +110,13 @@ jobs:
         working-directory: infra/vercel/web/src
         run: |
           STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
-          if [ -f "$STATE_FILE" ]; then
-            echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -d -in "$STATE_FILE" -out "terraform.tfstate" -pass stdin
-            echo "State file decrypted"
+          if [ -s "$STATE_FILE" ]; then
+            if echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -d -in "$STATE_FILE" -out "terraform.tfstate" -pass stdin 2>/dev/null; then
+              echo "State file decrypted"
+            else
+              echo "::warning::Failed to decrypt state file — proceeding without existing state"
+              rm -f terraform.tfstate
+            fi
           else
             echo "No existing state file found"
           fi
