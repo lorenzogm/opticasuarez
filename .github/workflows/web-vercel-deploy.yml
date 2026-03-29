@@ -69,7 +69,7 @@ jobs:
           ENV_FILE="infra/vercel/web/.env.development"
 
           # Infra-specific vars → TF_VAR_ prefixed + direct env
-          for key in VERCEL_TOKEN VERCEL_ORG_ID TERRAFORM_STATE_ENCRYPT_KEY; do
+          for key in VERCEL_TOKEN TERRAFORM_STATE_ENCRYPT_KEY; do
             value=$(dotenvx get "$key" -f "$ENV_FILE" 2>/dev/null || echo "")
             echo "TF_VAR_${key}=${value}" >> $GITHUB_ENV
             echo "${key}=${value}" >> $GITHUB_ENV
@@ -77,6 +77,13 @@ jobs:
               echo "::add-mask::${value}"
             fi
           done
+
+          # VERCEL_ORG_ID → only for Vercel CLI (not Terraform team parameter)
+          VERCEL_ORG_ID=$(dotenvx get "VERCEL_ORG_ID" -f "$ENV_FILE" 2>/dev/null || echo "")
+          echo "VERCEL_ORG_ID=${VERCEL_ORG_ID}" >> $GITHUB_ENV
+          if [ -n "$VERCEL_ORG_ID" ]; then
+            echo "::add-mask::${VERCEL_ORG_ID}"
+          fi
 
           # App env vars → TF_VAR_ prefixed (pushed to Vercel by Terraform)
           for key in VITE_BASE_URL RESEND_API_KEY SANITY_PROJECT_ID SANITY_DATASET SANITY_API_TOKEN SANITY_WEBHOOK_SECRET SANITY_PREVIEW_SECRET GITHUB_DEPLOY_TOKEN; do

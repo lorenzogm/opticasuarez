@@ -40,7 +40,8 @@ variable "VERCEL_TOKEN" {
   type = string
 }
 variable "VERCEL_ORG_ID" {
-  type = string
+  type    = string
+  default = ""
 }
 
 ##############################
