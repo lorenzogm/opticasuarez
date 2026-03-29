@@ -2,6 +2,7 @@ import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
+import RebuildSiteTool from "./lib/rebuild-site-tool";
 import { schemaTypes } from "./schemas";
 import { structure } from "./structure/desk-structure";
 
@@ -22,6 +23,14 @@ export default defineConfig({
       },
     }),
     visionTool(),
+  ],
+
+  tools: [
+    {
+      name: "rebuild-site",
+      title: "Reconstruir sitio",
+      component: RebuildSiteTool,
+    },
   ],
 
   schema: {
