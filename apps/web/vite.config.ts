@@ -90,6 +90,7 @@ export default defineConfig(async () => {
         },
         routeRules: {
           "/_serverFn/**": { swr: false },
+          "/api/**": { swr: false },
         },
       }),
       viteReact(),
