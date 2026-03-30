@@ -327,7 +327,10 @@
     "cohesion": {
       "assessment": "Strong cohesion. Six sub-skills form coherent pipeline with clear input/output relationships. Purpose-capability alignment is direct. Minor implicit assumptions about artifact paths and state-update responsibility.",
       "dimensions": {
-        "persona_capability_alignment": { "score": "strong", "notes": "Claimed mission maps directly to orchestrated steps" }
+        "persona_capability_alignment": {
+          "score": "strong",
+          "notes": "Claimed mission maps directly to orchestrated steps"
+        }
       },
       "findings": []
     },
@@ -347,20 +350,36 @@
         {
           "archetype": "first-timer",
           "summary": "Per-epic docs feel safe. Critical issues gate and retrospective expectations unclear.",
-          "friction_points": ["Undefined critical threshold", "No pre-flight validation"],
-          "bright_spots": ["Incremental documentation", "Clear pipeline structure"]
+          "friction_points": [
+            "Undefined critical threshold",
+            "No pre-flight validation"
+          ],
+          "bright_spots": [
+            "Incremental documentation",
+            "Clear pipeline structure"
+          ]
         },
         {
           "archetype": "edge-case",
           "summary": "Partial progress resume logic exists but semantics undefined for in-progress work.",
-          "friction_points": ["In-progress story handling ambiguous", "No idempotency guarantees"],
+          "friction_points": [
+            "In-progress story handling ambiguous",
+            "No idempotency guarantees"
+          ],
           "bright_spots": ["Sprint-status.yaml tracks progress"]
         },
         {
           "archetype": "automator",
           "summary": "Yolo mode is headless-friendly but needs structured output and exit codes.",
-          "friction_points": ["No JSON output", "No timeout logic", "No exit code contract"],
-          "bright_spots": ["No menus or confirmations", "Epic scoping enables CI per-epic jobs"]
+          "friction_points": [
+            "No JSON output",
+            "No timeout logic",
+            "No exit code contract"
+          ],
+          "bright_spots": [
+            "No menus or confirmations",
+            "Epic scoping enables CI per-epic jobs"
+          ]
         }
       ],
       "autonomous": {

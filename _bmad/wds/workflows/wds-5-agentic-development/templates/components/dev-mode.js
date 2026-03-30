@@ -43,19 +43,19 @@ let currentHighlightedElement = null;
 // ============================================================================
 
 function initDevMode() {
-  const toggleButton = document.querySelector('#dev-mode-toggle');
-  const tooltip = document.querySelector('#dev-mode-tooltip');
+  const toggleButton = document.querySelector("#dev-mode-toggle");
+  const tooltip = document.querySelector("#dev-mode-tooltip");
 
-  if (!toggleButton || !tooltip) {
-    console.warn('⚠️ Dev Mode: Toggle button or tooltip not found');
+  if (!(toggleButton && tooltip)) {
+    console.warn("⚠️ Dev Mode: Toggle button or tooltip not found");
     return;
   }
 
   // Check if user agent supports clipboard API
-  if (typeof navigator !== 'undefined' && navigator.clipboard) {
+  if (typeof navigator !== "undefined" && navigator.clipboard) {
     // Clipboard API available
   } else {
-    console.warn('⚠️ Clipboard API not supported in this browser');
+    console.warn("⚠️ Clipboard API not supported in this browser");
     return;
   }
 
@@ -64,7 +64,10 @@ function initDevMode() {
   setupHoverHighlight(tooltip);
   setupClickCopy();
 
-  console.log('%c💡 Dev Mode available: Press Ctrl+E or click the Dev Mode button', 'color: #0066CC; font-weight: bold;');
+  console.log(
+    "%c💡 Dev Mode available: Press Ctrl+E or click the Dev Mode button",
+    "color: #0066CC; font-weight: bold;"
+  );
 }
 
 // ============================================================================
@@ -73,33 +76,39 @@ function initDevMode() {
 
 function setupKeyboardShortcuts() {
   // Track Shift key for container selection
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Shift') {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Shift") {
       // Don't activate if user is typing in a form field
       if (isTypingInField()) {
         return;
       }
 
       shiftKeyPressed = true;
-      document.body.classList.add('shift-held');
+      document.body.classList.add("shift-held");
       if (devModeActive) {
-        console.log('%c⬆️ Shift held: Click any element to copy its Object ID', 'color: #10B981; font-weight: bold;');
+        console.log(
+          "%c⬆️ Shift held: Click any element to copy its Object ID",
+          "color: #10B981; font-weight: bold;"
+        );
       }
     }
 
     // Ctrl+E toggle
-    if (e.ctrlKey && e.key === 'e') {
+    if (e.ctrlKey && e.key === "e") {
       e.preventDefault();
-      document.querySelector('#dev-mode-toggle')?.click();
+      document.querySelector("#dev-mode-toggle")?.click();
     }
   });
 
-  document.addEventListener('keyup', (e) => {
-    if (e.key === 'Shift') {
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "Shift") {
       shiftKeyPressed = false;
-      document.body.classList.remove('shift-held');
+      document.body.classList.remove("shift-held");
       if (devModeActive) {
-        console.log('%c⬇️ Shift released: Prototype works normally (hold Shift to copy)', 'color: #6b7280;');
+        console.log(
+          "%c⬇️ Shift released: Prototype works normally (hold Shift to copy)",
+          "color: #6b7280;"
+        );
       }
     }
   });
@@ -110,9 +119,9 @@ function setupKeyboardShortcuts() {
 // ============================================================================
 
 function setupToggleButton(toggleButton, tooltip) {
-  toggleButton.addEventListener('click', function (e) {
+  toggleButton.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (typeof globalThis !== 'undefined') {
+    if (typeof globalThis !== "undefined") {
       globalThis.devModeActive = true;
     } else if (globalThis.window !== undefined) {
       globalThis.devModeActive = true;
@@ -120,24 +129,33 @@ function setupToggleButton(toggleButton, tooltip) {
     devModeActive = !devModeActive;
 
     // Update UI
-    document.body.classList.toggle('dev-mode-active', devModeActive);
-    toggleButton.classList.toggle('active', devModeActive);
+    document.body.classList.toggle("dev-mode-active", devModeActive);
+    toggleButton.classList.toggle("active", devModeActive);
 
-    const statusText = toggleButton.querySelector('span');
+    const statusText = toggleButton.querySelector("span");
     if (statusText) {
-      statusText.textContent = devModeActive ? 'Dev Mode: ON' : 'Dev Mode: OFF';
+      statusText.textContent = devModeActive ? "Dev Mode: ON" : "Dev Mode: OFF";
     }
 
     // Log status
-    console.log(`🔧 Dev Mode: ${devModeActive ? 'ACTIVATED' : 'DEACTIVATED'}`);
+    console.log(`🔧 Dev Mode: ${devModeActive ? "ACTIVATED" : "DEACTIVATED"}`);
 
     if (devModeActive) {
-      console.log('%c🔧 DEV MODE ACTIVE', 'color: #0066CC; font-size: 16px; font-weight: bold;');
-      console.log('%c⚠️ Hold SHIFT + Click any element to copy its Object ID', 'color: #FFB800; font-size: 14px; font-weight: bold;');
-      console.log('%cWithout Shift: Prototype works normally', 'color: #6b7280;');
-      console.log('%cPress Ctrl+E to toggle Dev Mode', 'color: #6b7280;');
+      console.log(
+        "%c🔧 DEV MODE ACTIVE",
+        "color: #0066CC; font-size: 16px; font-weight: bold;"
+      );
+      console.log(
+        "%c⚠️ Hold SHIFT + Click any element to copy its Object ID",
+        "color: #FFB800; font-size: 14px; font-weight: bold;"
+      );
+      console.log(
+        "%cWithout Shift: Prototype works normally",
+        "color: #6b7280;"
+      );
+      console.log("%cPress Ctrl+E to toggle Dev Mode", "color: #6b7280;");
     } else {
-      tooltip.style.display = 'none';
+      tooltip.style.display = "none";
       if (currentHighlightedElement) {
         clearHighlight();
       }
@@ -151,22 +169,22 @@ function setupToggleButton(toggleButton, tooltip) {
 
 function setupHoverHighlight(tooltip) {
   // Show tooltip and highlight on hover
-  document.addEventListener('mouseover', function (e) {
+  document.addEventListener("mouseover", (e) => {
     if (!devModeActive) return;
 
     // Don't highlight if user is typing in a field
     if (isTypingInField()) {
-      tooltip.style.display = 'none';
+      tooltip.style.display = "none";
       clearHighlight();
       return;
     }
 
     clearHighlight();
 
-    let element = findElementWithId(e.target);
+    const element = findElementWithId(e.target);
 
-    if (!element || !element.id || isSystemElement(element.id)) {
-      tooltip.style.display = 'none';
+    if (!(element && element.id) || isSystemElement(element.id)) {
+      tooltip.style.display = "none";
       return;
     }
 
@@ -175,27 +193,29 @@ function setupHoverHighlight(tooltip) {
     currentHighlightedElement = element;
 
     // Show tooltip
-    const prefix = shiftKeyPressed ? '✓ Click to Copy: ' : '⬆️ Hold Shift + Click: ';
+    const prefix = shiftKeyPressed
+      ? "✓ Click to Copy: "
+      : "⬆️ Hold Shift + Click: ";
     tooltip.textContent = prefix + element.id;
-    tooltip.style.display = 'block';
-    tooltip.style.background = shiftKeyPressed ? '#10B981' : '#6b7280';
-    tooltip.style.color = '#fff';
+    tooltip.style.display = "block";
+    tooltip.style.background = shiftKeyPressed ? "#10B981" : "#6b7280";
+    tooltip.style.color = "#fff";
 
     updateTooltipPosition(e, tooltip);
   });
 
   // Update tooltip position on mouse move
-  document.addEventListener('mousemove', function (e) {
-    if (devModeActive && tooltip.style.display === 'block') {
+  document.addEventListener("mousemove", (e) => {
+    if (devModeActive && tooltip.style.display === "block") {
       updateTooltipPosition(e, tooltip);
     }
   });
 
   // Clear highlight on mouse out
-  document.addEventListener('mouseout', function (e) {
+  document.addEventListener("mouseout", (e) => {
     if (!devModeActive) return;
     if (e.target.id) {
-      tooltip.style.display = 'none';
+      tooltip.style.display = "none";
       clearHighlight();
     }
   });
@@ -208,8 +228,8 @@ function setupHoverHighlight(tooltip) {
 function setupClickCopy() {
   // Use capture phase to intercept clicks with Shift
   document.addEventListener(
-    'click',
-    function (e) {
+    "click",
+    (e) => {
       if (!devModeActive) return;
 
       // Allow toggle button to work normally
@@ -231,10 +251,10 @@ function setupClickCopy() {
       e.stopPropagation();
       e.stopImmediatePropagation();
 
-      let element = findElementWithId(e.target);
+      const element = findElementWithId(e.target);
 
-      if (!element || !element.id || isSystemElement(element.id)) {
-        console.log('❌ No Object ID found');
+      if (!(element && element.id) || isSystemElement(element.id)) {
+        console.log("❌ No Object ID found");
         return false;
       }
 
@@ -247,7 +267,7 @@ function setupClickCopy() {
 
       return false;
     },
-    true,
+    true
   ); // Capture phase
 }
 
@@ -268,12 +288,16 @@ function findElementWithId(element) {
 }
 
 function isSystemElement(id) {
-  const systemIds = ['app', 'dev-mode-toggle', 'dev-mode-tooltip'];
+  const systemIds = ["app", "dev-mode-toggle", "dev-mode-tooltip"];
   return systemIds.includes(id);
 }
 
 function isToggleButton(element) {
-  return element.id === 'dev-mode-toggle' || element.closest('#dev-mode-toggle') || element.classList.contains('dev-mode-toggle');
+  return (
+    element.id === "dev-mode-toggle" ||
+    element.closest("#dev-mode-toggle") ||
+    element.classList.contains("dev-mode-toggle")
+  );
 }
 
 function isTypingInField() {
@@ -284,7 +308,12 @@ function isTypingInField() {
   const isEditable = activeElement.isContentEditable;
 
   // Check if user is currently typing in a form field
-  return tagName === 'input' || tagName === 'textarea' || tagName === 'select' || isEditable;
+  return (
+    tagName === "input" ||
+    tagName === "textarea" ||
+    tagName === "select" ||
+    isEditable
+  );
 }
 
 function isFormElement(element) {
@@ -294,25 +323,30 @@ function isFormElement(element) {
   const isEditable = element.isContentEditable;
 
   // Check if the clicked element is a form element
-  return tagName === 'input' || tagName === 'textarea' || tagName === 'select' || isEditable;
+  return (
+    tagName === "input" ||
+    tagName === "textarea" ||
+    tagName === "select" ||
+    isEditable
+  );
 }
 
 function highlightElement(element, isShiftHeld) {
-  const color = isShiftHeld ? '#10B981' : '#6b7280';
-  const width = isShiftHeld ? '3px' : '2px';
-  const offset = isShiftHeld ? '3px' : '2px';
-  const shadowSpread = isShiftHeld ? '5px' : '2px';
-  const shadowOpacity = isShiftHeld ? '0.4' : '0.2';
+  const color = isShiftHeld ? "#10B981" : "#6b7280";
+  const width = isShiftHeld ? "3px" : "2px";
+  const offset = isShiftHeld ? "3px" : "2px";
+  const shadowSpread = isShiftHeld ? "5px" : "2px";
+  const shadowOpacity = isShiftHeld ? "0.4" : "0.2";
 
   element.style.outline = `${width} solid ${color}`;
   element.style.outlineOffset = offset;
-  element.style.boxShadow = `0 0 0 ${shadowSpread} rgba(${isShiftHeld ? '16, 185, 129' : '107, 114, 128'}, ${shadowOpacity})`;
+  element.style.boxShadow = `0 0 0 ${shadowSpread} rgba(${isShiftHeld ? "16, 185, 129" : "107, 114, 128"}, ${shadowOpacity})`;
 }
 
 function clearHighlight() {
   if (currentHighlightedElement) {
-    currentHighlightedElement.style.outline = '';
-    currentHighlightedElement.style.boxShadow = '';
+    currentHighlightedElement.style.outline = "";
+    currentHighlightedElement.style.boxShadow = "";
     currentHighlightedElement = null;
   }
 }
@@ -331,19 +365,23 @@ function updateTooltipPosition(e, tooltip) {
     y = e.clientY - rect.height - offset;
   }
 
-  tooltip.style.left = x + 'px';
-  tooltip.style.top = y + 'px';
+  tooltip.style.left = x + "px";
+  tooltip.style.top = y + "px";
 }
 
 function copyToClipboard(text) {
-  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+  if (
+    typeof navigator !== "undefined" &&
+    navigator.clipboard &&
+    navigator.clipboard.writeText
+  ) {
     navigator.clipboard
       .writeText(text)
       .then(() => {
         console.log(`📋 Copied to clipboard: ${text}`);
       })
       .catch((error) => {
-        console.error('Dev Mode error:', error);
+        console.error("Dev Mode error:", error);
         fallbackCopy(text);
       });
   } else {
@@ -352,19 +390,19 @@ function copyToClipboard(text) {
 }
 
 function fallbackCopy(text) {
-  const textarea = document.createElement('textarea');
+  const textarea = document.createElement("textarea");
   textarea.value = text;
-  textarea.style.position = 'fixed';
-  textarea.style.left = '-999999px';
+  textarea.style.position = "fixed";
+  textarea.style.left = "-999999px";
   document.body.append(textarea);
   textarea.focus();
   textarea.select();
 
   try {
-    document.execCommand('copy');
+    document.execCommand("copy");
     console.log(`📋 Copied (fallback): ${text}`);
   } catch (error) {
-    console.error('Dev Mode error:', error);
+    console.error("Dev Mode error:", error);
   }
 
   textarea.remove();
@@ -372,8 +410,8 @@ function fallbackCopy(text) {
 
 function showCopyFeedback(element, objectId) {
   // Create feedback overlay
-  const feedback = document.createElement('div');
-  feedback.textContent = '✓ Copied: ' + objectId;
+  const feedback = document.createElement("div");
+  feedback.textContent = "✓ Copied: " + objectId;
   feedback.style.cssText = `
         position: fixed;
         top: 50%;
@@ -399,14 +437,14 @@ function showCopyFeedback(element, objectId) {
 
   // Flash element
   const originalOutline = element.style.outline;
-  element.style.outline = '3px solid #10B981';
+  element.style.outline = "3px solid #10B981";
   setTimeout(() => {
     element.style.outline = originalOutline;
   }, 300);
 }
 
 // Add CSS animation
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
     @keyframes fadeInOut {
         0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
@@ -425,6 +463,6 @@ document.head.append(style);
 globalThis.initDevMode = initDevMode;
 
 // Export for use in other scripts
-if (typeof globalThis !== 'undefined' && globalThis.exports) {
+if (typeof globalThis !== "undefined" && globalThis.exports) {
   globalThis.exports = { initDevMode };
 }

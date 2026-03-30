@@ -4,9 +4,7 @@
   "version": "2.1.0",
   "skill_path": ".github/skills/custom-qa",
   "timestamp": "2026-03-30T10:16:41.429931+00:00",
-  "files_scanned": [
-    "SKILL.md"
-  ],
+  "files_scanned": ["SKILL.md"],
   "status": "pass",
   "findings": [],
   "assessments": {},

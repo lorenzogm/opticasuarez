@@ -100,5 +100,13 @@ export default defineConfig(async () => {
         plugins: [tailwindcss],
       },
     },
+    test: {
+      environment: "jsdom",
+      include: ["src/**/*.test.{ts,tsx}"],
+      setupFiles: ["./src/test-setup.ts"],
+      alias: {
+        "~": path.resolve(__dirname, "./src"),
+      },
+    },
   };
 });

@@ -104,12 +104,48 @@
       "action": "Add Identity, Communication Style, and Principles sections after frontmatter. Identity: test architecture strategist. Style: explain intent before listing, use AC language. Principles: spec first, layer by intent, fail gracefully, coverage over busywork.",
       "finding_count": 6,
       "findings": [
-        {"title": "Missing Identity section", "file": "SKILL.md", "line": 1, "detail": "No persona definition", "source": "structure"},
-        {"title": "Missing Communication Style section", "file": "SKILL.md", "line": 1, "detail": "No style guidance", "source": "structure"},
-        {"title": "Missing Principles section", "file": "SKILL.md", "line": 1, "detail": "No decision framework", "source": "structure"},
-        {"title": "No persona to anchor behavior", "file": "SKILL.md", "line": 1, "detail": "Agent functions as procedure, not persona", "source": "agent-cohesion"},
-        {"title": "Philosophy unexplained to first-timers", "file": "SKILL.md", "line": 48, "detail": "Tests Are the Spec stated but not rationalized", "source": "enhancement-opportunities"},
-        {"title": "Persona would enhance prompt craft further", "file": "SKILL.md", "line": 1, "detail": "Already clean, persona adds decision context", "source": "prompt-craft"}
+        {
+          "title": "Missing Identity section",
+          "file": "SKILL.md",
+          "line": 1,
+          "detail": "No persona definition",
+          "source": "structure"
+        },
+        {
+          "title": "Missing Communication Style section",
+          "file": "SKILL.md",
+          "line": 1,
+          "detail": "No style guidance",
+          "source": "structure"
+        },
+        {
+          "title": "Missing Principles section",
+          "file": "SKILL.md",
+          "line": 1,
+          "detail": "No decision framework",
+          "source": "structure"
+        },
+        {
+          "title": "No persona to anchor behavior",
+          "file": "SKILL.md",
+          "line": 1,
+          "detail": "Agent functions as procedure, not persona",
+          "source": "agent-cohesion"
+        },
+        {
+          "title": "Philosophy unexplained to first-timers",
+          "file": "SKILL.md",
+          "line": 48,
+          "detail": "Tests Are the Spec stated but not rationalized",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Persona would enhance prompt craft further",
+          "file": "SKILL.md",
+          "line": 1,
+          "detail": "Already clean, persona adds decision context",
+          "source": "prompt-craft"
+        }
       ]
     },
     {
@@ -120,10 +156,34 @@
       "action": "After configuration, add validation step: check config parseable, scan planning_artifacts/epics/, verify Vitest and Playwright available. Print diagnostic with next steps if anything missing.",
       "finding_count": 4,
       "findings": [
-        {"title": "No pre-flight validation", "file": "SKILL.md", "line": 18, "detail": "Missing prerequisite checks", "source": "execution-efficiency"},
-        {"title": "Missing dependency contract", "file": "SKILL.md", "line": 16, "detail": "Silent failure on missing artifacts", "source": "enhancement-opportunities"},
-        {"title": "Confused user dead-end", "file": "SKILL.md", "line": 16, "detail": "No recovery path for wrong invocation", "source": "enhancement-opportunities"},
-        {"title": "Config resolution as script", "file": "SKILL.md", "line": 18, "detail": "YAML parsing is deterministic", "source": "script-opportunities"}
+        {
+          "title": "No pre-flight validation",
+          "file": "SKILL.md",
+          "line": 18,
+          "detail": "Missing prerequisite checks",
+          "source": "execution-efficiency"
+        },
+        {
+          "title": "Missing dependency contract",
+          "file": "SKILL.md",
+          "line": 16,
+          "detail": "Silent failure on missing artifacts",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Confused user dead-end",
+          "file": "SKILL.md",
+          "line": 16,
+          "detail": "No recovery path for wrong invocation",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Config resolution as script",
+          "file": "SKILL.md",
+          "line": 18,
+          "detail": "YAML parsing is deterministic",
+          "source": "script-opportunities"
+        }
       ]
     },
     {
@@ -134,12 +194,48 @@
       "action": "Create Python scripts for: acceptance criteria extraction (highest priority), test case counting, config resolution, state detection. Each outputs structured JSON.",
       "finding_count": 6,
       "findings": [
-        {"title": "Acceptance criteria extraction", "file": "SKILL.md", "line": 62, "detail": "400-600 tokens per epic, highest priority", "source": "script-opportunities"},
-        {"title": "Test case counting", "file": "SKILL.md", "line": 133, "detail": "250-380 tokens per epic", "source": "script-opportunities"},
-        {"title": "Architecture & component inventory", "file": "SKILL.md", "line": 62, "detail": "300-450 tokens per epic", "source": "script-opportunities"},
-        {"title": "Test pattern inventory", "file": "SKILL.md", "line": 62, "detail": "250-350 tokens per epic", "source": "script-opportunities"},
-        {"title": "Configuration resolution", "file": "SKILL.md", "line": 18, "detail": "140-200 tokens", "source": "script-opportunities"},
-        {"title": "State detection & YAML parsing", "file": "SKILL.md", "line": 29, "detail": "160-240 tokens", "source": "script-opportunities"}
+        {
+          "title": "Acceptance criteria extraction",
+          "file": "SKILL.md",
+          "line": 62,
+          "detail": "400-600 tokens per epic, highest priority",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Test case counting",
+          "file": "SKILL.md",
+          "line": 133,
+          "detail": "250-380 tokens per epic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Architecture & component inventory",
+          "file": "SKILL.md",
+          "line": 62,
+          "detail": "300-450 tokens per epic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Test pattern inventory",
+          "file": "SKILL.md",
+          "line": 62,
+          "detail": "250-350 tokens per epic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Configuration resolution",
+          "file": "SKILL.md",
+          "line": 18,
+          "detail": "140-200 tokens",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "State detection & YAML parsing",
+          "file": "SKILL.md",
+          "line": 29,
+          "detail": "160-240 tokens",
+          "source": "script-opportunities"
+        }
       ]
     },
     {
@@ -150,9 +246,27 @@
       "action": "Accept optional layer/story filter args. Parallelize Steps 2+3 (independent outputs from same test plan).",
       "finding_count": 3,
       "findings": [
-        {"title": "Steps 2+3 could parallelize", "file": "SKILL.md", "line": 80, "detail": "~30% speed improvement", "source": "execution-efficiency"},
-        {"title": "No mid-pipeline control", "file": "SKILL.md", "line": 58, "detail": "All-or-nothing execution", "source": "enhancement-opportunities"},
-        {"title": "Step 5 runs all tests", "file": "SKILL.md", "line": 119, "detail": "Not incremental", "source": "execution-efficiency"}
+        {
+          "title": "Steps 2+3 could parallelize",
+          "file": "SKILL.md",
+          "line": 80,
+          "detail": "~30% speed improvement",
+          "source": "execution-efficiency"
+        },
+        {
+          "title": "No mid-pipeline control",
+          "file": "SKILL.md",
+          "line": 58,
+          "detail": "All-or-nothing execution",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Step 5 runs all tests",
+          "file": "SKILL.md",
+          "line": 119,
+          "detail": "Not incremental",
+          "source": "execution-efficiency"
+        }
       ]
     }
   ],
@@ -190,7 +304,13 @@
     "structure": {
       "assessment": "Sound workflow logic with well-ordered activation and pipeline. State detection enables resumption. Three missing persona sections are the sole structural gap.",
       "findings": [
-        {"title": "Non-standard name format", "file": "SKILL.md", "line": 1, "severity": "medium", "detail": "custom-qa doesn't follow bmad-agent-{name} pattern. Intentional for custom workflow suite."}
+        {
+          "title": "Non-standard name format",
+          "file": "SKILL.md",
+          "line": 1,
+          "severity": "medium",
+          "detail": "custom-qa doesn't follow bmad-agent-{name} pattern. Intentional for custom workflow suite."
+        }
       ]
     },
     "persona": {
@@ -201,10 +321,19 @@
     "cohesion": {
       "assessment": "Every step serves the core mission. Zero redundancy. Clean separation between test layers. Without persona sections, behavior in ambiguous situations is undefined.",
       "dimensions": {
-        "persona_capability_alignment": {"score": "weak", "notes": "No persona defined to align with"}
+        "persona_capability_alignment": {
+          "score": "weak",
+          "notes": "No persona defined to align with"
+        }
       },
       "findings": [
-        {"title": "E2E delegation has no fallback", "file": "SKILL.md", "line": 106, "severity": "low", "detail": "If bmad-qa-generate-e2e-tests unavailable, Step 4 fails"}
+        {
+          "title": "E2E delegation has no fallback",
+          "file": "SKILL.md",
+          "line": 106,
+          "severity": "low",
+          "detail": "If bmad-qa-generate-e2e-tests unavailable, Step 4 fails"
+        }
       ]
     },
     "efficiency": {
@@ -217,20 +346,33 @@
         {
           "archetype": "first-timer",
           "summary": "Invokes qa-to-done without prior context. Hits silent failures if planning artifacts missing. Doesn't understand why tests fail.",
-          "friction_points": ["No dependency validation", "Philosophy unexplained", "No error recovery"],
+          "friction_points": [
+            "No dependency validation",
+            "Philosophy unexplained",
+            "No error recovery"
+          ],
           "bright_spots": ["Test layer separation is clear"]
         },
         {
           "archetype": "expert",
           "summary": "Wants to regenerate just E2E tests. Must re-run entire pipeline.",
-          "friction_points": ["All-or-nothing execution", "Can't cherry-pick layers"],
+          "friction_points": [
+            "All-or-nothing execution",
+            "Can't cherry-pick layers"
+          ],
           "bright_spots": ["State detection allows some resumption"]
         },
         {
           "archetype": "automator",
           "summary": "CI system needs machine-readable output. Gets markdown only.",
-          "friction_points": ["No JSON output", "No headless mode", "Step 5 blocks on verbose output"],
-          "bright_spots": ["qa-status.yaml is good foundation for state tracking"]
+          "friction_points": [
+            "No JSON output",
+            "No headless mode",
+            "Step 5 blocks on verbose output"
+          ],
+          "bright_spots": [
+            "qa-status.yaml is good foundation for state tracking"
+          ]
         }
       ],
       "autonomous": {

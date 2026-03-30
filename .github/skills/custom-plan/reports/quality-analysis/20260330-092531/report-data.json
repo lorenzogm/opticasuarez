@@ -281,13 +281,21 @@
         {
           "archetype": "first-timer",
           "summary": "Invokes workflow with a vague idea. Pipeline runs but brainstorming may not converge enough for a strong brief.",
-          "friction_points": ["No clarity gate after brainstorming", "No progress indicators"],
-          "bright_spots": ["Artifact detection handles resume if session breaks"]
+          "friction_points": [
+            "No clarity gate after brainstorming",
+            "No progress indicators"
+          ],
+          "bright_spots": [
+            "Artifact detection handles resume if session breaks"
+          ]
         },
         {
           "archetype": "expert",
           "summary": "Has existing artifacts and wants to skip ahead. Artifact detection supports this but mechanism is underdeveloped.",
-          "friction_points": ["Can't explicitly skip to Step N", "No quick-start flag"],
+          "friction_points": [
+            "Can't explicitly skip to Step N",
+            "No quick-start flag"
+          ],
           "bright_spots": ["Resume from existing artifacts is designed in"]
         },
         {
