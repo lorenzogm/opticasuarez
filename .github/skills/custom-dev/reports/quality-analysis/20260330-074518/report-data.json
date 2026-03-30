@@ -1,0 +1,410 @@
+{
+  "meta": {
+    "skill_name": "custom-dev",
+    "skill_path": ".github/skills/custom-dev",
+    "timestamp": "2026-03-30T07:45:18Z",
+    "scanner_count": 8,
+    "type": "workflow"
+  },
+  "agent_profile": {
+    "icon": "🔄",
+    "display_name": "Dev to Done",
+    "title": "Build Cycle Orchestrator",
+    "portrait": "Autonomous execution engine that transforms planning artifacts into implemented, tested, reviewed, and documented code across multiple epics and stories. Picks up where custom-plan-to-backlog leaves off and drives the full Step 2 build cycle with maximum autonomy."
+  },
+  "capabilities": [
+    {
+      "name": "Sprint Planning",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 0,
+      "findings": []
+    },
+    {
+      "name": "Create Story",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 0,
+      "findings": []
+    },
+    {
+      "name": "Implement Story",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 0,
+      "findings": []
+    },
+    {
+      "name": "Code Review",
+      "file": "SKILL.md",
+      "status": "needs-attention",
+      "finding_count": 2,
+      "findings": [
+        {
+          "title": "Critical issues threshold undefined",
+          "severity": "medium",
+          "source": "prompt-craft"
+        },
+        {
+          "title": "Blocking vs deferral semantics ambiguous",
+          "severity": "medium",
+          "source": "agent-cohesion"
+        }
+      ]
+    },
+    {
+      "name": "Story Loop",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 1,
+      "findings": [
+        {
+          "title": "Could parallelize review with next story prep",
+          "severity": "medium",
+          "source": "execution-efficiency"
+        }
+      ]
+    },
+    {
+      "name": "Retrospective",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 1,
+      "findings": [
+        {
+          "title": "Could parallelize with documentation",
+          "severity": "medium",
+          "source": "execution-efficiency"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 0,
+      "findings": []
+    },
+    {
+      "name": "Epic Loop",
+      "file": "SKILL.md",
+      "status": "good",
+      "finding_count": 0,
+      "findings": []
+    },
+    {
+      "name": "State Detection & Resumability",
+      "file": "SKILL.md",
+      "status": "needs-attention",
+      "finding_count": 1,
+      "findings": [
+        {
+          "title": "Resume semantics for in-progress stories undefined",
+          "severity": "medium",
+          "source": "enhancement-opportunities"
+        }
+      ]
+    }
+  ],
+  "narrative": "Custom-dev is a lean, well-orchestrated workflow that successfully consumes planning artifacts and drives them through a complete build cycle. The skill exhibits strong structural integrity, efficient token usage, and appropriate task delegation. Two high-priority gaps exist: undefined code review severity thresholds and missing pre-flight artifact validation. Both are low-effort fixes with high impact.",
+  "grade": "Good",
+  "broken": [],
+  "opportunities": [
+    {
+      "name": "Operational Clarity: Define Gates and Thresholds",
+      "description": "Code review 'critical issues' threshold is undefined, and the 'yolo execution' claim is overstated by halting on undefined severity levels. The autonomy model needs explicit decision rules.",
+      "severity": "high",
+      "impact": "Enables truly autonomous execution and CI/CD integration",
+      "action": "Add severity tier definitions to Step 4: 'Critical: violates acceptance criteria or introduces security/data-loss risk. All others deferred.' Align Overview autonomy claim with actual gate behavior.",
+      "finding_count": 3,
+      "findings": [
+        {
+          "title": "Critical issues threshold undefined in Step 4",
+          "file": "SKILL.md",
+          "line": 83,
+          "detail": "What qualifies as 'critical' vs 'non-critical' is not specified",
+          "source": "prompt-craft"
+        },
+        {
+          "title": "Yolo execution claim overstated",
+          "file": "SKILL.md",
+          "line": 14,
+          "detail": "Promises maximum autonomy but halts on undefined severity levels",
+          "source": "agent-cohesion"
+        },
+        {
+          "title": "Retrospective mode unclear for autonomous execution",
+          "file": "SKILL.md",
+          "line": 95,
+          "detail": "Retrospective implies human judgment but no autonomous alternative defined",
+          "source": "enhancement-opportunities"
+        }
+      ]
+    },
+    {
+      "name": "Robustness: Pre-flight Validation and Error Recovery",
+      "description": "No validation that planning artifacts exist before starting. Missing artifacts cause cryptic failures. Resume semantics for in-progress stories undefined.",
+      "severity": "high",
+      "impact": "Eliminates dead-end failure modes and enables reliable recovery from interruption",
+      "action": "Add pre-flight check in Configuration: validate {planning_artifacts}/epics/ exists, redirect to custom-plan-to-backlog if not. Add resume decision tree to State Detection.",
+      "finding_count": 3,
+      "findings": [
+        {
+          "title": "No pre-flight validation for planning artifacts",
+          "file": "SKILL.md",
+          "line": 18,
+          "detail": "Confused user invoking without planning artifacts hits cryptic failure",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Resume semantics for in-progress stories undefined",
+          "file": "SKILL.md",
+          "line": 35,
+          "detail": "In-progress state has no explicit recovery strategy (overwrite vs inspect)",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Input artifact expectations implicit",
+          "file": "SKILL.md",
+          "line": 22,
+          "detail": "Doesn't explicitly state epics come from custom-plan-to-backlog",
+          "source": "agent-cohesion"
+        }
+      ]
+    },
+    {
+      "name": "Execution Efficiency: Parallelization Opportunities",
+      "description": "Sequential execution of independent operations creates unnecessary bottlenecks. Code review blocks next story creation; retrospective and documentation run serially.",
+      "severity": "medium",
+      "impact": "Reduces wall-clock time per epic by parallelizing independent operations",
+      "action": "Background code review for story N while creating story N+1. Run retrospective and documentation concurrently after epic completion.",
+      "finding_count": 3,
+      "findings": [
+        {
+          "title": "Code review blocks next story preparation",
+          "file": "SKILL.md",
+          "line": 83,
+          "detail": "Step 4 must complete before Step 2 (next story) begins",
+          "source": "execution-efficiency"
+        },
+        {
+          "title": "Retrospective and documentation run sequentially",
+          "file": "SKILL.md",
+          "line": 95,
+          "detail": "Neither depends on the other's output; could run concurrently",
+          "source": "execution-efficiency"
+        },
+        {
+          "title": "Glob search for project-context.md",
+          "file": "SKILL.md",
+          "line": 27,
+          "detail": "Filesystem traversal when deterministic path available",
+          "source": "execution-efficiency"
+        }
+      ]
+    },
+    {
+      "name": "Automation Readiness: Structured Output and Observability",
+      "description": "Completion outputs prose narrative. No machine-readable format, exit codes, or timeout logic for CI/CD integration.",
+      "severity": "medium",
+      "impact": "Enables CI/CD pipeline integration, dashboards, and automated monitoring",
+      "action": "Emit build-result.json at Completion. Define exit codes (0=success, 1=error). Add timeout per sub-skill invocation.",
+      "finding_count": 3,
+      "findings": [
+        {
+          "title": "No machine-readable output format",
+          "file": "SKILL.md",
+          "line": 115,
+          "detail": "Completion outputs prose; CI/CD needs structured JSON",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "No timeout or retry logic",
+          "file": "SKILL.md",
+          "line": 53,
+          "detail": "Pipeline can hang indefinitely if sub-skill fails",
+          "source": "enhancement-opportunities"
+        },
+        {
+          "title": "Context accumulation strategy unspecified",
+          "file": "SKILL.md",
+          "line": 53,
+          "detail": "'Carry forward context' lacks explicit mechanism",
+          "source": "execution-efficiency"
+        }
+      ]
+    },
+    {
+      "name": "Token Efficiency: Script Candidates for Deterministic Operations",
+      "description": "Orchestration layer performs ~9,500 tokens of deterministic operations per run: artifact validation, state parsing, story selection, progress tracking.",
+      "severity": "low",
+      "impact": "Reduces LLM token overhead by ~25% per run; improves determinism and reliability",
+      "action": "Build scripts/orchestration-engine.py handling config loading, state parsing, artifact validation, story selection, and progress updates.",
+      "finding_count": 5,
+      "findings": [
+        {
+          "title": "Artifact validation loop (8+ per epic)",
+          "file": "SKILL.md",
+          "line": 53,
+          "detail": "LLM checks file existence/validity repeatedly — fully deterministic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Sprint status YAML parsing",
+          "file": "SKILL.md",
+          "line": 35,
+          "detail": "LLM parses YAML to determine resume point — fully deterministic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Story selection and filtering",
+          "file": "SKILL.md",
+          "line": 65,
+          "detail": "LLM filters for next ready-for-dev story — fully deterministic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Configuration loading and path resolution",
+          "file": "SKILL.md",
+          "line": 20,
+          "detail": "YAML loading with variable interpolation — fully deterministic",
+          "source": "script-opportunities"
+        },
+        {
+          "title": "Progress tracking updates",
+          "file": "SKILL.md",
+          "line": 92,
+          "detail": "Status field updates in sprint-status.yaml — fully deterministic",
+          "source": "script-opportunities"
+        }
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "title": "Robust State Detection and Resumability",
+      "detail": "Sprint-status.yaml as single source of truth enables fault recovery without replaying entire pipeline. Configuration and State Detection sections provide explicit recovery logic."
+    },
+    {
+      "title": "Well-Scoped Pipeline with Clear Handoffs",
+      "detail": "Eight sequential steps each with explicit goal, success condition, and next-state logic. Loops properly bounded with unambiguous termination conditions."
+    },
+    {
+      "title": "Appropriate Skill Delegation",
+      "detail": "Complex judgment tasks (TDD, adversarial review, retrospectives, docs) delegated to dedicated skills. Orchestration layer stays lightweight and focused on sequencing."
+    },
+    {
+      "title": "Incremental Per-Epic Documentation",
+      "detail": "Step 7 documents per epic rather than deferring to project end. Reduces knowledge drift and end-of-cycle documentation burden."
+    },
+    {
+      "title": "Clean Token Budget with Zero Waste",
+      "detail": "124 lines, ~1386 tokens. State detection table compresses 15+ lines of prose. Zero waste patterns, zero repetition. Each step: Invoke, Goal, Summary."
+    },
+    {
+      "title": "Flexible Scope: Single-Epic or Full-Backlog",
+      "detail": "Supports both targeted execution (optional epic ID) and comprehensive workflows (all epics) from same skill invocation."
+    },
+    {
+      "title": "High-Fidelity Activation Triggers",
+      "detail": "Three specific phrases ('dev to done', 'run build cycle', 'implement the backlog') reliably disambiguate from similar skills."
+    },
+    {
+      "title": "Healthy Dependency DAG",
+      "detail": "Zero dependency cycles confirmed by prepass. Dependencies flow cleanly: Planning, Stories, Implementation, Review, Retrospective, Documentation."
+    }
+  ],
+  "detailed_analysis": {
+    "structure": {
+      "assessment": "Solid structural integrity. Eight sequential steps with well-defined orchestration, clear state management via sprint-status.yaml. Pre-pass false-positives for missing agent sections (Identity, Communication Style, Principles) correctly dismissed — not applicable to workflow skills.",
+      "findings": []
+    },
+    "persona": {
+      "assessment": "Not applicable — this is a workflow skill with no persona. Overview section appropriately frames purpose and execution model without identity/communication/principles sections.",
+      "overview_quality": "appropriate",
+      "findings": []
+    },
+    "cohesion": {
+      "assessment": "Strong cohesion. Six sub-skills form coherent pipeline with clear input/output relationships. Purpose-capability alignment is direct. Minor implicit assumptions about artifact paths and state-update responsibility.",
+      "dimensions": {
+        "persona_capability_alignment": { "score": "strong", "notes": "Claimed mission maps directly to orchestrated steps" }
+      },
+      "findings": []
+    },
+    "efficiency": {
+      "assessment": "Clean skill separation and stateful resumability. Three parallelization opportunities exist (code review + next story, retrospective + docs, state detection checks). Zero dependency cycles.",
+      "findings": []
+    },
+    "experience": {
+      "assessment": "Strong for expert users with pre-existing artifacts. First-timers and edge-case users face friction from undefined gates and missing pre-flight validation. Headless operation needs explicit timeout, exit codes, and structured output.",
+      "journeys": [
+        {
+          "archetype": "expert",
+          "summary": "Can scope to single epic. Sequential pipeline may feel slow for parallel-minded users.",
+          "friction_points": ["No parallelization", "No review depth tuning"],
+          "bright_spots": ["Epic scoping", "Resumability"]
+        },
+        {
+          "archetype": "first-timer",
+          "summary": "Per-epic docs feel safe. Critical issues gate and retrospective expectations unclear.",
+          "friction_points": ["Undefined critical threshold", "No pre-flight validation"],
+          "bright_spots": ["Incremental documentation", "Clear pipeline structure"]
+        },
+        {
+          "archetype": "edge-case",
+          "summary": "Partial progress resume logic exists but semantics undefined for in-progress work.",
+          "friction_points": ["In-progress story handling ambiguous", "No idempotency guarantees"],
+          "bright_spots": ["Sprint-status.yaml tracks progress"]
+        },
+        {
+          "archetype": "automator",
+          "summary": "Yolo mode is headless-friendly but needs structured output and exit codes.",
+          "friction_points": ["No JSON output", "No timeout logic", "No exit code contract"],
+          "bright_spots": ["No menus or confirmations", "Epic scoping enables CI per-epic jobs"]
+        }
+      ],
+      "autonomous": {
+        "potential": "easily-adaptable",
+        "notes": "Already designed for autonomous execution. Needs explicit severity thresholds, timeout logic, and structured output to be fully headless-ready."
+      },
+      "findings": []
+    },
+    "scripts": {
+      "assessment": "No scripts exist. Several deterministic operations (artifact validation, state parsing, story selection, progress tracking) are script candidates. Estimated ~9,500 token savings per full backlog run.",
+      "token_savings": "~9,525 tokens per full backlog run",
+      "findings": []
+    }
+  },
+  "recommendations": [
+    {
+      "rank": 1,
+      "action": "Define code review severity thresholds: 'Critical = violates acceptance criteria or security/data-loss risk. All others deferred.' (2 lines in Step 4)",
+      "resolves": 3,
+      "effort": "low"
+    },
+    {
+      "rank": 2,
+      "action": "Add pre-flight validation: check {planning_artifacts}/epics/ exists; redirect to custom-plan-to-backlog if not (3 lines in Configuration)",
+      "resolves": 3,
+      "effort": "low"
+    },
+    {
+      "rank": 3,
+      "action": "Parallelize code review with next story creation, and retrospective with documentation (restructure loop logic)",
+      "resolves": 3,
+      "effort": "medium"
+    },
+    {
+      "rank": 4,
+      "action": "Add resume decision tree for in-progress stories: done=skip, in-progress=re-validate+resume, in-review=collect+fix, ready=normal",
+      "resolves": 2,
+      "effort": "medium"
+    },
+    {
+      "rank": 5,
+      "action": "Emit structured build-result.json at Completion with epics, stories, review findings, and status",
+      "resolves": 2,
+      "effort": "low"
+    }
+  ]
+}

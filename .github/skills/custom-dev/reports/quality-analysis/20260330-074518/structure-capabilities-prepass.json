@@ -1,0 +1,132 @@
+{
+  "scanner": "structure-capabilities-prepass",
+  "script": "prepass-structure-capabilities.py",
+  "version": "1.0.0",
+  "skill_path": ".github/skills/custom-dev",
+  "timestamp": "2026-03-30T07:45:25.806087+00:00",
+  "status": "warning",
+  "metadata": {
+    "frontmatter": {
+      "name": "custom-dev",
+      "description": "Orchestrate the full build cycle from sprint planning to implemented code with docs. Use when the user says \"dev to done\", \"run build cycle\", or \"implement the backlog\"."
+    },
+    "sections": [
+      {
+        "level": 2,
+        "title": "Overview",
+        "line": 8
+      },
+      {
+        "level": 2,
+        "title": "On Activation",
+        "line": 16
+      },
+      {
+        "level": 3,
+        "title": "1. Configuration",
+        "line": 18
+      },
+      {
+        "level": 3,
+        "title": "2. State Detection",
+        "line": 29
+      },
+      {
+        "level": 3,
+        "title": "3. Determine Scope",
+        "line": 43
+      },
+      {
+        "level": 2,
+        "title": "Pipeline",
+        "line": 49
+      },
+      {
+        "level": 3,
+        "title": "Step 1: Sprint Planning",
+        "line": 55
+      },
+      {
+        "level": 3,
+        "title": "Step 2: Create Story",
+        "line": 63
+      },
+      {
+        "level": 3,
+        "title": "Step 3: Implement Story",
+        "line": 71
+      },
+      {
+        "level": 3,
+        "title": "Step 4: Code Review",
+        "line": 79
+      },
+      {
+        "level": 3,
+        "title": "Step 5: Story Loop",
+        "line": 87
+      },
+      {
+        "level": 3,
+        "title": "Step 6: Retrospective",
+        "line": 93
+      },
+      {
+        "level": 3,
+        "title": "Step 7: Documentation",
+        "line": 101
+      },
+      {
+        "level": 3,
+        "title": "Step 8: Epic Loop",
+        "line": 109
+      },
+      {
+        "level": 2,
+        "title": "Completion",
+        "line": 115
+      }
+    ]
+  },
+  "prompt_details": [],
+  "memory_paths": [],
+  "issues": [
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "medium",
+      "category": "frontmatter",
+      "issue": "Name \"custom-dev\" does not follow bmad-{code}-agent-{name} or bmad-agent-{name} pattern"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Identity section"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Communication Style section"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Principles section"
+    }
+  ],
+  "summary": {
+    "total_issues": 4,
+    "by_severity": {
+      "critical": 0,
+      "high": 3,
+      "medium": 1,
+      "low": 0
+    }
+  }
+}
