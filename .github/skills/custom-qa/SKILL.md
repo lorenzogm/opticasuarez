@@ -9,9 +9,9 @@ description: 'Generate test suites from planning artifacts before implementation
 
 This workflow generates comprehensive test suites — unit (Vitest), integration (Vitest), and E2E (Playwright) — from planning artifacts produced by `custom-plan`. It runs **in parallel with `custom-dev`**, not after it. Tests are the specification: they're expected to fail until implementation catches up. `custom-dev` must make them pass without modifying them.
 
-**Args:** Accepts an optional epic identifier to test a single epic, or no args to process all epics. Supports `--layer unit|integration|e2e` to generate only one test layer, and `--story {id}` to scope to a single story within an epic.
+**Args:** Accepts an optional epic identifier to test a single epic, or no args to process all epics. Supports `--layer unit|integration|e2e` to generate only one test layer, `--story {id}` to scope to a single story within an epic, and `--validate` to run in post-implementation mode (detect real bugs and file backlog items for `custom-dev`).
 
-**Output:** Failing test suites across all three layers (unit, integration, E2E), a test plan per epic, and a coverage summary in `{test_artifacts}/`.
+**Output:** Failing test suites across all three layers (unit, integration, E2E), a test plan per epic, a coverage summary in `{test_artifacts}/`, and — when `--validate` is used — bug tickets in `backlog/to-do/` for any assertion failures that indicate real bugs.
 
 ## Identity
 
@@ -77,6 +77,7 @@ Resolve scope from user arguments:
 - **Layer filter:** If `--layer` was provided (`unit`, `integration`, or `e2e`), generate only that test layer. Otherwise, generate all three.
 - **Story filter:** If `--story` was provided, generate tests only for that story within the scoped epic.
 - **Force regenerate:** If `--force` was provided, regenerate tests even if qa-status.yaml shows them as complete.
+- **Validate mode:** If `--validate` was provided, run in post-implementation mode. After running tests, classify failures and file bug tickets in `backlog/to-do/` for any assertion failures that indicate real bugs (not missing implementation). `custom-dev` will pick these up.
 
 Once scope is determined, begin the pipeline.
 
@@ -89,6 +90,17 @@ Tests are written from **acceptance criteria and technical architecture only** �
 - **E2E tests** target user journeys and acceptance criteria — what the user should be able to do
 
 Tests will fail. That is correct and expected. `custom-dev` treats these tests as the contract it must satisfy.
+
+## Key Constraint: No Implementation Changes
+
+`custom-qa` **must never create, modify, or delete implementation source files**. Its write scope is strictly limited to:
+
+- Test files (`*.test.ts(x)`, `*.integration.test.ts(x)`, `*.spec.ts`)
+- Test artifacts (`{test_artifacts}/`)
+- Bug tickets (`backlog/to-do/`)
+- Backlog index (`backlog/README.md`)
+
+If a test fails because of a bug in the application, file a backlog item — do not fix the application code. If a test cannot compile because an implementation module doesn't exist yet, that is expected in spec-first mode — do not create the module.
 
 ## Pipeline
 
@@ -182,9 +194,66 @@ pnpm vitest run {generated-test-files} --reporter=verbose 2>&1 || true
 cd apps/opticasuarez-react-router && npx playwright test {generated-spec-files} --reporter=list 2>&1 || true
 ```
 
-Fix any **syntax or import errors** — the tests must be runnable. Assertion failures are expected and correct.
+Fix any **syntax or import errors in the generated test files** — the tests must be runnable. Never modify implementation source files to make tests pass. Assertion failures are expected and correct in spec-first mode.
 
 Then run `python3 ./scripts/count-tests.py {test_artifacts}/ --epic {epic}` to collect test metrics for the coverage summary.
+
+If `--validate` mode is active, proceed to Step 5b (Bug Filing) before the coverage summary.
+
+### Step 5b: Bug Filing (validate mode only)
+
+Skip this step unless `--validate` was provided.
+
+Analyze test failures from Step 5 and file bug tickets for real bugs. A failure is a **real bug** when:
+
+- The test assertion fails (expected vs actual mismatch) — not a compile/import error
+- The source file under test exists (the feature was implemented)
+- The failure is not a test infrastructure issue (missing test util, wrong mock setup)
+
+For each real bug found:
+
+1. **Determine the next bug number** — scan both `backlog/done/` and `backlog/to-do/` for the highest existing number and increment by 1:
+   ```bash
+   HIGHEST=$(ls -d backlog/done/*/ backlog/to-do/*/ 2>/dev/null | grep -oE '[0-9]+' | sort -n | tail -1)
+   NEXT=$((HIGHEST + 1))
+   ```
+
+2. **Create the bug ticket** at `backlog/to-do/{NEXT}-{slug}/00-request.md`:
+   ```markdown
+   # Bug: {descriptive title}
+
+   ## Description
+   {What's wrong — expected behavior vs actual behavior}
+
+   ## Reproduction Steps
+   1. {How to trigger the bug}
+
+   ## Expected Behavior
+   {What the acceptance criteria say should happen}
+
+   ## Actual Behavior
+   {What actually happens based on test output}
+
+   ## Failing Test
+   - **File**: `{test file path}`
+   - **Test**: `{test name}`
+   - **Story**: `{story reference if available}`
+
+   ## Error Output
+   ```
+   {Test runner error output}
+   ```
+
+   ## Priority
+   {Critical / High / Medium — based on acceptance criteria importance}
+
+   ## Labels
+   bug, qa-discovered
+   ```
+
+3. **Update `backlog/README.md`** — add the new bug to the To-Do table.
+
+4. **Log filed bugs** in `{test_artifacts}/bugs-filed-{epic}.md` for the coverage summary.
 
 ### Step 6: Coverage Summary
 
@@ -228,4 +297,5 @@ When all epics are processed:
 2. List any stories that couldn't be tested (missing acceptance criteria, unclear requirements)
 3. Confirm all tests are syntactically valid and runnable
 4. Remind: `custom-dev` must make these tests pass without modifying them
-5. Suggest: run `bmad-sprint-status` for an overview, or start `custom-dev` to implement
+5. If `--validate` mode was active: summarize all bug tickets filed — count, locations in `backlog/to-do/`, and severity breakdown. Remind that `custom-dev` will pick these up automatically
+6. Suggest: run `bmad-sprint-status` for an overview, or start `custom-dev` to implement
