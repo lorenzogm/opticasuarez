@@ -1,0 +1,127 @@
+{
+  "scanner": "structure-capabilities-prepass",
+  "script": "prepass-structure-capabilities.py",
+  "version": "1.0.0",
+  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "timestamp": "2026-03-30T07:25:43.571433+00:00",
+  "status": "warning",
+  "metadata": {
+    "frontmatter": {
+      "name": "custom-plan-to-backlog",
+      "description": "Orchestrate the full planning pipeline from idea to backlog-ready epics. Use when the user says \"plan to backlog\", \"run planning pipeline\", or \"create the full plan\"."
+    },
+    "sections": [
+      {
+        "level": 2,
+        "title": "Overview",
+        "line": 8
+      },
+      {
+        "level": 2,
+        "title": "On Activation",
+        "line": 16
+      },
+      {
+        "level": 3,
+        "title": "1. Configuration",
+        "line": 18
+      },
+      {
+        "level": 3,
+        "title": "2. Artifact Detection",
+        "line": 28
+      },
+      {
+        "level": 3,
+        "title": "3. Capture Initial Input",
+        "line": 43
+      },
+      {
+        "level": 2,
+        "title": "Pipeline",
+        "line": 49
+      },
+      {
+        "level": 3,
+        "title": "Step 1: Brainstorming",
+        "line": 55
+      },
+      {
+        "level": 3,
+        "title": "Step 2: Product Brief",
+        "line": 63
+      },
+      {
+        "level": 3,
+        "title": "Step 3: PRD",
+        "line": 71
+      },
+      {
+        "level": 3,
+        "title": "Step 4: UX Design",
+        "line": 79
+      },
+      {
+        "level": 3,
+        "title": "Step 5: Architecture",
+        "line": 87
+      },
+      {
+        "level": 3,
+        "title": "Step 6: Epics & Stories",
+        "line": 95
+      },
+      {
+        "level": 3,
+        "title": "Step 7: Implementation Readiness Check",
+        "line": 103
+      },
+      {
+        "level": 2,
+        "title": "Completion",
+        "line": 111
+      }
+    ]
+  },
+  "prompt_details": [],
+  "memory_paths": [],
+  "issues": [
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "medium",
+      "category": "frontmatter",
+      "issue": "Name \"custom-plan-to-backlog\" does not follow bmad-{code}-agent-{name} or bmad-agent-{name} pattern"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Identity section"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Communication Style section"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Principles section"
+    }
+  ],
+  "summary": {
+    "total_issues": 4,
+    "by_severity": {
+      "critical": 0,
+      "high": 3,
+      "medium": 1,
+      "low": 0
+    }
+  }
+}

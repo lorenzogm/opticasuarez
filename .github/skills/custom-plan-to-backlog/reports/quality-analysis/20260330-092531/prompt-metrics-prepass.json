@@ -1,0 +1,123 @@
+{
+  "scanner": "prompt-craft-prepass",
+  "script": "prepass-prompt-metrics.py",
+  "version": "1.0.0",
+  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "timestamp": "2026-03-30T07:25:58.491343+00:00",
+  "status": "info",
+  "skill_md_summary": {
+    "line_count": 118,
+    "token_estimate": 1295,
+    "overview_lines": 7,
+    "table_count": 1,
+    "table_lines": 8,
+    "fenced_block_count": 0,
+    "fenced_block_lines": 0,
+    "section_count": 14
+  },
+  "prompt_health": {
+    "total_prompts": 0,
+    "prompts_with_config_header": 0,
+    "prompts_with_progression": 0
+  },
+  "aggregate": {
+    "total_files_scanned": 1,
+    "total_token_estimate": 1295,
+    "total_waste_patterns": 0,
+    "total_back_references": 0,
+    "total_suggestive_loading": 0,
+    "total_wall_of_text": 0
+  },
+  "resource_sizes": {},
+  "files": [
+    {
+      "file": "SKILL.md",
+      "line_count": 118,
+      "token_estimate": 1295,
+      "sections": [
+        {
+          "level": 2,
+          "title": "Overview",
+          "line": 8
+        },
+        {
+          "level": 2,
+          "title": "On Activation",
+          "line": 16
+        },
+        {
+          "level": 3,
+          "title": "1. Configuration",
+          "line": 18
+        },
+        {
+          "level": 3,
+          "title": "2. Artifact Detection",
+          "line": 28
+        },
+        {
+          "level": 3,
+          "title": "3. Capture Initial Input",
+          "line": 43
+        },
+        {
+          "level": 2,
+          "title": "Pipeline",
+          "line": 49
+        },
+        {
+          "level": 3,
+          "title": "Step 1: Brainstorming",
+          "line": 55
+        },
+        {
+          "level": 3,
+          "title": "Step 2: Product Brief",
+          "line": 63
+        },
+        {
+          "level": 3,
+          "title": "Step 3: PRD",
+          "line": 71
+        },
+        {
+          "level": 3,
+          "title": "Step 4: UX Design",
+          "line": 79
+        },
+        {
+          "level": 3,
+          "title": "Step 5: Architecture",
+          "line": 87
+        },
+        {
+          "level": 3,
+          "title": "Step 6: Epics & Stories",
+          "line": 95
+        },
+        {
+          "level": 3,
+          "title": "Step 7: Implementation Readiness Check",
+          "line": 103
+        },
+        {
+          "level": 2,
+          "title": "Completion",
+          "line": 111
+        }
+      ],
+      "table_count": 1,
+      "table_lines": 8,
+      "fenced_block_count": 0,
+      "fenced_block_lines": 0,
+      "waste_patterns": [],
+      "back_references": [],
+      "suggestive_loading": [],
+      "has_config_header": true,
+      "has_progression": true,
+      "wall_of_text": [],
+      "overview_lines": 7,
+      "is_skill_md": true
+    }
+  ]
+}
