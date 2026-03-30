@@ -7,7 +7,7 @@ description: 'Orchestrate the full build cycle from sprint planning to implement
 
 ## Overview
 
-This workflow orchestrates the complete BMad Step 2 build cycle — from initializing sprint tracking through implementing every story, reviewing code, running retrospectives per epic, and updating project documentation. It picks up where `custom-plan-to-backlog` left off, consuming the epics and stories it produced and turning them into working code. Designed for autonomous execution: maximum autonomy, minimum interruption. Only critical code review findings (acceptance criteria violations or security/data-loss risks) halt the pipeline — all others are deferred.
+This workflow orchestrates the complete BMad Step 2 build cycle — from initializing sprint tracking through implementing every story, reviewing code, running retrospectives per epic, and updating project documentation. It picks up where `custom-plan` left off, consuming the epics and stories it produced and turning them into working code. Designed for autonomous execution: maximum autonomy, minimum interruption. Only critical code review findings (acceptance criteria violations or security/data-loss risks) halt the pipeline — all others are deferred.
 
 **Args:** Accepts an optional epic identifier to implement a single epic, or no args to process the entire backlog.
 
@@ -28,10 +28,10 @@ Load `{project-root}/_bmad-output/project-context.md` if it exists. If not found
 
 ### 2. Pre-flight Validation
 
-Before proceeding, validate that planning artifacts from `custom-plan-to-backlog` exist:
+Before proceeding, validate that planning artifacts from `custom-plan` exist:
 
 - Check `{planning_artifacts}/epics/` directory exists and contains at least one epic
-- If missing, halt immediately: "No planning artifacts found. Run `custom-plan-to-backlog` first to create epics and stories."
+- If missing, halt immediately: "No planning artifacts found. Run `custom-plan` first to create epics and stories."
 
 ### 3. State Detection
 

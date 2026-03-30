@@ -38,7 +38,7 @@ The workflow exhibits solid structural integrity with well-defined orchestration
 ### Naming Convention Deviation
 - **Severity:** MEDIUM (intentional, not blocking)
 - [Frontmatter] **Issue:** Name "custom-dev" does not follow `bmad-{code}-agent-{name}` pattern
-- **Context:** Name uses "custom-*" prefix, indicating custom workflow rather than standard bmad module. This appears intentional and consistent with `custom-plan-to-backlog` (companion workflow).
+- **Context:** Name uses "custom-*" prefix, indicating custom workflow rather than standard bmad module. This appears intentional and consistent with `custom-plan` (companion workflow).
 - **Fix:** Accept "custom-*" as valid prefix for project-specific orchestration workflows.
 
 ### No Orphaned Template Variables

@@ -2,7 +2,7 @@
 
 ## Assessment
 
-The `custom-dev` workflow presents a well-structured build cycle that properly consumes epics and stories from `custom-plan-to-backlog` and orchestrates them through implementation, review, and documentation phases. The core pipeline is coherent and skills are appropriately integrated. Some operational details (input expectations, state management, failure handling) could be more explicit.
+The `custom-dev` workflow presents a well-structured build cycle that properly consumes epics and stories from `custom-plan` and orchestrates them through implementation, review, and documentation phases. The core pipeline is coherent and skills are appropriately integrated. Some operational details (input expectations, state management, failure handling) could be more explicit.
 
 ## Cohesion Dimensions
 
@@ -14,13 +14,13 @@ The `custom-dev` workflow presents a well-structured build cycle that properly c
 | External Skill Integration | **Strong** | Six skills form coherent pipeline with clear input→output relationships |
 | Capability Granularity | **Moderate** | Steps well-scoped but loop nesting implicit rather than visually explicit |
 | User Journey Coherence | **Moderate** | "Yolo execution" claim slightly overstated — critical review issues halt pipeline |
-| Pipeline Continuity | **Moderate** | Correctly picks up from custom-plan-to-backlog but input artifact paths implicit |
+| Pipeline Continuity | **Moderate** | Correctly picks up from custom-plan but input artifact paths implicit |
 
 ## Key Findings
 
 ### MEDIUM: Input Artifact Expectations Implicit
 - **Area:** On Activation / Configuration
-- **Issue:** Consumes epics from `{planning_artifacts}` but doesn't explicitly state these come from `custom-plan-to-backlog`
+- **Issue:** Consumes epics from `{planning_artifacts}` but doesn't explicitly state these come from `custom-plan`
 - **Fix:** Add explicit path mapping in Configuration section
 
 ### MEDIUM: State Management Responsibility Unclear

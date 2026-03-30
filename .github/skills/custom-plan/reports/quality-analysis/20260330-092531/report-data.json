@@ -1,7 +1,7 @@
 {
   "meta": {
-    "skill_name": "custom-plan-to-backlog",
-    "skill_path": ".github/skills/custom-plan-to-backlog",
+    "skill_name": "custom-plan",
+    "skill_path": ".github/skills/custom-plan",
     "timestamp": "2026-03-30T09:25:31Z",
     "scanner_count": 8,
     "type": "workflow"

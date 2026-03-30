@@ -2,7 +2,7 @@
   "scanner": "prompt-craft-prepass",
   "script": "prepass-prompt-metrics.py",
   "version": "1.0.0",
-  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "skill_path": ".github/skills/custom-plan",
   "timestamp": "2026-03-30T07:25:58.491343+00:00",
   "status": "info",
   "skill_md_summary": {

@@ -2,7 +2,7 @@
   "scanner": "scripts",
   "script": "scan-scripts.py",
   "version": "2.0.0",
-  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "skill_path": ".github/skills/custom-plan",
   "timestamp": "2026-03-30T07:25:43.398159+00:00",
   "status": "pass",
   "findings": [

@@ -10,7 +10,7 @@
     "icon": "🔄",
     "display_name": "Dev to Done",
     "title": "Build Cycle Orchestrator",
-    "portrait": "Autonomous execution engine that transforms planning artifacts into implemented, tested, reviewed, and documented code across multiple epics and stories. Picks up where custom-plan-to-backlog leaves off and drives the full Step 2 build cycle with maximum autonomy."
+    "portrait": "Autonomous execution engine that transforms planning artifacts into implemented, tested, reviewed, and documented code across multiple epics and stories. Picks up where custom-plan leaves off and drives the full Step 2 build cycle with maximum autonomy."
   },
   "capabilities": [
     {
@@ -146,7 +146,7 @@
       "description": "No validation that planning artifacts exist before starting. Missing artifacts cause cryptic failures. Resume semantics for in-progress stories undefined.",
       "severity": "high",
       "impact": "Eliminates dead-end failure modes and enables reliable recovery from interruption",
-      "action": "Add pre-flight check in Configuration: validate {planning_artifacts}/epics/ exists, redirect to custom-plan-to-backlog if not. Add resume decision tree to State Detection.",
+      "action": "Add pre-flight check in Configuration: validate {planning_artifacts}/epics/ exists, redirect to custom-plan if not. Add resume decision tree to State Detection.",
       "finding_count": 3,
       "findings": [
         {
@@ -167,7 +167,7 @@
           "title": "Input artifact expectations implicit",
           "file": "SKILL.md",
           "line": 22,
-          "detail": "Doesn't explicitly state epics come from custom-plan-to-backlog",
+          "detail": "Doesn't explicitly state epics come from custom-plan",
           "source": "agent-cohesion"
         }
       ]
@@ -384,7 +384,7 @@
     },
     {
       "rank": 2,
-      "action": "Add pre-flight validation: check {planning_artifacts}/epics/ exists; redirect to custom-plan-to-backlog if not (3 lines in Configuration)",
+      "action": "Add pre-flight validation: check {planning_artifacts}/epics/ exists; redirect to custom-plan if not (3 lines in Configuration)",
       "resolves": 3,
       "effort": "low"
     },

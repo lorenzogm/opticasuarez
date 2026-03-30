@@ -1,7 +1,7 @@
-# BMad Method · Quality Analysis: custom-plan-to-backlog
+# BMad Method · Quality Analysis: custom-plan
 
 **🔗 Plan to Backlog** — Pipeline Orchestrator Workflow
-**Analyzed:** 2026-03-30 09:25:31 | **Path:** .github/skills/custom-plan-to-backlog
+**Analyzed:** 2026-03-30 09:25:31 | **Path:** .github/skills/custom-plan
 **Interactive report:** quality-report.html
 
 ## Workflow Portrait

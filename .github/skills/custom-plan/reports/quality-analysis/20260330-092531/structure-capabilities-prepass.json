@@ -2,12 +2,12 @@
   "scanner": "structure-capabilities-prepass",
   "script": "prepass-structure-capabilities.py",
   "version": "1.0.0",
-  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "skill_path": ".github/skills/custom-plan",
   "timestamp": "2026-03-30T07:25:43.571433+00:00",
   "status": "warning",
   "metadata": {
     "frontmatter": {
-      "name": "custom-plan-to-backlog",
+      "name": "custom-plan",
       "description": "Orchestrate the full planning pipeline from idea to backlog-ready epics. Use when the user says \"plan to backlog\", \"run planning pipeline\", or \"create the full plan\"."
     },
     "sections": [
@@ -91,7 +91,7 @@
       "line": 1,
       "severity": "medium",
       "category": "frontmatter",
-      "issue": "Name \"custom-plan-to-backlog\" does not follow bmad-{code}-agent-{name} or bmad-agent-{name} pattern"
+      "issue": "Name \"custom-plan\" does not follow bmad-{code}-agent-{name} or bmad-agent-{name} pattern"
     },
     {
       "file": "SKILL.md",

@@ -2,7 +2,7 @@
   "scanner": "path-standards",
   "script": "scan-path-standards.py",
   "version": "2.1.0",
-  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "skill_path": ".github/skills/custom-plan",
   "timestamp": "2026-03-30T07:25:43.351311+00:00",
   "files_scanned": [
     "SKILL.md"

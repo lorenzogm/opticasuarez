@@ -2,7 +2,7 @@
   "scanner": "execution-efficiency-prepass",
   "script": "prepass-execution-deps.py",
   "version": "1.0.0",
-  "skill_path": ".github/skills/custom-plan-to-backlog",
+  "skill_path": ".github/skills/custom-plan",
   "timestamp": "2026-03-30T07:25:58.529317+00:00",
   "status": "pass",
   "dependency_graph": {

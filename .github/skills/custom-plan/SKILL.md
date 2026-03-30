@@ -1,5 +1,5 @@
 ---
-name: custom-plan-to-backlog
+name: custom-plan
 description: 'Orchestrate the full planning pipeline from idea to backlog-ready epics. Use when the user says "plan to backlog", "run planning pipeline", or "create the full plan".'
 ---
 

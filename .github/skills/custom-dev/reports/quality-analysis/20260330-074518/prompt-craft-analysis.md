@@ -10,7 +10,7 @@ This is a high-quality workflow orchestration skill with clear state management,
 
 The 7-line overview effectively primes the LLM's behavior:
 - **Purpose**: Clearly states its role as orchestrator from "sprint planning to implemented code with docs"
-- **Context linkage**: Explicitly positions where it fits in the pipeline ("picks up where `custom-plan-to-backlog` left off")
+- **Context linkage**: Explicitly positions where it fits in the pipeline ("picks up where `custom-plan` left off")
 - **Autonomy framing**: "Yolo execution: maximum autonomy, minimum interruption" — strong priming for independent operation
 - **I/O clarity**: Specifies both inputs (optional epic ID, full backlog) and outputs (code, reviews, retrospectives, docs)
 

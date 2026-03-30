@@ -6,7 +6,7 @@
 
 ## Agent Portrait
 
-Autonomous execution engine that transforms planning artifacts into implemented, tested, reviewed, and documented code across multiple epics and stories. Picks up where `custom-plan-to-backlog` leaves off and drives the full Step 2 build cycle with maximum autonomy — sprint initialization, iterative story implementation with TDD, adversarial code review, per-epic retrospectives, and incremental documentation.
+Autonomous execution engine that transforms planning artifacts into implemented, tested, reviewed, and documented code across multiple epics and stories. Picks up where `custom-plan` leaves off and drives the full Step 2 build cycle with maximum autonomy — sprint initialization, iterative story implementation with TDD, adversarial code review, per-epic retrospectives, and incremental documentation.
 
 ## Capabilities
 
@@ -42,7 +42,7 @@ Code review "critical issues" threshold is undefined, and the "yolo execution" c
 
 No validation that planning artifacts exist before starting. Missing artifacts cause cryptic failures. Resume semantics for in-progress stories undefined.
 
-**Fix:** Add pre-flight check in Configuration: validate `{planning_artifacts}/epics/` exists, redirect to `custom-plan-to-backlog` if not. Add resume decision tree to State Detection.
+**Fix:** Add pre-flight check in Configuration: validate `{planning_artifacts}/epics/` exists, redirect to `custom-plan` if not. Add resume decision tree to State Detection.
 
 - SKILL.md:18 — No pre-flight artifact validation (enhancement-opportunities)
 - SKILL.md:35 — Resume semantics for in-progress undefined (enhancement-opportunities)
