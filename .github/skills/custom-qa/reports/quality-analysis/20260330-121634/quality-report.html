@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMad Method · Quality Analysis: custom-qa</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --surface2: #21262d; --border: #30363d;
+  --text: #e6edf3; --text-muted: #8b949e; --text-dim: #6e7681;
+  --critical: #f85149; --high: #f0883e; --medium: #d29922; --low: #58a6ff;
+  --strength: #3fb950; --suggestion: #a371f7;
+  --accent: #58a6ff; --accent-hover: #79c0ff;
+  --brand: #a371f7;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff; --surface: #f6f8fa; --surface2: #eaeef2; --border: #d0d7de;
+    --text: #1f2328; --text-muted: #656d76; --text-dim: #8c959f;
+    --critical: #cf222e; --high: #bc4c00; --medium: #9a6700; --low: #0969da;
+    --strength: #1a7f37; --suggestion: #8250df;
+    --accent: #0969da; --accent-hover: #0550ae;
+    --brand: #8250df;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem; max-width: 900px; margin: 0 auto; }
+.brand { color: var(--brand); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.25rem; }
+h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+.subtitle a { color: var(--accent); text-decoration: none; }
+.subtitle a:hover { text-decoration: underline; }
+.portrait { background: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.25rem; margin-bottom: 1.5rem; }
+.portrait-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.portrait-icon { font-size: 2rem; }
+.portrait-name { font-size: 1.25rem; font-weight: 700; }
+.portrait-title { font-size: 0.9rem; color: var(--text-muted); }
+.portrait-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+.grade { font-size: 2.5rem; font-weight: 700; margin: 0.5rem 0; }
+.grade-Excellent { color: var(--strength); }
+.grade-Good { color: var(--low); }
+.grade-Fair { color: var(--medium); }
+.grade-Poor { color: var(--critical); }
+.narrative { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; }
+.badge { display: inline-flex; align-items: center; padding: 0.15rem 0.5rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; }
+.badge-critical { background: color-mix(in srgb, var(--critical) 20%, transparent); color: var(--critical); }
+.badge-high { background: color-mix(in srgb, var(--high) 20%, transparent); color: var(--high); }
+.badge-medium { background: color-mix(in srgb, var(--medium) 20%, transparent); color: var(--medium); }
+.badge-low { background: color-mix(in srgb, var(--low) 20%, transparent); color: var(--low); }
+.badge-strength { background: color-mix(in srgb, var(--strength) 20%, transparent); color: var(--strength); }
+.badge-good { background: color-mix(in srgb, var(--strength) 15%, transparent); color: var(--strength); }
+.badge-attention { background: color-mix(in srgb, var(--medium) 15%, transparent); color: var(--medium); }
+.section { border: 1px solid var(--border); border-radius: 0.5rem; margin: 0.75rem 0; overflow: hidden; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: var(--surface); cursor: pointer; user-select: none; }
+.section-header:hover { background: var(--surface2); }
+.section-header .arrow { font-size: 0.7rem; transition: transform 0.15s; color: var(--text-muted); width: 1rem; }
+.section-header.open .arrow { transform: rotate(90deg); }
+.section-header .label { font-weight: 600; flex: 1; }
+.section-header .actions { display: flex; gap: 0.5rem; }
+.section-body { display: none; }
+.section-body.open { display: block; }
+.cap-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border-top: 1px solid var(--border); }
+.cap-row:hover { background: var(--surface); }
+.cap-name { font-weight: 600; font-size: 0.9rem; flex: 1; }
+.cap-file { font-family: var(--mono); font-size: 0.75rem; color: var(--text-dim); }
+.cap-findings { display: none; padding: 0.5rem 1rem 0.5rem 2rem; border-top: 1px solid var(--border); background: var(--bg); }
+.cap-findings.open { display: block; }
+.cap-finding { font-size: 0.85rem; padding: 0.25rem 0; color: var(--text-muted); }
+.item { padding: 0.75rem 1rem; border-top: 1px solid var(--border); }
+.item:hover { background: var(--surface); }
+.item-title { font-weight: 600; font-size: 0.9rem; }
+.item-file { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); }
+.item-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+.item-action { font-size: 0.85rem; margin-top: 0.25rem; }
+.item-action strong { color: var(--strength); }
+.opp { padding: 1rem; border-top: 1px solid var(--border); }
+.opp-header { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.opp-name { font-weight: 600; font-size: 1rem; flex: 1; }
+.opp-count { font-size: 0.8rem; color: var(--text-muted); }
+.opp-desc { font-size: 0.9rem; color: var(--text-muted); margin: 0.5rem 0; }
+.opp-impact { font-size: 0.85rem; color: var(--text-dim); font-style: italic; }
+.opp-findings { margin-top: 0.75rem; padding-left: 1rem; border-left: 2px solid var(--border); display: none; }
+.opp-findings.open { display: block; }
+.opp-finding { font-size: 0.85rem; padding: 0.25rem 0; color: var(--text-muted); }
+.opp-finding .source { font-size: 0.75rem; color: var(--text-dim); }
+.btn { background: none; border: 1px solid var(--border); border-radius: 0.25rem; padding: 0.3rem 0.7rem; cursor: pointer; color: var(--text-muted); font-size: 0.8rem; transition: all 0.15s; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+.btn-primary:hover { background: var(--accent-hover); }
+.strength-item { padding: 0.5rem 1rem; border-top: 1px solid var(--border); }
+.strength-item .title { font-weight: 600; font-size: 0.9rem; color: var(--strength); }
+.strength-item .detail { font-size: 0.85rem; color: var(--text-muted); }
+.analysis-section { padding: 0.75rem 1rem; border-top: 1px solid var(--border); }
+.analysis-section h4 { font-size: 0.9rem; margin-bottom: 0.25rem; }
+.analysis-section p { font-size: 0.85rem; color: var(--text-muted); }
+.analysis-finding { font-size: 0.85rem; padding: 0.25rem 0 0.25rem 1rem; border-left: 2px solid var(--border); margin: 0.25rem 0; color: var(--text-muted); }
+.recs { padding: 0.75rem 1rem; border-top: 1px solid var(--border); }
+.rec { padding: 0.3rem 0; font-size: 0.9rem; }
+.rec-rank { font-weight: 700; color: var(--accent); margin-right: 0.5rem; }
+.rec-resolves { font-size: 0.8rem; color: var(--text-dim); }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; }
+.modal-overlay.visible { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem; width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; }
+.modal h3 { margin-bottom: 0.75rem; }
+.modal pre { background: var(--bg); border: 1px solid var(--border); border-radius: 0.375rem; padding: 1rem; font-family: var(--mono); font-size: 0.8rem; white-space: pre-wrap; word-wrap: break-word; max-height: 50vh; overflow-y: auto; }
+.modal-actions { display: flex; gap: 0.75rem; margin-top: 1rem; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<div class="brand">BMad Method</div>
+<h1>Quality Analysis: <span id="skill-name"></span></h1>
+<div class="subtitle" id="subtitle"></div>
+
+<div id="portrait"></div>
+<div id="grade-area"></div>
+<div class="narrative" id="narrative"></div>
+
+<div id="capabilities-section"></div>
+<div id="broken-section"></div>
+<div id="opportunities-section"></div>
+<div id="strengths-section"></div>
+<div id="recommendations-section"></div>
+<div id="detailed-section"></div>
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3 id="modal-title">Generated Prompt</h3>
+    <pre id="modal-content"></pre>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Close</button>
+      <button class="btn btn-primary" onclick="copyModal()">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<script id="report-data" type="application/json">{"meta": {"skill_name": "custom-qa", "skill_path": ".github/skills/custom-qa", "timestamp": "2026-03-30T12:16:34Z", "scanner_count": 8, "type": "agent"}, "agent_profile": {"icon": "🧪", "display_name": "QA to Done", "title": "Specification-First Test Orchestrator", "portrait": "QA to Done is a specification-first test orchestrator that generates failing test suites from planning artifacts — unit, integration, and E2E — before a single line of implementation exists. It runs in parallel with custom-dev, treating tests as executable contracts that drive implementation. The workflow is clean, linear, and resumable."}, "capabilities": [{"name": "Test Planning", "file": "SKILL.md", "status": "needs-attention", "finding_count": 2, "findings": [{"title": "Script opportunity for acceptance criteria extraction", "severity": "medium", "source": "script-opportunities"}, {"title": "Script opportunity for architecture/component inventory", "severity": "medium", "source": "script-opportunities"}]}, {"name": "Unit Tests (Vitest)", "file": "SKILL.md", "status": "good", "finding_count": 0, "findings": []}, {"name": "Integration Tests (Vitest)", "file": "SKILL.md", "status": "good", "finding_count": 0, "findings": []}, {"name": "E2E Tests (Playwright)", "file": "SKILL.md", "status": "needs-attention", "finding_count": 1, "findings": [{"title": "No fallback if bmad-qa-generate-e2e-tests unavailable", "severity": "low", "source": "agent-cohesion"}]}, {"name": "Run & Validate Structure", "file": "SKILL.md", "status": "good", "finding_count": 1, "findings": [{"title": "Runs all tests instead of incremental", "severity": "medium", "source": "execution-efficiency"}]}, {"name": "Coverage Summary", "file": "SKILL.md", "status": "needs-attention", "finding_count": 1, "findings": [{"title": "Test case counting should be a script", "severity": "medium", "source": "script-opportunities"}]}, {"name": "Epic Loop", "file": "SKILL.md", "status": "good", "finding_count": 0, "findings": []}], "narrative": "The workflow logic is well-architected: clear pipeline, resumable state, strong specification-first philosophy, and excellent token efficiency (1,866 tokens, zero waste). The primary opportunity is adding Identity/Style/Principles sections to give the executing LLM a decision framework for ambiguous situations.", "grade": "Good", "broken": [], "opportunities": [{"name": "Add Agent Persona Sections", "description": "The agent lacks Identity, Communication Style, and Principles sections. Without these, the LLM has no decision framework for ambiguous situations — vague acceptance criteria, test layer trade-offs, coverage prioritization.", "severity": "high", "impact": "Consistent behavior across epics, better test quality decisions, clear philosophy communication to first-timers", "action": "Add Identity, Communication Style, and Principles sections after frontmatter. Identity: test architecture strategist. Style: explain intent before listing, use AC language. Principles: spec first, layer by intent, fail gracefully, coverage over busywork.", "finding_count": 6, "findings": [{"title": "Missing Identity section", "file": "SKILL.md", "line": 1, "detail": "No persona definition", "source": "structure"}, {"title": "Missing Communication Style section", "file": "SKILL.md", "line": 1, "detail": "No style guidance", "source": "structure"}, {"title": "Missing Principles section", "file": "SKILL.md", "line": 1, "detail": "No decision framework", "source": "structure"}, {"title": "No persona to anchor behavior", "file": "SKILL.md", "line": 1, "detail": "Agent functions as procedure, not persona", "source": "agent-cohesion"}, {"title": "Philosophy unexplained to first-timers", "file": "SKILL.md", "line": 48, "detail": "Tests Are the Spec stated but not rationalized", "source": "enhancement-opportunities"}, {"title": "Persona would enhance prompt craft further", "file": "SKILL.md", "line": 1, "detail": "Already clean, persona adds decision context", "source": "prompt-craft"}]}, {"name": "Add Pre-flight Validation", "description": "Agent doesn't validate prerequisites before pipeline execution. Missing config, absent planning artifacts, or wrong project structure surface as mid-pipeline failures with no guidance.", "severity": "medium", "impact": "First-timer success, CI reliability, clear error recovery paths", "action": "After configuration, add validation step: check config parseable, scan planning_artifacts/epics/, verify Vitest and Playwright available. Print diagnostic with next steps if anything missing.", "finding_count": 4, "findings": [{"title": "No pre-flight validation", "file": "SKILL.md", "line": 18, "detail": "Missing prerequisite checks", "source": "execution-efficiency"}, {"title": "Missing dependency contract", "file": "SKILL.md", "line": 16, "detail": "Silent failure on missing artifacts", "source": "enhancement-opportunities"}, {"title": "Confused user dead-end", "file": "SKILL.md", "line": 16, "detail": "No recovery path for wrong invocation", "source": "enhancement-opportunities"}, {"title": "Config resolution as script", "file": "SKILL.md", "line": 18, "detail": "YAML parsing is deterministic", "source": "script-opportunities"}]}, {"name": "Extract Deterministic Operations to Scripts", "description": "Multiple pipeline steps spend LLM tokens on deterministic parsing — config YAML, qa-status.yaml, acceptance criteria extraction, test case counting. Estimated 1800-2600 tokens saved per epic.", "severity": "medium", "impact": "Token efficiency, consistency, reusability across workflows", "action": "Create Python scripts for: acceptance criteria extraction (highest priority), test case counting, config resolution, state detection. Each outputs structured JSON.", "finding_count": 6, "findings": [{"title": "Acceptance criteria extraction", "file": "SKILL.md", "line": 62, "detail": "400-600 tokens per epic, highest priority", "source": "script-opportunities"}, {"title": "Test case counting", "file": "SKILL.md", "line": 133, "detail": "250-380 tokens per epic", "source": "script-opportunities"}, {"title": "Architecture & component inventory", "file": "SKILL.md", "line": 62, "detail": "300-450 tokens per epic", "source": "script-opportunities"}, {"title": "Test pattern inventory", "file": "SKILL.md", "line": 62, "detail": "250-350 tokens per epic", "source": "script-opportunities"}, {"title": "Configuration resolution", "file": "SKILL.md", "line": 18, "detail": "140-200 tokens", "source": "script-opportunities"}, {"title": "State detection & YAML parsing", "file": "SKILL.md", "line": 29, "detail": "160-240 tokens", "source": "script-opportunities"}]}, {"name": "Add Pipeline Flexibility", "description": "Pipeline is all-or-nothing. Experts can't regenerate a single layer or story. Steps 2+3 could run in parallel since they're independent.", "severity": "low", "impact": "Expert efficiency, CI optimization, iterative refinement", "action": "Accept optional layer/story filter args. Parallelize Steps 2+3 (independent outputs from same test plan).", "finding_count": 3, "findings": [{"title": "Steps 2+3 could parallelize", "file": "SKILL.md", "line": 80, "detail": "~30% speed improvement", "source": "execution-efficiency"}, {"title": "No mid-pipeline control", "file": "SKILL.md", "line": 58, "detail": "All-or-nothing execution", "source": "enhancement-opportunities"}, {"title": "Step 5 runs all tests", "file": "SKILL.md", "line": 119, "detail": "Not incremental", "source": "execution-efficiency"}]}], "strengths": [{"title": "Specification-First Philosophy", "detail": "Tests Are the Spec constraint is clearly stated and architecturally sound. Tests drive implementation, not the reverse."}, {"title": "Parallel Execution Model", "detail": "Running alongside custom-dev (not after it) enables true TDD at the workflow level."}, {"title": "Resumable Execution", "detail": "qa-status.yaml state tracking enables graceful restart across sessions."}, {"title": "Token Efficiency", "detail": "1,866 tokens with zero waste patterns. No defensive padding, no meta-explanation. Every instruction carries weight."}, {"title": "Outcome-Driven Steps", "detail": "Each pipeline step opens with a Goal statement describing what to achieve, not how to achieve it."}, {"title": "Concrete Conventions", "detail": "File patterns, framework specifics, and example test names prevent drift and ensure consistency."}, {"title": "Clean E2E Delegation", "detail": "Delegates Playwright to specialized skill rather than reimplementing E2E generation."}], "detailed_analysis": {"structure": {"assessment": "Sound workflow logic with well-ordered activation and pipeline. State detection enables resumption. Three missing persona sections are the sole structural gap.", "findings": [{"title": "Non-standard name format", "file": "SKILL.md", "line": 1, "severity": "medium", "detail": "custom-qa doesn't follow bmad-agent-{name} pattern. Intentional for custom workflow suite."}]}, "persona": {"assessment": "Consistent technical, imperative tone. Zero waste patterns. Overview establishes mental model in 7 lines. No changes recommended to existing content.", "overview_quality": "appropriate", "findings": []}, "cohesion": {"assessment": "Every step serves the core mission. Zero redundancy. Clean separation between test layers. Without persona sections, behavior in ambiguous situations is undefined.", "dimensions": {"persona_capability_alignment": {"score": "weak", "notes": "No persona defined to align with"}}, "findings": [{"title": "E2E delegation has no fallback", "file": "SKILL.md", "line": 106, "severity": "low", "detail": "If bmad-qa-generate-e2e-tests unavailable, Step 4 fails"}]}, "efficiency": {"assessment": "Clean dependency graph, no cycles. Main opportunities: parallelize Steps 2+3, add pre-flight validation, make Step 5 incremental. All improvements are additive.", "findings": []}, "experience": {"assessment": "Functional for guided users, frustrating for first-timers and automators. Easily adaptable to headless mode.", "journeys": [{"archetype": "first-timer", "summary": "Invokes qa-to-done without prior context. Hits silent failures if planning artifacts missing. Doesn't understand why tests fail.", "friction_points": ["No dependency validation", "Philosophy unexplained", "No error recovery"], "bright_spots": ["Test layer separation is clear"]}, {"archetype": "expert", "summary": "Wants to regenerate just E2E tests. Must re-run entire pipeline.", "friction_points": ["All-or-nothing execution", "Can't cherry-pick layers"], "bright_spots": ["State detection allows some resumption"]}, {"archetype": "automator", "summary": "CI system needs machine-readable output. Gets markdown only.", "friction_points": ["No JSON output", "No headless mode", "Step 5 blocks on verbose output"], "bright_spots": ["qa-status.yaml is good foundation for state tracking"]}], "autonomous": {"potential": "easily-adaptable", "notes": "No discovery phase, all inputs deterministic. Low transformation effort to add --headless flag."}, "findings": []}, "scripts": {"assessment": "6 opportunities totaling 1800-2600+ tokens saved per epic. Highest priority: acceptance criteria extraction. All scripts reusable across custom-dev and sprint planning.", "token_savings": "1800-2600+ per epic", "findings": []}}, "recommendations": [{"rank": 1, "action": "Add Identity, Communication Style, and Principles sections to SKILL.md", "resolves": 6, "effort": "low"}, {"rank": 2, "action": "Add pre-flight validation step after configuration", "resolves": 4, "effort": "low"}, {"rank": 3, "action": "Create acceptance criteria extraction script (Python, outputs JSON)", "resolves": 1, "effort": "medium"}, {"rank": 4, "action": "Create test case counting script (Python, regex-based)", "resolves": 1, "effort": "low"}, {"rank": 5, "action": "Parallelize Steps 2+3 in pipeline", "resolves": 1, "effort": "low"}, {"rank": 6, "action": "Add --layer and --story filter arguments", "resolves": 3, "effort": "medium"}, {"rank": 7, "action": "Add --headless mode with JSON output", "resolves": 1, "effort": "low"}]}</script>
+<script>
+const RAW = JSON.parse(document.getElementById('report-data').textContent);
+const DATA = normalize(RAW);
+
+function normalize(d) {
+  if (d.meta) {
+    d.meta.skill_name = d.meta.skill_name || d.meta.skill || d.meta.name || 'Unknown';
+    d.meta.scanner_count = typeof d.meta.scanner_count === 'number' ? d.meta.scanner_count
+      : Array.isArray(d.meta.scanners_run) ? d.meta.scanners_run.length
+      : d.meta.scanner_count || 0;
+  }
+  d.strengths = (d.strengths || []).map(s =>
+    typeof s === 'string' ? { title: s, detail: '' } : { title: s.title || '', detail: s.detail || '' }
+  );
+  (d.opportunities || []).forEach(o => {
+    o.name = o.name || o.title || '';
+    o.finding_count = o.finding_count || (o.findings || o.findings_resolved || []).length;
+    if (!o.findings && o.findings_resolved) o.findings = [];
+    o.action = o.action || o.fix || '';
+  });
+  (d.broken || []).forEach(b => {
+    b.detail = b.detail || b.description || '';
+    b.action = b.action || b.fix || '';
+  });
+  (d.recommendations || []).forEach((r, i) => {
+    r.action = r.action || r.description || '';
+    r.rank = r.rank || i + 1;
+  });
+  // Fix journeys
+  if (d.detailed_analysis && d.detailed_analysis.experience) {
+    d.detailed_analysis.experience.journeys = (d.detailed_analysis.experience.journeys || []).map(j => ({
+      archetype: j.archetype || j.persona || j.name || 'Unknown',
+      summary: j.summary || j.journey_summary || j.description || j.friction || '',
+      friction_points: j.friction_points || (j.friction ? [j.friction] : []),
+      bright_spots: j.bright_spots || (j.bright ? [j.bright] : [])
+    }));
+  }
+  // Fix capabilities
+  (d.capabilities || []).forEach(c => {
+    c.finding_count = c.finding_count || (c.findings || []).length;
+    c.status = c.status || (c.finding_count > 0 ? 'needs-attention' : 'good');
+  });
+  return d;
+}
+
+function esc(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = String(s);
+  return d.innerHTML;
+}
+
+function init() {
+  const m = DATA.meta;
+  document.getElementById('skill-name').textContent = m.skill_name;
+  document.getElementById('subtitle').innerHTML =
+    `${esc(m.skill_path)} &bull; ${m.timestamp ? m.timestamp.split('T')[0] : ''} &bull; ${m.scanner_count || 0} scanners &bull; <a href="quality-report.md">Full Report &nearr;</a>`;
+
+  renderPortrait();
+  document.getElementById('grade-area').innerHTML = `<div class="grade grade-${DATA.grade}">${esc(DATA.grade)}</div>`;
+  document.getElementById('narrative').textContent = DATA.narrative || '';
+
+  renderCapabilities();
+  renderBroken();
+  renderOpportunities();
+  renderStrengths();
+  renderRecommendations();
+  renderDetailed();
+}
+
+function renderPortrait() {
+  const p = DATA.agent_profile;
+  if (!p) return;
+  let html = `<div class="portrait"><div class="portrait-header">`;
+  if (p.icon) html += `<span class="portrait-icon">${esc(p.icon)}</span>`;
+  html += `<div><div class="portrait-name">${esc(p.display_name)}</div>`;
+  if (p.title) html += `<div class="portrait-title">${esc(p.title)}</div>`;
+  html += `</div></div>`;
+  if (p.portrait) html += `<div class="portrait-desc">${esc(p.portrait)}</div>`;
+  html += `</div>`;
+  document.getElementById('portrait').innerHTML = html;
+}
+
+function renderCapabilities() {
+  const caps = DATA.capabilities || [];
+  if (!caps.length) return;
+  const good = caps.filter(c => c.status === 'good').length;
+  const attn = caps.length - good;
+  let summary = `${caps.length} capabilities`;
+  if (attn > 0) summary += ` \u00b7 ${attn} need attention`;
+
+  let html = `<div class="section"><div class="section-header open" onclick="toggleSection(this)">`;
+  html += `<span class="arrow">&#9654;</span><span class="label">Capabilities (${summary})</span>`;
+  html += `</div><div class="section-body open">`;
+  caps.forEach((cap, idx) => {
+    const statusBadge = cap.status === 'good'
+      ? `<span class="badge badge-good">Good</span>`
+      : `<span class="badge badge-attention">${cap.finding_count} observation${cap.finding_count !== 1 ? 's' : ''}</span>`;
+    const hasFindings = cap.findings && cap.findings.length > 0;
+    html += `<div class="cap-row" ${hasFindings ? `onclick="toggleCapFindings(${idx})" style="cursor:pointer"` : ''}>`;
+    html += `${statusBadge} <span class="cap-name">${esc(cap.name)}</span>`;
+    if (cap.file) html += `<span class="cap-file">${esc(cap.file)}</span>`;
+    html += `</div>`;
+    if (hasFindings) {
+      html += `<div class="cap-findings" id="cap-findings-${idx}">`;
+      cap.findings.forEach(f => {
+        html += `<div class="cap-finding">`;
+        if (f.severity) html += `<span class="badge badge-${f.severity}">${esc(f.severity)}</span> `;
+        html += `${esc(f.title)}`;
+        if (f.source) html += ` <span class="source" style="font-size:0.75rem;color:var(--text-dim)">[${esc(f.source)}]</span>`;
+        html += `</div>`;
+      });
+      html += `</div>`;
+    }
+  });
+  html += `</div></div>`;
+  document.getElementById('capabilities-section').innerHTML = html;
+}
+
+function renderBroken() {
+  const items = DATA.broken || [];
+  if (!items.length) return;
+  let html = `<div class="section"><div class="section-header open" onclick="toggleSection(this)">`;
+  html += `<span class="arrow">&#9654;</span><span class="label">Broken / Critical (${items.length})</span>`;
+  html += `<div class="actions"><button class="btn btn-primary" onclick="event.stopPropagation();showBrokenPrompt()">Fix These</button></div>`;
+  html += `</div><div class="section-body open">`;
+  items.forEach(item => {
+    const loc = item.file ? `${item.file}${item.line ? ':'+item.line : ''}` : '';
+    html += `<div class="item"><span class="badge badge-${item.severity || 'high'}">${esc(item.severity || 'high')}</span> `;
+    if (loc) html += `<span class="item-file">${esc(loc)}</span>`;
+    html += `<div class="item-title">${esc(item.title)}</div>`;
+    if (item.detail) html += `<div class="item-desc">${esc(item.detail)}</div>`;
+    if (item.action) html += `<div class="item-action"><strong>Fix:</strong> ${esc(item.action)}</div>`;
+    html += `</div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('broken-section').innerHTML = html;
+}
+
+function renderOpportunities() {
+  const opps = DATA.opportunities || [];
+  if (!opps.length) return;
+  let html = `<div class="section"><div class="section-header open" onclick="toggleSection(this)">`;
+  html += `<span class="arrow">&#9654;</span><span class="label">Opportunities (${opps.length})</span>`;
+  html += `</div><div class="section-body open">`;
+  opps.forEach((opp, idx) => {
+    html += `<div class="opp"><div class="opp-header">`;
+    html += `<span class="badge badge-${opp.severity || 'medium'}">${esc(opp.severity || 'medium')}</span>`;
+    html += `<span class="opp-name">${idx+1}. ${esc(opp.name)}</span>`;
+    html += `<span class="opp-count">${opp.finding_count || (opp.findings||[]).length} observations</span>`;
+    html += `<button class="btn" onclick="toggleFindings(${idx})">Details</button>`;
+    html += `<button class="btn btn-primary" onclick="showThemePrompt(${idx})">Fix This</button>`;
+    html += `</div>`;
+    html += `<div class="opp-desc">${esc(opp.description)}</div>`;
+    if (opp.impact) html += `<div class="opp-impact">Impact: ${esc(opp.impact)}</div>`;
+    html += `<div class="opp-findings" id="findings-${idx}">`;
+    (opp.findings || []).forEach(f => {
+      const loc = f.file ? `${f.file}${f.line ? ':'+f.line : ''}` : '';
+      html += `<div class="opp-finding"><strong>${esc(f.title)}</strong>`;
+      if (loc) html += ` <span class="item-file">${esc(loc)}</span>`;
+      if (f.source) html += ` <span class="source">[${esc(f.source)}]</span>`;
+      if (f.detail) html += `<br>${esc(f.detail)}`;
+      html += `</div>`;
+    });
+    html += `</div></div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('opportunities-section').innerHTML = html;
+}
+
+function renderStrengths() {
+  const items = DATA.strengths || [];
+  if (!items.length) return;
+  let html = `<div class="section"><div class="section-header" onclick="toggleSection(this)">`;
+  html += `<span class="arrow">&#9654;</span><span class="label">Strengths (${items.length})</span>`;
+  html += `</div><div class="section-body">`;
+  items.forEach(s => {
+    html += `<div class="strength-item"><div class="title">${esc(s.title)}</div>`;
+    if (s.detail) html += `<div class="detail">${esc(s.detail)}</div>`;
+    html += `</div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('strengths-section').innerHTML = html;
+}
+
+function renderRecommendations() {
+  const recs = DATA.recommendations || [];
+  if (!recs.length) return;
+  let html = `<div class="section"><div class="section-header open" onclick="toggleSection(this)">`;
+  html += `<span class="arrow">&#9654;</span><span class="label">Recommendations</span>`;
+  html += `</div><div class="section-body open"><div class="recs">`;
+  recs.forEach(r => {
+    html += `<div class="rec"><span class="rec-rank">#${r.rank}</span>${esc(r.action)}`;
+    if (r.resolves) html += ` <span class="rec-resolves">(resolves ${r.resolves} observations)</span>`;
+    html += `</div>`;
+  });
+  html += `</div></div></div>`;
+  document.getElementById('recommendations-section').innerHTML = html;
+}
+
+function renderDetailed() {
+  const da = DATA.detailed_analysis;
+  if (!da) return;
+  const dims = [
+    ['structure', 'Structure & Capabilities'],
+    ['persona', 'Persona & Voice'],
+    ['cohesion', 'Identity Cohesion'],
+    ['efficiency', 'Execution Efficiency'],
+    ['experience', 'Conversation Experience'],
+    ['scripts', 'Script Opportunities']
+  ];
+  let html = `<div class="section"><div class="section-header" onclick="toggleSection(this)">`;
+  html += `<span class="arrow">&#9654;</span><span class="label">Detailed Analysis</span>`;
+  html += `</div><div class="section-body">`;
+  dims.forEach(([key, label]) => {
+    const dim = da[key];
+    if (!dim) return;
+    html += `<div class="analysis-section"><h4>${label}</h4>`;
+    if (dim.assessment) html += `<p>${esc(dim.assessment)}</p>`;
+    if (dim.dimensions) {
+      html += `<table style="width:100%;font-size:0.85rem;margin:0.5rem 0;border-collapse:collapse;">`;
+      html += `<tr><th style="text-align:left;padding:0.3rem;border-bottom:1px solid var(--border)">Dimension</th><th style="text-align:left;padding:0.3rem;border-bottom:1px solid var(--border)">Score</th><th style="text-align:left;padding:0.3rem;border-bottom:1px solid var(--border)">Notes</th></tr>`;
+      Object.entries(dim.dimensions).forEach(([d, v]) => {
+        if (v && typeof v === 'object') {
+          html += `<tr><td style="padding:0.3rem;border-bottom:1px solid var(--border)">${esc(d.replace(/_/g,' '))}</td><td style="padding:0.3rem;border-bottom:1px solid var(--border)">${esc(v.score||'')}</td><td style="padding:0.3rem;border-bottom:1px solid var(--border)">${esc(v.notes||'')}</td></tr>`;
+        }
+      });
+      html += `</table>`;
+    }
+    if (dim.journeys && dim.journeys.length) {
+      dim.journeys.forEach(j => {
+        html += `<div style="margin:0.5rem 0"><strong>${esc(j.archetype)}</strong>: ${esc(j.summary || j.journey_summary || '')}`;
+        if (j.friction_points && j.friction_points.length) {
+          html += `<ul style="color:var(--high);font-size:0.85rem;padding-left:1.25rem">`;
+          j.friction_points.forEach(fp => { html += `<li>${esc(fp)}</li>`; });
+          html += `</ul>`;
+        }
+        html += `</div>`;
+      });
+    }
+    if (dim.autonomous) {
+      const a = dim.autonomous;
+      html += `<p><strong>Headless Potential:</strong> ${esc(a.potential||'')}`;
+      if (a.notes) html += ` \u2014 ${esc(a.notes)}`;
+      html += `</p>`;
+    }
+    (dim.findings || []).forEach(f => {
+      const loc = f.file ? `${f.file}${f.line ? ':'+f.line : ''}` : '';
+      html += `<div class="analysis-finding">`;
+      if (f.severity) html += `<span class="badge badge-${f.severity}">${esc(f.severity)}</span> `;
+      html += `${esc(f.title)}`;
+      if (loc) html += ` <span class="item-file">${esc(loc)}</span>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div></div>`;
+  document.getElementById('detailed-section').innerHTML = html;
+}
+
+function toggleSection(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
+function toggleFindings(idx) { document.getElementById('findings-'+idx).classList.toggle('open'); }
+function toggleCapFindings(idx) { document.getElementById('cap-findings-'+idx).classList.toggle('open'); }
+
+function showThemePrompt(idx) {
+  const opp = DATA.opportunities[idx];
+  if (!opp) return;
+  let prompt = `## Task: ${opp.name}\nAgent path: ${DATA.meta.skill_path}\n\n### Problem\n${opp.description}\n\n### Fix\n${opp.action}\n\n`;
+  if (opp.findings && opp.findings.length) {
+    prompt += `### Specific observations to address:\n\n`;
+    opp.findings.forEach((f, i) => {
+      const loc = f.file ? (f.line ? `${f.file}:${f.line}` : f.file) : '';
+      prompt += `${i+1}. **${f.title}**`;
+      if (loc) prompt += ` (${loc})`;
+      if (f.detail) prompt += `\n   ${f.detail}`;
+      prompt += `\n`;
+    });
+  }
+  document.getElementById('modal-title').textContent = `Fix: ${opp.name}`;
+  document.getElementById('modal-content').textContent = prompt.trim();
+  document.getElementById('modal').classList.add('visible');
+}
+
+function showBrokenPrompt() {
+  const items = DATA.broken || [];
+  let prompt = `## Task: Fix Critical Issues\nAgent path: ${DATA.meta.skill_path}\n\n`;
+  items.forEach((item, i) => {
+    const loc = item.file ? (item.line ? `${item.file}:${item.line}` : item.file) : '';
+    prompt += `${i+1}. **[${(item.severity||'high').toUpperCase()}] ${item.title}**\n`;
+    if (loc) prompt += `   File: ${loc}\n`;
+    if (item.detail) prompt += `   Context: ${item.detail}\n`;
+    if (item.action) prompt += `   Fix: ${item.action}\n\n`;
+  });
+  document.getElementById('modal-title').textContent = 'Fix Critical Issues';
+  document.getElementById('modal-content').textContent = prompt.trim();
+  document.getElementById('modal').classList.add('visible');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('visible'); }
+function copyModal() {
+  navigator.clipboard.writeText(document.getElementById('modal-content').textContent).then(() => {
+    const btn = document.querySelector('.modal .btn-primary');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy to Clipboard'; }, 1500);
+  });
+}
+
+init();
+</script>
+</body>
+</html>

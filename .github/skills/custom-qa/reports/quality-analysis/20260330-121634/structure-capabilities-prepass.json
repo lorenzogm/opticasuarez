@@ -1,0 +1,152 @@
+{
+  "scanner": "structure-capabilities-prepass",
+  "script": "prepass-structure-capabilities.py",
+  "version": "1.0.0",
+  "skill_path": ".github/skills/custom-qa",
+  "timestamp": "2026-03-30T10:16:41.668495+00:00",
+  "status": "warning",
+  "metadata": {
+    "frontmatter": {
+      "name": "custom-qa",
+      "description": "Generate test suites from planning artifacts before implementation. Use when the user says \"qa to done\", \"run qa cycle\", or \"write the tests\"."
+    },
+    "sections": [
+      {
+        "level": 2,
+        "title": "Overview",
+        "line": 8
+      },
+      {
+        "level": 2,
+        "title": "On Activation",
+        "line": 16
+      },
+      {
+        "level": 3,
+        "title": "1. Configuration",
+        "line": 18
+      },
+      {
+        "level": 3,
+        "title": "2. State Detection",
+        "line": 29
+      },
+      {
+        "level": 3,
+        "title": "3. Determine Scope",
+        "line": 42
+      },
+      {
+        "level": 2,
+        "title": "Key Constraint: Tests Are the Spec",
+        "line": 48
+      },
+      {
+        "level": 2,
+        "title": "Pipeline",
+        "line": 58
+      },
+      {
+        "level": 3,
+        "title": "Step 1: Test Planning",
+        "line": 62
+      },
+      {
+        "level": 3,
+        "title": "Step 2: Unit Tests (Vitest)",
+        "line": 80
+      },
+      {
+        "level": 3,
+        "title": "Step 3: Integration Tests (Vitest)",
+        "line": 94
+      },
+      {
+        "level": 3,
+        "title": "Step 4: E2E Tests (Playwright)",
+        "line": 106
+      },
+      {
+        "level": 3,
+        "title": "Step 5: Run & Validate Structure",
+        "line": 119
+      },
+      {
+        "level": 3,
+        "title": "Step 6: Coverage Summary",
+        "line": 133
+      },
+      {
+        "level": 2,
+        "title": "Test Counts",
+        "line": 140
+      },
+      {
+        "level": 2,
+        "title": "Coverage Map",
+        "line": 145
+      },
+      {
+        "level": 2,
+        "title": "Status",
+        "line": 151
+      },
+      {
+        "level": 2,
+        "title": "Test Locations",
+        "line": 155
+      },
+      {
+        "level": 3,
+        "title": "Step 7: Epic Loop",
+        "line": 163
+      },
+      {
+        "level": 2,
+        "title": "Completion",
+        "line": 167
+      }
+    ]
+  },
+  "prompt_details": [],
+  "memory_paths": [],
+  "issues": [
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "medium",
+      "category": "frontmatter",
+      "issue": "Name \"custom-qa\" does not follow bmad-{code}-agent-{name} or bmad-agent-{name} pattern"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Identity section"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Communication Style section"
+    },
+    {
+      "file": "SKILL.md",
+      "line": 1,
+      "severity": "high",
+      "category": "sections",
+      "issue": "Missing ## Principles section"
+    }
+  ],
+  "summary": {
+    "total_issues": 4,
+    "by_severity": {
+      "critical": 0,
+      "high": 3,
+      "medium": 1,
+      "low": 0
+    }
+  }
+}

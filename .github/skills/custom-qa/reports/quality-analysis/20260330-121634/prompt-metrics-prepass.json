@@ -1,0 +1,148 @@
+{
+  "scanner": "prompt-craft-prepass",
+  "script": "prepass-prompt-metrics.py",
+  "version": "1.0.0",
+  "skill_path": ".github/skills/custom-qa",
+  "timestamp": "2026-03-30T10:16:46.593077+00:00",
+  "status": "info",
+  "skill_md_summary": {
+    "line_count": 176,
+    "token_estimate": 1866,
+    "overview_lines": 7,
+    "table_count": 2,
+    "table_lines": 8,
+    "fenced_block_count": 2,
+    "fenced_block_lines": 26,
+    "section_count": 19
+  },
+  "prompt_health": {
+    "total_prompts": 0,
+    "prompts_with_config_header": 0,
+    "prompts_with_progression": 0
+  },
+  "aggregate": {
+    "total_files_scanned": 1,
+    "total_token_estimate": 1866,
+    "total_waste_patterns": 0,
+    "total_back_references": 0,
+    "total_suggestive_loading": 0,
+    "total_wall_of_text": 0
+  },
+  "resource_sizes": {},
+  "files": [
+    {
+      "file": "SKILL.md",
+      "line_count": 176,
+      "token_estimate": 1866,
+      "sections": [
+        {
+          "level": 2,
+          "title": "Overview",
+          "line": 8
+        },
+        {
+          "level": 2,
+          "title": "On Activation",
+          "line": 16
+        },
+        {
+          "level": 3,
+          "title": "1. Configuration",
+          "line": 18
+        },
+        {
+          "level": 3,
+          "title": "2. State Detection",
+          "line": 29
+        },
+        {
+          "level": 3,
+          "title": "3. Determine Scope",
+          "line": 42
+        },
+        {
+          "level": 2,
+          "title": "Key Constraint: Tests Are the Spec",
+          "line": 48
+        },
+        {
+          "level": 2,
+          "title": "Pipeline",
+          "line": 58
+        },
+        {
+          "level": 3,
+          "title": "Step 1: Test Planning",
+          "line": 62
+        },
+        {
+          "level": 3,
+          "title": "Step 2: Unit Tests (Vitest)",
+          "line": 80
+        },
+        {
+          "level": 3,
+          "title": "Step 3: Integration Tests (Vitest)",
+          "line": 94
+        },
+        {
+          "level": 3,
+          "title": "Step 4: E2E Tests (Playwright)",
+          "line": 106
+        },
+        {
+          "level": 3,
+          "title": "Step 5: Run & Validate Structure",
+          "line": 119
+        },
+        {
+          "level": 3,
+          "title": "Step 6: Coverage Summary",
+          "line": 133
+        },
+        {
+          "level": 2,
+          "title": "Test Counts",
+          "line": 140
+        },
+        {
+          "level": 2,
+          "title": "Coverage Map",
+          "line": 145
+        },
+        {
+          "level": 2,
+          "title": "Status",
+          "line": 151
+        },
+        {
+          "level": 2,
+          "title": "Test Locations",
+          "line": 155
+        },
+        {
+          "level": 3,
+          "title": "Step 7: Epic Loop",
+          "line": 163
+        },
+        {
+          "level": 2,
+          "title": "Completion",
+          "line": 167
+        }
+      ],
+      "table_count": 2,
+      "table_lines": 8,
+      "fenced_block_count": 2,
+      "fenced_block_lines": 26,
+      "waste_patterns": [],
+      "back_references": [],
+      "suggestive_loading": [],
+      "has_config_header": true,
+      "has_progression": true,
+      "wall_of_text": [],
+      "overview_lines": 7,
+      "is_skill_md": true
+    }
+  ]
+}
