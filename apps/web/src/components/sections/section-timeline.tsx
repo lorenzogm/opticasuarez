@@ -71,7 +71,7 @@ export default function SectionTimeline({ section }: { section: any }) {
                     {image && (
                       <img
                         alt={item.title || ""}
-                        className="w-full rounded-lg object-cover"
+                        className="mx-auto h-48 w-48 rounded-full object-cover shadow-lg"
                         loading="lazy"
                         src={image}
                       />

@@ -587,6 +587,41 @@ async function main() {
 
   // quienes-somos
   const quienesSomosData = loadJson("quienes-somos.json");
+
+  // Upload timeline images
+  const timelineItems = [];
+  for (const e of quienesSomosData.history.timeline || []) {
+    const img = await uploadImage(e.image);
+    timelineItems.push({
+      _key: generateKey(),
+      year: e.year,
+      title: e.title,
+      description: e.description,
+      ...(img ? { image: img } : {}),
+    });
+  }
+
+  // Build team card items with references to teamMember documents
+  function teamMemberSlug(name) {
+    return name
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  }
+
+  const teamCardItems = quienesSomosData.team.members.map((m) => ({
+    _type: "cardItem",
+    _key: generateKey(),
+    title: m.name,
+    description: m.role,
+    reference: {
+      _type: "reference",
+      _ref: `teamMember-${teamMemberSlug(m.name)}`,
+    },
+  }));
+
   const quienesSomosPage = {
     _id: "page-quienes-somos",
     _type: "page",
@@ -602,24 +637,14 @@ async function main() {
         _type: "sectionTimeline",
         _key: generateKey(),
         title: quienesSomosData.history.title,
-        entries: (quienesSomosData.history.timeline || []).map((e) => ({
-          _key: generateKey(),
-          year: e.year,
-          title: e.title,
-          description: e.description,
-        })),
+        items: timelineItems,
       },
       {
         _type: "sectionCards",
         _key: generateKey(),
         title: quienesSomosData.team.title,
         variant: "profile",
-        items: quienesSomosData.team.members.map((m) => ({
-          _type: "cardItem",
-          _key: generateKey(),
-          title: m.name,
-          description: m.role,
-        })),
+        items: teamCardItems,
       },
       {
         _type: "sectionTestimonials",
@@ -631,6 +656,17 @@ async function main() {
           name: t.name,
           text: t.review,
           rating: t.rating,
+        })),
+      },
+      {
+        _type: "sectionLocations",
+        _key: generateKey(),
+        title: "Dónde Estamos",
+        items: locationDocs.map((loc) => ({
+          _type: "cardItem",
+          _key: generateKey(),
+          title: loc.name,
+          reference: { _type: "reference", _ref: loc._id },
         })),
       },
       {
