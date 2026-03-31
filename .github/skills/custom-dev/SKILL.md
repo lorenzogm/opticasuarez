@@ -39,7 +39,7 @@ Download open GitHub issues into the backlog. This keeps `backlog/to-do/` in syn
 
 **Backlog numbering convention:**
 - **GitHub-sourced items** — use the real issue number as-is: `{number}-{slug}/`
-- **Locally-created items** — prefix with a leading zero: `0{number}-{slug}/` (e.g., `0210-comprar-producto`)
+- **Locally-created items** — prefix with `0-`: `0-{number}-{slug}/` (e.g., `0-210-comprar-producto`)
 - This prevents number collisions between GitHub issues and locally-created tickets
 
 ### 3. Pre-flight Validation

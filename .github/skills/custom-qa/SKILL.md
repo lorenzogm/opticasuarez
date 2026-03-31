@@ -59,7 +59,7 @@ Download open GitHub issues into the backlog. This keeps `backlog/to-do/` in syn
 
 **Backlog numbering convention:**
 - **GitHub-sourced items** — use the real issue number as-is: `{number}-{slug}/`
-- **Locally-created items** — prefix with a leading zero: `0{number}-{slug}/` (e.g., `0210-comprar-producto`)
+- **Locally-created items** — prefix with `0-`: `0-{number}-{slug}/` (e.g., `0-210-comprar-producto`)
 - This prevents number collisions between GitHub issues and locally-created tickets
 
 ### 3. Pre-flight Validation
@@ -116,7 +116,7 @@ Tests will fail. That is correct and expected. `custom-dev` treats these tests a
 - Bug tickets (`backlog/to-do/`)
 - Backlog index (`backlog/README.md`)
 
-When filing bug tickets, use a leading-zero prefix for the ticket number: `0{number}-{slug}/`. Find the next number by scanning the highest existing `0*` local folder number and incrementing by one.
+When filing bug tickets, use the `0-` prefix for the ticket number: `0-{number}-{slug}/`. Find the next number by scanning the highest existing `0-*` local folder number and incrementing by one.
 
 If a test fails because of a bug in the application, file a backlog item — do not fix the application code. If a test cannot compile because an implementation module doesn't exist yet, that is expected in spec-first mode — do not create the module.
 

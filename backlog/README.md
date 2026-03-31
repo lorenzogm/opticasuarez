@@ -4,7 +4,7 @@
 
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
-| 0210 | Comprar producto | feature | Request |
+| 210 | Comprar producto | feature | Request |
 
 ## Done
 
@@ -15,8 +15,8 @@
 | 409 | On-demand revalidation via Sanity webhook | feature | 2026-03-29 |
 | 412 | Remove products from homepage | chore | 2026-03-29 |
 | 408 | Static pre-rendering at build time | feature | 2026-03-29 |
-| 407 | E2E quiénes somos heading failure | bug |
-| 406 | 500 on missing pages | bug |
+| 0-407 | E2E quiénes somos heading failure | bug |
+| 0-406 | 500 on missing pages | bug |
 | 405 | 404 page hydration errors | bug |
 | 404 | Quiénes somos empty timeline | bug |
 | 403 | Hero CTA button noop | bug |
