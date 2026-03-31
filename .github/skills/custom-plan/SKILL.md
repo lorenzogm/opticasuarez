@@ -25,7 +25,23 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 
 Search for `**/project-context.md`. If found, load as foundational reference.
 
-### 2. Artifact Detection
+### 2. Backlog Sync from GitHub
+
+Download open GitHub issues into the backlog. This keeps `backlog/to-do/` in sync with issues opened by other contributors.
+
+- Use the `github_repo` MCP tool to list all **open** GitHub issues
+- For each issue:
+  - Skip if a matching folder already exists in `backlog/to-do/{number}-*/` or `backlog/done/{number}-*/`
+  - Otherwise: create `backlog/to-do/{number}-{slug}/00-request.md` with the issue title, body, and URL
+  - Add a row to `backlog/README.md` under **To-Do** with columns `#` and `Title` only
+- Strictly **read-only** — never create, comment on, or close GitHub issues
+
+**Backlog numbering convention:**
+- **GitHub-sourced items** — use the real issue number as-is: `{number}-{slug}/`
+- **Locally-created items** — prefix with `0-`: `0-{number}-{slug}/` (e.g., `0-210-comprar-producto`)
+- This prevents number collisions between GitHub issues and locally-created tickets
+
+### 3. Artifact Detection
 
 Run `python3 ./scripts/detect-artifacts.py {planning_artifacts}` to scan for existing artifacts. The script returns JSON:
 
