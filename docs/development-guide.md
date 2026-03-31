@@ -124,7 +124,7 @@ pnpm clean:node_modules # Solo node_modules
 
 ### Nomenclatura de archivos
 
-- **kebab-case** para todos los archivos y carpetas en `apps/opticasuarez-react-router/app/` y `apps/web/src/`
+- **kebab-case** para todos los archivos y carpetas en `apps/web/src/`
   - ✅ `book-appointment.tsx`
   - ❌ `BookAppointment.tsx`
 

@@ -4,7 +4,7 @@
 
 ## Visión General del Proyecto
 
-- **Tipo:** Monorepo (pnpm workspaces + Turborepo) con 3 apps activas + 1 deprecated
+- **Tipo:** Monorepo (pnpm workspaces + Turborepo) con 3 apps activas
 - **Lenguaje principal:** TypeScript
 - **Arquitectura:** Jamstack / Headless CMS con SSR híbrido
 - **URL:** https://opticasuarezjaen.es
@@ -29,11 +29,6 @@
 
 - **Stack:** Playwright
 - **Ruta:** `apps/web-e2e/`
-
-### React Router App (DEPRECATED)
-
-- **Estado:** ⛔ Deprecated — será eliminada
-- **Ruta:** `apps/opticasuarez-react-router/`
 
 ---
 
@@ -67,15 +62,6 @@
 
 - [README.md](../README.md) — Descripción general del repositorio
 - [Copilot Instructions](../.github/copilot-instructions.md) — Reglas de desarrollo y estilo
-
-### Docs legacy (deprecated app)
-
-- [SEO Keywords](../apps/opticasuarez-react-router/docs/SEO-KEYWORDS.md)
-- [Sitemap](../apps/opticasuarez-react-router/docs/SITEMAP.md)
-- [Vercel Deployment](../apps/opticasuarez-react-router/docs/vercel-deployment.md)
-- [Google Analytics Setup](../apps/opticasuarez-react-router/docs/google-analytics-setup.md)
-- [Google Search Console Redirect Fix](../apps/opticasuarez-react-router/docs/google-search-console-redirect-fix.md)
-- [Real Images Integration](../apps/opticasuarez-react-router/docs/REAL_IMAGES_INTEGRATION_SUMMARY.md)
 
 ---
 

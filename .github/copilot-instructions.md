@@ -8,14 +8,10 @@ This is a monorepo managed with pnpm workspaces and Turborepo.
 ├── .agents/              # Copilot agent customizations
 ├── .github/              # GitHub workflows, Copilot config
 ├── apps/
-│   ├── opticasuarez-react-router/   # Main web application (React Router v7)
-│   │   ├── app/           # Application source
-│   │   ├── public/        # Static assets
-│   │   ├── tests/         # E2E tests (Playwright)
-│   │   ├── docs/          # Documentation
-│   │   └── ...
-│   └── web/               # TanStack Start application
-│       └── src/
+│   ├── web/               # Main web application (TanStack Start)
+│   │   └── src/
+│   ├── sanity-studio/     # Sanity CMS Studio
+│   └── web-e2e/           # Playwright E2E tests
 ├── configs/               # Shared TypeScript configs (@opticasuarez/configs)
 │   └── typescript/
 ├── backlog/              # Issue tracking artifacts
@@ -49,7 +45,7 @@ If any issues are found, use the fix command:
 
 ### File and Folder Naming Convention
 
-**Important:** All files and folders in the `apps/opticasuarez-react-router/app/` directory must follow **kebab-case** naming convention.
+**Important:** All files and folders must follow **kebab-case** naming convention.
 
 Examples:
 
@@ -64,7 +60,6 @@ Examples:
 While file names should be kebab-case, React component names should still follow PascalCase:
 
 ```tsx
-// File: apps/opticasuarez-react-router/app/ui/components/book-appointment.tsx
 export default function BookAppointment() {
   // Component implementation
 }
@@ -88,7 +83,7 @@ import { Button } from '../ui/components/Button';
 
 1. Always use kebab-case for file and folder names
 2. Use descriptive names that clearly indicate the purpose
-3. Follow the existing project structure under `apps/opticasuarez-react-router/app/ui/`
+3. Follow the existing project structure under `apps/web/src/`
 
 This convention ensures consistency across the codebase and follows modern web development best practices.
 

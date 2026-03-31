@@ -136,7 +136,6 @@ _Este archivo contiene reglas críticas y patrones que los agentes IA deben segu
 
 - TODOS los comandos desde la raíz del monorepo, nunca desde subdirectorio
 - Ejecutar `pnpm check` antes de cada PR (types + lint + build + tests)
-- `apps/opticasuarez-react-router/` está **DEPRECATED** — NO modificar, NO referenciar, NO usar como ejemplo
 - La app principal es `apps/web/` (TanStack Start)
 - Workspace package `@opticasuarez/configs` provee TypeScript base configs
 
@@ -186,7 +185,6 @@ _Este archivo contiene reglas críticas y patrones que los agentes IA deben segu
 
 - ❌ NUNCA hacer fetch a Sanity desde el cliente — siempre server functions
 - ❌ NUNCA crear rutas estáticas para páginas que existen como `page` en Sanity (causa conflicto con catch-all `$.tsx`)
-- ❌ NUNCA modificar `apps/opticasuarez-react-router/` — está deprecated
 - ❌ NUNCA usar `require()` para JSON — usar ESM `import ... with { type: "json" }`
 - ❌ NUNCA renderizar Portable Text con `.toString()` — usar `<PortableText />`
 - ❌ NUNCA olvidar `buildHeadFromSanitySeo()` con fallback en nuevas rutas

@@ -21,7 +21,6 @@
 | **web** (TanStack Start) | `apps/web/` | Web App | ✅ Activa (principal) | Aplicación frontend con TanStack Start + React 18 + Tailwind CSS |
 | **sanity-studio** | `apps/sanity-studio/` | CMS | ✅ Activa | Sanity Studio v3 — panel de administración de contenido |
 | **web-e2e** | `apps/web-e2e/` | Testing | ✅ Activa | Tests E2E con Playwright |
-| **opticasuarez-react-router** | `apps/opticasuarez-react-router/` | Web App | ⛔ DEPRECATED | Aplicación React Router v7 (será eliminada) |
 | **configs** | `configs/` | Librería | ✅ Activa | Configuraciones TypeScript compartidas |
 
 ## Stack Tecnológico
@@ -64,8 +63,7 @@ opticasuarez/
 ├── apps/
 │   ├── web/                          # 🎯 App principal (TanStack Start)
 │   ├── sanity-studio/                # 📝 Panel CMS (Sanity Studio)
-│   ├── web-e2e/                      # 🧪 Tests E2E (Playwright)
-│   └── opticasuarez-react-router/    # ⛔ DEPRECATED
+│   └── web-e2e/                      # 🧪 Tests E2E (Playwright)
 ├── configs/                          # 📦 Configs TypeScript compartidas
 ├── content/                          # 📄 Contenido estático (JSON, blog, imágenes)
 ├── infra/vercel/                     # ☁️ Configuración infraestructura Vercel

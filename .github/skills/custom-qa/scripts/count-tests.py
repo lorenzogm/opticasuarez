@@ -8,7 +8,7 @@ Scans Vitest and Playwright test files, extracts describe/it/test blocks,
 and outputs a JSON inventory grouped by story and test layer.
 
 Usage:
-    python3 scripts/count-tests.py apps/opticasuarez-react-router/
+    python3 scripts/count-tests.py apps/web/src/
     python3 scripts/count-tests.py {path} --epic booking-flow -o output.json
 """
 
@@ -95,7 +95,7 @@ def main():
     )
     parser.add_argument(
         "path",
-        help="Base path to scan for test files (e.g., apps/opticasuarez-react-router/)",
+        help="Base path to scan for test files (e.g., apps/web/src/)",
     )
     parser.add_argument("--epic", help="Epic name for labeling output")
     parser.add_argument("-o", "--output", help="Output file path (default: stdout)")

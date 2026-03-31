@@ -6,7 +6,9 @@
 
 ```
 ├── apps/
-│   └── opticasuarez-react-router/   # Main web application (React Router v7)
+│   ├── web/                          # Main web application (TanStack Start)
+│   ├── sanity-studio/                # Sanity CMS Studio
+│   └── web-e2e/                      # Playwright E2E tests
 ├── .agents/                          # Copilot agent customizations
 ├── .github/                          # GitHub workflows and Copilot config
 ├── backlog/                          # Issue tracking artifacts
@@ -16,21 +18,18 @@
 ## Development
 
 ```bash
-cd apps/opticasuarez-react-router
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## Building
 
 ```bash
-cd apps/opticasuarez-react-router
-npm run build
+pnpm build
 ```
 
 ## Quality checks
 
 ```bash
-cd apps/opticasuarez-react-router
-npm run check
+pnpm check
 ```

@@ -12,7 +12,6 @@
 |-----|-----|----------|---------|
 | **web** (TanStack Start) | https://opticasuarezjaen.es | `web-vercel-deploy.yml` | Push a `main` |
 | **sanity-studio** | (Sanity hosted) | `deploy-sanity-studio.yml` | Push a `main` |
-| **opticasuarez-react-router** | — | `deploy-production.yml` | ⛔ DISABLED (`workflow_dispatch`) |
 
 ## Pipeline de Deploy — Web
 
@@ -60,7 +59,7 @@ Deploy del Sanity Studio cuando hay cambios en `apps/sanity-studio/`.
 
 ## Redirects y Headers
 
-Configurados en `apps/opticasuarez-react-router/vercel.json`:
+Configurados en `apps/web/vercel.json`:
 - Redirect: `www.opticasuarezjaen.es` → `opticasuarezjaen.es` (301)
 - Redirect: trailing slashes eliminados (301)
 - Headers de seguridad en respuestas

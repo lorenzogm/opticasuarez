@@ -46,17 +46,33 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 
 Search for `**/project-context.md`. If found, load as foundational reference.
 
-### 2. Pre-flight Validation
+### 2. Backlog Sync from GitHub
+
+Download open GitHub issues into the backlog. This keeps `backlog/to-do/` in sync with issues opened by other contributors.
+
+- Use the `github_repo` MCP tool to list all **open** GitHub issues
+- For each issue:
+  - Skip if a matching folder already exists in `backlog/to-do/{number}-*/` or `backlog/done/{number}-*/`
+  - Otherwise: create `backlog/to-do/{number}-{slug}/00-request.md` with the issue title, body, and URL
+  - Add a row to `backlog/README.md` under **To-Do** with columns `#` and `Title` only
+- Strictly **read-only** — never create, comment on, or close GitHub issues
+
+**Backlog numbering convention:**
+- **GitHub-sourced items** — use the real issue number as-is: `{number}-{slug}/`
+- **Locally-created items** — prefix with a leading zero: `0{number}-{slug}/` (e.g., `0210-comprar-producto`)
+- This prevents number collisions between GitHub issues and locally-created tickets
+
+### 3. Pre-flight Validation
 
 Before proceeding, validate prerequisites. If any check fails, print a diagnostic with next steps and stop.
 
 - **Config:** `{project-root}/_bmad/bmm/config.yaml` exists and is parseable
 - **Planning artifacts:** `{planning_artifacts}/epics/` exists and contains at least one epic directory
-- **Test frameworks:** `vitest` is in project dependencies; `playwright` config exists at `apps/opticasuarez-react-router/playwright.config.ts`
+- **Test frameworks:** `vitest` is in project dependencies; `playwright` config exists at `apps/web-e2e/playwright.config.ts`
 
 If planning artifacts are missing, suggest: "Run `custom-plan` first to generate epics and stories, then come back here."
 
-### 3. State Detection
+### 4. State Detection
 
 Check `{test_artifacts}/` for existing state to determine where to resume:
 
@@ -69,7 +85,7 @@ If `qa-status.yaml` exists, parse it to find the current state — which epics/s
 
 If no state exists, start from Step 1.
 
-### 4. Determine Scope
+### 5. Determine Scope
 
 Resolve scope from user arguments:
 
@@ -100,6 +116,8 @@ Tests will fail. That is correct and expected. `custom-dev` treats these tests a
 - Bug tickets (`backlog/to-do/`)
 - Backlog index (`backlog/README.md`)
 
+When filing bug tickets, use a leading-zero prefix for the ticket number: `0{number}-{slug}/`. Find the next number by scanning the highest existing `0*` local folder number and incrementing by one.
+
 If a test fails because of a bug in the application, file a backlog item — do not fix the application code. If a test cannot compile because an implementation module doesn't exist yet, that is expected in spec-first mode — do not create the module.
 
 ## Pipeline
@@ -123,7 +141,7 @@ Then produce a test plan at `{test_artifacts}/test-plan-{epic}.md`.
 Additional inputs:
 - Architecture doc from `{planning_artifacts}/architecture.md`
 - UX design from `{planning_artifacts}/ux-design*.md`
-- Existing project test patterns (scan `apps/opticasuarez-react-router/app/` for component structure, `tests/e2e/` for Playwright patterns)
+- Existing project test patterns (scan `apps/web/src/` for component structure, `apps/web-e2e/tests/` for Playwright patterns)
 
 The test plan should cover:
 - Which components/functions need unit tests and what behavior to assert
@@ -144,7 +162,7 @@ Generate unit test files co-located with the code they'll target.
 **Goal:** Cover the component and function API surface described in stories and architecture. Each test file targets a single module.
 
 Conventions:
-- Test files at `apps/opticasuarez-react-router/app/**/*.test.ts(x)` — co-located with the source they test
+- Test files at `apps/web/src/**/*.test.ts(x)` — co-located with the source they test
 - Use Vitest (`describe`, `it`, `expect`)
 - For React components, use `@testing-library/react` if available, otherwise Vitest alone
 - Test names derived from acceptance criteria: `it('should display appointment form when user clicks book')`
@@ -158,7 +176,7 @@ Generate integration test files for cross-module flows.
 **Goal:** Verify that modules interact correctly — data flows through loaders, components compose properly, service boundaries work.
 
 Conventions:
-- Test files at `apps/opticasuarez-react-router/app/**/*.integration.test.ts(x)`
+- Test files at `apps/web/src/**/*.integration.test.ts(x)`
 - Wider scope than unit: test loader → component data flow, multi-component interactions, route-level behavior
 - Mock at the network boundary only (MSW or similar), not between internal modules
 - Derived from story technical context and architecture integration points
@@ -174,7 +192,7 @@ Invoke `bmad-qa-generate-e2e-tests` with the epic's stories as context. If that 
 **Goal:** Cover user journeys end-to-end as described in acceptance criteria.
 
 Conventions:
-- Test files at `apps/opticasuarez-react-router/tests/e2e/{feature}.spec.ts`
+- Test files at `apps/web-e2e/tests/{feature}.spec.ts`
 - Use existing Playwright config (`playwright.config.ts` with `baseURL` at `localhost:5173`)
 - Semantic locators (roles, labels, text content)
 - Linear test flows — no complex fixtures or abstractions
@@ -191,7 +209,7 @@ Run only the test files generated in the current run (not the full suite):
 pnpm vitest run {generated-test-files} --reporter=verbose 2>&1 || true
 
 # E2E — should compile (may skip if no dev server)
-cd apps/opticasuarez-react-router && npx playwright test {generated-spec-files} --reporter=list 2>&1 || true
+cd apps/web-e2e && npx playwright test {generated-spec-files} --reporter=list 2>&1 || true
 ```
 
 Fix any **syntax or import errors in the generated test files** — the tests must be runnable. Never modify implementation source files to make tests pass. Assertion failures are expected and correct in spec-first mode.
@@ -278,9 +296,9 @@ Tests are syntactically valid: ✅/❌
 Assertion failures (expected — no implementation yet): N
 
 ## Test Locations
-- Unit: apps/opticasuarez-react-router/app/**/*.test.ts(x)
-- Integration: apps/opticasuarez-react-router/app/**/*.integration.test.ts(x)
-- E2E: apps/opticasuarez-react-router/tests/e2e/*.spec.ts
+- Unit: apps/web/src/**/*.test.ts(x)
+- Integration: apps/web/src/**/*.integration.test.ts(x)
+- E2E: apps/web-e2e/tests/*.spec.ts
 ```
 
 Update `{test_artifacts}/qa-status.yaml` with the epic's completion status.

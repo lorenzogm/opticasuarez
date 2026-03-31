@@ -107,11 +107,6 @@ opticasuarez/                               # Raíz del monorepo
 │   │   ├── test-results/                    # Resultados
 │   │   ├── playwright-report/               # Reportes HTML
 │   │   └── playwright.config.ts             # → Chromium, Firefox, Webkit
-│   │
-│   └── opticasuarez-react-router/           # ⛔ DEPRECATED — React Router v7
-│       ├── app/                             # (no documentar en detalle)
-│       ├── docs/                            # Docs legacy (SEO, deploy, etc.)
-│       └── tests/                           # Tests legacy
 │
 ├── configs/                                 # 📦 CONFIGS COMPARTIDAS
 │   ├── typescript/                          # TSConfig bases para el monorepo

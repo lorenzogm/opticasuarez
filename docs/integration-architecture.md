@@ -84,14 +84,14 @@ El monorepo contiene 3 aplicaciones activas que se integran entre sí:
 
 Paquete `configs/` compartido como dependencia de workspace:
 - Provee configuraciones base de TypeScript
-- Consumido por: `apps/web`, `apps/opticasuarez-react-router`
+- Consumido por: `apps/web`
 
 ### Contenido Estático: `content/`
 
 Directorio de contenido compartido en la raíz:
 - `content/blog/` — Artículos en Markdown
 - `content/images/` — Imágenes del sitio
-- `content/json/` — Datos JSON (para app React Router deprecated)
+- `content/json/` — Datos JSON
 
 ## Flujo de Datos
 

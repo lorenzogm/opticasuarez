@@ -39,7 +39,7 @@ Run `python3 ./scripts/detect-artifacts.py {planning_artifacts}` to scan for exi
 
 If `resume_from_step` > 1, acknowledge completed artifacts and resume from that step. If all steps are incomplete, start from Step 1.
 
-### 3. Capture Initial Input
+### 4. Capture Initial Input
 
 If the user provided a product idea, problem statement, or context when invoking this workflow, capture it as the seed input for Step 1. If not, ask briefly: "What product or idea do you want to take from concept to backlog?"
 

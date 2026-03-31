@@ -51,11 +51,11 @@ const client = createClient({
 
 const CONTENT_DIR = resolve(
   import.meta.dirname,
-  "../../opticasuarez-react-router/app/content"
+  "../../web/src/content"
 );
 const PUBLIC_DIR = resolve(
   import.meta.dirname,
-  "../../opticasuarez-react-router/public"
+  "../../web/public"
 );
 
 function loadJson(name) {

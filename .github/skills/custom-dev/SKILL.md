@@ -26,14 +26,30 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 
 Load `{project-root}/_bmad-output/project-context.md` if it exists. If not found at that path, search `**/project-context.md` as fallback.
 
-### 2. Pre-flight Validation
+### 2. Backlog Sync from GitHub
+
+Download open GitHub issues into the backlog. This keeps `backlog/to-do/` in sync with issues opened by other contributors.
+
+- Use the `github_repo` MCP tool to list all **open** GitHub issues
+- For each issue:
+  - Skip if a matching folder already exists in `backlog/to-do/{number}-*/` or `backlog/done/{number}-*/`
+  - Otherwise: create `backlog/to-do/{number}-{slug}/00-request.md` with the issue title, body, and URL
+  - Add a row to `backlog/README.md` under **To-Do** with columns `#` and `Title` only
+- Strictly **read-only** — never create, comment on, or close GitHub issues
+
+**Backlog numbering convention:**
+- **GitHub-sourced items** — use the real issue number as-is: `{number}-{slug}/`
+- **Locally-created items** — prefix with a leading zero: `0{number}-{slug}/` (e.g., `0210-comprar-producto`)
+- This prevents number collisions between GitHub issues and locally-created tickets
+
+### 3. Pre-flight Validation
 
 Before proceeding, validate that planning artifacts from `custom-plan` exist:
 
 - Check `{planning_artifacts}/epics/` directory exists and contains at least one epic
 - If missing, halt immediately: "No planning artifacts found. Run `custom-plan` first to create epics and stories."
 
-### 3. State Detection
+### 4. State Detection
 
 Check `{implementation_artifacts}/` for existing state to determine where to resume:
 
@@ -54,7 +70,7 @@ If `sprint-status.yaml` exists, parse it to find the current state and resume us
 
 If `sprint-status.yaml` does not exist, start from Step 1 (Sprint Planning).
 
-### 4. Determine Scope
+### 5. Determine Scope
 
 If the user provided an epic identifier, scope the cycle to that single epic. Otherwise, process all epics in the order defined by sprint-status.yaml.
 
