@@ -11,6 +11,7 @@
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 413 | Fix Plan VEO page 404 | bug | 2026-03-31 |
 | 412 | Fix terapia visual hero icons specialist | bug | 2026-03-31 |
 | 411 | Fix examen visual text content and locations | bug | 2026-03-31 |
 | 410 | Fix quienes somos timeline team locations | bug | 2026-03-31 |

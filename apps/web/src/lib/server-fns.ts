@@ -120,6 +120,11 @@ export const fetchPage = createServerFn({ method: "GET" })
       page = buildPlanVeoFallback();
     }
 
+    // Fallback: build Quiénes Somos page from local JSON when Sanity has no data
+    if (!page && fullPath === "/quienes-somos") {
+      page = buildQuienesNosotrosFallback();
+    }
+
     if (!page) {
       return { page: null as SanityData };
     }
@@ -286,6 +291,60 @@ function buildPlanVeoFallback(): SanityData {
         description: d.cta.description,
         buttonText: d.cta.buttonText,
         buttonUrl: d.cta.buttonLink,
+      },
+    ],
+  };
+}
+
+function buildQuienesNosotrosFallback(): SanityData {
+  const d = quienesNosotrosContent;
+  return {
+    _id: "fallback-quienes-somos",
+    _type: "page",
+    title: "Quiénes Somos",
+    path: "/quienes-somos",
+    seo: {
+      title: "Quiénes Somos | Óptica Suárez",
+      description:
+        "Conoce la historia de Óptica Suárez en Jaén. Más de 80 años cuidando tu visión.",
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-qs-hero",
+        title: "Quiénes Somos",
+        subtitle: "Más de 80 años cuidando tu visión en Jaén",
+      },
+      {
+        _type: "sectionTimeline",
+        _key: "fb-qs-timeline",
+        title: d.history.title,
+        timelineItems: d.history.timeline.map(
+          (
+            item: { year: string; title: string; description: string; image: string },
+            i: number,
+          ) => ({
+            _key: `fb-tl-${i}`,
+            ...item,
+          }),
+        ),
+      },
+      {
+        _type: "sectionCards",
+        _key: "fb-qs-team",
+        title: d.team.title,
+        variant: "profile",
+        items: d.team.members.map(
+          (
+            m: { name: string; role: string; image: string; details: string[] },
+            i: number,
+          ) => ({
+            _key: `fb-tm-${i}`,
+            title: m.name,
+            description: [m.role, ...m.details].join("\n"),
+            image: { url: m.image },
+          }),
+        ),
       },
     ],
   };
