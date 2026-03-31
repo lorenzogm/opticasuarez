@@ -135,7 +135,7 @@ async function main() {
     _id: "page-planveo",
     _type: "page",
     title: "Plan VEO",
-    path: { _type: "slug", current: "planveo" },
+    path: { _type: "slug", current: "/planveo" },
     sections: [
       {
         _type: "sectionHero",

@@ -9,6 +9,7 @@
  */
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie } from "@tanstack/react-start/server";
+import planVeoContent from "~/content/plan-veo.json" with { type: "json" };
 import quienesNosotrosContent from "~/content/quienes-somos.json" with {
   type: "json",
 };
@@ -111,6 +112,15 @@ export const fetchPage = createServerFn({ method: "GET" })
     try {
       page = (await getPage(fullPath, preview)) as SanityData;
     } catch {
+      // ignore — fall through to fallback logic below
+    }
+
+    // Fallback: build Plan VEO page from local JSON when Sanity has no data
+    if (!page && fullPath === "/planveo") {
+      page = buildPlanVeoFallback();
+    }
+
+    if (!page) {
       return { page: null as SanityData };
     }
 
@@ -175,3 +185,108 @@ export const fetchPage = createServerFn({ method: "GET" })
 
     return { page: page as SanityData, isPreview: preview };
   });
+
+function buildPlanVeoFallback(): SanityData {
+  const d = planVeoContent;
+  return {
+    _id: "fallback-planveo",
+    _type: "page",
+    title: "Plan VEO",
+    path: "/planveo",
+    seo: {
+      title: "Plan VEO en Jaén | Óptica Suárez",
+      description: d.hero.description,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-hero",
+        title: d.hero.title,
+        subtitle: d.hero.subtitle,
+        description: d.hero.description,
+        image: { url: d.hero.image },
+        imageAlt: d.hero.imageAlt,
+      },
+      {
+        _type: "sectionText",
+        _key: "fb-intro",
+        title: d.introduction.title,
+        content: [
+          {
+            _type: "block",
+            _key: "fb-intro-block",
+            children: [
+              { _type: "span", _key: "fb-intro-span", text: d.introduction.content, marks: [] },
+            ],
+            markDefs: [],
+            style: "normal",
+          },
+        ],
+      },
+      {
+        _type: "sectionCards",
+        _key: "fb-benefits",
+        title: d.benefits.title,
+        subtitle: d.benefits.subtitle,
+        variant: "grid-3",
+        items: d.benefits.items.map(
+          (b: { title: string; description: string; icon: string; image: string; imageAlt: string }, i: number) => ({
+            _key: `fb-card-${i}`,
+            title: b.title,
+            description: b.description,
+            icon: b.icon,
+            image: { url: b.image },
+          }),
+        ),
+      },
+      {
+        _type: "sectionFeatures",
+        _key: "fb-requirements",
+        title: d.requirements.title,
+        subtitle: d.requirements.subtitle,
+        items: d.requirements.items.map(
+          (r: { title: string; description: string }, i: number) => ({
+            _key: `fb-req-${i}`,
+            title: r.title,
+            description: r.description,
+          }),
+        ),
+      },
+      {
+        _type: "sectionProcessSteps",
+        _key: "fb-steps",
+        title: d.howItWorks.title,
+        subtitle: d.howItWorks.subtitle,
+        items: d.howItWorks.steps.map(
+          (s: { number: string; title: string; description: string }, i: number) => ({
+            _type: "processStep",
+            _key: `fb-step-${i}`,
+            stepNumber: Number(s.number),
+            title: s.title,
+            description: s.description,
+          }),
+        ),
+      },
+      {
+        _type: "sectionAccordion",
+        _key: "fb-faq",
+        title: d.faq.title,
+        items: d.faq.items.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            _key: `fb-faq-${i}`,
+            title: q.question,
+            content: q.answer,
+          }),
+        ),
+      },
+      {
+        _type: "sectionCTA",
+        _key: "fb-cta",
+        title: d.cta.title,
+        description: d.cta.description,
+        buttonText: d.cta.buttonText,
+        buttonUrl: d.cta.buttonLink,
+      },
+    ],
+  };
+}
