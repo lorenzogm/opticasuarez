@@ -126,13 +126,26 @@ function sectionHero({ title, subtitle, description, image, imageAlt }) {
 }
 
 function sectionText({ title, subtitle, description, content }) {
+  const text = content || description;
   return {
     _type: "sectionText",
     _key: generateKey(),
     title,
     subtitle,
     description,
-    content: content || description,
+    content: text
+      ? [
+          {
+            _type: "block",
+            _key: generateKey(),
+            children: [
+              { _type: "span", _key: generateKey(), text, marks: [] },
+            ],
+            markDefs: [],
+            style: "normal",
+          },
+        ]
+      : undefined,
   };
 }
 
