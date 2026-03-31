@@ -11,6 +11,7 @@
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 415 | Add contacto page contact form | feature | 2026-03-31 |
 | 414 | Fix quienes somos timeline missing | bug | 2026-03-31 |
 | 413 | Fix Plan VEO page 404 | bug | 2026-03-31 |
 | 412 | Fix terapia visual hero icons specialist | bug | 2026-03-31 |
