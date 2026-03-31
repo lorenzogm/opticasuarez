@@ -6,7 +6,6 @@
 |---|-------|------|----------|
 | 210 | Comprar producto | feature | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
-| 409 | No sé ha clonado bien la página de inicio | bug | Refined |
 | 410 | No sé ha clonado bien la página Quienes Somos | bug | Refined |
 | 411 | No se ha clonado bien la pagina "examen Visual" | bug | Refined |
 | 412 | No se ha clonado bien la pagina "Terapia Visual" | bug | Refined |
@@ -15,6 +14,7 @@
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 409 | Fix homepage locations section | bug | 2026-03-31 |
 | 408 | Fix plan VEO page card images and FAQ accordion | bug | 2026-03-31 |
 | 0-411 | Rebuild Site button in Sanity Studio | feature | 2026-03-29 |
 | 0-410 | Sanity Presentation tool (live preview) | feature | 2026-03-29 |
