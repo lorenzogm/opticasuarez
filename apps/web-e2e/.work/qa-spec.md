@@ -1,44 +1,49 @@
-# QA Spec — Site Map and Testing Scope
+# QA Spec — Old vs New Site Gap Analysis
 
-**Date**: 2026-03-28
+**Date**: 2026-03-31
 
-## Site Map
+## Old Site Map (opticasuarez-old.vercel.app)
 
-| URL | Title | Purpose | Status |
-|-----|-------|---------|--------|
-| `/` | Óptica en Jaén \| Óptica Suárez | Homepage: hero carousel, 6 service cards, video, locations, CTA | Working |
-| `/quienes-somos` | Quiénes Somos \| Óptica Suárez | About: history timeline, team section, reviews | Working |
-| `/contacto` | Contacto \| Óptica Suárez | Contact: 2 store locations with map links | Working |
-| `/blog` | Blog de Salud Visual | Blog list: 14 articles, category filters | Working |
-| `/blog/{slug}` | (varies) | Blog article detail | Working |
-| `/cita` | Reservar Cita | Appointment booking: 6 types, multi-step flow | Working |
-| `/tienda` | Tienda Online | Shop: feature-flagged, currently broken with JS errors | Broken |
-| `/{page}` | (varies) | Dynamic pages via Sanity page builder (catch-all route) | Working |
-| Non-existent | Página no encontrada | 404 page: friendly message + "Volver al inicio" link | Hydration errors |
+| URL | Title | Key Sections |
+|-----|-------|--------------|
+| `/` | Homepage | Hero carousel, 6 service cards, video, specialists, locations, CTA |
+| `/quienes-somos` | Quiénes Somos | Timeline (6 events 1940-2020), team (4 members), testimonials, locations |
+| `/contacto` | Contacto | Contact info, 2 stores (Bulevar + Centro with addresses/hours), form, social |
+| `/blog` | Blog | 14 articles, category filter tabs |
+| `/blog/{slug}` | Blog Article | Content, author, date |
+| `/planveo` | Plan VEO | Hero, what is it, 3 coverage cards, 4 requirements, 4 steps, 8 FAQ questions, CTA |
+| `/examen-visual` | Examen Visual | Types (4 icons), process (5 steps), benefits, frequency, FAQ, locations |
+| `/terapia-visual` | Terapia Visual | Benefits, conditions (6 cards), process (4 steps), testimonials, FAQ |
+| `/contactologia` | Contactología | Services (4 cards), lens types (4), advantages, process, FAQ |
+| `/vision-pediatrica` | Visión Pediátrica | Importance, services, age ranges (4), warning signs, reviews, FAQ |
+| `/control-de-miopia` | Control de Miopía | Detection, treatment options (3), scientific stats, FAQ |
+| `/ortoqueratologia` | Ortoqueratología | What is it, advantages, adaptation process (4 steps), candidacy, FAQ |
+| `/vision-deportiva` | Visión Deportiva | Services (4), therapy, testimonials, FAQ |
+| `/servicios` | Servicios | 6 service cards overview |
+| `/cita` | Reservar Cita | 5-step appointment booking flow |
 
-## Existing Test Coverage
+## Gaps Found (Old Site vs Existing Tests)
 
-32 test cases across 8 journeys, 31/33 Playwright tests pass (Chromium).
+### GAP-1: Plan VEO page — NOT TESTED
+- Rich page on old site with hero, cards, steps, FAQ
+- New site returns 404 "no encontrada" → likely missing page (BUG)
 
-| Journey | Test Cases | Spec File | Status |
-|---------|-----------|-----------|--------|
-| Landing (homepage) | 7 | landing.spec.ts | All PASS |
-| Site Navigation | 7 | site-navigation.spec.ts | All PASS |
-| About & Contact | 3 | about-contact.spec.ts | All PASS |
-| Blog Engagement | 3 | blog-engagement.spec.ts | All PASS |
-| Service Discovery | 3 | service-discovery.spec.ts | All PASS |
-| Error Resilience | 2 | error-resilience.spec.ts | 2 FAIL (hydration) |
-| SEO Metadata | 4 | seo-metadata.spec.ts | All PASS |
-| Appointment Booking | 2 | appointment-booking.spec.ts | All PASS |
+### GAP-2: Service page content — SHALLOW
+- TC-SERV-03 only checks H1 + title for service pages
+- Old site has rich sections: icons, process steps, FAQ accordion, CTA
 
-## Known Issues
+### GAP-3: Vision Deportiva — MISSING from SSR tests
+- TC-SERV-03 tests 5 services but omits vision-deportiva
 
-1. **404 page hydration errors** — SSR/CSR mismatch causes React hydration failures.
-   Tests catch this via the auto JS error fixture. Bug already tracked: backlog/000-500-on-missing-pages/
-2. **Tienda broken** — /tienda page renders error overlay. Feature-flagged, not tested.
+### GAP-4: Contacto — MINIMAL
+- Only verifies H1 and no "Página no encontrada"
+- Old site has stores with addresses/hours, contact form, social
 
-## Gaps Identified
+### GAP-5: Blog category filters — NOT TESTED
+- Old site has filter tabs (TODAS, CONTROL DE MIOPÍA, etc.)
 
-- No new uncovered user journeys — existing 8 journeys cover all functional pages.
-- Test case documentation for some journeys references stale service routes (e.g., /servicios/examen-visual) but tests pass because pages are served via the catch-all page builder.
-- Appointment booking test cases exist but only test steps 1-2 of the 5-step flow.
+### GAP-6: Quienes Somos team — SHALLOW
+- Only heading "NUESTRO EQUIPO" checked, not member cards
+
+### GAP-7: Service page SEO — NOT TESTED
+- Only homepage meta tags tested, not service pages

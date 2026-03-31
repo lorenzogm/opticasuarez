@@ -57,3 +57,16 @@ Multiple pages via SSR (page.goto for each)
   4. Compare all three titles
 - **Expected**: Each page has a distinct title (not the same as homepage), no JS errors
 - **Implemented**: Yes
+
+### TC-SEO-05: Service pages have meta description
+
+- **Priority**: Medium
+- **Type**: SEO
+- **Entry**: Navigate to /servicios/examen-visual (SSR)
+- **Steps**:
+  1. Navigate to /servicios/examen-visual
+  2. Check meta[name="description"] tag exists
+  3. Navigate to /servicios/terapia-visual
+  4. Check meta[name="description"] tag exists
+- **Expected**: Each service page has a meta description tag with content, no JS errors
+- **Implemented**: Yes

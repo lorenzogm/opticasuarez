@@ -40,4 +40,26 @@ test.describe("Blog Engagement", () => {
     await expect(page.getByText("Artículo no encontrado")).not.toBeVisible();
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
+
+  // TC-BLOG-04
+  test("blog category filter tabs are visible and interactive", async ({
+    page,
+  }) => {
+    await page.goto("/blog");
+    await page.waitForLoadState("networkidle");
+
+    // Desktop: buttons visible at md+ breakpoint
+    const todasButton = page.getByRole("button", { name: /^Todas$/i });
+    await expect(todasButton).toBeVisible();
+
+    // Click a category filter button and verify page doesn't break
+    const categoryButtons = page.locator(
+      "button.rounded-full:not(:has-text('Todas'))"
+    );
+    if ((await categoryButtons.count()) > 0) {
+      await categoryButtons.first().click();
+      await page.waitForLoadState("networkidle");
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    }
+  });
 });

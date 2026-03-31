@@ -59,4 +59,24 @@ test.describe("SEO Metadata", () => {
     expect(blogTitle).not.toBe(homepageTitle);
     expect(blogTitle).not.toBe(aboutTitle);
   });
+
+  // TC-SEO-05
+  test("service pages have meta description", async ({ page }) => {
+    const servicePages = [
+      "/servicios/examen-visual",
+      "/servicios/terapia-visual",
+    ];
+
+    for (const servicePath of servicePages) {
+      await page.goto(servicePath);
+      await page.waitForLoadState("networkidle");
+      const description = await page
+        .locator('meta[name="description"]')
+        .getAttribute("content");
+      expect(
+        description,
+        `Missing meta description on ${servicePath}`
+      ).toBeTruthy();
+    }
+  });
 });

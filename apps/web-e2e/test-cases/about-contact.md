@@ -54,3 +54,29 @@ catch client-side routing bugs.
   4. Verify "NUESTRA HISTORIA" timeline has events
 - **Expected**: Page renders with title matching "Quiénes Somos" or "Óptica Suárez", H1 visible, timeline section has at least one entry, no JS errors
 - **Implemented**: Yes
+
+### TC-ABOUT-04: Contacto page shows store locations with details
+
+- **Priority**: High
+- **Type**: Functional
+- **Entry**: Navigate to /contacto (SSR)
+- **Steps**:
+  1. Navigate to /contacto
+  2. Verify "NUESTRAS TIENDAS" heading is visible
+  3. Verify "Bulevar" store name is visible
+  4. Verify "Centro" store name is visible
+- **Expected**: Both store locations are displayed with names, no JS errors
+- **Implemented**: Yes
+
+### TC-ABOUT-05: Contacto page has contact form
+
+- **Priority**: Medium
+- **Type**: Functional
+- **Entry**: Navigate to /contacto (SSR)
+- **Steps**:
+  1. Navigate to /contacto
+  2. Verify "ENVÍANOS UN MENSAJE" or similar form heading
+  3. Verify form input fields are present (name, email, message)
+  4. Verify submit button is present
+- **Expected**: Contact form renders with required fields and submit button, no JS errors
+- **Implemented**: No

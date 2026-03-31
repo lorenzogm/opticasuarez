@@ -63,4 +63,33 @@ test.describe("About & Contact", () => {
     const count = await timelineItems.count();
     expect(count).toBeGreaterThanOrEqual(1);
   });
+
+  // TC-ABOUT-04
+  test("Contacto page shows store locations", async ({ page }) => {
+    await page.goto("/contacto");
+    await page.waitForLoadState("networkidle");
+    await expect(
+      page.getByRole("heading", { name: /NUESTRAS TIENDAS/i })
+    ).toBeVisible();
+    await expect(page.getByText(/Bulevar/i)).toBeVisible();
+    await expect(page.getByText(/Centro/i).first()).toBeVisible();
+  });
+
+  // TC-ABOUT-05
+  test("Contacto page has contact form", async ({ page }) => {
+    await page.goto("/contacto");
+    await page.waitForLoadState("networkidle");
+    await expect(
+      page.getByRole("heading", { name: /ENVÍANOS UN MENSAJE|MENSAJE/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("textbox", { name: /nombre/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("textbox", { name: /email/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /enviar/i })
+    ).toBeVisible();
+  });
 });

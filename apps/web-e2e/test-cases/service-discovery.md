@@ -50,6 +50,30 @@ All navigation is via clicks (CSR), catching routing bugs.
   3. Navigate to /servicios/vision-pediatrica — verify H1 visible
   4. Navigate to /servicios/control-de-miopia — verify H1 visible
   5. Navigate to /servicios/ortoqueratologia — verify H1 visible
+  6. Navigate to /servicios/vision-deportiva — verify H1 visible
 - **Expected**: Each service page renders with appropriate title and H1 heading, no JS errors
 - **Note**: These pages are served via the catch-all page builder route (`/$`)
 - **Implemented**: Yes
+
+### TC-SERV-04: Service page has FAQ accordion section
+
+- **Priority**: Medium
+- **Type**: Functional
+- **Entry**: Navigate to /servicios/examen-visual (SSR)
+- **Steps**:
+  1. Navigate to /servicios/examen-visual
+  2. Verify "Preguntas Frecuentes" heading is visible
+  3. Verify at least one accordion item/button is present
+- **Expected**: FAQ section renders with heading and interactive accordion items, no JS errors
+- **Implemented**: Yes
+
+### TC-SERV-05: Service page has CTA section with booking link
+
+- **Priority**: Medium
+- **Type**: Functional
+- **Entry**: Navigate to /servicios/examen-visual (SSR)
+- **Steps**:
+  1. Navigate to /servicios/examen-visual
+  2. Verify a CTA link or button with booking-related text is present (e.g., "Reservar Cita", "Solicitar", WhatsApp link)
+- **Expected**: Page has a visible booking/contact CTA, no JS errors
+- **Implemented**: No

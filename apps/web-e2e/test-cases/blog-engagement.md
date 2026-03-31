@@ -47,3 +47,16 @@ paths to ensure blog content renders correctly throughout the flow.
   3. Navigate directly to that article URL (SSR)
 - **Expected**: Article page renders with H1, content visible (not "Artículo no encontrado"), no JS errors
 - **Implemented**: Yes
+
+### TC-BLOG-04: Blog category filter dropdown is visible and interactive
+
+- **Priority**: Medium
+- **Type**: Functional
+- **Entry**: Navigate to /blog (SSR)
+- **Steps**:
+  1. Navigate to /blog
+  2. Verify category filter dropdown (select) is visible
+  3. Select a category from the dropdown
+  4. Verify articles are still visible (page doesn't break)
+- **Expected**: Category dropdown is present, selecting a category doesn't cause errors, articles remain visible, no JS errors
+- **Implemented**: Yes

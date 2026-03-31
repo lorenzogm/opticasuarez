@@ -52,6 +52,10 @@ test.describe("Service Discovery", () => {
         path: "/servicios/ortoqueratologia",
         title: /Ortoqueratología|Óptica Suárez/,
       },
+      {
+        path: "/servicios/vision-deportiva",
+        title: /Visión Deportiva|Óptica Suárez/,
+      },
     ];
 
     for (const service of services) {
@@ -60,5 +64,28 @@ test.describe("Service Discovery", () => {
       await expect(page).toHaveTitle(service.title);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     }
+  });
+
+  // TC-SERV-04
+  test("service page has FAQ accordion section", async ({ page }) => {
+    await page.goto("/servicios/examen-visual");
+    await page.waitForLoadState("networkidle");
+    await expect(
+      page.getByRole("heading", { name: /Preguntas Frecuentes/i })
+    ).toBeVisible();
+    const accordionButtons = page.getByRole("button").filter({
+      has: page.locator("text=/\\?/"),
+    });
+    const count = await accordionButtons.count();
+    expect(count).toBeGreaterThanOrEqual(1);
+  });
+
+  // TC-SERV-05
+  test("service page has CTA section with booking link", async ({ page }) => {
+    await page.goto("/servicios/examen-visual");
+    await page.waitForLoadState("networkidle");
+    await expect(
+      page.getByRole("link", { name: /Reservar Cita/i }).first()
+    ).toBeVisible();
   });
 });
