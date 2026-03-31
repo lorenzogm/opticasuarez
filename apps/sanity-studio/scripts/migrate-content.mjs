@@ -414,7 +414,7 @@ async function buildServicePageDoc(slug, data) {
 
 // ─── Homepage builder ───────────────────────────────────────
 
-async function buildHomepageDoc(data) {
+async function buildHomepageDoc(data, locationDocs = []) {
   const doc = {
     _id: "homepage",
     _type: "homepage",
@@ -456,9 +456,16 @@ async function buildHomepageDoc(data) {
     }
   }
 
-  // Locations — need references, skip for now (create location docs first)
+  // Locations — add references to location documents
   if (data.locations) {
-    doc.locations = { title: data.locations.title };
+    doc.locations = {
+      title: data.locations.title,
+      items: locationDocs.map((loc) => ({
+        _type: "reference",
+        _ref: loc._id,
+        _key: generateKey(),
+      })),
+    };
   }
 
   // Partners with images
@@ -563,7 +570,7 @@ async function main() {
   // 3. Create homepage document
   console.log("\n🏠 Creating homepage document...");
   const homepageData = loadJson("homepage.json");
-  const homepageDoc = await buildHomepageDoc(homepageData);
+  const homepageDoc = await buildHomepageDoc(homepageData, locationDocs);
   await client.createOrReplace(homepageDoc);
   console.log("  ✓ Homepage created");
 
