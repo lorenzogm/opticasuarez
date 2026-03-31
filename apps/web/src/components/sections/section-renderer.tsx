@@ -1,5 +1,6 @@
 import SectionAccordion from "./section-accordion";
 import SectionCards from "./section-cards";
+import SectionContactForm from "./section-contact-form";
 import SectionCTA from "./section-cta";
 import SectionFeatures from "./section-features";
 import SectionHero from "./section-hero";
@@ -19,6 +20,7 @@ type SectionComponent = React.ComponentType<{ section: any }>;
 const sectionComponents: Record<string, SectionComponent> = {
   sectionHero: SectionHero,
   sectionCards: SectionCards,
+  sectionContactForm: SectionContactForm,
   sectionFeatures: SectionFeatures,
   sectionText: SectionText,
   sectionAccordion: SectionAccordion,

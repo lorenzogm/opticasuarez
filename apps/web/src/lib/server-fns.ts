@@ -9,6 +9,7 @@
  */
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie } from "@tanstack/react-start/server";
+import contactoContent from "~/content/contacto.json" with { type: "json" };
 import planVeoContent from "~/content/plan-veo.json" with { type: "json" };
 import quienesNosotrosContent from "~/content/quienes-somos.json" with {
   type: "json",
@@ -123,6 +124,11 @@ export const fetchPage = createServerFn({ method: "GET" })
     // Fallback: build Quiénes Somos page from local JSON when Sanity has no data
     if (!page && fullPath === "/quienes-somos") {
       page = buildQuienesNosotrosFallback();
+    }
+
+    // Fallback: build Contacto page from local JSON when Sanity has no data
+    if (!page && fullPath === "/contacto") {
+      page = buildContactoFallback();
     }
 
     if (!page) {
@@ -345,6 +351,76 @@ function buildQuienesNosotrosFallback(): SanityData {
             image: { url: m.image },
           }),
         ),
+      },
+    ],
+  };
+}
+
+function buildContactoFallback(): SanityData {
+  const d = contactoContent;
+  return {
+    _id: "fallback-contacto",
+    _type: "page",
+    title: "Contacto",
+    path: "/contacto",
+    seo: {
+      title: "Contacto | Óptica Suárez",
+      description: d.hero.description,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-ct-hero",
+        title: d.hero.title,
+        subtitle: d.hero.subtitle,
+        description: d.hero.description,
+      },
+      {
+        _type: "sectionLocations",
+        _key: "fb-ct-locations",
+        title: d.locations.title,
+        subtitle: d.locations.subtitle,
+        items: d.locations.locations.map(
+          (
+            loc: {
+              name: string;
+              image: string;
+              address: string;
+              phone: string;
+              phoneUrl: string;
+              email: string;
+              mapUrl: string;
+              schedule: { weekdays: string; weekdaysHours: string; saturday: string; saturdayHours: string };
+            },
+            i: number,
+          ) => ({
+            _key: `fb-loc-${i}`,
+            name: loc.name,
+            image: { url: loc.image },
+            address: loc.address,
+            phone: loc.phone,
+            phoneUrl: loc.phoneUrl,
+            email: loc.email,
+            mapUrl: loc.mapUrl,
+            schedule: loc.schedule,
+          }),
+        ),
+      },
+      {
+        _type: "sectionContactForm",
+        _key: "fb-ct-form",
+        title: d.contactForm.title,
+        description: d.contactForm.description,
+        nameLabel: d.contactForm.form.nameLabel,
+        namePlaceholder: d.contactForm.form.namePlaceholder,
+        emailLabel: d.contactForm.form.emailLabel,
+        emailPlaceholder: d.contactForm.form.emailPlaceholder,
+        phoneLabel: d.contactForm.form.phoneLabel,
+        phonePlaceholder: d.contactForm.form.phonePlaceholder,
+        messageLabel: d.contactForm.form.messageLabel,
+        messagePlaceholder: d.contactForm.form.messagePlaceholder,
+        submitButton: d.contactForm.form.submitButton,
+        privacy: d.contactForm.form.privacy,
       },
     ],
   };
