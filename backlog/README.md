@@ -5,16 +5,22 @@
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
 | 210 | Comprar producto | feature | Request |
+| 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
+| 408 | No sé ha clonado bien página plan VEO | bug | Refined |
+| 409 | No sé ha clonado bien la página de inicio | bug | Refined |
+| 410 | No sé ha clonado bien la página Quienes Somos | bug | Refined |
+| 411 | No se ha clonado bien la pagina "examen Visual" | bug | Refined |
+| 412 | No se ha clonado bien la pagina "Terapia Visual" | bug | Refined |
 
 ## Done
 
 | # | Title | Type | Date |
 |---|-------|------|------|
-| 411 | Rebuild Site button in Sanity Studio | feature | 2026-03-29 |
-| 410 | Sanity Presentation tool (live preview) | feature | 2026-03-29 |
-| 409 | On-demand revalidation via Sanity webhook | feature | 2026-03-29 |
-| 412 | Remove products from homepage | chore | 2026-03-29 |
-| 408 | Static pre-rendering at build time | feature | 2026-03-29 |
+| 0-411 | Rebuild Site button in Sanity Studio | feature | 2026-03-29 |
+| 0-410 | Sanity Presentation tool (live preview) | feature | 2026-03-29 |
+| 0-409 | On-demand revalidation via Sanity webhook | feature | 2026-03-29 |
+| 0-412 | Remove products from homepage | chore | 2026-03-29 |
+| 0-408 | Static pre-rendering at build time | feature | 2026-03-29 |
 | 0-407 | E2E quiénes somos heading failure | bug |
 | 0-406 | 500 on missing pages | bug |
 | 405 | 404 page hydration errors | bug |
