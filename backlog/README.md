@@ -6,12 +6,12 @@
 |---|-------|------|----------|
 | 210 | Comprar producto | feature | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
-| 412 | No se ha clonado bien la pagina "Terapia Visual" | bug | Refined |
 
 ## Done
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 412 | Fix terapia visual hero icons specialist | bug | 2026-03-31 |
 | 411 | Fix examen visual text content and locations | bug | 2026-03-31 |
 | 410 | Fix quienes somos timeline team locations | bug | 2026-03-31 |
 | 409 | Fix homepage locations section | bug | 2026-03-31 |
