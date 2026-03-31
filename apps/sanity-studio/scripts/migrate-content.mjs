@@ -711,6 +711,24 @@ async function main() {
 
   // plan-veo
   const planVeoData = loadJson("plan-veo.json");
+
+  // Upload hero image
+  const planVeoHeroImage = await uploadImage(planVeoData.hero.image);
+
+  // Upload card images (async)
+  const planVeoCardItems = [];
+  for (const b of planVeoData.benefits.items) {
+    const cardImage = await uploadImage(b.image);
+    planVeoCardItems.push({
+      _type: "cardItem",
+      _key: generateKey(),
+      title: b.title,
+      description: b.description,
+      icon: b.icon,
+      ...(cardImage ? { image: cardImage } : {}),
+    });
+  }
+
   const planVeoPage = {
     _id: "page-planveo",
     _type: "page",
@@ -723,6 +741,8 @@ async function main() {
         title: planVeoData.hero.title,
         subtitle: planVeoData.hero.subtitle,
         description: planVeoData.hero.description,
+        ...(planVeoHeroImage ? { image: planVeoHeroImage } : {}),
+        imageAlt: planVeoData.hero.imageAlt,
       },
       {
         _type: "sectionText",
@@ -751,13 +771,7 @@ async function main() {
         title: planVeoData.benefits.title,
         subtitle: planVeoData.benefits.subtitle,
         variant: "grid-3",
-        items: planVeoData.benefits.items.map((b) => ({
-          _type: "cardItem",
-          _key: generateKey(),
-          title: b.title,
-          description: b.description,
-          icon: b.icon,
-        })),
+        items: planVeoCardItems,
       },
       {
         _type: "sectionFeatures",
@@ -789,8 +803,8 @@ async function main() {
         title: planVeoData.faq.title,
         items: planVeoData.faq.items.map((q) => ({
           _key: generateKey(),
-          question: q.question,
-          answer: q.answer,
+          title: q.question,
+          content: q.answer,
         })),
       },
       {
