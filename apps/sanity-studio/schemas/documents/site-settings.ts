@@ -70,6 +70,13 @@ export const siteSettings = defineType({
             "Mostrar u ocultar la tienda online y sus enlaces de navegación",
           initialValue: false,
         }),
+        defineField({
+          name: "ecommerce",
+          title: "Ecommerce habilitado",
+          type: "boolean",
+          description: "Habilitar carrito, checkout y pagos",
+          initialValue: false,
+        }),
       ],
     }),
   ],

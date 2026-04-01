@@ -14,6 +14,7 @@ import planVeoContent from "~/content/plan-veo.json" with { type: "json" };
 import quienesNosotrosContent from "~/content/quienes-somos.json" with {
   type: "json",
 };
+import { resolveFeatureFlags } from "~/lib/feature-flags";
 import {
   getBlogPost,
   getBlogPosts,
@@ -98,7 +99,13 @@ export const fetchSiteSettings = createServerFn({ method: "GET" }).handler(
   async () => {
     const preview = isPreviewMode();
     const settings = await getSiteSettings(preview);
-    return { settings: settings as SanityData, isPreview: preview };
+    const featureFlags = resolveFeatureFlags(
+      (settings as SanityData)?.featureFlags ?? {}
+    );
+    return {
+      settings: { ...(settings as SanityData), featureFlags } as SanityData,
+      isPreview: preview,
+    };
   }
 );
 
@@ -227,7 +234,12 @@ function buildPlanVeoFallback(): SanityData {
             _type: "block",
             _key: "fb-intro-block",
             children: [
-              { _type: "span", _key: "fb-intro-span", text: d.introduction.content, marks: [] },
+              {
+                _type: "span",
+                _key: "fb-intro-span",
+                text: d.introduction.content,
+                marks: [],
+              },
             ],
             markDefs: [],
             style: "normal",
@@ -241,13 +253,22 @@ function buildPlanVeoFallback(): SanityData {
         subtitle: d.benefits.subtitle,
         variant: "grid-3",
         items: d.benefits.items.map(
-          (b: { title: string; description: string; icon: string; image: string; imageAlt: string }, i: number) => ({
+          (
+            b: {
+              title: string;
+              description: string;
+              icon: string;
+              image: string;
+              imageAlt: string;
+            },
+            i: number
+          ) => ({
             _key: `fb-card-${i}`,
             title: b.title,
             description: b.description,
             icon: b.icon,
             image: { url: b.image },
-          }),
+          })
         ),
       },
       {
@@ -260,7 +281,7 @@ function buildPlanVeoFallback(): SanityData {
             _key: `fb-req-${i}`,
             title: r.title,
             description: r.description,
-          }),
+          })
         ),
       },
       {
@@ -269,13 +290,16 @@ function buildPlanVeoFallback(): SanityData {
         title: d.howItWorks.title,
         subtitle: d.howItWorks.subtitle,
         items: d.howItWorks.steps.map(
-          (s: { number: string; title: string; description: string }, i: number) => ({
+          (
+            s: { number: string; title: string; description: string },
+            i: number
+          ) => ({
             _type: "processStep",
             _key: `fb-step-${i}`,
             stepNumber: Number(s.number),
             title: s.title,
             description: s.description,
-          }),
+          })
         ),
       },
       {
@@ -287,7 +311,7 @@ function buildPlanVeoFallback(): SanityData {
             _key: `fb-faq-${i}`,
             title: q.question,
             content: q.answer,
-          }),
+          })
         ),
       },
       {
@@ -327,12 +351,17 @@ function buildQuienesNosotrosFallback(): SanityData {
         title: d.history.title,
         timelineItems: d.history.timeline.map(
           (
-            item: { year: string; title: string; description: string; image: string },
-            i: number,
+            item: {
+              year: string;
+              title: string;
+              description: string;
+              image: string;
+            },
+            i: number
           ) => ({
             _key: `fb-tl-${i}`,
             ...item,
-          }),
+          })
         ),
       },
       {
@@ -343,13 +372,13 @@ function buildQuienesNosotrosFallback(): SanityData {
         items: d.team.members.map(
           (
             m: { name: string; role: string; image: string; details: string[] },
-            i: number,
+            i: number
           ) => ({
             _key: `fb-tm-${i}`,
             title: m.name,
             description: [m.role, ...m.details].join("\n"),
             image: { url: m.image },
-          }),
+          })
         ),
       },
     ],
@@ -390,9 +419,14 @@ function buildContactoFallback(): SanityData {
               phoneUrl: string;
               email: string;
               mapUrl: string;
-              schedule: { weekdays: string; weekdaysHours: string; saturday: string; saturdayHours: string };
+              schedule: {
+                weekdays: string;
+                weekdaysHours: string;
+                saturday: string;
+                saturdayHours: string;
+              };
             },
-            i: number,
+            i: number
           ) => ({
             _key: `fb-loc-${i}`,
             name: loc.name,
@@ -403,7 +437,7 @@ function buildContactoFallback(): SanityData {
             email: loc.email,
             mapUrl: loc.mapUrl,
             schedule: loc.schedule,
-          }),
+          })
         ),
       },
       {
