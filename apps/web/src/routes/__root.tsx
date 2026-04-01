@@ -8,8 +8,10 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import FeatureFlagMenu from "~/components/feature-flag-menu";
 import GlobalNavigation from "~/components/global-navigation";
 import globalCss from "~/global.css?url";
+import type { FeatureFlags } from "~/lib/feature-flags";
 import { fetchSiteSettings } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
 
@@ -312,9 +314,17 @@ function RootComponent() {
     // biome-ignore lint/suspicious/noExplicitAny: dynamic Sanity data
     { settings: any; isPreview: boolean } | undefined;
   const shopEnabled = loaderData?.settings?.featureFlags?.shopEnabled ?? false;
+  const featureFlags: FeatureFlags = loaderData?.settings?.featureFlags ?? {
+    shopEnabled: false,
+    ecommerce: false,
+  };
   const isPreview = loaderData?.isPreview ?? false;
   return (
-    <RootDocument isPreview={isPreview} shopEnabled={shopEnabled}>
+    <RootDocument
+      featureFlags={featureFlags}
+      isPreview={isPreview}
+      shopEnabled={shopEnabled}
+    >
       <Outlet />
     </RootDocument>
   );
@@ -324,10 +334,12 @@ function RootDocument({
   children,
   shopEnabled,
   isPreview,
+  featureFlags,
 }: Readonly<{
   children: ReactNode;
   shopEnabled: boolean;
   isPreview: boolean;
+  featureFlags: FeatureFlags;
 }>) {
   return (
     <html lang="es">
@@ -369,6 +381,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <GlobalNavigation shopEnabled={shopEnabled} />
         {children}
         <Scripts />
+        <FeatureFlagMenu featureFlags={featureFlags} />
       </body>
     </html>
   );
