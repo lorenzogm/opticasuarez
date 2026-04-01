@@ -4,6 +4,15 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        type: choice
+        options:
+          - development
+          - production
+        default: development
 
 permissions:
   contents: write
@@ -15,12 +24,24 @@ jobs:
     outputs:
       infra-changed: ${{ steps.check.outputs.infra-changed }}
       app-changed: ${{ steps.check.outputs.app-changed }}
+      environment: ${{ steps.resolve-env.outputs.environment }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
+
+      - name: Resolve environment
+        id: resolve-env
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
+            echo "Environment: ${{ github.event.inputs.environment }}"
+          else
+            echo "environment=development" >> $GITHUB_OUTPUT
+            echo "Environment: development (push trigger)"
+          fi
 
       - name: Check for changes
         id: check
@@ -53,11 +74,11 @@ jobs:
     if: needs.check-changes.outputs.infra-changed == 'true'
     runs-on: ubuntu-latest
     name: Infrastructure Deploy
-    environment: development
+    environment: ${{ needs.check-changes.outputs.environment }}
     outputs:
       project-id: ${{ steps.export-outputs.outputs.project-id }}
     env:
-      TF_VAR_ENVIRONMENT: development
+      TF_VAR_ENVIRONMENT: ${{ needs.check-changes.outputs.environment }}
 
     steps:
       - name: Checkout
@@ -66,7 +87,8 @@ jobs:
       - name: Decrypt infra env vars
         run: |
           npm install -g @dotenvx/dotenvx
-          ENV_FILE="infra/vercel/web/.env.development"
+          ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
+          ENV_FILE="infra/vercel/web/.env.${ENVIRONMENT}"
 
           # Infra-specific vars → TF_VAR_ prefixed + direct env
           for key in VERCEL_TOKEN TERRAFORM_STATE_ENCRYPT_KEY; do
@@ -95,6 +117,7 @@ jobs:
           done
         env:
           DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
+          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
 
       - name: Fetch Terraform State from state branch
         working-directory: infra/vercel/web/src
@@ -223,7 +246,7 @@ jobs:
       (needs.check-changes.outputs.app-changed == 'true' || needs.check-changes.outputs.infra-changed == 'true')
     runs-on: ubuntu-latest
     name: Deploy Preview
-    environment: development
+    environment: ${{ needs.check-changes.outputs.environment }}
     outputs:
       preview-url: ${{ steps.preview-deploy.outputs.preview-url }}
     env:
@@ -236,8 +259,9 @@ jobs:
       - name: Decrypt infra env vars
         run: |
           npm install -g @dotenvx/dotenvx
+          ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
           for key in VERCEL_TOKEN VERCEL_ORG_ID; do
-            value=$(dotenvx get "$key" -f infra/vercel/web/.env.development 2>/dev/null || echo "")
+            value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
               echo "::add-mask::${value}"
@@ -245,6 +269,7 @@ jobs:
           done
         env:
           DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
+          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -321,7 +346,7 @@ jobs:
       needs.infra-deploy.result != 'failure'
     runs-on: ubuntu-latest
     name: Deploy Production
-    environment: development
+    environment: ${{ needs.check-changes.outputs.environment }}
     env:
       VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
@@ -332,8 +357,9 @@ jobs:
       - name: Decrypt infra env vars
         run: |
           npm install -g @dotenvx/dotenvx
+          ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
           for key in VERCEL_TOKEN VERCEL_ORG_ID; do
-            value=$(dotenvx get "$key" -f infra/vercel/web/.env.development 2>/dev/null || echo "")
+            value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
               echo "::add-mask::${value}"
@@ -341,6 +367,7 @@ jobs:
           done
         env:
           DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
+          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
