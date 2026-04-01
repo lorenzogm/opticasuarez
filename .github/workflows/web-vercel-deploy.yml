@@ -344,10 +344,10 @@ jobs:
           CI: true
 
   deploy-production:
-    needs: [check-changes, infra-deploy, e2e-tests]
+    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
     if: |
       always() &&
-      needs.e2e-tests.result == 'success' &&
+      needs.deploy-preview.result == 'success' &&
       needs.infra-deploy.result != 'failure'
     runs-on: ubuntu-latest
     name: Deploy Production
