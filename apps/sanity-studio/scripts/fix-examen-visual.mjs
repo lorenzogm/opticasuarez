@@ -85,9 +85,7 @@ async function main() {
         {
           _type: "block",
           _key: generateKey(),
-          children: [
-            { _type: "span", _key: generateKey(), text, marks: [] },
-          ],
+          children: [{ _type: "span", _key: generateKey(), text, marks: [] }],
           markDefs: [],
           style: "normal",
         },
@@ -129,9 +127,7 @@ async function main() {
   // 4. Save
   console.log("\n📤 Pushing to Sanity...");
   await client.createOrReplace(page);
-  console.log(
-    `  ✓ Page updated: ${page.sections.length} sections`
-  );
+  console.log(`  ✓ Page updated: ${page.sections.length} sections`);
 
   console.log("\n✅ Fix complete!");
 }

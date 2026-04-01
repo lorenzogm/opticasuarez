@@ -12,7 +12,6 @@ locals {
   }
   environments = {
     "development" = "dev"
-    "staging"     = "stg"
     "production"  = "prod"
   }
   environment_short_code = lookup(local.environments, lower(var.ENVIRONMENT), "")
@@ -31,10 +30,11 @@ resource "vercel_project" "main" {
   vercel_authentication      = var.vercel.project.vercel_authentication
 }
 
-resource "vercel_project_domain" "main" {
-  count      = var.vercel.project_domain == null ? 0 : 1
+resource "vercel_project_domain" "domains" {
+  for_each   = { for d in var.vercel.project_domains : d.domain => d }
   project_id = vercel_project.main.id
-  domain     = var.vercel.project_domain.domain
+  domain     = each.value.domain
+  redirect   = each.value.redirect
 }
 
 resource "vercel_project_environment_variable" "variables" {

@@ -138,9 +138,7 @@ function sectionText({ title, subtitle, description, content }) {
           {
             _type: "block",
             _key: generateKey(),
-            children: [
-              { _type: "span", _key: generateKey(), text, marks: [] },
-            ],
+            children: [{ _type: "span", _key: generateKey(), text, marks: [] }],
             markDefs: [],
             style: "normal",
           },

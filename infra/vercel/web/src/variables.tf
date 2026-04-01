@@ -27,9 +27,10 @@ variable "vercel" {
         deployment_type = string
       })
     })
-    project_domain = optional(object({
-      domain = string
-    }))
+    project_domains = optional(list(object({
+      domain   = string
+      redirect = optional(string)
+    })), [])
   })
 }
 

@@ -226,9 +226,7 @@ async function main() {
   console.log("  ✓ Page: planveo — replaced with corrected content");
 
   console.log(`\n✅ Fix complete! Images uploaded: ${imageCache.size}`);
-  console.log(
-    "   Visit the page at /planveo to verify the changes."
-  );
+  console.log("   Visit the page at /planveo to verify the changes.");
 }
 
 main().catch((err) => {

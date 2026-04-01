@@ -6,23 +6,34 @@ export default function SectionContactForm({ section }: { section: any }) {
     <section className="bg-gray-50 px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-2xl">
         {section.title && (
-          <Text as="h2" className="mb-4 text-center text-gray-900" variant="heading-2">
+          <Text
+            as="h2"
+            className="mb-4 text-center text-gray-900"
+            variant="heading-2"
+          >
             {section.title}
           </Text>
         )}
         {section.description && (
-          <Text as="p" className="mx-auto mb-8 max-w-xl text-center text-gray-600" variant="body-md">
+          <Text
+            as="p"
+            className="mx-auto mb-8 max-w-xl text-center text-gray-600"
+            variant="body-md"
+          >
             {section.description}
           </Text>
         )}
         <form
           action={`mailto:${section.email || "bulevar@opticasuarezjaen.es"}`}
           className="space-y-6 rounded-lg bg-white p-8 shadow-md"
-          method="POST"
           encType="text/plain"
+          method="POST"
         >
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm" htmlFor="contact-name">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm"
+              htmlFor="contact-name"
+            >
               {section.nameLabel || "Nombre completo"}
             </label>
             <input
@@ -36,7 +47,10 @@ export default function SectionContactForm({ section }: { section: any }) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm" htmlFor="contact-email">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm"
+              htmlFor="contact-email"
+            >
               {section.emailLabel || "Email"}
             </label>
             <input
@@ -50,7 +64,10 @@ export default function SectionContactForm({ section }: { section: any }) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm" htmlFor="contact-phone">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm"
+              htmlFor="contact-phone"
+            >
               {section.phoneLabel || "Teléfono (opcional)"}
             </label>
             <input
@@ -63,14 +80,20 @@ export default function SectionContactForm({ section }: { section: any }) {
           </div>
 
           <div>
-            <label className="mb-2 block font-medium text-gray-700 text-sm" htmlFor="contact-message">
+            <label
+              className="mb-2 block font-medium text-gray-700 text-sm"
+              htmlFor="contact-message"
+            >
               {section.messageLabel || "Mensaje"}
             </label>
             <textarea
               className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               id="contact-message"
               name="mensaje"
-              placeholder={section.messagePlaceholder || "Cuéntanos en qué podemos ayudarte..."}
+              placeholder={
+                section.messagePlaceholder ||
+                "Cuéntanos en qué podemos ayudarte..."
+              }
               required
               rows={4}
             />

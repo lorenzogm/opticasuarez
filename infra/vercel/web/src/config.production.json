@@ -1,7 +1,18 @@
 {
   "environment_variables": {},
   "vercel": {
-    "project_domains": [],
+    "project_domains": [
+      { "domain": "opticasuarezjaen.es" },
+      {
+        "domain": "www.opticasuarezjaen.es",
+        "redirect": "opticasuarezjaen.es"
+      },
+      { "domain": "opticasuarezjaen.com", "redirect": "opticasuarezjaen.es" },
+      {
+        "domain": "www.opticasuarezjaen.com",
+        "redirect": "opticasuarezjaen.es"
+      }
+    ],
     "project": {
       "name": "opticasuarez-web",
       "build_command": "cd ../.. && npx turbo@^2 run build --filter=opticasuarez-web",

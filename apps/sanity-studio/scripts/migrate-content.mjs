@@ -49,14 +49,8 @@ const client = createClient({
   useCdn: false,
 });
 
-const CONTENT_DIR = resolve(
-  import.meta.dirname,
-  "../../web/src/content"
-);
-const PUBLIC_DIR = resolve(
-  import.meta.dirname,
-  "../../web/public"
-);
+const CONTENT_DIR = resolve(import.meta.dirname, "../../web/src/content");
+const PUBLIC_DIR = resolve(import.meta.dirname, "../../web/public");
 
 function loadJson(name) {
   const path = resolve(CONTENT_DIR, name);

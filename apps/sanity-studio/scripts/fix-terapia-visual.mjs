@@ -87,11 +87,9 @@ async function main() {
   // 2. Fix hero — remove description
   console.log("\n🖼️ Fixing hero section...");
   for (const section of page.sections) {
-    if (section._type === "sectionHero") {
-      if (section.description) {
-        console.log("  ✓ Removed description from hero");
-        delete section.description;
-      }
+    if (section._type === "sectionHero" && section.description) {
+      console.log("  ✓ Removed description from hero");
+      delete section.description;
     }
   }
 
@@ -109,9 +107,7 @@ async function main() {
         {
           _type: "block",
           _key: generateKey(),
-          children: [
-            { _type: "span", _key: generateKey(), text, marks: [] },
-          ],
+          children: [{ _type: "span", _key: generateKey(), text, marks: [] }],
           markDefs: [],
           style: "normal",
         },
@@ -125,10 +121,15 @@ async function main() {
   // 4. Fix condition card icons
   console.log("\n🎨 Fixing condition icons...");
   for (const section of page.sections) {
-    if (section._type === "sectionCards" && section.title?.toUpperCase().includes("CONDICIONES")) {
+    if (
+      section._type === "sectionCards" &&
+      section.title?.toUpperCase().includes("CONDICIONES")
+    ) {
       for (const item of section.items || []) {
         if (item.icon && iconMap[item.icon]) {
-          console.log(`  ✓ ${item.icon} → ${iconMap[item.icon]} (${item.title})`);
+          console.log(
+            `  ✓ ${item.icon} → ${iconMap[item.icon]} (${item.title})`
+          );
           item.icon = iconMap[item.icon];
         }
       }

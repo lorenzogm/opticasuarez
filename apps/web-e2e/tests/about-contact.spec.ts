@@ -82,14 +82,8 @@ test.describe("About & Contact", () => {
     await expect(
       page.getByRole("heading", { name: /ENVÍANOS UN MENSAJE|MENSAJE/i })
     ).toBeVisible();
-    await expect(
-      page.getByRole("textbox", { name: /nombre/i })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("textbox", { name: /email/i })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: /enviar/i })
-    ).toBeVisible();
+    await expect(page.getByRole("textbox", { name: /nombre/i })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: /email/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /enviar/i })).toBeVisible();
   });
 });
