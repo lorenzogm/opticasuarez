@@ -6,7 +6,6 @@
 |---|-------|------|----------|
 | 418 | .env.production + parameterized GitHub workflow | feature | Request |
 | 417 | Sanity development dataset + Studio multi-workspace | feature | Request |
-| 416 | Terraform multi-domain support + production config | feature | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
 
 ## Done
@@ -14,6 +13,7 @@
 | # | Title | Type | Date |
 |---|-------|------|------|
 | 420 | Feature flag preview menu | feature | 2026-04-01 |
+| 416 | Terraform multi-domain support + production config | feature | 2026-04-01 |
 | 419 | Feature flag override system (cookie-based) | feature | 2026-04-01 |
 | 415 | Add contacto page contact form | feature | 2026-03-31 |
 | 414 | Fix quienes somos timeline missing | bug | 2026-03-31 |

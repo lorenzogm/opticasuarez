@@ -6,12 +6,8 @@ import RebuildSiteTool from "./lib/rebuild-site-tool";
 import { schemaTypes } from "./schemas";
 import { structure } from "./structure/desk-structure";
 
-export default defineConfig({
-  name: "opticasuarez",
-  title: "Óptica Suárez",
-
+const sharedConfig = {
   projectId: "2a24wmex",
-  dataset: "production",
 
   plugins: [
     structureTool({ structure }),
@@ -36,4 +32,21 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-});
+};
+
+export default defineConfig([
+  {
+    ...sharedConfig,
+    name: "production",
+    title: "Óptica Suárez — Producción",
+    dataset: "production",
+    basePath: "/production",
+  },
+  {
+    ...sharedConfig,
+    name: "development",
+    title: "Óptica Suárez — Desarrollo",
+    dataset: "development",
+    basePath: "/development",
+  },
+]);
