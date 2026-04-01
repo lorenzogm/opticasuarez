@@ -5,7 +5,6 @@
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
 | 420 | Feature flag preview menu | feature | Request |
-| 419 | Feature flag override system (cookie-based) | feature | Request |
 | 418 | .env.production + parameterized GitHub workflow | feature | Request |
 | 417 | Sanity development dataset + Studio multi-workspace | feature | Request |
 | 416 | Terraform multi-domain support + production config | feature | Request |
@@ -15,6 +14,7 @@
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 419 | Feature flag override system (cookie-based) | feature | 2026-04-01 |
 | 415 | Add contacto page contact form | feature | 2026-03-31 |
 | 414 | Fix quienes somos timeline missing | bug | 2026-03-31 |
 | 413 | Fix Plan VEO page 404 | bug | 2026-03-31 |
