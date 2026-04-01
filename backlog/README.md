@@ -4,7 +4,6 @@
 
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
-| 418 | .env.production + parameterized GitHub workflow | feature | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
 
 ## Done
@@ -12,6 +11,7 @@
 | # | Title | Type | Date |
 |---|-------|------|------|
 | 420 | Feature flag preview menu | feature | 2026-04-01 |
+| 418 | .env.production + parameterized GitHub workflow | feature | 2026-04-01 |
 | 417 | Sanity development dataset + Studio multi-workspace | feature | 2026-04-01 |
 | 416 | Terraform multi-domain support + production config | feature | 2026-04-01 |
 | 419 | Feature flag override system (cookie-based) | feature | 2026-04-01 |
