@@ -30,11 +30,19 @@ resource "vercel_project" "main" {
   vercel_authentication      = var.vercel.project.vercel_authentication
 }
 
-resource "vercel_project_domain" "domains" {
-  for_each   = { for d in var.vercel.project_domains : d.domain => d }
+resource "vercel_project_domain" "primary" {
+  for_each   = { for d in var.vercel.project_domains : d.domain => d if d.redirect == null }
+  project_id = vercel_project.main.id
+  domain     = each.value.domain
+}
+
+resource "vercel_project_domain" "redirect" {
+  for_each   = { for d in var.vercel.project_domains : d.domain => d if d.redirect != null }
   project_id = vercel_project.main.id
   domain     = each.value.domain
   redirect   = each.value.redirect
+
+  depends_on = [vercel_project_domain.primary]
 }
 
 resource "vercel_project_environment_variable" "variables" {
