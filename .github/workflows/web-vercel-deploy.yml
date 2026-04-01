@@ -166,7 +166,12 @@ jobs:
         continue-on-error: true
         run: |
           if [ ! -f "terraform.tfstate" ] || [ "$(jq '.resources | length' terraform.tfstate 2>/dev/null)" = "0" ]; then
-            ENV_SHORT=$(echo "${{ env.TF_VAR_ENVIRONMENT }}" | cut -c1-3)
+            ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
+            case "$ENVIRONMENT" in
+              development) ENV_SHORT="dev" ;;
+              production)  ENV_SHORT="prod" ;;
+              *)           ENV_SHORT="${ENVIRONMENT:0:3}" ;;
+            esac
             PROJECT_NAME="opticasuarez-web-${ENV_SHORT}"
             echo "No state found. Checking for existing project: $PROJECT_NAME"
             TEAM_PARAM=""
@@ -176,7 +181,7 @@ jobs:
             PROJECT_ID=$(curl -sf -H "Authorization: Bearer ${TF_VAR_VERCEL_TOKEN}" "https://api.vercel.com/v9/projects/${PROJECT_NAME}${TEAM_PARAM}" | jq -r '.id // empty')
             if [ -n "$PROJECT_ID" ]; then
               echo "Found existing project $PROJECT_ID — importing into state"
-              terraform import -var-file="config.${{ env.TF_VAR_ENVIRONMENT }}.json" vercel_project.main "$PROJECT_ID"
+              terraform import -var-file="config.${ENVIRONMENT}.json" vercel_project.main "$PROJECT_ID"
             else
               echo "No existing project found, proceeding with fresh creation"
             fi
