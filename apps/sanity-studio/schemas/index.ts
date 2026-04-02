@@ -31,6 +31,7 @@ import { timelineEntry } from "./objects/timeline-entry";
 // Section schemas (page builder)
 import { sectionAccordion } from "./sections/section-accordion";
 import { sectionCards } from "./sections/section-cards";
+import { sectionContactForm } from "./sections/section-contact-form";
 import { sectionCTA } from "./sections/section-cta";
 import { sectionFeatures } from "./sections/section-features";
 import { sectionHero } from "./sections/section-hero";
@@ -66,6 +67,7 @@ export const schemaTypes = [
   // Sections (page builder)
   sectionAccordion,
   sectionCards,
+  sectionContactForm,
   sectionCTA,
   sectionFeatures,
   sectionHero,

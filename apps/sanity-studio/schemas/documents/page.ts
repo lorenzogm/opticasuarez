@@ -37,6 +37,7 @@ export const page = defineType({
         { type: "sectionList" },
         { type: "sectionStats" },
         { type: "sectionCTA" },
+        { type: "sectionContactForm" },
       ],
     }),
     defineField({

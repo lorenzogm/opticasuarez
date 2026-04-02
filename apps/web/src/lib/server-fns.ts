@@ -142,6 +142,32 @@ export const fetchPage = createServerFn({ method: "GET" })
       return { page: null as SanityData };
     }
 
+    // Fallback: inject contact form section if Sanity page is missing it
+    if (fullPath === "/contacto" && page?.sections) {
+      const hasContactForm = page.sections.some(
+        (s: SanityData) => s._type === "sectionContactForm"
+      );
+      if (!hasContactForm) {
+        const d = contactoContent;
+        page.sections.push({
+          _type: "sectionContactForm",
+          _key: "fb-ct-form",
+          title: d.contactForm.title,
+          description: d.contactForm.description,
+          nameLabel: d.contactForm.form.nameLabel,
+          namePlaceholder: d.contactForm.form.namePlaceholder,
+          emailLabel: d.contactForm.form.emailLabel,
+          emailPlaceholder: d.contactForm.form.emailPlaceholder,
+          phoneLabel: d.contactForm.form.phoneLabel,
+          phonePlaceholder: d.contactForm.form.phonePlaceholder,
+          messageLabel: d.contactForm.form.messageLabel,
+          messagePlaceholder: d.contactForm.form.messagePlaceholder,
+          submitButton: d.contactForm.form.submitButton,
+          privacy: d.contactForm.form.privacy,
+        });
+      }
+    }
+
     // Fallback: populate empty timeline sections with JSON content
     if (fullPath === "/quienes-somos" && page?.sections) {
       let hasTimeline = false;
