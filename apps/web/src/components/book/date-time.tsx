@@ -78,7 +78,7 @@ const appointmentTypes = {
 };
 
 export default function DateTimeSelection() {
-  const searchParams = useSearch({ strict: false }) as Record<string, string>;
+  const searchParams = useSearch({ from: "/cita/horario" });
   const navigate = useNavigate();
   const appointmentType = searchParams.type || "";
   const location = searchParams.location || "";

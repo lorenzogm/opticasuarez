@@ -12,7 +12,7 @@ const appointmentTypes = {
 };
 
 export default function ContactDetails() {
-  const searchParams = useSearch({ strict: false }) as Record<string, string>;
+  const searchParams = useSearch({ from: "/cita/contacto" });
   const navigate = useNavigate();
   const appointmentType = searchParams.type || "";
   const location = searchParams.location || "";

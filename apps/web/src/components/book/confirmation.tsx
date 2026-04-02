@@ -42,7 +42,7 @@ const periods = {
 };
 
 export default function Confirmation() {
-  const searchParams = useSearch({ strict: false }) as Record<string, string>;
+  const searchParams = useSearch({ from: "/cita/confirmacion" });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 

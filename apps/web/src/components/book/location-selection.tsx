@@ -54,7 +54,7 @@ const appointmentTypes = {
 };
 
 export default function LocationSelection() {
-  const searchParams = useSearch({ strict: false }) as Record<string, string>;
+  const searchParams = useSearch({ from: "/cita/centro" });
   const navigate = useNavigate();
   const appointmentType = searchParams.type || "";
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
