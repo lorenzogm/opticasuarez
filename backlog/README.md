@@ -4,13 +4,13 @@
 
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
-| 424 | Plan VEO E2E test selectors need fixing | test | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
 
 ## Done
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 424 | Plan VEO E2E test selectors need fixing | test | 2026-04-02 |
 | 421 | Blog page prerendered as empty HTML | bug | 2026-04-02 |
 | 422 | Contact form missing on /contacto page (dev) | bug | 2026-04-02 |
 | 423 | Appointment booking center → schedule navigation broken | bug | 2026-04-02 |
