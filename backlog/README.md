@@ -4,12 +4,12 @@
 
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
-| 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
 
 ## Done
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | 2026-04-03 |
 | 424 | Plan VEO E2E test selectors need fixing | test | 2026-04-02 |
 | 421 | Blog page prerendered as empty HTML | bug | 2026-04-02 |
 | 422 | Contact form missing on /contacto page (dev) | bug | 2026-04-02 |
