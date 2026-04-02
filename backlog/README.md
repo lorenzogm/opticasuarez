@@ -5,13 +5,13 @@
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
 | 424 | Plan VEO E2E test selectors need fixing | test | Request |
-| 421 | Blog page prerendered as empty HTML | bug | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
 
 ## Done
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 421 | Blog page prerendered as empty HTML | bug | 2026-04-02 |
 | 422 | Contact form missing on /contacto page (dev) | bug | 2026-04-02 |
 | 423 | Appointment booking center → schedule navigation broken | bug | 2026-04-02 |
 | 420 | Feature flag preview menu | feature | 2026-04-01 |
