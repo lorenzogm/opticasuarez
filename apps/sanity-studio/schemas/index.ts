@@ -3,6 +3,7 @@ import { blogPost } from "./documents/blog-post";
 import { brand } from "./documents/brand";
 import { homepage } from "./documents/homepage";
 import { location } from "./documents/location";
+import { order } from "./documents/order";
 import { page } from "./documents/page";
 import { product } from "./documents/product";
 import { productCategory } from "./documents/product-category";
@@ -86,6 +87,7 @@ export const schemaTypes = [
   brand,
   homepage,
   location,
+  order,
   page,
   product,
   productCategory,

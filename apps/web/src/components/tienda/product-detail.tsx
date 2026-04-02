@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
+import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import BookAppointment from "~/components/sections/book-appointment";
 import StructuredData from "~/components/structured-data";
+import { useCart } from "~/lib/cart";
+import type { CartItem } from "~/lib/cart";
 import { resolveImage } from "~/lib/sanity";
 import { getBaseUrl } from "~/lib/utils";
 import FrameDiagram from "./sections/frame-diagram";
@@ -38,6 +41,8 @@ const availabilityConfig: Record<string, { label: string; className: string }> =
 export default function ProductDetail({ product }: ProductDetailProps) {
   const [selectedColor, setSelectedColor] = useState<number>(0);
   const [showInquiry, setShowInquiry] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { addItem } = useCart();
 
   const hasDiscount = product.salePrice != null;
   const discountPercent = hasDiscount
@@ -48,6 +53,27 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     availabilityConfig[product.availability] ?? availabilityConfig.disponible;
 
   const mainImage = resolveImage(product.images?.[0]);
+
+  const isInStock = product.availability !== "agotado";
+
+  const handleAddToCart = () => {
+    const selectedColorData = product.colors?.[selectedColor];
+    const cartItem: CartItem = {
+      productId: product._id,
+      slug: product.slug,
+      name: product.name,
+      image: mainImage || "",
+      price: product.salePrice ?? product.price,
+      quantity: 1,
+      brand: product.brand?.name,
+      ...(selectedColorData
+        ? { color: { name: selectedColorData.name, hex: selectedColorData.hex } }
+        : {}),
+    };
+    addItem(cartItem);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
 
   // Product JSON-LD
   const productSchema = {
@@ -241,9 +267,31 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             )}
 
             {/* CTA */}
-            <div className="mt-8">
+            <div className="mt-8 space-y-3">
+              {isInStock ? (
+                <button
+                  className={`flex w-full items-center justify-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors ${
+                    addedToCart
+                      ? "bg-green-600"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
+                  onClick={handleAddToCart}
+                  type="button"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  {addedToCart ? "¡Añadido al carrito!" : "Añadir al carrito"}
+                </button>
+              ) : (
+                <button
+                  className="w-full cursor-not-allowed rounded-lg bg-gray-300 px-6 py-3 font-medium text-gray-500"
+                  disabled
+                  type="button"
+                >
+                  Agotado
+                </button>
+              )}
               <button
-                className="w-full rounded-lg bg-sky-600 px-6 py-3 font-medium text-white transition-colors hover:bg-sky-700"
+                className="w-full rounded-lg border border-sky-600 px-6 py-3 font-medium text-sky-600 transition-colors hover:bg-sky-50"
                 onClick={() => setShowInquiry(!showInquiry)}
                 type="button"
               >

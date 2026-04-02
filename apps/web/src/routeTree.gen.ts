@@ -10,21 +10,38 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CitaRouteImport } from './routes/cita'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as CarritoRouteImport } from './routes/carrito'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TiendaIndexRouteImport } from './routes/tienda/index'
 import { Route as CitaIndexRouteImport } from './routes/cita/index'
+import { Route as CheckoutIndexRouteImport } from './routes/checkout/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as TiendaSlugRouteImport } from './routes/tienda/$slug'
 import { Route as CitaHorarioRouteImport } from './routes/cita/horario'
 import { Route as CitaContactoRouteImport } from './routes/cita/contacto'
 import { Route as CitaConfirmacionRouteImport } from './routes/cita/confirmacion'
 import { Route as CitaCentroRouteImport } from './routes/cita/centro'
+import { Route as CheckoutResumenRouteImport } from './routes/checkout/resumen'
+import { Route as CheckoutErrorRouteImport } from './routes/checkout/error'
+import { Route as CheckoutEnvioRouteImport } from './routes/checkout/envio'
+import { Route as CheckoutConfirmacionRouteImport } from './routes/checkout/confirmacion'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const CitaRoute = CitaRouteImport.update({
   id: '/cita',
   path: '/cita',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarritoRoute = CarritoRouteImport.update({
+  id: '/carrito',
+  path: '/carrito',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -46,6 +63,11 @@ const CitaIndexRoute = CitaIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CitaRoute,
+} as any)
+const CheckoutIndexRoute = CheckoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CheckoutRoute,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
@@ -77,6 +99,26 @@ const CitaCentroRoute = CitaCentroRouteImport.update({
   path: '/centro',
   getParentRoute: () => CitaRoute,
 } as any)
+const CheckoutResumenRoute = CheckoutResumenRouteImport.update({
+  id: '/resumen',
+  path: '/resumen',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CheckoutErrorRoute = CheckoutErrorRouteImport.update({
+  id: '/error',
+  path: '/error',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CheckoutEnvioRoute = CheckoutEnvioRouteImport.update({
+  id: '/envio',
+  path: '/envio',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CheckoutConfirmacionRoute = CheckoutConfirmacionRouteImport.update({
+  id: '/confirmacion',
+  path: '/confirmacion',
+  getParentRoute: () => CheckoutRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -86,27 +128,40 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/carrito': typeof CarritoRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/cita': typeof CitaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
+  '/checkout/envio': typeof CheckoutEnvioRoute
+  '/checkout/error': typeof CheckoutErrorRoute
+  '/checkout/resumen': typeof CheckoutResumenRoute
   '/cita/centro': typeof CitaCentroRoute
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/checkout/': typeof CheckoutIndexRoute
   '/cita/': typeof CitaIndexRoute
   '/tienda/': typeof TiendaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/carrito': typeof CarritoRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
+  '/checkout/envio': typeof CheckoutEnvioRoute
+  '/checkout/error': typeof CheckoutErrorRoute
+  '/checkout/resumen': typeof CheckoutResumenRoute
   '/cita/centro': typeof CitaCentroRoute
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/checkout': typeof CheckoutIndexRoute
   '/cita': typeof CitaIndexRoute
   '/tienda': typeof TiendaIndexRoute
 }
@@ -114,14 +169,21 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/carrito': typeof CarritoRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/cita': typeof CitaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
+  '/checkout/envio': typeof CheckoutEnvioRoute
+  '/checkout/error': typeof CheckoutErrorRoute
+  '/checkout/resumen': typeof CheckoutResumenRoute
   '/cita/centro': typeof CitaCentroRoute
   '/cita/confirmacion': typeof CitaConfirmacionRoute
   '/cita/contacto': typeof CitaContactoRoute
   '/cita/horario': typeof CitaHorarioRoute
   '/tienda/$slug': typeof TiendaSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/checkout/': typeof CheckoutIndexRoute
   '/cita/': typeof CitaIndexRoute
   '/tienda/': typeof TiendaIndexRoute
 }
@@ -130,41 +192,61 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
+    | '/carrito'
+    | '/checkout'
     | '/cita'
     | '/blog/$slug'
+    | '/checkout/confirmacion'
+    | '/checkout/envio'
+    | '/checkout/error'
+    | '/checkout/resumen'
     | '/cita/centro'
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
     | '/tienda/$slug'
     | '/blog/'
+    | '/checkout/'
     | '/cita/'
     | '/tienda/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$'
+    | '/carrito'
     | '/blog/$slug'
+    | '/checkout/confirmacion'
+    | '/checkout/envio'
+    | '/checkout/error'
+    | '/checkout/resumen'
     | '/cita/centro'
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
     | '/tienda/$slug'
     | '/blog'
+    | '/checkout'
     | '/cita'
     | '/tienda'
   id:
     | '__root__'
     | '/'
     | '/$'
+    | '/carrito'
+    | '/checkout'
     | '/cita'
     | '/blog/$slug'
+    | '/checkout/confirmacion'
+    | '/checkout/envio'
+    | '/checkout/error'
+    | '/checkout/resumen'
     | '/cita/centro'
     | '/cita/confirmacion'
     | '/cita/contacto'
     | '/cita/horario'
     | '/tienda/$slug'
     | '/blog/'
+    | '/checkout/'
     | '/cita/'
     | '/tienda/'
   fileRoutesById: FileRoutesById
@@ -172,6 +254,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  CarritoRoute: typeof CarritoRoute
+  CheckoutRoute: typeof CheckoutRouteWithChildren
   CitaRoute: typeof CitaRouteWithChildren
   BlogSlugRoute: typeof BlogSlugRoute
   TiendaSlugRoute: typeof TiendaSlugRoute
@@ -186,6 +270,20 @@ declare module '@tanstack/react-router' {
       path: '/cita'
       fullPath: '/cita'
       preLoaderRoute: typeof CitaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carrito': {
+      id: '/carrito'
+      path: '/carrito'
+      fullPath: '/carrito'
+      preLoaderRoute: typeof CarritoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -215,6 +313,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/cita/'
       preLoaderRoute: typeof CitaIndexRouteImport
       parentRoute: typeof CitaRoute
+    }
+    '/checkout/': {
+      id: '/checkout/'
+      path: '/'
+      fullPath: '/checkout/'
+      preLoaderRoute: typeof CheckoutIndexRouteImport
+      parentRoute: typeof CheckoutRoute
     }
     '/blog/': {
       id: '/blog/'
@@ -258,6 +363,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitaCentroRouteImport
       parentRoute: typeof CitaRoute
     }
+    '/checkout/resumen': {
+      id: '/checkout/resumen'
+      path: '/resumen'
+      fullPath: '/checkout/resumen'
+      preLoaderRoute: typeof CheckoutResumenRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/checkout/error': {
+      id: '/checkout/error'
+      path: '/error'
+      fullPath: '/checkout/error'
+      preLoaderRoute: typeof CheckoutErrorRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/checkout/envio': {
+      id: '/checkout/envio'
+      path: '/envio'
+      fullPath: '/checkout/envio'
+      preLoaderRoute: typeof CheckoutEnvioRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/checkout/confirmacion': {
+      id: '/checkout/confirmacion'
+      path: '/confirmacion'
+      fullPath: '/checkout/confirmacion'
+      preLoaderRoute: typeof CheckoutConfirmacionRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
@@ -267,6 +400,26 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface CheckoutRouteChildren {
+  CheckoutConfirmacionRoute: typeof CheckoutConfirmacionRoute
+  CheckoutEnvioRoute: typeof CheckoutEnvioRoute
+  CheckoutErrorRoute: typeof CheckoutErrorRoute
+  CheckoutResumenRoute: typeof CheckoutResumenRoute
+  CheckoutIndexRoute: typeof CheckoutIndexRoute
+}
+
+const CheckoutRouteChildren: CheckoutRouteChildren = {
+  CheckoutConfirmacionRoute: CheckoutConfirmacionRoute,
+  CheckoutEnvioRoute: CheckoutEnvioRoute,
+  CheckoutErrorRoute: CheckoutErrorRoute,
+  CheckoutResumenRoute: CheckoutResumenRoute,
+  CheckoutIndexRoute: CheckoutIndexRoute,
+}
+
+const CheckoutRouteWithChildren = CheckoutRoute._addFileChildren(
+  CheckoutRouteChildren,
+)
 
 interface CitaRouteChildren {
   CitaCentroRoute: typeof CitaCentroRoute
@@ -289,6 +442,8 @@ const CitaRouteWithChildren = CitaRoute._addFileChildren(CitaRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  CarritoRoute: CarritoRoute,
+  CheckoutRoute: CheckoutRouteWithChildren,
   CitaRoute: CitaRouteWithChildren,
   BlogSlugRoute: BlogSlugRoute,
   TiendaSlugRoute: TiendaSlugRoute,

@@ -527,3 +527,65 @@ export async function getAllProductSlugs(preview = false) {
     preview
   );
 }
+
+// ─── Mutations (write operations) ──────────────────────────
+
+const SANITY_MUTATE_URL = `https://${projectId}.api.sanity.io/v${apiVersion}/data/mutate/${dataset}`;
+
+export async function sanityCreate<T extends Record<string, unknown>>(
+  doc: T & { _type: string }
+): Promise<string> {
+  const token = process.env.SANITY_API_TOKEN;
+  if (!token) {
+    throw new Error("SANITY_API_TOKEN is required for write operations");
+  }
+  const res = await fetch(SANITY_MUTATE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      mutations: [{ create: doc }],
+    }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Sanity mutation failed: ${res.status} ${text}`);
+  }
+  const json = (await res.json()) as {
+    results: Array<{ id: string }>;
+  };
+  return json.results[0].id;
+}
+
+export async function sanityPatch(
+  id: string,
+  set: Record<string, unknown>
+): Promise<void> {
+  const token = process.env.SANITY_API_TOKEN;
+  if (!token) {
+    throw new Error("SANITY_API_TOKEN is required for write operations");
+  }
+  const res = await fetch(SANITY_MUTATE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      mutations: [{ patch: { id, set } }],
+    }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Sanity patch failed: ${res.status} ${text}`);
+  }
+}
+
+export async function getOrderByNumber(orderNumber: string) {
+  return sanityFetch<Record<string, unknown> | null>(
+    `*[_type == "order" && orderNumber == $orderNumber][0]`,
+    { orderNumber }
+  );
+}

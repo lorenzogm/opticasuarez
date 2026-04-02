@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import FeatureFlagMenu from "~/components/feature-flag-menu";
 import GlobalNavigation from "~/components/global-navigation";
 import globalCss from "~/global.css?url";
+import { CartProvider } from "~/lib/cart";
 import type { FeatureFlags } from "~/lib/feature-flags";
 import { fetchSiteSettings } from "~/lib/server-fns";
 import { getBaseUrl } from "~/lib/utils";
@@ -378,8 +379,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </a>
           </div>
         )}
-        <GlobalNavigation shopEnabled={shopEnabled} />
-        {children}
+        <CartProvider>
+          <GlobalNavigation shopEnabled={shopEnabled} />
+          {children}
+        </CartProvider>
         <Scripts />
         <FeatureFlagMenu featureFlags={featureFlags} />
       </body>

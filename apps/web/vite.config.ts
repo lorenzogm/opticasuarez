@@ -63,7 +63,12 @@ export default defineConfig(async () => {
           crawlLinks: true,
           failOnError: false,
           filter: ({ path }) => {
-            if (path.startsWith("/cita") || path.startsWith("/tienda")) {
+            if (
+              path.startsWith("/cita") ||
+              path.startsWith("/tienda") ||
+              path.startsWith("/carrito") ||
+              path.startsWith("/checkout")
+            ) {
               return false;
             }
             // Legacy service paths (moved to /servicios/ in Sanity)
