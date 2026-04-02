@@ -19,7 +19,7 @@ test.describe("Plan VEO", () => {
       page.getByRole("heading", { name: /Preguntas Frecuentes/i })
     ).toBeVisible();
     await expect(
-      page.locator("main").getByRole("link", { name: "Solicitar Plan VEO" })
+      page.getByRole("link", { name: "Solicitar Plan VEO" })
     ).toBeVisible();
   });
 
@@ -27,8 +27,11 @@ test.describe("Plan VEO", () => {
   test("Plan VEO page accessible via link from homepage", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    // Plan VEO is under the Servicios dropdown — hover to open it
-    await page.getByRole("link", { name: "Servicios" }).hover();
+    // Plan VEO is under the Servicios dropdown — hover to open it on desktop
+    const serviciosLink = page
+      .locator("header")
+      .getByRole("link", { name: "Servicios" });
+    await serviciosLink.hover();
     const planVeoLink = page.getByRole("menuitem", { name: "Plan VEO" });
     await expect(planVeoLink).toBeVisible();
     await planVeoLink.click();
