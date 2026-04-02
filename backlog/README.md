@@ -5,7 +5,6 @@
 | # | Title | Type | Maturity |
 |---|-------|------|----------|
 | 424 | Plan VEO E2E test selectors need fixing | test | Request |
-| 422 | Contact form missing on /contacto page (dev) | bug | Request |
 | 421 | Blog page prerendered as empty HTML | bug | Request |
 | 389 | Ecommerce — carrito, checkout, pagos Redsys, envíos y cuentas | feature | Request |
 
@@ -13,6 +12,7 @@
 
 | # | Title | Type | Date |
 |---|-------|------|------|
+| 422 | Contact form missing on /contacto page (dev) | bug | 2026-04-02 |
 | 423 | Appointment booking center → schedule navigation broken | bug | 2026-04-02 |
 | 420 | Feature flag preview menu | feature | 2026-04-01 |
 | 418 | .env.production + parameterized GitHub workflow | feature | 2026-04-01 |

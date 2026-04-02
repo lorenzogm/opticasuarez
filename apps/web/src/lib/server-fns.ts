@@ -53,8 +53,12 @@ export const fetchHomepageData = createServerFn({ method: "GET" }).handler(
 export const fetchBlogPosts = createServerFn({ method: "GET" }).handler(
   async () => {
     const preview = isPreviewMode();
-    const articles = await getBlogPosts(preview);
-    return { articles: articles as SanityData[], isPreview: preview };
+    try {
+      const articles = await getBlogPosts(preview);
+      return { articles: (articles ?? []) as SanityData[], isPreview: preview };
+    } catch {
+      return { articles: [] as SanityData[], isPreview: preview };
+    }
   }
 );
 

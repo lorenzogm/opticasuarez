@@ -35,6 +35,7 @@ async function getPrerenderPages(): Promise<Array<{ path: string }>> {
 
   const routes = [
     "/",
+    "/blog",
     ...blogSlugs.map((p) => `/blog/${p.slug}`),
     ...pages.map((p) => `/${p.path.replace(/^\//, "")}`),
   ];
