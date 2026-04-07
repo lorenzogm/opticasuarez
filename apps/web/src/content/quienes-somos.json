@@ -109,6 +109,13 @@
   ],
   "socialMedia": [
     {
+      "platform": "Facebook",
+      "title": "Estamos en Facebook",
+      "handle": "@opticasuarezjaen",
+      "url": "https://www.facebook.com/opticasuarezjaen",
+      "icon": "facebook"
+    },
+    {
       "platform": "Instagram",
       "title": "Estamos en Instagram",
       "handle": "@opticasuarezjaen",
@@ -116,11 +123,11 @@
       "icon": "instagram"
     },
     {
-      "platform": "Facebook",
-      "title": "Estamos en Facebook",
-      "handle": "@opticasuarezjaen",
-      "url": "https://www.facebook.com/opticasuarezjaen",
-      "icon": "facebook"
+      "platform": "Twitter",
+      "title": "Estamos en Twitter",
+      "handle": "@opticasuarez",
+      "url": "https://x.com/opticasuarez",
+      "icon": "twitter"
     }
   ]
 }
