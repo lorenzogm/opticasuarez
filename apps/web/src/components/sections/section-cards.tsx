@@ -118,7 +118,7 @@ function CardItem({
         </div>
       )}
       <div className="flex flex-1 flex-col p-6">
-        {icon && <span className="mb-2 text-2xl">{icon}</span>}
+        {icon && !image && <span className="mb-2 text-2xl">{icon}</span>}
         {title && (
           <Text
             as="h3"
