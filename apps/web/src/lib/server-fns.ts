@@ -350,7 +350,6 @@ function buildPlanVeoFallback(): SanityData {
             _key: `fb-card-${i}`,
             title: b.title,
             description: b.description,
-            icon: b.icon,
             image: { url: b.image },
           })
         ),
