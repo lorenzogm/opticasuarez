@@ -240,7 +240,7 @@ export default function GlobalNavigation({
               >
                 <ShoppingBag className="h-6 w-6" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
+                  <span className="-top-1 -right-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
                     {itemCount > 9 ? "9+" : itemCount}
                   </span>
                 )}

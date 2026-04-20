@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { createOrder } from "~/actions/create-order";
 import ProgressIndicator from "~/components/checkout/progress-indicator";
 import { useCart } from "~/lib/cart";
-import { createOrder } from "~/actions/create-order";
 
 interface CustomerData {
   nombre: string;
@@ -67,7 +67,7 @@ export default function CheckoutResumen() {
   const customer = loadCustomerData();
   const shippingMethod = loadShippingMethod();
 
-  if (!customer || !shippingMethod) {
+  if (!(customer && shippingMethod)) {
     navigate({ to: "/checkout" });
     return null;
   }
@@ -167,9 +167,7 @@ export default function CheckoutResumen() {
                 width={56}
               />
               <div className="flex-1">
-                <p className="font-medium text-gray-900 text-sm">
-                  {item.name}
-                </p>
+                <p className="font-medium text-gray-900 text-sm">{item.name}</p>
                 {item.color && (
                   <p className="text-gray-500 text-xs">{item.color.name}</p>
                 )}
@@ -235,7 +233,7 @@ export default function CheckoutResumen() {
               {shippingCost === 0 ? "Gratis" : `${shippingCost.toFixed(2)}€`}
             </dd>
           </div>
-          <div className="flex justify-between border-t border-gray-200 pt-2 font-semibold text-base">
+          <div className="flex justify-between border-gray-200 border-t pt-2 font-semibold text-base">
             <dt>Total</dt>
             <dd>{total.toFixed(2)}€</dd>
           </div>

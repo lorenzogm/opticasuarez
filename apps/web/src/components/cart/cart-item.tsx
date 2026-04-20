@@ -14,8 +14,8 @@ export default function CartItem({ item }: CartItemProps) {
     <div className="flex gap-4 py-6">
       <Link
         className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
-        to="/tienda/$slug"
         params={{ slug: item.slug }}
+        to="/tienda/$slug"
       >
         <img
           alt={item.name}
@@ -31,8 +31,8 @@ export default function CartItem({ item }: CartItemProps) {
           <div>
             <Link
               className="font-medium text-gray-900 hover:text-blue-600"
-              to="/tienda/$slug"
               params={{ slug: item.slug }}
+              to="/tienda/$slug"
             >
               {item.name}
             </Link>

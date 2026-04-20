@@ -6,7 +6,9 @@ export default function CartSummary() {
 
   return (
     <div className="rounded-lg border border-gray-200 bg-gray-50 p-6">
-      <h2 className="font-semibold text-gray-900 text-lg">Resumen del pedido</h2>
+      <h2 className="font-semibold text-gray-900 text-lg">
+        Resumen del pedido
+      </h2>
       <dl className="mt-4 space-y-3">
         <div className="flex justify-between text-sm">
           <dt className="text-gray-600">
@@ -18,7 +20,7 @@ export default function CartSummary() {
           <dt className="text-gray-600">Envío</dt>
           <dd className="text-gray-500">Calculado en el siguiente paso</dd>
         </div>
-        <div className="flex justify-between border-t border-gray-200 pt-3 font-semibold text-base">
+        <div className="flex justify-between border-gray-200 border-t pt-3 font-semibold text-base">
           <dt>Total estimado</dt>
           <dd>{subtotal.toFixed(2)}€</dd>
         </div>

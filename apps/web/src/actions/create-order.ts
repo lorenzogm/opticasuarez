@@ -66,14 +66,17 @@ function validateInput(data: CreateOrderInput): string | null {
   const c = data.customer;
   if (!c.nombre?.trim()) return "El nombre es obligatorio";
   if (!c.email?.trim()) return "El email es obligatorio";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email))
-    return "Email no válido";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email)) return "Email no válido";
   if (!c.telefono?.trim()) return "El teléfono es obligatorio";
   if (!c.direccion?.trim()) return "La dirección es obligatoria";
   if (!c.codigoPostal?.trim()) return "El código postal es obligatorio";
   if (!c.ciudad?.trim()) return "La ciudad es obligatoria";
   if (!c.provincia?.trim()) return "La provincia es obligatoria";
-  if (!["delivery", "pickup-bulevar", "pickup-centro"].includes(data.shippingMethod)) {
+  if (
+    !["delivery", "pickup-bulevar", "pickup-centro"].includes(
+      data.shippingMethod
+    )
+  ) {
     return "Método de envío no válido";
   }
   return null;
@@ -158,8 +161,7 @@ export const createOrder = createServerFn({ method: "POST" })
       "https://sis-t.redsys.es:25443/sis/realizarPago";
 
     if (redsysMerchantCode && redsysSecretKey) {
-      const baseUrl =
-        process.env.SITE_URL || "https://opticasuarezjaen.es";
+      const baseUrl = process.env.SITE_URL || "https://opticasuarezjaen.es";
       const formData = getRedsysFormData({
         orderNumber,
         amount: total,

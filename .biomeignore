@@ -10,4 +10,7 @@ test-results
 pnpm-lock.yaml
 *.tsbuildinfo
 .github/skills
+.agents
 backlog
+_bmad
+docs
