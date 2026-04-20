@@ -3,6 +3,8 @@ name: Web [Vercel] Deploy
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       environment:
@@ -15,7 +17,7 @@ on:
         default: development
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   check-changes:
@@ -74,9 +76,11 @@ jobs:
     if: needs.check-changes.outputs.infra-changed == 'true'
     runs-on: ubuntu-latest
     name: Infrastructure Deploy
+    permissions:
+      contents: write
     environment: ${{ needs.check-changes.outputs.environment }}
     outputs:
-      project-id: ${{ steps.export-outputs.outputs.project-id }}
+      project-id: ${{ steps.export-outputs.outputs.project-id || steps.pr-project-id.outputs.project-id }}
     env:
       TF_VAR_ENVIRONMENT: ${{ needs.check-changes.outputs.environment }}
 
@@ -192,11 +196,13 @@ jobs:
         run: terraform plan -var-file="config.${{ env.TF_VAR_ENVIRONMENT }}.json" -out=tfplan
 
       - name: Terraform Apply
+        if: github.event_name != 'pull_request'
         working-directory: infra/vercel/web/src
         run: terraform apply -auto-approve tfplan
 
       - name: Export Terraform Outputs
         id: export-outputs
+        if: github.event_name != 'pull_request'
         working-directory: infra/vercel/web/src
         run: |
           PROJECT_ID=$(terraform output -raw OPTICASUAREZ_WEB_VERCEL_PROJECT_ID)
@@ -204,7 +210,14 @@ jobs:
           echo "project-id=$PROJECT_ID" >> $GITHUB_OUTPUT
           echo "Set OPTICASUAREZ_WEB_VERCEL_PROJECT_ID variable manually to: $PROJECT_ID"
 
+      - name: Resolve project id for PR runs
+        id: pr-project-id
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "project-id=${{ vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}" >> $GITHUB_OUTPUT
+
       - name: Encrypt Terraform State
+        if: github.event_name != 'pull_request'
         working-directory: infra/vercel/web/src
         run: |
           if [ -f "terraform.tfstate" ]; then
@@ -217,11 +230,13 @@ jobs:
           fi
 
       - name: Configure Git
+        if: github.event_name != 'pull_request'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit Encrypted State to state branch
+        if: github.event_name != 'pull_request'
         working-directory: infra/vercel/web/src
         run: |
           STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
@@ -347,6 +362,7 @@ jobs:
     needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
     if: |
       always() &&
+      github.event_name != 'pull_request' &&
       needs.deploy-preview.result == 'success' &&
       needs.infra-deploy.result != 'failure'
     runs-on: ubuntu-latest
@@ -404,3 +420,37 @@ jobs:
         run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+
+  pr-merge-gate:
+    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: PR Merge Gate
+
+    steps:
+      - name: Validate full PR workflow
+        run: |
+          echo "check-changes: ${{ needs.check-changes.result }}"
+          echo "infra-deploy: ${{ needs.infra-deploy.result }}"
+          echo "deploy-preview: ${{ needs.deploy-preview.result }}"
+          echo "e2e-tests: ${{ needs.e2e-tests.result }}"
+
+          if [ "${{ needs.check-changes.result }}" != "success" ]; then
+            echo "check-changes must succeed"
+            exit 1
+          fi
+
+          if [ "${{ needs.infra-deploy.result }}" != "success" ] && [ "${{ needs.infra-deploy.result }}" != "skipped" ]; then
+            echo "infra-deploy must succeed (or be skipped when infra is unchanged)"
+            exit 1
+          fi
+
+          if [ "${{ needs.deploy-preview.result }}" != "success" ] && [ "${{ needs.deploy-preview.result }}" != "skipped" ]; then
+            echo "deploy-preview must succeed (or be skipped when no app/infra changes)"
+            exit 1
+          fi
+
+          if [ "${{ needs.e2e-tests.result }}" != "success" ] && [ "${{ needs.e2e-tests.result }}" != "skipped" ]; then
+            echo "e2e-tests must succeed when preview was deployed"
+            exit 1
+          fi
