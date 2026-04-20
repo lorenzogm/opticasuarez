@@ -239,8 +239,7 @@ export const fetchPage = createServerFn({ method: "GET" })
           _type: "sectionTestimonials",
           _key: "fallback-testimonials",
           title: quienesNosotrosContent.testimonials.title,
-          moreReviewsLink:
-            quienesNosotrosContent.testimonials.moreReviewsLink,
+          moreReviewsLink: quienesNosotrosContent.testimonials.moreReviewsLink,
           testimonialItems: quienesNosotrosContent.testimonials.items.map(
             (
               item: { rating: number; name: string; review: string },
