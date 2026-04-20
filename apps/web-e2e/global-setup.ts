@@ -22,7 +22,7 @@ async function globalSetup(config: FullConfig) {
 
   const warmupUrls = ["/", "/blog"];
   const maxRetries = 3;
-  const retryDelay = 5_000;
+  const retryDelay = 5000;
 
   for (const url of warmupUrls) {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -33,11 +33,11 @@ async function globalSetup(config: FullConfig) {
         });
         const body = await response.text();
         console.log(
-          `[warmup] ${url} → ${response.status} (${body.length} bytes, attempt ${attempt})`,
+          `[warmup] ${url} → ${response.status} (${body.length} bytes, attempt ${attempt})`
         );
         if (response.ok && body.length > 100) break;
         console.warn(
-          `[warmup] ${url} returned insufficient content, retrying...`,
+          `[warmup] ${url} returned insufficient content, retrying...`
         );
       } catch (error) {
         console.warn(`[warmup] ${url} attempt ${attempt} failed:`, error);
