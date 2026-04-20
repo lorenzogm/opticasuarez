@@ -265,7 +265,7 @@ jobs:
       needs.infra-deploy.result != 'failure' &&
       (needs.check-changes.outputs.app-changed == 'true' || needs.check-changes.outputs.infra-changed == 'true')
     runs-on: ubuntu-latest
-    name: Deploy Preview
+    name: Deploy to Vercel Preview
     environment: ${{ needs.check-changes.outputs.environment }}
     outputs:
       preview-url: ${{ steps.preview-deploy.outputs.preview-url }}
@@ -330,7 +330,7 @@ jobs:
     needs: [deploy-preview]
     if: always() && needs.deploy-preview.result == 'success'
     runs-on: ubuntu-latest
-    name: E2E Tests
+    name: E2E Tests on Preview
 
     steps:
       - name: Checkout
@@ -355,6 +355,7 @@ jobs:
         run: pnpm --filter opticasuarez-web-e2e test:e2e
         env:
           PLAYWRIGHT_BASE_URL: ${{ needs.deploy-preview.outputs.preview-url }}
+          PLAYWRIGHT_WORKERS: 2
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           CI: true
 
@@ -450,7 +451,7 @@ jobs:
             exit 1
           fi
 
-          if [ "${{ needs.e2e-tests.result }}" != "success" ] && [ "${{ needs.e2e-tests.result }}" != "skipped" ]; then
-            echo "e2e-tests must succeed when preview was deployed"
+          if [ "${{ needs.deploy-preview.result }}" = "success" ] && [ "${{ needs.e2e-tests.result }}" != "success" ]; then
+            echo "e2e-tests must succeed when preview deployment succeeds"
             exit 1
           fi
