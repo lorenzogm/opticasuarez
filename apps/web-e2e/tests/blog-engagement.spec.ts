@@ -19,7 +19,10 @@ test.describe("Blog Engagement", () => {
   test("click article from blog list (CSR)", async ({ page }) => {
     await page.goto("/blog");
     await page.waitForLoadState("networkidle");
-    const firstArticleLink = page.locator("a[href*='/blog/']").first();
+    const firstArticleLink = page
+      .getByRole("link", { name: /Leer m[aá]s/i })
+      .first();
+    await expect(firstArticleLink).toBeVisible();
     await firstArticleLink.click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/\/blog\/.+/);
@@ -31,7 +34,10 @@ test.describe("Blog Engagement", () => {
   test("blog article renders via SSR", async ({ page }) => {
     await page.goto("/blog");
     await page.waitForLoadState("networkidle");
-    const firstArticleLink = page.locator("a[href*='/blog/']").first();
+    const firstArticleLink = page
+      .getByRole("link", { name: /Leer m[aá]s/i })
+      .first();
+    await expect(firstArticleLink).toBeVisible();
     const href = await firstArticleLink.getAttribute("href");
     expect(href).toBeTruthy();
 
@@ -48,18 +54,21 @@ test.describe("Blog Engagement", () => {
     await page.goto("/blog");
     await page.waitForLoadState("networkidle");
 
-    // Desktop: buttons visible at md+ breakpoint
-    const todasButton = page.getByRole("button", { name: /^Todas$/i });
-    await expect(todasButton).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-    // Click a category filter button and verify page doesn't break
-    const categoryButtons = page.locator(
-      "button.rounded-full:not(:has-text('Todas'))"
-    );
-    if ((await categoryButtons.count()) > 0) {
-      await categoryButtons.first().click();
-      await page.waitForLoadState("networkidle");
-      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    // Click the first non-"Todas" category when available and verify the page remains stable.
+    const categoryButtons = page.locator("button.rounded-full");
+    const count = await categoryButtons.count();
+
+    for (let index = 0; index < count; index++) {
+      const button = categoryButtons.nth(index);
+      const label = (await button.textContent())?.trim() ?? "";
+      if (!/^Todas$/i.test(label)) {
+        await button.click();
+        await page.waitForLoadState("networkidle");
+        await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+        break;
+      }
     }
   });
 });

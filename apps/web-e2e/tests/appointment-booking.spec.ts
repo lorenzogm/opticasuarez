@@ -181,12 +181,22 @@ test.describe("Appointment Booking", () => {
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/cita\/contacto/);
 
-    // Touch each field and blur to trigger validation
-    await page.getByLabel(/Nombre completo/i).focus();
-    await page.getByLabel(/Teléfono móvil/i).focus();
-    await page.getByLabel(/Edad del paciente/i).focus();
-    await page.getByLabel(/Email/i).focus();
-    await page.getByLabel(/Observaciones/i).focus(); // blur email
+    // Touch each required field and blur to trigger validation
+    const nombreInput = page.getByLabel(/Nombre completo/i);
+    await nombreInput.click();
+    await nombreInput.press("Tab");
+
+    const telefonoInput = page.getByLabel(/Teléfono móvil/i);
+    await telefonoInput.click();
+    await telefonoInput.press("Tab");
+
+    const edadInput = page.getByLabel(/Edad del paciente/i);
+    await edadInput.click();
+    await edadInput.press("Tab");
+
+    const emailInput = page.getByLabel(/Email/i);
+    await emailInput.click();
+    await emailInput.press("Tab");
 
     // Verify validation errors appear
     await expect(page.getByText(/El nombre es requerido/i)).toBeVisible();
