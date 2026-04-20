@@ -229,6 +229,60 @@ export const fetchPage = createServerFn({ method: "GET" })
           page.sections.push(timelineSection);
         }
       }
+
+      // Inject testimonials section if Sanity has none
+      const hasTestimonials = page.sections.some(
+        (s: SanityData) => s._type === "sectionTestimonials"
+      );
+      if (!hasTestimonials) {
+        page.sections.push({
+          _type: "sectionTestimonials",
+          _key: "fallback-testimonials",
+          title: quienesNosotrosContent.testimonials.title,
+          moreReviewsLink: quienesNosotrosContent.testimonials.moreReviewsLink,
+          testimonialItems: quienesNosotrosContent.testimonials.items.map(
+            (
+              item: { rating: number; name: string; review: string },
+              i: number
+            ) => ({
+              _key: `fallback-test-${i}`,
+              name: item.name,
+              text: item.review,
+              rating: item.rating,
+            })
+          ),
+        });
+      }
+
+      // Inject social media section if Sanity has none
+      const hasSocialMedia = page.sections.some(
+        (s: SanityData) => s._type === "sectionSocialMedia"
+      );
+      if (!hasSocialMedia) {
+        page.sections.push({
+          _type: "sectionSocialMedia",
+          _key: "fallback-social",
+          title: "Síguenos en redes sociales",
+          items: quienesNosotrosContent.socialMedia.map(
+            (
+              item: {
+                platform: string;
+                title: string;
+                handle: string;
+                url: string;
+                icon: string;
+              },
+              i: number
+            ) => ({
+              _key: `fallback-sm-${i}`,
+              platform: item.icon,
+              title: item.title,
+              handle: item.handle,
+              url: item.url,
+            })
+          ),
+        });
+      }
     }
 
     return { page: page as SanityData, isPreview: preview };
@@ -408,6 +462,46 @@ function buildQuienesNosotrosFallback(): SanityData {
             title: m.name,
             description: [m.role, ...m.details].join("\n"),
             image: { url: m.image },
+          })
+        ),
+      },
+      {
+        _type: "sectionTestimonials",
+        _key: "fb-qs-testimonials",
+        title: d.testimonials.title,
+        moreReviewsLink: d.testimonials.moreReviewsLink,
+        testimonialItems: d.testimonials.items.map(
+          (
+            item: { rating: number; name: string; review: string },
+            i: number
+          ) => ({
+            _key: `fb-test-${i}`,
+            name: item.name,
+            text: item.review,
+            rating: item.rating,
+          })
+        ),
+      },
+      {
+        _type: "sectionSocialMedia",
+        _key: "fb-qs-social",
+        title: "Síguenos en redes sociales",
+        items: d.socialMedia.map(
+          (
+            item: {
+              platform: string;
+              title: string;
+              handle: string;
+              url: string;
+              icon: string;
+            },
+            i: number
+          ) => ({
+            _key: `fb-sm-${i}`,
+            platform: item.icon,
+            title: item.title,
+            handle: item.handle,
+            url: item.url,
           })
         ),
       },

@@ -58,10 +58,7 @@ test.describe("Site Navigation", () => {
   test("navigate back to homepage via logo", async ({ page }) => {
     await page.goto("/blog");
     await page.waitForLoadState("networkidle");
-    await page
-      .locator("nav")
-      .getByRole("link", { name: "Óptica Suárez" })
-      .click();
+    await page.locator("nav a[href='/']").first().click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/\/$/);
   });
