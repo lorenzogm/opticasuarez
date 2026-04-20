@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-04-20T00:00:00.000Z
-last_updated: 2026-04-20T00:00:00.000Z
+last_updated: 2026-04-21T00:00:00.000Z
 project: opticasuarez
 project_key: NOKEY
 tracking_system: file-system
@@ -50,3 +50,5 @@ development_status:
   1-5-revision-de-codigo-con-bmad-code-review: done
   1-6-monitoreo-de-pipelines-con-bucle-bash-hasta-verde-total: done
   epic-1-retrospective: optional
+  epic-2: in-progress
+  2-1-seo-critical-fixes-nap-faq-breadcrumbs: review

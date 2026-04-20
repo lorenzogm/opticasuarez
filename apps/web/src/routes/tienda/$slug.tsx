@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { BreadcrumbSchema } from "~/components/structured-data";
 import ProductDetail from "~/components/tienda/product-detail";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/tienda/$slug")({
   loader: async ({ params }) => {
     const { settings } = await fetchSiteSettings();
     if (!settings?.featureFlags?.shopEnabled) {
-      throw new Error("Page not found");
+      throw notFound();
     }
     return fetchProduct({ data: params.slug });
   },

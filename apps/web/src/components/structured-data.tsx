@@ -1,4 +1,11 @@
-import { getBaseUrl } from "~/lib/utils";
+import {
+  type BreadcrumbItem,
+  createBreadcrumbSchema,
+  createFaqSchema,
+  createOpticianSchema,
+  createWebsiteSchema,
+  type FaqItem,
+} from "~/lib/structured-data-helpers";
 
 interface StructuredDataProps {
   schema: Record<string, unknown>;
@@ -15,169 +22,18 @@ export default function StructuredData({ schema }: StructuredDataProps) {
   );
 }
 
-// Website Schema with Sitelinks Search Box
 export function WebsiteSchema() {
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Óptica Suárez",
-    alternateName: "Óptica Suárez Jaén",
-    description:
-      "Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.",
-    url: getBaseUrl(),
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${getBaseUrl()}/blog?search={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-    mainEntity: {
-      "@type": "LocalBusiness",
-      "@id": `${getBaseUrl()}/#organization`,
-    },
-  };
-
-  return <StructuredData schema={websiteSchema} />;
+  return <StructuredData schema={createWebsiteSchema()} />;
 }
 
-// Organization Schema
 export function OrganizationSchema() {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${getBaseUrl()}/#organization`,
-    name: "Óptica Suárez",
-    image: `${getBaseUrl()}/og-image.jpg`,
-    telephone: "+34953123456",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Calle Ejemplo, 123",
-      addressLocality: "Jaén",
-      addressRegion: "Andalucía",
-      postalCode: "23001",
-      addressCountry: "ES",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 37.7749,
-      longitude: -3.79,
-    },
-    url: getBaseUrl(),
-    logo: `${getBaseUrl()}/images/optica-suarez-logo.png`,
-    description:
-      "Centro de Optometría y Terapia Visual en Jaén con más de 80 años de experiencia. Especializados en visión infantil, terapia visual, control de miopía y contactología.",
-    foundingDate: "1940",
-    slogan: "Desde 1940 al cuidado de tu visión",
-    priceRange: "$$",
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:30",
-        closes: "13:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "17:00",
-        closes: "20:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "09:30",
-        closes: "13:30",
-      },
-    ],
-    serviceArea: {
-      "@type": "City",
-      name: "Jaén",
-      containedIn: {
-        "@type": "State",
-        name: "Andalucía",
-        containedIn: {
-          "@type": "Country",
-          name: "España",
-        },
-      },
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Servicios de Óptica y Optometría",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Examen Visual Completo",
-            description:
-              "Evaluación completa de la salud visual y detección temprana de problemas oculares.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Terapia Visual",
-            description:
-              "Programas personalizados de entrenamiento visual para mejorar habilidades visuales.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Visión Pediátrica",
-            description: "Cuidado especializado de la salud visual infantil.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Control de Miopía",
-            description:
-              "Tratamientos avanzados para el control y prevención de la miopía.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Contactología",
-            description:
-              "Adaptación y seguimiento de lentes de contacto especializadas.",
-          },
-        },
-      ],
-    },
-    sameAs: [
-      "https://www.facebook.com/opticasuarezjaen",
-      "https://www.instagram.com/opticasuarezjaen",
-    ],
-  };
-
-  return <StructuredData schema={organizationSchema} />;
+  return <StructuredData schema={createOpticianSchema()} />;
 }
 
-// Breadcrumb Schema Generator
-export function BreadcrumbSchema({
-  items,
-}: {
-  items: Array<{ name: string; url: string }>;
-}) {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: item.url,
-    })),
-  };
+export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
+  return <StructuredData schema={createBreadcrumbSchema(items)} />;
+}
 
-  return <StructuredData schema={breadcrumbSchema} />;
+export function FaqSchema({ items }: { items: FaqItem[] }) {
+  return <StructuredData schema={createFaqSchema(items)} />;
 }

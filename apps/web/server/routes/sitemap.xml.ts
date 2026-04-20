@@ -1,4 +1,6 @@
 import { defineEventHandler, setResponseHeaders } from "nitro/h3";
+import { resolveFeatureFlags } from "~/lib/feature-flags";
+import { buildSitemapRoutes } from "~/lib/structured-data-helpers";
 
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
@@ -11,7 +13,7 @@ const domain =
 
 const staticRoutes = ["/", "/contacto", "/blog"];
 
-async function fetchFromSanity<T>(query: string): Promise<T[]> {
+async function fetchCollectionFromSanity<T>(query: string): Promise<T[]> {
   const url = new URL(SANITY_CDN_URL);
   url.searchParams.set("query", query);
 
@@ -22,28 +24,48 @@ async function fetchFromSanity<T>(query: string): Promise<T[]> {
   return json.result || [];
 }
 
+async function fetchSingleFromSanity<T>(query: string): Promise<T | null> {
+  const url = new URL(SANITY_CDN_URL);
+  url.searchParams.set("query", query);
+
+  const res = await fetch(url.toString());
+  if (!res.ok) return null;
+
+  const json = (await res.json()) as { result: T | null };
+  return json.result ?? null;
+}
+
 export default defineEventHandler(async (event) => {
-  const [blogSlugs, pages, productSlugs] = await Promise.all([
-    fetchFromSanity<{ slug: string }>(
+  const [blogSlugs, pages, siteSettings] = await Promise.all([
+    fetchCollectionFromSanity<{ slug: string }>(
       '*[_type == "blogPost"]{ "slug": slug.current }'
     ),
-    fetchFromSanity<{ path: string }>(
+    fetchCollectionFromSanity<{ path: string }>(
       '*[_type == "page"]{ "path": path.current }'
     ),
-    fetchFromSanity<{ slug: string }>(
-      '*[_type == "product"]{ "slug": slug.current }'
-    ),
+    fetchSingleFromSanity<{
+      featureFlags?: { shopEnabled?: boolean; ecommerce?: boolean };
+    }>('*[_type == "siteSettings"][0]{ featureFlags }'),
   ]);
 
-  const allRoutes = [
-    ...staticRoutes,
-    ...pages.map((p) => p.path).filter(Boolean),
-    ...blogSlugs.map((b) => `/blog/${b.slug}`).filter(Boolean),
-    ...productSlugs.map((p) => `/tienda/${p.slug}`).filter(Boolean),
-  ];
+  const featureFlags = resolveFeatureFlags(
+    siteSettings?.featureFlags ?? {},
+    () => ""
+  );
 
-  // Deduplicate routes
-  const uniqueRoutes = [...new Set(allRoutes)];
+  const productSlugs = featureFlags.shopEnabled
+    ? await fetchCollectionFromSanity<{ slug: string }>(
+        '*[_type == "product"]{ "slug": slug.current }'
+      )
+    : [];
+
+  const uniqueRoutes = buildSitemapRoutes({
+    staticRoutes,
+    pages,
+    blogSlugs,
+    productSlugs,
+    shopEnabled: featureFlags.shopEnabled,
+  });
 
   const today = new Date().toISOString().split("T")[0];
 

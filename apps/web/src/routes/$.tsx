@@ -1,7 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import SectionRenderer from "~/components/sections/section-renderer";
+import { BreadcrumbSchema, FaqSchema } from "~/components/structured-data";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchPage } from "~/lib/server-fns";
+import {
+  buildDynamicPageBreadcrumbItems,
+  extractServiceFaqItems,
+} from "~/lib/structured-data-helpers";
 
 // biome-ignore lint/suspicious/noExplicitAny: dynamic page data from Sanity
 type PageData = Record<string, any>;
@@ -34,7 +39,19 @@ export const Route = createFileRoute("/$")({
 
 function PageComponent() {
   const { page } = Route.useLoaderData() as { page: PageData };
-  return <SectionRenderer sections={page.sections || []} />;
+  const path = page.path || "/";
+  const title = page.title || "Página";
+  const sections = page.sections || [];
+  const breadcrumbItems = buildDynamicPageBreadcrumbItems({ path, title });
+  const faqItems = extractServiceFaqItems(path, sections);
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      {faqItems.length > 0 ? <FaqSchema items={faqItems} /> : null}
+      <SectionRenderer sections={sections} />
+    </>
+  );
 }
 
 function RouteNotFoundComponent() {

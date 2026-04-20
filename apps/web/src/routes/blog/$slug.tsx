@@ -1,7 +1,9 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import BlogPostPage from "~/components/blog/blog-post";
+import { BreadcrumbSchema } from "~/components/structured-data";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 import { fetchBlogPost } from "~/lib/server-fns";
+import { buildBlogPostBreadcrumbItems } from "~/lib/structured-data-helpers";
 
 export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
@@ -41,5 +43,15 @@ export const Route = createFileRoute("/blog/$slug")({
 function RouteComponent() {
   // biome-ignore lint/suspicious/noExplicitAny: Sanity data
   const loaderData = Route.useLoaderData() as { post: any };
-  return <BlogPostPage post={loaderData.post} />;
+  const breadcrumbItems = buildBlogPostBreadcrumbItems({
+    slug: loaderData.post.slug,
+    title: loaderData.post.title,
+  });
+
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <BlogPostPage post={loaderData.post} />
+    </>
+  );
 }
