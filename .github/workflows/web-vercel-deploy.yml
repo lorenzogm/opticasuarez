@@ -455,3 +455,83 @@ jobs:
             echo "e2e-tests must succeed when preview deployment succeeds"
             exit 1
           fi
+
+  pr-workflow-summary:
+    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: Update PR with Workflow Summary
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Generate workflow summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const infraStatus = '${{ needs.infra-deploy.result }}';
+            const previewStatus = '${{ needs.deploy-preview.result }}';
+            const e2eStatus = '${{ needs.e2e-tests.result }}';
+            const previewUrl = '${{ needs.deploy-preview.outputs.preview-url }}';
+
+            // Status emoji mapping
+            const statusEmoji = {
+              success: '✅',
+              skipped: '⏭️',
+              failure: '❌',
+              cancelled: '⚪'
+            };
+
+            // Build the summary markdown
+            const summary = `## Deployment Workflow Summary
+
+| Step | Status | Details |
+|------|--------|---------|
+| **Infrastructure Changes** | ${statusEmoji[infraStatus]} ${infraStatus === 'success' ? 'Applied' : infraStatus === 'skipped' ? 'Skipped' : 'Failed'} | Terraform plan/apply |
+| **Deploy to Preview** | ${statusEmoji[previewStatus]} ${previewStatus === 'success' ? 'Deployed' : previewStatus === 'skipped' ? 'Skipped' : 'Failed'} | ${previewStatus === 'success' && previewUrl ? `[Preview](${previewUrl})` : 'No preview URL available'} |
+| **E2E Tests** | ${statusEmoji[e2eStatus]} ${e2eStatus === 'success' ? 'Passed' : e2eStatus === 'skipped' ? 'Skipped' : 'Failed'} | Playwright tests against preview |
+
+---`;
+
+            // Get the current PR body
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            // Find if there's already a summary section
+            let newBody = pr.body || '';
+            const summaryMarker = '## Deployment Workflow Summary';
+            
+            if (newBody.includes(summaryMarker)) {
+              // Replace existing summary (everything from marker to next section or end)
+              const lines = newBody.split('\n');
+              let startIdx = -1;
+              let endIdx = lines.length;
+              
+              for (let i = 0; i < lines.length; i++) {
+                if (lines[i].includes(summaryMarker)) {
+                  startIdx = i;
+                }
+                if (startIdx !== -1 && i > startIdx && lines[i].startsWith('## ') && !lines[i].includes(summaryMarker)) {
+                  endIdx = i;
+                  break;
+                }
+              }
+              
+              if (startIdx !== -1) {
+                newBody = lines.slice(0, startIdx).join('\n') + '\n' + summary + (endIdx < lines.length ? '\n' + lines.slice(endIdx).join('\n') : '');
+              }
+            } else {
+              // Append summary to the end
+              newBody = newBody + '\n\n' + summary;
+            }
+
+            // Update the PR
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: newBody
+            });
