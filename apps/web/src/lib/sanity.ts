@@ -22,7 +22,10 @@ async function sanityFetch<T>(
   if (preview && process.env.SANITY_API_TOKEN) {
     headers.Authorization = `Bearer ${process.env.SANITY_API_TOKEN}`;
   }
-  const res = await fetch(url.toString(), { headers });
+  const res = await fetch(url.toString(), {
+    headers,
+    signal: AbortSignal.timeout(10_000),
+  });
   if (!res.ok) {
     throw new Error(`Sanity query failed: ${res.status} ${res.statusText}`);
   }
