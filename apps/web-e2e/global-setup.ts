@@ -4,6 +4,9 @@ import type { FullConfig } from "@playwright/test";
  * Warms up the Vercel preview deployment before running E2E tests.
  * Cold serverless functions can take 10-30s on first request, causing
  * test timeouts when tests go directly to SSR-rendered pages.
+ *
+ * Retries each URL up to 3 times to ensure the serverless function is
+ * fully warmed and returns real content (not a 0-byte cached page).
  */
 async function globalSetup(config: FullConfig) {
   const baseURL =
@@ -18,13 +21,30 @@ async function globalSetup(config: FullConfig) {
   }
 
   const warmupUrls = ["/", "/blog"];
+  const maxRetries = 3;
+  const retryDelay = 5_000;
 
   for (const url of warmupUrls) {
-    try {
-      const response = await fetch(`${baseURL}${url}`, { headers });
-      console.log(`[warmup] ${url} → ${response.status}`);
-    } catch (error) {
-      console.warn(`[warmup] ${url} failed:`, error);
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await fetch(`${baseURL}${url}`, {
+          headers,
+          signal: AbortSignal.timeout(30_000),
+        });
+        const body = await response.text();
+        console.log(
+          `[warmup] ${url} → ${response.status} (${body.length} bytes, attempt ${attempt})`,
+        );
+        if (response.ok && body.length > 100) break;
+        console.warn(
+          `[warmup] ${url} returned insufficient content, retrying...`,
+        );
+      } catch (error) {
+        console.warn(`[warmup] ${url} attempt ${attempt} failed:`, error);
+      }
+      if (attempt < maxRetries) {
+        await new Promise((r) => setTimeout(r, retryDelay));
+      }
     }
   }
 }
