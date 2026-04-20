@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
     ...pages.map((p) => p.path).filter(Boolean),
     ...blogSlugs.map((b) => `/blog/${b.slug}`).filter(Boolean),
     ...productSlugs.map((p) => `/tienda/${p.slug}`).filter(Boolean),
-  ];
+  ].map((route) => (route.startsWith("/") ? route : `/${route}`));
 
   // Deduplicate routes
   const uniqueRoutes = [...new Set(allRoutes)];
