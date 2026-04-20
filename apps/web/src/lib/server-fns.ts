@@ -460,7 +460,8 @@ function buildQuienesNosotrosFallback(): SanityData {
           ) => ({
             _key: `fb-tm-${i}`,
             title: m.name,
-            description: [m.role, ...m.details].join("\n"),
+            subtitle: m.role,
+            details: m.details,
             image: { url: m.image },
           })
         ),
@@ -479,6 +480,22 @@ function buildQuienesNosotrosFallback(): SanityData {
             name: item.name,
             text: item.review,
             rating: item.rating,
+          })
+        ),
+      },
+      {
+        _type: "sectionLocations",
+        _key: "fb-qs-locations",
+        title: "Nuestros Centros",
+        items: d.locations.map(
+          (
+            loc: { name: string; image: string; mapLink: string },
+            i: number
+          ) => ({
+            _key: `fb-loc-${i}`,
+            title: loc.name,
+            image: { url: loc.image },
+            link: loc.mapLink,
           })
         ),
       },

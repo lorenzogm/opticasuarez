@@ -1,13 +1,46 @@
+import { useEffect, useRef } from "react";
 import { Text } from "~/components/text";
 import { resolveImage } from "~/lib/sanity";
+
+function useScrollReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).style.opacity = "1";
+            (entry.target as HTMLElement).style.transform = "translateY(0)";
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    const items = el.querySelectorAll("[data-reveal]");
+    for (const item of items) {
+      observer.observe(item);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return ref;
+}
 
 // biome-ignore lint/suspicious/noExplicitAny: Sanity section data
 export default function SectionTimeline({ section }: { section: any }) {
   const items = section.timelineItems || section.items || [];
+  const containerRef = useScrollReveal();
 
   return (
     <section className="px-4 py-16 sm:px-6">
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-4xl" ref={containerRef}>
         {section.title && (
           <Text
             as="h2"
@@ -32,7 +65,14 @@ export default function SectionTimeline({ section }: { section: any }) {
                   className={`relative flex flex-col gap-4 md:flex-row md:items-start ${
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
+                  data-reveal
                   key={item._key || index}
+                  style={{
+                    opacity: 0,
+                    transform: "translateY(2rem)",
+                    transition:
+                      "opacity 0.6s ease-out, transform 0.6s ease-out",
+                  }}
                 >
                   {/* Content */}
                   <div
