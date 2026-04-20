@@ -3,7 +3,9 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "~/components/button";
 import Image from "~/components/image";
 import SocialShare from "~/components/social-share";
+import StructuredData from "~/components/structured-data";
 import { resolveImage } from "~/lib/sanity";
+import { getBaseUrl } from "~/lib/utils";
 
 interface BlogPostProps {
   // biome-ignore lint/suspicious/noExplicitAny: Sanity data shape is dynamic
@@ -105,8 +107,35 @@ export default function BlogPost({ post }: BlogPostProps) {
       ? window.location.href
       : `https://opticasuarez.com/blog/${post.slug}`;
 
+  const baseUrl = getBaseUrl();
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Óptica Suárez",
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/images/optica-suarez-logo.png`,
+      },
+    },
+    datePublished: post.publishedAt || post.date,
+    dateModified: post._updatedAt || post.date,
+    mainEntityOfPage: `${baseUrl}/blog/${post.slug}`,
+    ...(post.featured_image
+      ? { image: resolveImage(post.featured_image) }
+      : {}),
+  };
+
   return (
     <main className="bg-white">
+      <StructuredData schema={blogPostingSchema} />
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-900 to-blue-700 px-4 py-16 text-white sm:px-6">
         <div className="container mx-auto max-w-4xl">

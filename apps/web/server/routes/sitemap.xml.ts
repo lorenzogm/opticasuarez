@@ -24,38 +24,56 @@ async function fetchFromSanity<T>(query: string): Promise<T[]> {
 
 export default defineEventHandler(async (event) => {
   const [blogSlugs, pages, productSlugs] = await Promise.all([
-    fetchFromSanity<{ slug: string }>(
-      '*[_type == "blogPost"]{ "slug": slug.current }'
+    fetchFromSanity<{ slug: string; updatedAt: string }>(
+      '*[_type == "blogPost"]{ "slug": slug.current, "updatedAt": _updatedAt }'
     ),
-    fetchFromSanity<{ path: string }>(
-      '*[_type == "page"]{ "path": path.current }'
+    fetchFromSanity<{ path: string; updatedAt: string }>(
+      '*[_type == "page"]{ "path": path.current, "updatedAt": _updatedAt }'
     ),
-    fetchFromSanity<{ slug: string }>(
-      '*[_type == "product"]{ "slug": slug.current }'
+    fetchFromSanity<{ slug: string; updatedAt: string }>(
+      '*[_type == "product"]{ "slug": slug.current, "updatedAt": _updatedAt }'
     ),
   ]);
 
-  const allRoutes = [
-    ...staticRoutes,
-    ...pages.map((p) => p.path).filter(Boolean),
-    ...blogSlugs.map((b) => `/blog/${b.slug}`).filter(Boolean),
-    ...productSlugs.map((p) => `/tienda/${p.slug}`).filter(Boolean),
+  const today = new Date().toISOString().split("T")[0];
+
+  const allRoutes: { loc: string; lastmod: string }[] = [
+    ...staticRoutes.map((r) => ({ loc: r, lastmod: today })),
+    ...pages
+      .filter((p) => p.path)
+      .map((p) => ({
+        loc: p.path,
+        lastmod: p.updatedAt?.split("T")[0] || today,
+      })),
+    ...blogSlugs
+      .filter((b) => b.slug)
+      .map((b) => ({
+        loc: `/blog/${b.slug}`,
+        lastmod: b.updatedAt?.split("T")[0] || today,
+      })),
+    ...productSlugs
+      .filter((p) => p.slug)
+      .map((p) => ({
+        loc: `/tienda/${p.slug}`,
+        lastmod: p.updatedAt?.split("T")[0] || today,
+      })),
   ];
 
-  // Deduplicate routes
-  const uniqueRoutes = [...new Set(allRoutes)];
-
-  const today = new Date().toISOString().split("T")[0];
+  // Deduplicate by loc
+  const seen = new Set<string>();
+  const uniqueRoutes = allRoutes.filter((r) => {
+    if (seen.has(r.loc)) return false;
+    seen.add(r.loc);
+    return true;
+  });
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${uniqueRoutes
   .map(
     (route) => `  <url>
-    <loc>${domain}${route}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${route === "/" ? "1.0" : "0.8"}</priority>
+    <loc>${domain}${route.loc}</loc>
+    <lastmod>${route.lastmod}</lastmod>
   </url>`
   )
   .join("\n")}
