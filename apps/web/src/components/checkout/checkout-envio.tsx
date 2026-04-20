@@ -40,7 +40,11 @@ const shippingOptions: Array<{
 function loadShipping(): ShippingMethod | null {
   try {
     const raw = localStorage.getItem(SHIPPING_STORAGE_KEY);
-    if (raw === "delivery" || raw === "pickup-bulevar" || raw === "pickup-centro") {
+    if (
+      raw === "delivery" ||
+      raw === "pickup-bulevar" ||
+      raw === "pickup-centro"
+    ) {
       return raw;
     }
     return null;
@@ -77,9 +81,7 @@ export default function CheckoutEnvio() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
       <ProgressIndicator currentStep={2} />
-      <h1 className="mb-6 font-bold text-2xl text-gray-900">
-        Método de envío
-      </h1>
+      <h1 className="mb-6 font-bold text-2xl text-gray-900">Método de envío</h1>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         {shippingOptions.map((option) => (

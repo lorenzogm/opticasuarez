@@ -33,12 +33,17 @@ describe("redsys", () => {
 
   describe("encodeMerchantParameters", () => {
     it("encodes to Base64url", () => {
-      const data = { Ds_Merchant_Amount: "1250", Ds_Merchant_Order: "OS-20250101-0001" };
+      const data = {
+        Ds_Merchant_Amount: "1250",
+        Ds_Merchant_Order: "OS-20250101-0001",
+      };
       const encoded = encodeMerchantParameters(data);
       // Must be valid base64url (no +, /, =)
       expect(encoded).not.toMatch(/[+/=]/);
       // Must be decodable back
-      const decoded = JSON.parse(Buffer.from(encoded, "base64url").toString("utf-8"));
+      const decoded = JSON.parse(
+        Buffer.from(encoded, "base64url").toString("utf-8")
+      );
       expect(decoded.Ds_Merchant_Amount).toBe("1250");
       expect(decoded.Ds_Merchant_Order).toBe("OS-20250101-0001");
     });
@@ -58,7 +63,9 @@ describe("redsys", () => {
   describe("decodeMerchantParameters", () => {
     it("decodes Base64url to object", () => {
       const original = { Ds_Response: "0000", Ds_Order: "OS-20250101-0001" };
-      const encoded = Buffer.from(JSON.stringify(original)).toString("base64url");
+      const encoded = Buffer.from(JSON.stringify(original)).toString(
+        "base64url"
+      );
       const decoded = decodeMerchantParameters(encoded);
       expect(decoded).toEqual(original);
     });
@@ -105,17 +112,27 @@ describe("redsys", () => {
   describe("verifySignature", () => {
     it("returns true for valid signature", () => {
       const orderNumber = "OS-20250101-0001";
-      const params = { Ds_Order: orderNumber, Ds_Response: "0000", Ds_Amount: "1250" };
+      const params = {
+        Ds_Order: orderNumber,
+        Ds_Response: "0000",
+        Ds_Amount: "1250",
+      };
       const encoded = encodeMerchantParameters(params);
       const orderKey = encrypt3DES(TEST_SECRET_KEY, orderNumber);
       const signature = signRequest(encoded, orderKey);
 
-      expect(verifySignature(encoded, signature, TEST_SECRET_KEY, orderNumber)).toBe(true);
+      expect(
+        verifySignature(encoded, signature, TEST_SECRET_KEY, orderNumber)
+      ).toBe(true);
     });
 
     it("returns false for tampered data", () => {
       const orderNumber = "OS-20250101-0001";
-      const params = { Ds_Order: orderNumber, Ds_Response: "0000", Ds_Amount: "1250" };
+      const params = {
+        Ds_Order: orderNumber,
+        Ds_Response: "0000",
+        Ds_Amount: "1250",
+      };
       const encoded = encodeMerchantParameters(params);
       const orderKey = encrypt3DES(TEST_SECRET_KEY, orderNumber);
       const signature = signRequest(encoded, orderKey);
@@ -125,7 +142,9 @@ describe("redsys", () => {
         ...params,
         Ds_Amount: "100",
       });
-      expect(verifySignature(tamperedParams, signature, TEST_SECRET_KEY, orderNumber)).toBe(false);
+      expect(
+        verifySignature(tamperedParams, signature, TEST_SECRET_KEY, orderNumber)
+      ).toBe(false);
     });
 
     it("returns false for wrong order number", () => {
@@ -135,7 +154,9 @@ describe("redsys", () => {
       const orderKey = encrypt3DES(TEST_SECRET_KEY, orderNumber);
       const signature = signRequest(encoded, orderKey);
 
-      expect(verifySignature(encoded, signature, TEST_SECRET_KEY, "WRONG-ORDER")).toBe(false);
+      expect(
+        verifySignature(encoded, signature, TEST_SECRET_KEY, "WRONG-ORDER")
+      ).toBe(false);
     });
   });
 
@@ -149,7 +170,8 @@ describe("redsys", () => {
         secretKey: TEST_SECRET_KEY,
         redsysUrl: "https://sis-t.redsys.es:25443/sis/realizarPago",
         merchantUrl: "https://example.com/api/redsys-notification",
-        okUrl: "https://example.com/checkout/confirmacion?pedido=OS-20250101-0001",
+        okUrl:
+          "https://example.com/checkout/confirmacion?pedido=OS-20250101-0001",
         koUrl: "https://example.com/checkout/error?pedido=OS-20250101-0001",
       });
 
@@ -159,7 +181,9 @@ describe("redsys", () => {
       expect(result.fields.Ds_Signature).toBeTruthy();
 
       // Verify merchant parameters contain expected values
-      const merchantData = decodeMerchantParameters(result.fields.Ds_MerchantParameters);
+      const merchantData = decodeMerchantParameters(
+        result.fields.Ds_MerchantParameters
+      );
       expect(merchantData.Ds_Merchant_Amount).toBe("1250");
       expect(merchantData.Ds_Merchant_Order).toBe("OS-20250101-0001");
       expect(merchantData.Ds_Merchant_MerchantCode).toBe("999008881");
@@ -181,7 +205,9 @@ describe("redsys", () => {
         koUrl: "https://example.com/checkout/error",
       });
 
-      const merchantData = decodeMerchantParameters(result.fields.Ds_MerchantParameters);
+      const merchantData = decodeMerchantParameters(
+        result.fields.Ds_MerchantParameters
+      );
       expect(merchantData.Ds_Merchant_Amount).toBe("5550");
     });
 

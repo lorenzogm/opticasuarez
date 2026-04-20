@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import {
   createContext,
   useCallback,
@@ -9,7 +10,6 @@ import {
   useRef,
   useState,
 } from "react";
-import type { ReactNode } from "react";
 
 const STORAGE_KEY = "opticasuarez_cart";
 const MAX_QUANTITY = 10;
@@ -62,15 +62,15 @@ export function addItemToCart(cart: CartItem[], newItem: CartItem): CartItem[] {
       i === existingIndex
         ? {
             ...item,
-            quantity: Math.min(
-              item.quantity + newItem.quantity,
-              MAX_QUANTITY
-            ),
+            quantity: Math.min(item.quantity + newItem.quantity, MAX_QUANTITY),
           }
         : item
     );
   }
-  return [...cart, { ...newItem, quantity: Math.min(newItem.quantity, MAX_QUANTITY) }];
+  return [
+    ...cart,
+    { ...newItem, quantity: Math.min(newItem.quantity, MAX_QUANTITY) },
+  ];
 }
 
 export function removeItemFromCart(
@@ -144,16 +144,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => addItemToCart(prev, newItem));
   }, []);
 
-  const removeItem = useCallback(
-    (productId: string, colorName?: string) => {
-      setItems((prev) => removeItemFromCart(prev, productId, colorName));
-    },
-    []
-  );
+  const removeItem = useCallback((productId: string, colorName?: string) => {
+    setItems((prev) => removeItemFromCart(prev, productId, colorName));
+  }, []);
 
   const updateQuantity = useCallback(
     (productId: string, quantity: number, colorName?: string) => {
-      setItems((prev) => updateItemQuantity(prev, productId, quantity, colorName));
+      setItems((prev) =>
+        updateItemQuantity(prev, productId, quantity, colorName)
+      );
     },
     []
   );

@@ -18,9 +18,9 @@ import {
   setResponseHeaders,
   setResponseStatus,
 } from "nitro/h3";
+import { sendOrderEmails } from "~/actions/send-order-emails";
 import { decodeMerchantParameters, verifySignature } from "~/lib/redsys";
 import { getOrderByNumber, sanityPatch } from "~/lib/sanity";
-import { sendOrderEmails } from "~/actions/send-order-emails";
 
 export default defineEventHandler(async (event) => {
   setResponseHeaders(event, { "Content-Type": "application/json" });
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
   const encodedParams = body.Ds_MerchantParameters;
   const receivedSignature = body.Ds_Signature;
 
-  if (!encodedParams || !receivedSignature) {
+  if (!(encodedParams && receivedSignature)) {
     setResponseStatus(event, 200);
     return { ok: false, error: "Missing parameters" };
   }
@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
   const orderNumber = params.Ds_Order;
   const responseCode = params.Ds_Response;
 
-  if (!orderNumber || !responseCode) {
+  if (!(orderNumber && responseCode)) {
     setResponseStatus(event, 200);
     return { ok: false, error: "Missing order or response code" };
   }
@@ -88,10 +88,8 @@ export default defineEventHandler(async (event) => {
   // Find the order in Sanity
   try {
     const order = await getOrderByNumber(orderNumber);
-    if (!order || !order._id) {
-      console.error(
-        `[redsys-notification] Order not found: ${orderNumber}`
-      );
+    if (!order?._id) {
+      console.error(`[redsys-notification] Order not found: ${orderNumber}`);
       setResponseStatus(event, 200);
       return { ok: false, error: "Order not found" };
     }
@@ -112,15 +110,13 @@ export default defineEventHandler(async (event) => {
       try {
         await sendOrderEmails({
           orderNumber,
-          items: (order.items as Array<Record<string, unknown>>).map(
-            (item) => ({
-              name: item.name as string,
-              quantity: item.quantity as number,
-              price: item.price as number,
-              color: item.color as { name: string } | undefined,
-              brand: item.brand as string | undefined,
-            })
-          ),
+          items: (order.items as Record<string, unknown>[]).map((item) => ({
+            name: item.name as string,
+            quantity: item.quantity as number,
+            price: item.price as number,
+            color: item.color as { name: string } | undefined,
+            brand: item.brand as string | undefined,
+          })),
           customer: order.customer as {
             nombre: string;
             email: string;

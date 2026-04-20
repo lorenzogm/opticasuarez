@@ -20,9 +20,7 @@ export function toCents(euros: number): string {
 }
 
 /** Encode merchant parameters object as Base64url string. */
-export function encodeMerchantParameters(
-  data: Record<string, string>
-): string {
+export function encodeMerchantParameters(data: Record<string, string>): string {
   return Buffer.from(JSON.stringify(data)).toString("base64url");
 }
 
@@ -39,7 +37,10 @@ export function decodeMerchantParameters(
  * Derive order-specific encryption key via 3DES-CBC.
  * The Redsys secret key is Base64-encoded; the order number is zero-padded to 16 bytes.
  */
-export function encrypt3DES(secretKeyBase64: string, orderNumber: string): Buffer {
+export function encrypt3DES(
+  secretKeyBase64: string,
+  orderNumber: string
+): Buffer {
   const key = Buffer.from(secretKeyBase64, "base64");
   const iv = Buffer.alloc(8, 0); // 8-byte zero IV per Redsys spec
   const orderPadded = Buffer.alloc(16, 0);

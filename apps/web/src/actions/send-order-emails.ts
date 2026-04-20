@@ -79,7 +79,7 @@ Total: ${order.totals.total.toFixed(2)}€
 Método de envío: ${shippingLabels[order.shipping.method] || order.shipping.method}
 ${
   isPickup
-    ? `Puedes recoger tu pedido en la tienda.`
+    ? "Puedes recoger tu pedido en la tienda."
     : `Dirección de envío: ${order.customer.direccion}, ${order.customer.codigoPostal} ${order.customer.ciudad}, ${order.customer.provincia}`
 }
 Entrega estimada: ${getDeliveryEstimate(order.shipping.method)}

@@ -91,9 +91,7 @@ export default function CheckoutDatos() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
       <ProgressIndicator currentStep={1} />
-      <h1 className="mb-6 font-bold text-2xl text-gray-900">
-        Datos de envío
-      </h1>
+      <h1 className="mb-6 font-bold text-2xl text-gray-900">Datos de envío</h1>
 
       <form className="space-y-5" onSubmit={handleSubmit}>
         <div>
@@ -207,9 +205,7 @@ export default function CheckoutDatos() {
               value={form.codigoPostal}
             />
             {errors.codigoPostal && (
-              <p className="mt-1 text-red-600 text-xs">
-                {errors.codigoPostal}
-              </p>
+              <p className="mt-1 text-red-600 text-xs">{errors.codigoPostal}</p>
             )}
           </div>
           <div>

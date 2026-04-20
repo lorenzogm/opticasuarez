@@ -3,8 +3,8 @@ import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import BookAppointment from "~/components/sections/book-appointment";
 import StructuredData from "~/components/structured-data";
-import { useCart } from "~/lib/cart";
 import type { CartItem } from "~/lib/cart";
+import { useCart } from "~/lib/cart";
 import { resolveImage } from "~/lib/sanity";
 import { getBaseUrl } from "~/lib/utils";
 import FrameDiagram from "./sections/frame-diagram";
@@ -67,7 +67,9 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       quantity: 1,
       brand: product.brand?.name,
       ...(selectedColorData
-        ? { color: { name: selectedColorData.name, hex: selectedColorData.hex } }
+        ? {
+            color: { name: selectedColorData.name, hex: selectedColorData.hex },
+          }
         : {}),
     };
     addItem(cartItem);

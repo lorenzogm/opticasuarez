@@ -89,7 +89,7 @@ async function main() {
   for (const section of page.sections) {
     if (section._type === "sectionHero" && section.description) {
       console.log("  ✓ Removed description from hero");
-      delete section.description;
+      section.description = undefined;
     }
   }
 

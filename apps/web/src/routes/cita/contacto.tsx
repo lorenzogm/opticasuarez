@@ -23,7 +23,8 @@ export const Route = createFileRoute("/cita/contacto")({
     age: typeof search.age === "string" ? search.age : undefined,
     phone: typeof search.phone === "string" ? search.phone : undefined,
     email: typeof search.email === "string" ? search.email : undefined,
-    observations: typeof search.observations === "string" ? search.observations : undefined,
+    observations:
+      typeof search.observations === "string" ? search.observations : undefined,
   }),
   head: () => ({
     meta: [

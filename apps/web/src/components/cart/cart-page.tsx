@@ -32,7 +32,7 @@ export default function CartPage() {
       <h1 className="mb-8 font-bold text-2xl text-gray-900">Tu carrito</h1>
       <div className="gap-8 lg:grid lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div className="divide-y divide-gray-200 border-t border-gray-200">
+          <div className="divide-y divide-gray-200 border-gray-200 border-t">
             {items.map((item) => (
               <CartItem
                 item={item}
