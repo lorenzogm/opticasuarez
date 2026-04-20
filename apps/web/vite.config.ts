@@ -13,7 +13,9 @@ const SANITY_CDN_URL = `https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_
 async function sanityQuery<T>(query: string): Promise<T> {
   const url = new URL(SANITY_CDN_URL);
   url.searchParams.set("query", query);
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(10_000),
+  });
   if (!res.ok) {
     throw new Error(
       `Sanity query failed during prerender route enumeration: ${res.status} ${res.statusText}`
