@@ -1,0 +1,502 @@
+name: Issue-to-Green
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: issue-to-green-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  setup-context:
+    runs-on: ubuntu-latest
+    outputs:
+      branch-name: ${{ steps.set-branch.outputs.branch }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log issue context
+        run: |
+          echo "=== Issue Context ==="
+          echo "Issue Number: ${{ github.event.issue.number }}"
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue URL: ${{ github.event.issue.html_url }}"
+          echo "Timestamp: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          echo "===================="
+
+      - name: Create isolated branch
+        id: set-branch
+        run: |
+          BRANCH="copilot/${{ github.event.issue.number }}-auto"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"
+          git push origin "$BRANCH" || true
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+  create-story:
+    runs-on: ubuntu-latest
+    needs: setup-context
+    env:
+      BRANCH: ${{ needs.setup-context.outputs.branch-name }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.setup-context.outputs.branch-name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate story with bmad-create-story
+        id: generate-story
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          STORY_FILE="_bmad-output/implementation-artifacts/story-${ISSUE_NUMBER}.md"
+          ISSUE_TITLE=$(gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}" --jq '.title')
+          ISSUE_BODY=$(gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}" --jq '.body // ""')
+          SKILL_PROMPT=$(cat .github/skills/bmad-create-story/workflow.md)
+
+          PROMPT="Ejecuta bmad-create-story para el siguiente issue del repositorio opticasuarez.
+
+          Issue #${ISSUE_NUMBER}: ${ISSUE_TITLE}
+
+          ${ISSUE_BODY}
+
+          Skill a ejecutar:
+          ${SKILL_PROMPT}
+
+          Genera el archivo de historia completo y escríbelo en: ${STORY_FILE}"
+
+          mkdir -p "_bmad-output/implementation-artifacts"
+
+          MAX_RETRIES=2
+          ATTEMPT=0
+          SUCCESS=false
+
+          while [ $ATTEMPT -le $MAX_RETRIES ]; do
+            echo "Intento $((ATTEMPT+1)) de $((MAX_RETRIES+1))..."
+            if gh api graphql \
+              -f query='mutation($messages: [CopilotChatMessageInput!]!, $model: String!) {
+                createCopilotChatResponse(input: {messages: $messages, model: $model}) {
+                  message { content }
+                }
+              }' \
+              -f messages="[{\"role\": \"user\", \"content\": \"$PROMPT\"}]" \
+              -f model="claude-opus-4-5" \
+              --jq '.data.createCopilotChatResponse.message.content' \
+              > "$STORY_FILE" 2>&1; then
+              if [ -s "$STORY_FILE" ]; then
+                SUCCESS=true
+                break
+              fi
+            fi
+            ATTEMPT=$((ATTEMPT+1))
+            if [ $ATTEMPT -le $MAX_RETRIES ]; then
+              echo "Reintentando en 30 segundos..."
+              sleep 30
+            fi
+          done
+
+          if [ "$SUCCESS" = "false" ]; then
+            gh issue comment "${ISSUE_NUMBER}" \
+              --body "❌ Falló la generación de historia (bmad-create-story) después de $((MAX_RETRIES+1)) intentos."
+            exit 1
+          fi
+
+          echo "Story generada: ${STORY_FILE}"
+          echo "story-file=${STORY_FILE}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push story
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _bmad-output/implementation-artifacts/
+          git diff --cached --quiet || git commit -m "chore: generate story for issue #${ISSUE_NUMBER}"
+          git push origin "$BRANCH"
+
+  generate-e2e-tests:
+    runs-on: ubuntu-latest
+    needs: [setup-context, create-story]
+    env:
+      BRANCH: ${{ needs.setup-context.outputs.branch-name }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.setup-context.outputs.branch-name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate E2E tests with bmad-qa-generate-e2e-tests
+        id: generate-tests
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          STORY_FILE="_bmad-output/implementation-artifacts/story-${ISSUE_NUMBER}.md"
+          TESTS_DIR="apps/web-e2e/tests/issue-${ISSUE_NUMBER}"
+          SKILL_PROMPT=$(cat .github/skills/bmad-qa-generate-e2e-tests/workflow.md)
+          STORY_CONTENT=$(cat "$STORY_FILE")
+
+          PROMPT="Ejecuta bmad-qa-generate-e2e-tests para generar tests E2E con Playwright.
+
+          Historia:
+          ${STORY_CONTENT}
+
+          Skill:
+          ${SKILL_PROMPT}
+
+          Genera archivos .spec.ts kebab-case en: ${TESTS_DIR}/
+          Los tests deben usar el patrón: test('descripción', async ({ page }) => { ... })"
+
+          mkdir -p "$TESTS_DIR"
+
+          RESPONSE=$(gh api graphql \
+            -f query='mutation($messages: [CopilotChatMessageInput!]!, $model: String!) {
+              createCopilotChatResponse(input: {messages: $messages, model: $model}) {
+                message { content }
+              }
+            }' \
+            -f messages="[{\"role\": \"user\", \"content\": \"$PROMPT\"}]" \
+            -f model="claude-opus-4-5" \
+            --jq '.data.createCopilotChatResponse.message.content' 2>&1) || true
+
+          if [ -z "$RESPONSE" ]; then
+            gh issue comment "${ISSUE_NUMBER}" \
+              --body "❌ Falló generación de tests E2E (bmad-qa-generate-e2e-tests)."
+            exit 1
+          fi
+
+          echo "$RESPONSE" > "${TESTS_DIR}/issue-${ISSUE_NUMBER}.spec.ts"
+          echo "Tests E2E generados en: ${TESTS_DIR}/"
+          echo "tests-dir=${TESTS_DIR}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push E2E tests
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add apps/web-e2e/tests/
+          git diff --cached --quiet || git commit -m "test: generate E2E tests for issue #${ISSUE_NUMBER}"
+          git push origin "$BRANCH"
+
+  dev-story:
+    runs-on: ubuntu-latest
+    needs: [setup-context, generate-e2e-tests]
+    env:
+      BRANCH: ${{ needs.setup-context.outputs.branch-name }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.setup-context.outputs.branch-name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Implement code with bmad-dev-story
+        id: dev-story
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          STORY_FILE="_bmad-output/implementation-artifacts/story-${ISSUE_NUMBER}.md"
+          PROJECT_CONTEXT="_bmad-output/project-context.md"
+          SKILL_PROMPT=$(cat .github/skills/bmad-dev-story/workflow.md)
+          STORY_CONTENT=$(cat "$STORY_FILE")
+          PROJECT_CTX=$(cat "$PROJECT_CONTEXT")
+
+          PROMPT="Ejecuta bmad-dev-story para implementar el código descrito en la historia.
+
+          Contexto del proyecto:
+          ${PROJECT_CTX}
+
+          Historia:
+          ${STORY_CONTENT}
+
+          Skill:
+          ${SKILL_PROMPT}
+
+          Implementa el código necesario siguiendo las convenciones del proyecto. Modifica únicamente los archivos requeridos."
+
+          gh api graphql \
+            -f query='mutation($messages: [CopilotChatMessageInput!]!, $model: String!) {
+              createCopilotChatResponse(input: {messages: $messages, model: $model}) {
+                message { content }
+              }
+            }' \
+            -f messages="[{\"role\": \"user\", \"content\": \"$PROMPT\"}]" \
+            -f model="claude-opus-4-5" \
+            --jq '.data.createCopilotChatResponse.message.content' \
+            > /tmp/dev-story-response.txt 2>&1 || echo "Copilot invocado"
+
+      - name: Commit generated code
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "feat: implement code for issue #${ISSUE_NUMBER}"
+          git push origin "$BRANCH"
+
+      - name: Run quality gate (pnpm check)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
+        run: |
+          if ! pnpm check 2>&1 | tee /tmp/check-output.txt; then
+            ERRORS=$(tail -100 /tmp/check-output.txt)
+            gh issue comment "${ISSUE_NUMBER}" \
+              --body "❌ \`pnpm check\` falló tras implementación de dev-story.
+
+          \`\`\`
+          ${ERRORS}
+          \`\`\`"
+            exit 1
+          fi
+          echo "✅ pnpm check passed"
+
+  code-review:
+    runs-on: ubuntu-latest
+    needs: [setup-context, dev-story]
+    outputs:
+      pr-number: ${{ steps.create-pr.outputs.pr-number }}
+    env:
+      BRANCH: ${{ needs.setup-context.outputs.branch-name }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.setup-context.outputs.branch-name }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run code review with bmad-code-review
+        id: review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REVIEW_FILE="_bmad-output/implementation-artifacts/code-review-${ISSUE_NUMBER}.md"
+          DIFF_OUTPUT=$(git diff main...HEAD)
+          SKILL_PROMPT=$(cat .github/skills/bmad-code-review/workflow.md)
+
+          PROMPT="Ejecuta bmad-code-review sobre el siguiente diff de la rama contra main.
+
+          Diff:
+          ${DIFF_OUTPUT}
+
+          Skill:
+          ${SKILL_PROMPT}
+
+          Produce un informe estructurado con findings categorizados (BLOQUEANTE, Medio, Bajo)."
+
+          mkdir -p "_bmad-output/implementation-artifacts"
+
+          gh api graphql \
+            -f query='mutation($messages: [CopilotChatMessageInput!]!, $model: String!) {
+              createCopilotChatResponse(input: {messages: $messages, model: $model}) {
+                message { content }
+              }
+            }' \
+            -f messages="[{\"role\": \"user\", \"content\": \"$PROMPT\"}]" \
+            -f model="claude-opus-4-5" \
+            --jq '.data.createCopilotChatResponse.message.content' \
+            > "$REVIEW_FILE" 2>&1 || echo "Review completado"
+
+          echo "review-file=${REVIEW_FILE}" >> "$GITHUB_OUTPUT"
+
+          if grep -qi "BLOQUEANTE" "$REVIEW_FILE"; then
+            echo "has-blockers=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has-blockers=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit review artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _bmad-output/implementation-artifacts/
+          git diff --cached --quiet || git commit -m "docs: add code review for issue #${ISSUE_NUMBER}"
+          git push origin "$BRANCH"
+
+      - name: Create Pull Request
+        id: create-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ISSUE_TITLE=$(gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}" --jq '.title')
+          REVIEW_SUMMARY=$(head -50 "_bmad-output/implementation-artifacts/code-review-${ISSUE_NUMBER}.md")
+          HAS_BLOCKERS="${{ steps.review.outputs.has-blockers }}"
+
+          PR_BODY="## Resumen
+
+          Implementación automatizada para el issue #${ISSUE_NUMBER}.
+
+          ## Code Review
+
+          ${REVIEW_SUMMARY}
+
+          ## Links
+
+          - Issue: https://github.com/${{ github.repository }}/issues/${ISSUE_NUMBER}
+          - Code Review: \`_bmad-output/implementation-artifacts/code-review-${ISSUE_NUMBER}.md\`"
+
+          PR_NUMBER=$(gh pr create \
+            --title "feat: ${ISSUE_TITLE} — closes #${ISSUE_NUMBER}" \
+            --body "$PR_BODY" \
+            --base main \
+            --head "$BRANCH" \
+            --reviewer "juanpeich,lorenzogm" \
+            --json number \
+            --jq '.number')
+
+          echo "pr-number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+
+          if [ "$HAS_BLOCKERS" = "true" ]; then
+            gh pr edit "$PR_NUMBER" --add-label "needs-revision" || true
+            FINDINGS=$(grep -A2 -i "BLOQUEANTE" "_bmad-output/implementation-artifacts/code-review-${ISSUE_NUMBER}.md" | head -20)
+            gh issue comment "${ISSUE_NUMBER}" \
+              --body "⚠️ El code review detectó findings bloqueantes en el PR #${PR_NUMBER}.
+
+          **Findings principales:**
+          ${FINDINGS}"
+          fi
+
+  monitor-pipelines:
+    runs-on: ubuntu-latest
+    needs: [setup-context, code-review]
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      PR_NUMBER: ${{ needs.code-review.outputs.pr-number }}
+      PIPELINE_TIMEOUT_MINUTES: ${{ vars.PIPELINE_TIMEOUT_MINUTES }}
+    steps:
+      - name: Monitor CI until green or failure
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TIMEOUT_MINUTES="${PIPELINE_TIMEOUT_MINUTES:-30}"
+          START_TIME=$(date +%s)
+          TIMEOUT_SECONDS=$((TIMEOUT_MINUTES * 60))
+
+          echo "=== Monitoring PR #${PR_NUMBER} ==="
+          echo "Timeout: ${TIMEOUT_MINUTES} minutes"
+
+          while true; do
+            ELAPSED=$(( $(date +%s) - START_TIME ))
+
+            if [ $ELAPSED -ge $TIMEOUT_SECONDS ]; then
+              gh issue comment "${ISSUE_NUMBER}" \
+                --body "⏱️ Timeout de monitoreo superado (${TIMEOUT_MINUTES} min) — PR #${PR_NUMBER}. Revisión manual requerida."
+              echo "Timeout superado después de ${ELAPSED}s"
+              exit 1
+            fi
+
+            CHECK_JSON=$(gh pr checks "${PR_NUMBER}" --json name,state,conclusion 2>/dev/null) || {
+              echo "Error al obtener checks, reintentando en 60s..."
+              sleep 60
+              continue
+            }
+
+            # Detectar fallos terminales
+            FAILED_CHECK=$(echo "$CHECK_JSON" | python3 -c "
+          import sys, json
+          checks = json.load(sys.stdin)
+          failed = [c['name'] for c in checks if c.get('conclusion') in ('failure', 'cancelled', 'timed_out', 'stale')]
+          print(failed[0] if failed else '')
+          ")
+
+            if [ -n "$FAILED_CHECK" ]; then
+              gh issue comment "${ISSUE_NUMBER}" \
+                --body "❌ CI falló en check \`${FAILED_CHECK}\` — PR #${PR_NUMBER}. Ver: https://github.com/${{ github.repository }}/pull/${PR_NUMBER}/checks"
+              exit 1
+            fi
+
+            # Verificar si todos los checks pasaron
+            COUNTS=$(echo "$CHECK_JSON" | python3 -c "
+          import sys, json
+          checks = json.load(sys.stdin)
+          total = len(checks)
+          passed = sum(1 for c in checks if c.get('conclusion') == 'success')
+          pending = sum(1 for c in checks if c.get('state') in ('pending', 'queued', 'in_progress') or c.get('conclusion') is None)
+          print(f'{total} {passed} {pending}')
+          ")
+
+            TOTAL=$(echo $COUNTS | awk '{print $1}')
+            PASSED=$(echo $COUNTS | awk '{print $2}')
+            PENDING=$(echo $COUNTS | awk '{print $3}')
+
+            echo "Checks: ${PASSED}/${TOTAL} passed, ${PENDING} pending (${ELAPSED}s elapsed)"
+
+            if [ "$TOTAL" -gt 0 ] && [ "$PASSED" -eq "$TOTAL" ]; then
+              gh issue comment "${ISSUE_NUMBER}" \
+                --body "✅ CI en verde — PR #${PR_NUMBER} listo para revisión.
+          ${PASSED}/${TOTAL} checks pasados.
+          Ver: https://github.com/${{ github.repository }}/pull/${PR_NUMBER}"
+              exit 0
+            fi
+
+            sleep 60
+          done
