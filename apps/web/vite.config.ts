@@ -97,6 +97,27 @@ export default defineConfig(async () => {
         routeRules: {
           "/_serverFn/**": { swr: false },
           "/api/**": { swr: false },
+          "/examen-visual": {
+            redirect: { to: "/servicios/examen-visual", statusCode: 301 },
+          },
+          "/terapia-visual": {
+            redirect: { to: "/servicios/terapia-visual", statusCode: 301 },
+          },
+          "/contactologia": {
+            redirect: { to: "/servicios/contactologia", statusCode: 301 },
+          },
+          "/vision-pediatrica": {
+            redirect: { to: "/servicios/vision-pediatrica", statusCode: 301 },
+          },
+          "/vision-deportiva": {
+            redirect: { to: "/servicios/vision-deportiva", statusCode: 301 },
+          },
+          "/control-de-miopia": {
+            redirect: { to: "/servicios/control-de-miopia", statusCode: 301 },
+          },
+          "/ortoqueratologia": {
+            redirect: { to: "/servicios/ortoqueratologia", statusCode: 301 },
+          },
         },
       }),
       viteReact(),
