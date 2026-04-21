@@ -36,26 +36,31 @@ export default defineEventHandler(async (event) => {
   ]);
 
   const today = new Date().toISOString().split("T")[0];
+  const normalizeRoute = (route: string) =>
+    route.startsWith("/") ? route : `/${route}`;
 
   const allRoutes: { loc: string; lastmod: string }[] = [
-    ...staticRoutes.map((r) => ({ loc: r, lastmod: today })),
+    ...staticRoutes.map((route) => ({
+      loc: normalizeRoute(route),
+      lastmod: today,
+    })),
     ...pages
-      .filter((p) => p.path)
-      .map((p) => ({
-        loc: p.path,
-        lastmod: p.updatedAt?.split("T")[0] || today,
+      .filter((page) => page.path)
+      .map((page) => ({
+        loc: normalizeRoute(page.path),
+        lastmod: page.updatedAt?.split("T")[0] || today,
       })),
     ...blogSlugs
-      .filter((b) => b.slug)
-      .map((b) => ({
-        loc: `/blog/${b.slug}`,
-        lastmod: b.updatedAt?.split("T")[0] || today,
+      .filter((blogPost) => blogPost.slug)
+      .map((blogPost) => ({
+        loc: normalizeRoute(`blog/${blogPost.slug}`),
+        lastmod: blogPost.updatedAt?.split("T")[0] || today,
       })),
     ...productSlugs
-      .filter((p) => p.slug)
-      .map((p) => ({
-        loc: `/tienda/${p.slug}`,
-        lastmod: p.updatedAt?.split("T")[0] || today,
+      .filter((product) => product.slug)
+      .map((product) => ({
+        loc: normalizeRoute(`tienda/${product.slug}`),
+        lastmod: product.updatedAt?.split("T")[0] || today,
       })),
   ];
 

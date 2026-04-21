@@ -12,8 +12,8 @@ function resolveCard(item: any) {
     image: resolveImage(item.image) || resolveImage(ref?.image) || "",
     link: item.link || (ref?.slug ? `/${ref.slug}` : ref?.mapUrl || ""),
     icon: item.icon || ref?.icon || "",
-    subtitle: ref?.role || "",
-    details: ref?.details || [],
+    subtitle: item.subtitle || ref?.role || "",
+    details: item.details || ref?.details || [],
   };
 }
 
