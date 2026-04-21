@@ -26,6 +26,9 @@ export const Route = createFileRoute("/blog/$slug")({
           ? `${post.categories.join(", ")}, óptica Jaén, salud visual Jaén`
           : "óptica Jaén, salud visual Jaén",
       },
+      ogType: "article",
+      publishedTime: post.publishedAt || post._createdAt,
+      modifiedTime: post._updatedAt,
     });
   },
   loader: async ({ params }) => {
