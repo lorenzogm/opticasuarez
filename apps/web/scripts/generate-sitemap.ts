@@ -1,7 +1,9 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-const domain = process.env.VITE_BASE_URL || "https://opticasuarezjaen.es";
+const domain = (
+  process.env.VITE_BASE_URL || "https://opticasuarezjaen.es"
+).replace(/\/+$/, "");
 
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
@@ -21,13 +23,13 @@ const staticRoutes = [
   "/",
   "/quienes-somos",
   "/servicios",
-  "/vision-deportiva",
-  "/control-de-miopia",
-  "/vision-pediatrica",
-  "/terapia-visual",
-  "/contactologia",
-  "/examen-visual",
-  "/ortoqueratologia",
+  "/servicios/examen-visual",
+  "/servicios/terapia-visual",
+  "/servicios/contactologia",
+  "/servicios/vision-pediatrica",
+  "/servicios/vision-deportiva",
+  "/servicios/control-de-miopia",
+  "/servicios/ortoqueratologia",
   "/planveo",
   "/contacto",
   "/blog",
@@ -41,7 +43,7 @@ async function generateSitemap() {
   const allRoutes = [
     ...staticRoutes,
     ...blogSlugs.map((item) => `/blog/${item.slug}`),
-  ];
+  ].map((route) => (route.startsWith("/") ? route : `/${route}`));
 
   const today = new Date().toISOString().split("T")[0];
 

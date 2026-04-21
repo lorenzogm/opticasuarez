@@ -1,0 +1,116 @@
+
+> opticasuarez@0.0.0 check /Users/lorenzogm/lorenzogm/opticasuarez
+> turbo run build check:linter check:tests check:types --continue
+
+turbo 2.5.6
+
+• Packages in scope: //, @opticasuarez/configs, opticasuarez-sanity-studio, opticasuarez-web, opticasuarez-web-e2e
+• Running build, check:linter, check:tests, check:types in 5 packages
+• Remote caching disabled
+opticasuarez-sanity-studio:check:types: cache hit, suppressing logs b7e65d3952a5eb1f
+//:check:linter: cache miss, executing 6a048b6601ade1ca
+opticasuarez-web:build: cache miss, executing cd035debf591414f
+opticasuarez-web:check:types: cache hit, suppressing logs 3fc7b6506c2edfb8
+opticasuarez-sanity-studio:build: cache hit, suppressing logs 818f99aba2271685
+opticasuarez-web:build: 
+opticasuarez-web:build: > opticasuarez-web@1.0.0 build /Users/lorenzogm/lorenzogm/opticasuarez/apps/web
+opticasuarez-web:build: > dotenvx run -- vite build
+opticasuarez-web:build: 
+//:check:linter: 
+//:check:linter: > opticasuarez@0.0.0 check:linter /Users/lorenzogm/lorenzogm/opticasuarez
+//:check:linter: > ultracite check
+//:check:linter: 
+opticasuarez-web:build: [38;2;236;213;63m⟐ injecting env (9) from .env · dotenvx@1.59.1[39m
+opticasuarez-web:build: vite v7.3.1 building client environment for production...
+opticasuarez-web:build: transforming...
+//:check:linter: Checked 248 files in 1203ms. No fixes applied.
+opticasuarez-web:build: ✓ 1914 modules transformed.
+opticasuarez-web:build: rendering chunks...
+opticasuarez-web:build: computing gzip size...
+opticasuarez-web:build: .output/public/assets/global-D-Q_J3C2.css              53.26 kB │ gzip:   8.97 kB
+opticasuarez-web:build: .output/public/assets/cita-WAH-EHWq.js                  0.10 kB │ gzip:   0.12 kB
+opticasuarez-web:build: .output/public/assets/checkout-WAH-EHWq.js              0.10 kB │ gzip:   0.12 kB
+opticasuarez-web:build: .output/public/assets/structured-data-Cn_r01Db.js       0.40 kB │ gzip:   0.30 kB
+opticasuarez-web:build: .output/public/assets/_-BG3EIGnC.js                     0.59 kB │ gzip:   0.36 kB
+opticasuarez-web:build: .output/public/assets/_-CfbKm26U.js                     0.59 kB │ gzip:   0.37 kB
+opticasuarez-web:build: .output/public/assets/progress-indicator-Dci-OZpQ.js    0.63 kB │ gzip:   0.34 kB
+opticasuarez-web:build: .output/public/assets/progress-indicator-CbGKN045.js    0.81 kB │ gzip:   0.44 kB
+opticasuarez-web:build: .output/public/assets/book-appointment-6NuklF1B.js      0.90 kB │ gzip:   0.56 kB
+opticasuarez-web:build: .output/public/assets/text-DV9qD3ms.js                  0.94 kB │ gzip:   0.43 kB
+opticasuarez-web:build: .output/public/assets/error-DwwGglOE.js                 1.30 kB │ gzip:   0.68 kB
+opticasuarez-web:build: .output/public/assets/confirmacion-Cl1m2zHm.js          1.44 kB │ gzip:   0.76 kB
+opticasuarez-web:build: .output/public/assets/button-CZHdKykx.js                1.83 kB │ gzip:   0.91 kB
+opticasuarez-web:build: .output/public/assets/product-card-sdiB9Qv4.js          2.00 kB │ gzip:   0.92 kB
+opticasuarez-web:build: .output/public/assets/envio-D-Qn2oHd.js                 3.40 kB │ gzip:   1.46 kB
+opticasuarez-web:build: .output/public/assets/centro-8jcSSYlZ.js                3.86 kB │ gzip:   1.51 kB
+opticasuarez-web:build: .output/public/assets/index-ufU8f4O2.js                 4.33 kB │ gzip:   1.70 kB
+opticasuarez-web:build: .output/public/assets/index-BszZh1Yu.js                 4.41 kB │ gzip:   1.73 kB
+opticasuarez-web:build: .output/public/assets/carrito-BRR3ox4S.js               5.06 kB │ gzip:   1.63 kB
+opticasuarez-web:build: .output/public/assets/resumen-vS4dnk3z.js               5.73 kB │ gzip:   2.10 kB
+opticasuarez-web:build: .output/public/assets/horario-DaSyzkbW.js               5.89 kB │ gzip:   1.97 kB
+opticasuarez-web:build: .output/public/assets/index-CWpB47Ai.js                 6.13 kB │ gzip:   1.60 kB
+opticasuarez-web:build: .output/public/assets/confirmacion-BpXVU1EZ.js          6.59 kB │ gzip:   2.38 kB
+opticasuarez-web:build: .output/public/assets/contacto-BjMUtgT7.js              6.73 kB │ gzip:   2.24 kB
+opticasuarez-web:build: .output/public/assets/index-BExDoO95.js                 6.77 kB │ gzip:   2.23 kB
+opticasuarez-web:build: .output/public/assets/index-BbL7jthJ.js                 7.62 kB │ gzip:   2.74 kB
+opticasuarez-web:build: .output/public/assets/_slug-Cxj6NLhb.js                 8.56 kB │ gzip:   3.36 kB
+opticasuarez-web:build: .output/public/assets/_slug-C49S9uzv.js                14.67 kB │ gzip:   4.56 kB
+opticasuarez-web:build: .output/public/assets/_-CYsAPpTd.js                    25.04 kB │ gzip:   6.13 kB
+opticasuarez-web:build: .output/public/assets/index-BqHeqJ09.js                37.77 kB │ gzip:  13.35 kB
+opticasuarez-web:build: .output/public/assets/main-DRU38H0e.js                346.21 kB │ gzip: 110.02 kB
+opticasuarez-web:build: ✓ built in 3.68s
+opticasuarez-web:build: vite v7.3.1 building ssr environment for production...
+opticasuarez-web:build: transforming...
+opticasuarez-web:build: ✓ 221 modules transformed.
+opticasuarez-web:build: rendering chunks...
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/global-D-Q_J3C2.css                      53.26 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/start-HYkvq4Ni.js                         0.06 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/cita-qXwgDR6k.js                          0.20 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/checkout-qXwgDR6k.js                      0.20 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/createServerRpc-wV0Vk4NU.js               0.30 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/structured-data-BzAZJoR8.js               0.72 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/_-CwVu4mkQ.js                             0.81 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/_-BkOKejKC.js                             0.81 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/progress-indicator-CcJ0Z3dA.js            1.12 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/progress-indicator-BANZ8OCl.js            1.21 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/book-appointment-pgVobljv.js              1.31 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/text-ClFXQKU_.js                          1.36 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/error-DypIsPuk.js                         1.92 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/button-CCSrex6I.js                        2.12 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/confirmacion-JArO7qoJ.js                  2.17 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/submit-product-inquiry-aHyfTdj8.js        2.94 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/product-card-Ckcqm8n2.js                  3.47 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BRIdkbXa.js    4.84 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/submit-booking-CaNRC_ov.js                5.50 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/envio-Bzy684VE.js                         6.45 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/create-order-DDHsV7Kq.js                  6.59 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/centro-Boau7t2x.js                        7.02 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/index-Y1Ea1XeX.js                         7.10 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/index-C7OwpEmv.js                         8.03 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/carrito-d-poSkki.js                       8.05 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/sanity-BdPwQryw.js                        8.84 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/horario-DU4B9VJY.js                      10.74 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/index-hYlGGxaG.js                        10.82 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/_slug-DjBy44ii.js                        11.94 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/confirmacion-DCEWNI4v.js                 12.53 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/resumen-DsHvOL7q.js                      12.53 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/index-DQ1cX3lJ.js                        12.87 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/contacto-D8h4RJ_a.js                     13.33 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/_slug-xRdqN8WR.js                        27.17 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/server-fns-D1FIKeYG.js                   29.25 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/index-BvLiTCcw.js                        31.51 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/_-BOxgqzsM.js                            43.12 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/assets/router-DdIditb6.js                       68.99 kB
+opticasuarez-web:build: node_modules/.nitro/vite/services/ssr/index.js                                       144.70 kB
+opticasuarez-web:build: ✓ built in 644ms
+opticasuarez-web:build: 
+opticasuarez-web:build: [nitro] ◐ Building [Nitro] (preset: node-server, compatibility: 2026-04-20)
+opticasuarez-web:build: [nitro] ✔ Generated public .output/public
+opticasuarez-web:build: [nitro] ℹ Initializing prerenderer
+opticasuarez-web:build: ℹ Generated .output/nitro.json
+opticasuarez-web:build: [nitro] ℹ Prerendering 2 routes
+opticasuarez-web:build: [nitro]   ├─ /sitemap.xml (167ms)
+opticasuarez-web:build: [nitro]   ├─ /robots.txt (7ms)
+opticasuarez-web:build: [nitro] ℹ Prerendered 2 routes in 0.626 seconds
+opticasuarez-web:build: vite v7.3.1 building nitro environment for production...
+opticasuarez-web:build: transforming...
