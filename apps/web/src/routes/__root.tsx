@@ -14,7 +14,10 @@ import globalCss from "~/global.css?url";
 import { CartProvider } from "~/lib/cart";
 import type { FeatureFlags } from "~/lib/feature-flags";
 import { fetchSiteSettings } from "~/lib/server-fns";
-import { getBaseUrl } from "~/lib/utils";
+import {
+  createOpticianSchema,
+  createWebsiteSchema,
+} from "~/lib/structured-data-helpers";
 
 export const Route = createRootRoute({
   loader: async () => {
@@ -36,16 +39,6 @@ export const Route = createRootRoute({
     links: [
       { rel: "stylesheet", href: globalCss },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      {
-        rel: "alternate",
-        hreflang: "es",
-        href: getBaseUrl(),
-      },
-      {
-        rel: "alternate",
-        hreflang: "x-default",
-        href: getBaseUrl(),
-      },
       {
         rel: "icon",
         type: "image/png",
@@ -79,209 +72,11 @@ export const Route = createRootRoute({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Óptica Suárez",
-          url: getBaseUrl(),
-          description:
-            "Óptica y centro de optometría avanzada en Jaén. Especialistas en contactología, control de miopía, ortoqueratología y terapia visual.",
-          inLanguage: "es",
-          potentialAction: {
-            "@type": "SearchAction",
-            target: {
-              "@type": "EntryPoint",
-              urlTemplate: `${getBaseUrl()}/blog?search={search_term_string}`,
-            },
-            "query-input": "required name=search_term_string",
-          },
-        }),
+        children: JSON.stringify(createWebsiteSchema()),
       },
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Optician",
-          "@id": `${getBaseUrl()}/#organization`,
-          name: "Óptica Suárez",
-          url: getBaseUrl(),
-          logo: `${getBaseUrl()}/images/optica-suarez-logo.webp`,
-          image: `${getBaseUrl()}/og-image.jpg`,
-          description:
-            "Centro de Optometría y Terapia Visual en Jaén con más de 80 años de experiencia. Especializados en visión infantil, terapia visual, control de miopía y contactología.",
-          foundingDate: "1940",
-          priceRange: "$$",
-          sameAs: [
-            "https://www.instagram.com/opticasuarezjaen/",
-            "https://www.facebook.com/opticasuarezjaen/",
-          ],
-          serviceArea: {
-            "@type": "City",
-            name: "Jaén",
-            containedIn: {
-              "@type": "AdministrativeArea",
-              name: "Andalucía",
-            },
-          },
-          hasOfferCatalog: {
-            "@type": "OfferCatalog",
-            name: "Servicios de Óptica y Optometría",
-            itemListElement: [
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Examen Visual Completo",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Terapia Visual",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Visión Pediátrica",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Control de Miopía",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Contactología",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Visión Deportiva",
-                },
-              },
-            ],
-          },
-          department: [
-            {
-              "@type": "Optician",
-              "@id": `${getBaseUrl()}/#centro`,
-              name: "Óptica Suárez Centro",
-              telephone: "+34-953-22-28-45",
-              email: "centro@opticasuarezjaen.es",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Calle Arquitecto Berges, 18",
-                addressLocality: "Jaén",
-                addressRegion: "Andalucía",
-                postalCode: "23007",
-                addressCountry: "ES",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: 37.7796,
-                longitude: -3.787,
-              },
-              hasMap:
-                "https://maps.google.com/?q=Óptica+Suárez+Centro,+Calle+Arquitecto+Berges+18,+Jaén",
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                  ],
-                  opens: "09:30",
-                  closes: "13:30",
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                  ],
-                  opens: "17:00",
-                  closes: "20:00",
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: "Saturday",
-                  opens: "09:30",
-                  closes: "13:30",
-                },
-              ],
-            },
-            {
-              "@type": "Optician",
-              "@id": `${getBaseUrl()}/#bulevar`,
-              name: "Óptica Suárez Bulevar",
-              telephone: "+34-953-29-09-17",
-              email: "bulevar@opticasuarezjaen.es",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Bulevar, 18",
-                addressLocality: "Jaén",
-                addressRegion: "Andalucía",
-                postalCode: "23009",
-                addressCountry: "ES",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: 37.7884,
-                longitude: -3.7928,
-              },
-              hasMap:
-                "https://maps.google.com/?q=Óptica+Suárez+Bulevar,+Bulevar+18,+Jaén",
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                  ],
-                  opens: "09:30",
-                  closes: "13:30",
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                  ],
-                  opens: "17:00",
-                  closes: "20:00",
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: "Saturday",
-                  opens: "09:30",
-                  closes: "13:30",
-                },
-              ],
-            },
-          ],
-        }),
+        children: JSON.stringify(createOpticianSchema()),
       },
     ],
   }),

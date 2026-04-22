@@ -1,4 +1,11 @@
-import { getBaseUrl } from "~/lib/utils";
+import {
+  type BreadcrumbItem,
+  createBreadcrumbSchema,
+  createFaqSchema,
+  createOpticianSchema,
+  createWebsiteSchema,
+  type FaqItem,
+} from "~/lib/structured-data-helpers";
 
 interface StructuredDataProps {
   schema: Record<string, unknown>;
@@ -15,49 +22,18 @@ export default function StructuredData({ schema }: StructuredDataProps) {
   );
 }
 
-// Website Schema with Sitelinks Search Box
 export function WebsiteSchema() {
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Óptica Suárez",
-    alternateName: "Óptica Suárez Jaén",
-    description:
-      "Óptica Suárez en Jaén, más de 80 años cuidando tu visión. Especialistas en terapia visual, control de miopía, contactología y visión infantil.",
-    url: getBaseUrl(),
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${getBaseUrl()}/blog?search={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-    mainEntity: {
-      "@type": "LocalBusiness",
-      "@id": `${getBaseUrl()}/#organization`,
-    },
-  };
-
-  return <StructuredData schema={websiteSchema} />;
+  return <StructuredData schema={createWebsiteSchema()} />;
 }
 
-// Breadcrumb Schema Generator
-export function BreadcrumbSchema({
-  items,
-}: {
-  items: Array<{ name: string; url: string }>;
-}) {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: item.url,
-    })),
-  };
+export function OrganizationSchema() {
+  return <StructuredData schema={createOpticianSchema()} />;
+}
 
-  return <StructuredData schema={breadcrumbSchema} />;
+export function BreadcrumbSchema({ items }: { items: BreadcrumbItem[] }) {
+  return <StructuredData schema={createBreadcrumbSchema(items)} />;
+}
+
+export function FaqSchema({ items }: { items: FaqItem[] }) {
+  return <StructuredData schema={createFaqSchema(items)} />;
 }

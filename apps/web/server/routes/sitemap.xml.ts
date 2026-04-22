@@ -1,4 +1,6 @@
 import { defineEventHandler, setResponseHeaders } from "nitro/h3";
+import { resolveFeatureFlags } from "~/lib/feature-flags";
+import { buildSitemapRoutes } from "~/lib/structured-data-helpers";
 
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
@@ -11,7 +13,7 @@ const domain =
 
 const staticRoutes = ["/", "/contacto", "/blog"];
 
-async function fetchFromSanity<T>(query: string): Promise<T[]> {
+async function fetchCollectionFromSanity<T>(query: string): Promise<T[]> {
   const url = new URL(SANITY_CDN_URL);
   url.searchParams.set("query", query);
 
@@ -22,63 +24,60 @@ async function fetchFromSanity<T>(query: string): Promise<T[]> {
   return json.result || [];
 }
 
+async function fetchSingleFromSanity<T>(query: string): Promise<T | null> {
+  const url = new URL(SANITY_CDN_URL);
+  url.searchParams.set("query", query);
+
+  const res = await fetch(url.toString());
+  if (!res.ok) return null;
+
+  const json = (await res.json()) as { result: T | null };
+  return json.result ?? null;
+}
+
 export default defineEventHandler(async (event) => {
-  const [blogSlugs, pages, productSlugs] = await Promise.all([
-    fetchFromSanity<{ slug: string; updatedAt: string }>(
-      '*[_type == "blogPost"]{ "slug": slug.current, "updatedAt": _updatedAt }'
+  const [blogSlugs, pages, siteSettings] = await Promise.all([
+    fetchCollectionFromSanity<{ slug: string }>(
+      '*[_type == "blogPost"]{ "slug": slug.current }'
     ),
-    fetchFromSanity<{ path: string; updatedAt: string }>(
-      '*[_type == "page"]{ "path": path.current, "updatedAt": _updatedAt }'
+    fetchCollectionFromSanity<{ path: string }>(
+      '*[_type == "page"]{ "path": path.current }'
     ),
-    fetchFromSanity<{ slug: string; updatedAt: string }>(
-      '*[_type == "product"]{ "slug": slug.current, "updatedAt": _updatedAt }'
-    ),
+    fetchSingleFromSanity<{
+      featureFlags?: { shopEnabled?: boolean; ecommerce?: boolean };
+    }>('*[_type == "siteSettings"][0]{ featureFlags }'),
   ]);
 
-  const today = new Date().toISOString().split("T")[0];
-  const normalizeRoute = (route: string) =>
-    route.startsWith("/") ? route : `/${route}`;
+  const featureFlags = resolveFeatureFlags(
+    siteSettings?.featureFlags ?? {},
+    () => ""
+  );
 
-  const allRoutes: { loc: string; lastmod: string }[] = [
-    ...staticRoutes.map((route) => ({
-      loc: normalizeRoute(route),
-      lastmod: today,
-    })),
-    ...pages
-      .filter((page) => page.path)
-      .map((page) => ({
-        loc: normalizeRoute(page.path),
-        lastmod: page.updatedAt?.split("T")[0] || today,
-      })),
-    ...blogSlugs
-      .filter((blogPost) => blogPost.slug)
-      .map((blogPost) => ({
-        loc: normalizeRoute(`blog/${blogPost.slug}`),
-        lastmod: blogPost.updatedAt?.split("T")[0] || today,
-      })),
-    ...productSlugs
-      .filter((product) => product.slug)
-      .map((product) => ({
-        loc: normalizeRoute(`tienda/${product.slug}`),
-        lastmod: product.updatedAt?.split("T")[0] || today,
-      })),
-  ];
+  const productSlugs = featureFlags.shopEnabled
+    ? await fetchCollectionFromSanity<{ slug: string }>(
+        '*[_type == "product"]{ "slug": slug.current }'
+      )
+    : [];
 
-  // Deduplicate by loc
-  const seen = new Set<string>();
-  const uniqueRoutes = allRoutes.filter((r) => {
-    if (seen.has(r.loc)) return false;
-    seen.add(r.loc);
-    return true;
+  const uniqueRoutes = buildSitemapRoutes({
+    staticRoutes,
+    pages,
+    blogSlugs,
+    productSlugs,
+    shopEnabled: featureFlags.shopEnabled,
   });
+
+  const today = new Date().toISOString().split("T")[0];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${uniqueRoutes
   .map(
     (route) => `  <url>
-    <loc>${domain}${route.loc}</loc>
-    <lastmod>${route.lastmod}</lastmod>
+    <loc>${domain}${route}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${route === "/" ? "1.0" : "0.8"}</priority>
   </url>`
   )
   .join("\n")}
