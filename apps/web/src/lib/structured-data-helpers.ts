@@ -275,6 +275,8 @@ export function createOpticianSchema(baseUrl = getBaseUrl()) {
     sameAs: [
       "https://www.instagram.com/opticasuarezjaen/",
       "https://www.facebook.com/opticasuarezjaen/",
+      "https://x.com/opticasuarez",
+      "https://www.youtube.com/c/OpticaSuarezJa%C3%A9n/",
     ],
     serviceArea: {
       "@type": "City",
@@ -328,6 +330,13 @@ export function createOpticianSchema(baseUrl = getBaseUrl()) {
           itemOffered: {
             "@type": "Service",
             name: "Visión Deportiva",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Ortoqueratología",
           },
         },
       ],
