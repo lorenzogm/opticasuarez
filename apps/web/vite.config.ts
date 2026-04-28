@@ -94,7 +94,7 @@ export default defineConfig(async () => {
       nitro({
         serverDir: "server",
         prerender: {
-          routes: ["/sitemap.xml", "/robots.txt"],
+          routes: ["/sitemap.xml", "/robots.txt", "/llms.txt"],
         },
         routeRules: {
           "/_serverFn/**": { swr: false },

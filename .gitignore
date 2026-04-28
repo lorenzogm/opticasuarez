@@ -33,6 +33,7 @@ Thumbs.db
 
 # IDE files
 .idea/
+.ai/
 *.swp
 *.swo
 *~
