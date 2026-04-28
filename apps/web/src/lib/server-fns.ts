@@ -10,8 +10,23 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie } from "@tanstack/react-start/server";
 import contactoContent from "~/content/contacto.json" with { type: "json" };
+import contactologiaContent from "~/content/contactologia.json" with {
+  type: "json",
+};
+import controlMiopiaContent from "~/content/control-de-miopia.json" with {
+  type: "json",
+};
+import ortoqueratologiaContent from "~/content/ortoqueratologia.json" with {
+  type: "json",
+};
 import planVeoContent from "~/content/plan-veo.json" with { type: "json" };
 import quienesNosotrosContent from "~/content/quienes-somos.json" with {
+  type: "json",
+};
+import visionDeportivaContent from "~/content/vision-deportiva.json" with {
+  type: "json",
+};
+import visionPediatricaContent from "~/content/vision-pediatrica.json" with {
   type: "json",
 };
 import { resolveFeatureFlags } from "~/lib/feature-flags";
@@ -140,6 +155,23 @@ export const fetchPage = createServerFn({ method: "GET" })
     // Fallback: build Contacto page from local JSON when Sanity has no data
     if (!page && fullPath === "/contacto") {
       page = buildContactoFallback();
+    }
+
+    // Fallback: service pages from local JSON when Sanity has no data
+    if (!page && fullPath === "/servicios/contactologia") {
+      page = buildContactologiaFallback();
+    }
+    if (!page && fullPath === "/servicios/vision-pediatrica") {
+      page = buildVisionPediatricaFallback();
+    }
+    if (!page && fullPath === "/servicios/vision-deportiva") {
+      page = buildVisionDeportivaFallback();
+    }
+    if (!page && fullPath === "/servicios/control-de-miopia") {
+      page = buildControlMiopiaFallback();
+    }
+    if (!page && fullPath === "/servicios/ortoqueratologia") {
+      page = buildOrtoqueratologiaFallback();
     }
 
     if (!page) {
@@ -534,7 +566,8 @@ function buildContactoFallback(): SanityData {
     path: "/contacto",
     seo: {
       title: "Contacto | Óptica Suárez",
-      description: d.hero.description,
+      description:
+        "Contacta con Óptica Suárez en Jaén. Estamos aquí para ayudarte.",
     },
     sections: [
       {
@@ -542,7 +575,8 @@ function buildContactoFallback(): SanityData {
         _key: "fb-ct-hero",
         title: d.hero.title,
         subtitle: d.hero.subtitle,
-        description: d.hero.description,
+        image: d.hero.image ? { url: d.hero.image } : undefined,
+        imageAlt: d.hero.imageAlt,
       },
       {
         _type: "sectionLocations",
@@ -557,6 +591,8 @@ function buildContactoFallback(): SanityData {
               address: string;
               phone: string;
               phoneUrl: string;
+              whatsappUrl: string;
+              whatsappNumber?: string;
               email: string;
               mapUrl: string;
               schedule: {
@@ -574,6 +610,8 @@ function buildContactoFallback(): SanityData {
             address: loc.address,
             phone: loc.phone,
             phoneUrl: loc.phoneUrl,
+            whatsappUrl: loc.whatsappUrl,
+            whatsappNumber: loc.whatsappNumber || loc.phone,
             email: loc.email,
             mapUrl: loc.mapUrl,
             schedule: loc.schedule,
@@ -595,6 +633,512 @@ function buildContactoFallback(): SanityData {
         messagePlaceholder: d.contactForm.form.messagePlaceholder,
         submitButton: d.contactForm.form.submitButton,
         privacy: d.contactForm.form.privacy,
+      },
+      {
+        _type: "sectionSocialMedia",
+        _key: "fb-ct-social",
+        title: d.socialMedia.title,
+        items: [
+          d.socialMedia.instagram,
+          d.socialMedia.facebook,
+          d.socialMedia.twitter,
+          d.socialMedia.youtube,
+        ]
+          .filter(Boolean)
+          .map(
+            (
+              item: { title: string; handle: string; url: string },
+              i: number
+            ) => ({
+              _key: `fb-sm-${i}`,
+              platform: item.title.toLowerCase(),
+              title: item.title,
+              handle: item.handle,
+              url: item.url,
+            })
+          ),
+      },
+    ],
+  };
+}
+
+function makeTextBlock(text: string, key: string) {
+  return [
+    {
+      _type: "block",
+      _key: key,
+      children: [{ _type: "span", _key: `${key}-s`, text, marks: [] }],
+      markDefs: [],
+      style: "normal",
+    },
+  ];
+}
+
+function buildContactologiaFallback(): SanityData {
+  const d = contactologiaContent;
+  return {
+    _id: "fallback-contactologia",
+    _type: "page",
+    title: d.mainTitle,
+    path: "/servicios/contactologia",
+    seo: {
+      title: `${d.mainTitle} | Óptica Suárez`,
+      description: d.textSection?.description || d.intro.title,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-cl-hero",
+        title: d.intro.title,
+        image: d.heroImage ? { url: d.heroImage } : undefined,
+        imageAlt: d.heroImageAlt,
+      },
+      ...(d.textSection
+        ? [
+            {
+              _type: "sectionText",
+              _key: "fb-cl-text",
+              title: d.textSection.title,
+              content: makeTextBlock(d.textSection.description, "fb-cl-text-b"),
+            },
+          ]
+        : []),
+      {
+        _type: "sectionCards",
+        _key: "fb-cl-services",
+        title: d.services.title,
+        variant: "grid-4",
+        items: d.services.items.map(
+          (
+            s: { title: string; description: string; icon: string },
+            i: number
+          ) => ({
+            _key: `fb-cl-srv-${i}`,
+            title: s.title,
+            description: s.description,
+            icon: s.icon,
+          })
+        ),
+      },
+      {
+        _type: "sectionCards",
+        _key: "fb-cl-types",
+        title: d.types.title,
+        variant: "landscape",
+        items: d.types.items.map(
+          (
+            t: { name: string; description: string; image: string },
+            i: number
+          ) => ({
+            _key: `fb-cl-type-${i}`,
+            title: t.name,
+            description: t.description,
+            image: { url: t.image },
+          })
+        ),
+      },
+      {
+        _type: "sectionFeatures",
+        _key: "fb-cl-adv",
+        title: d.advantages.title,
+        items: d.advantages.items.map(
+          (a: { title: string; description: string }, i: number) => ({
+            _key: `fb-cl-adv-${i}`,
+            title: a.title,
+            description: a.description,
+          })
+        ),
+      },
+      {
+        _type: "sectionProcessSteps",
+        _key: "fb-cl-process",
+        title: d.process.title,
+        items: d.process.steps.map(
+          (
+            s: { step: string; title: string; description: string },
+            i: number
+          ) => ({
+            _type: "processStep",
+            _key: `fb-cl-step-${i}`,
+            stepNumber: Number(s.step),
+            title: s.title,
+            description: s.description,
+          })
+        ),
+      },
+      {
+        _type: "sectionAccordion",
+        _key: "fb-cl-faq",
+        title: d.faq.title,
+        items: d.faq.questions.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            _key: `fb-cl-faq-${i}`,
+            title: q.question,
+            content: q.answer,
+          })
+        ),
+      },
+      {
+        _type: "sectionCTA",
+        _key: "fb-cl-cta",
+        title: d.cta.title,
+        description: d.cta.description,
+        buttonText: d.cta.buttonText,
+        buttonUrl: d.cta.buttonLink,
+      },
+    ],
+  };
+}
+
+function buildVisionPediatricaFallback(): SanityData {
+  const d = visionPediatricaContent;
+  return {
+    _id: "fallback-vision-pediatrica",
+    _type: "page",
+    title: d.mainTitle,
+    path: "/servicios/vision-pediatrica",
+    seo: {
+      title: `${d.hero.title} | Óptica Suárez`,
+      description: d.introduction.content,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-vp-hero",
+        title: d.hero.title,
+        subtitle: d.hero.subtitle,
+        image: d.hero.image ? { url: d.hero.image } : undefined,
+        imageAlt: d.hero.imageAlt,
+      },
+      {
+        _type: "sectionText",
+        _key: "fb-vp-intro",
+        title: d.introduction.title,
+        content: makeTextBlock(d.introduction.content, "fb-vp-intro-b"),
+      },
+      {
+        _type: "sectionCards",
+        _key: "fb-vp-services",
+        title: d.services.title,
+        subtitle: d.services.subtitle,
+        variant: "grid-3",
+        items: d.services.items.map(
+          (
+            s: {
+              title: string;
+              description: string;
+              image: string;
+              imageAlt: string;
+              link?: string;
+            },
+            i: number
+          ) => ({
+            _key: `fb-vp-srv-${i}`,
+            title: s.title,
+            description: s.description,
+            image: { url: s.image },
+            link: s.link,
+          })
+        ),
+      },
+      {
+        _type: "sectionAccordion",
+        _key: "fb-vp-faq",
+        title: d.faq.title,
+        items: d.faq.items.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            _key: `fb-vp-faq-${i}`,
+            title: q.question,
+            content: q.answer,
+          })
+        ),
+      },
+      {
+        _type: "sectionCTA",
+        _key: "fb-vp-cta",
+        title: d.cta.title,
+        description: d.cta.description,
+        buttonText: d.cta.buttonText,
+        buttonUrl: d.cta.buttonLink,
+      },
+    ],
+  };
+}
+
+function buildVisionDeportivaFallback(): SanityData {
+  const d = visionDeportivaContent;
+  return {
+    _id: "fallback-vision-deportiva",
+    _type: "page",
+    title: d.mainTitle,
+    path: "/servicios/vision-deportiva",
+    seo: {
+      title: `${d.hero.title} | Óptica Suárez`,
+      description: d.introduction.description,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-vd-hero",
+        title: d.hero.title,
+        subtitle: d.hero.subtitle,
+        image: d.hero.image ? { url: d.hero.image } : undefined,
+        imageAlt: d.hero.imageAlt,
+      },
+      {
+        _type: "sectionText",
+        _key: "fb-vd-intro",
+        title: d.introduction.title,
+        content: makeTextBlock(d.introduction.description, "fb-vd-intro-b"),
+      },
+      {
+        _type: "sectionCards",
+        _key: "fb-vd-services",
+        title: d.services.title,
+        variant: "grid-4",
+        items: d.services.items.map(
+          (s: { title: string; description: string }, i: number) => ({
+            _key: `fb-vd-srv-${i}`,
+            title: s.title,
+            description: s.description,
+          })
+        ),
+      },
+      {
+        _type: "sectionText",
+        _key: "fb-vd-perf",
+        title: d.visualTherapy.improvements?.title || "Mejora tu rendimiento",
+        content: makeTextBlock(
+          d.visualTherapy.improvements?.items?.join(". ") || "",
+          "fb-vd-perf-b"
+        ),
+        image: d.visualTherapy.improvements?.image
+          ? { url: d.visualTherapy.improvements.image }
+          : d.visualTherapy.images?.[1]
+            ? { url: d.visualTherapy.images[1].src }
+            : undefined,
+        imageAlt: d.visualTherapy.improvements?.imageAlt,
+      },
+      {
+        _type: "sectionTestimonials",
+        _key: "fb-vd-test",
+        title: d.testimonials.title,
+        testimonialItems: d.testimonials.items.map(
+          (t: { rating: number; name: string; review: string }, i: number) => ({
+            _key: `fb-vd-test-${i}`,
+            name: t.name,
+            text: t.review,
+            rating: t.rating,
+          })
+        ),
+      },
+      {
+        _type: "sectionAccordion",
+        _key: "fb-vd-faq",
+        title: d.faq.title,
+        items: d.faq.items.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            _key: `fb-vd-faq-${i}`,
+            title: q.question,
+            content: q.answer,
+          })
+        ),
+      },
+      {
+        _type: "sectionCTA",
+        _key: "fb-vd-cta",
+        title: d.cta.title,
+        description: d.cta.description,
+        buttonText: d.cta.buttonText,
+        buttonUrl: d.cta.buttonUrl,
+      },
+    ],
+  };
+}
+
+function buildControlMiopiaFallback(): SanityData {
+  const d = controlMiopiaContent;
+  return {
+    _id: "fallback-control-miopia",
+    _type: "page",
+    title: d.mainTitle,
+    path: "/servicios/control-de-miopia",
+    seo: {
+      title: `${d.hero.title} | Óptica Suárez`,
+      description: d.info.description,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-cm-hero",
+        title: d.hero.title,
+        subtitle: d.hero.subtitle,
+        image: d.hero.image ? { url: d.hero.image } : undefined,
+        imageAlt: d.hero.imageAlt,
+      },
+      {
+        _type: "sectionFeatures",
+        _key: "fb-cm-info",
+        title: d.info.title,
+        subtitle: d.info.description,
+        items: d.info.features.map(
+          (
+            f: { title: string; description: string; icon: string },
+            i: number
+          ) => ({
+            _key: `fb-cm-feat-${i}`,
+            title: f.title,
+            description: f.description,
+            icon: f.icon,
+          })
+        ),
+      },
+      {
+        _type: "sectionCards",
+        _key: "fb-cm-treatments",
+        title: d.treatments.title,
+        variant: "grid-3",
+        items: d.treatments.items.map(
+          (
+            t: {
+              title: string;
+              description: string;
+              image: string;
+              imageAlt: string;
+            },
+            i: number
+          ) => ({
+            _key: `fb-cm-treat-${i}`,
+            title: t.title,
+            description: t.description,
+            image: { url: t.image },
+          })
+        ),
+      },
+      {
+        _type: "sectionStats",
+        _key: "fb-cm-science",
+        title: d.science.title,
+        subtitle: d.science.description,
+        items: d.science.studies.map(
+          (
+            s: {
+              title: string;
+              description: string;
+              percentage: string;
+            },
+            i: number
+          ) => ({
+            _key: `fb-cm-stat-${i}`,
+            label: s.title,
+            description: s.description,
+            value: s.percentage,
+          })
+        ),
+      },
+      {
+        _type: "sectionAccordion",
+        _key: "fb-cm-faq",
+        title: d.faq.title,
+        items: d.faq.items.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            _key: `fb-cm-faq-${i}`,
+            title: q.question,
+            content: q.answer,
+          })
+        ),
+      },
+      {
+        _type: "sectionCTA",
+        _key: "fb-cm-cta",
+        title: d.bookAppointment.title,
+        description: d.bookAppointment.description,
+        buttonText: d.bookAppointment.buttonText,
+        buttonUrl: `https://api.whatsapp.com/send?phone=34953093062&text=${encodeURIComponent(d.bookAppointment.whatsappMessage)}`,
+      },
+    ],
+  };
+}
+
+function buildOrtoqueratologiaFallback(): SanityData {
+  const d = ortoqueratologiaContent;
+  return {
+    _id: "fallback-ortoqueratologia",
+    _type: "page",
+    title: d.mainTitle,
+    path: "/servicios/ortoqueratologia",
+    seo: {
+      title: `${d.hero.title} | Óptica Suárez`,
+      description: d.intro.description,
+    },
+    sections: [
+      {
+        _type: "sectionHero",
+        _key: "fb-ok-hero",
+        title: d.hero.title,
+        subtitle: d.hero.subtitle,
+        image: d.hero.image ? { url: d.hero.image } : undefined,
+      },
+      {
+        _type: "sectionText",
+        _key: "fb-ok-intro",
+        title: d.intro.title,
+        content: makeTextBlock(d.intro.description, "fb-ok-intro-b"),
+      },
+      {
+        _type: "sectionFeatures",
+        _key: "fb-ok-benefits",
+        title: d.benefits.title,
+        items: d.benefits.items.map(
+          (b: { title: string; description: string }, i: number) => ({
+            _key: `fb-ok-ben-${i}`,
+            title: b.title,
+            description: b.description,
+          })
+        ),
+      },
+      {
+        _type: "sectionProcessSteps",
+        _key: "fb-ok-process",
+        title: d.process.title,
+        items: d.process.steps.map(
+          (
+            s: {
+              step: string;
+              title: string;
+              description: string;
+              image: string;
+            },
+            i: number
+          ) => ({
+            _type: "processStep",
+            _key: `fb-ok-step-${i}`,
+            stepNumber: Number(s.step),
+            title: s.title,
+            description: s.description,
+            image: { url: s.image },
+          })
+        ),
+      },
+      {
+        _type: "sectionAccordion",
+        _key: "fb-ok-faq",
+        title: d.faq.title,
+        items: d.faq.items.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            _key: `fb-ok-faq-${i}`,
+            title: q.question,
+            content: q.answer,
+          })
+        ),
+      },
+      {
+        _type: "sectionCTA",
+        _key: "fb-ok-cta",
+        title: d.cta.title,
+        description: d.cta.description,
+        buttonText: d.cta.buttonText,
+        buttonUrl: d.cta.buttonLink,
       },
     ],
   };

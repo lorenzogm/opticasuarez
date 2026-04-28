@@ -3,14 +3,13 @@
   "hero": {
     "title": "Control Especializado de la Miopía",
     "subtitle": "Protegemos la Visión de tu Hijo",
-    "description": "En Óptica Suárez ofrecemos las técnicas más avanzadas para frenar la progresión de la miopía en niños y adolescentes, garantizando un futuro visual saludable.",
     "image": "/images/control-miopia/control-de-miopia-hero.webp",
     "imageAlt": "Control de miopía en Jaén",
     "imageTitle": "Control de miopía en Jaén"
   },
   "info": {
     "title": "¿Qué es el Control de Miopía?",
-    "description": "La miopía es un defecto refractivo que está aumentando de forma alarmante en todo el mundo. En España, ya afecta al 47% de los jóvenes universitarios. Sin un control adecuado, la miopía puede progresar rápidamente durante la infancia y adolescencia.",
+    "description": "El control de miopía es un servicio especializado del optometrista que permite frenar la progresión de este defecto refractivo en niños y adolescentes. En Óptica Suárez, tu óptica de referencia en Jaén, ofrecemos las técnicas más avanzadas para proteger la visión de tu hijo. La miopía está aumentando de forma alarmante en todo el mundo — en España ya afecta al 47% de los jóvenes universitarios. Sin un control adecuado, puede progresar rápidamente durante la infancia y adolescencia.",
     "features": [
       {
         "title": "Detección Temprana",
@@ -51,8 +50,8 @@
         ]
       },
       {
-        "title": "Gafas con Lentes Progresivas",
-        "description": "Lentes progresivas especiales que proporcionan diferentes potencias en distintas zonas de la lente, optimizando la visión y controlando la miopía.",
+        "title": "Gafas con desenfoque periférico",
+        "description": "Lentes de un diseño especial que proporcionan diferentes potencias en distintas zonas de la lente, optimizando la visión y controlando la miopía.",
         "image": "/images/control-miopia/gafas-progresivas.webp",
         "imageAlt": "Gafas progresivas",
         "imageTitle": "Gafas progresivas",

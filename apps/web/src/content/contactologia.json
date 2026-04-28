@@ -1,7 +1,13 @@
 {
   "mainTitle": "CONTACTOLOGÍA EN JAÉN",
+  "heroImage": "/images/contactologia/hero-image.webp",
+  "heroImageAlt": "Especialistas en lentes de contacto y contactología en Jaén - Óptica Suárez",
+  "heroImageTitle": "Contactología en Jaén - Óptica Suárez",
   "intro": {
-    "title": "Especialistas en Lentes de Contacto en Jaén",
+    "title": "Especialistas en Lentes de Contacto en Jaén"
+  },
+  "textSection": {
+    "title": "Tus lentillas en Jaén",
     "description": "En Óptica Suárez somos especialistas en contactología, siendo el centro de referencia de lentillas en Jaén. Ofrecemos un servicio integral de adaptación, seguimiento y cuidado de lentes de contacto. Nuestro equipo de profesionales te asesorará para encontrar la mejor solución visual según tus necesidades."
   },
   "services": {
@@ -10,22 +16,22 @@
       {
         "title": "Adaptación de Lentes",
         "description": "Realizamos una evaluación completa de tus ojos para adaptar las lentes de contacto más adecuadas para ti.",
-        "icon": "eye"
+        "icon": "👁️"
       },
       {
         "title": "Seguimiento Personalizado",
         "description": "Control periódico del estado de tus ojos y de las lentes de contacto para garantizar tu comodidad y salud visual.",
-        "icon": "calendar"
+        "icon": "📅"
       },
       {
         "title": "Lentes Especializadas",
         "description": "Disponemos de lentes para casos especiales: queratocono, astigmatismo irregular, lentes multifocales y más.",
-        "icon": "settings"
+        "icon": "⚙️"
       },
       {
         "title": "Educación y Cuidado",
         "description": "Te enseñamos las técnicas correctas de manipulación, limpieza y cuidado de tus lentes de contacto.",
-        "icon": "book"
+        "icon": "📖"
       }
     ]
   },

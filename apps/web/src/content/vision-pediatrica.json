@@ -3,14 +3,13 @@
   "hero": {
     "title": "Visión pediátrica en Jaén",
     "subtitle": "Cuidamos la salud visual de los más pequeños",
-    "description": "En Óptica Suárez somos especialistas en visión pediátrica en Jaén, garantizando el correcto neurodesarrollo visual de tu hijo. Realizamos exámenes visuales completos y tratamientos adaptados a cada etapa de crecimiento.",
     "image": "/images/vision-pediatrica/especialistas-vision-pediatrica.webp",
     "imageTitle": "Visión Infantil en Jaén",
     "imageAlt": "Visión Infantil en Jaén"
   },
   "introduction": {
     "title": "¿Por qué es importante la visión pediátrica?",
-    "content": "La visión es fundamental para el desarrollo y aprendizaje de los niños. El 80% de la información que recibe un niño es a través de la visión, por lo que es esencial detectar y corregir cualquier problema visual desde edad temprana para evitar dificultades en el aprendizaje y neurodesarrollo visual."
+    "content": "En Óptica Suárez somos especialistas en visión pediátrica en Jaén, garantizando el correcto neurodesarrollo visual de tu hijo. Realizamos exámenes visuales completos y tratamientos adaptados a cada etapa de crecimiento. La visión es fundamental para el desarrollo y aprendizaje de los niños. El 80% de la información que recibe un niño es a través de la visión, por lo que es esencial detectar y corregir cualquier problema visual desde edad temprana para evitar dificultades en el aprendizaje y neurodesarrollo visual."
   },
   "services": {
     "title": "Nuestros Servicios",
@@ -23,7 +22,7 @@
         "image": "/images/vision-pediatrica/examen-visual-infantil.webp",
         "imageTitle": "Examen visual en Jaén",
         "imageAlt": "Examen visual en Jaén",
-        "link": "/examen-visual"
+        "link": "/servicios/examen-visual"
       },
       {
         "title": "Detección Temprana",
@@ -40,7 +39,7 @@
         "image": "/images/vision-pediatrica/terapia-visual-pediatrica.webp",
         "imageTitle": "Terapia Visual en Jaén",
         "imageAlt": "Terapia Visual en Jaén",
-        "link": "/terapia-visual"
+        "link": "/servicios/terapia-visual"
       },
       {
         "title": "Gafas Infantiles",
@@ -57,7 +56,7 @@
         "image": "/images/vision-pediatrica/control-de-miopia.webp",
         "imageTitle": "Control de Miopía en Jaén",
         "imageAlt": "Control de Miopía en Jaén",
-        "link": "/control-de-miopia"
+        "link": "/servicios/control-de-miopia"
       },
       {
         "title": "Salud Ocular",

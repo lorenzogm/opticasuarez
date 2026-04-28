@@ -3,12 +3,13 @@
   "hero": {
     "title": "VISIÓN DEPORTIVA EN JAÉN",
     "subtitle": "Optimiza tu rendimiento visual",
-    "description": "Servicios especializados para deportistas. Mejora tu visión y tu rendimiento deportivo con nuestros profesionales especializados.",
-    "image": "/images/homepage/services/vision-binocular.webp"
+    "image": "/images/vision-deportiva/hero-image.webp",
+    "imageAlt": "Visión deportiva especializada para deportistas en Jaén - Óptica Suárez",
+    "imageTitle": "Visión Deportiva en Jaén - Óptica Suárez"
   },
   "introduction": {
     "title": "¿QUÉ ES LA VISIÓN DEPORTIVA?",
-    "description": "La visión deportiva es una especialidad de la optometría que se enfoca en optimizar las habilidades visuales específicas necesarias para cada deporte. Los deportistas requieren capacidades visuales excepcionales para alcanzar su máximo rendimiento, y nosotros te ayudamos a conseguirlo.",
+    "description": "La visión deportiva es una especialidad de la optometría que se enfoca en optimizar las habilidades visuales específicas necesarias para cada deporte. En Óptica Suárez, tu centro de referencia en Jaén, contamos con optometristas especializados en visión deportiva que ayudan a deportistas de todas las disciplinas a alcanzar su máximo rendimiento visual. Los deportistas requieren capacidades visuales excepcionales, y nuestro equipo te ayuda a conseguirlo con evaluaciones y entrenamientos personalizados.",
     "benefits": [
       "Mejora de la coordinación ojo-mano",
       "Optimización de la percepción de profundidad",
@@ -60,6 +61,9 @@
     ],
     "improvements": {
       "title": "MEJORAS EN TU RENDIMIENTO",
+      "image": "/images/vision-deportiva/mejora-rendimiento.webp",
+      "imageAlt": "Mejora tu rendimiento deportivo con visión deportiva en Jaén",
+      "imageTitle": "Mejora rendimiento visual deportivo - Óptica Suárez Jaén",
       "items": [
         "Mayor precisión en movimientos técnicos",
         "Mejor anticipación a las jugadas",
