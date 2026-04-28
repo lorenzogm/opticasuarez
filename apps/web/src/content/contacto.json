@@ -2,7 +2,9 @@
   "hero": {
     "title": "CONTACTO",
     "subtitle": "ESTAMOS AQUÍ PARA AYUDARTE",
-    "description": "Ponte en contacto con nosotros para cualquier consulta sobre nuestros servicios de óptica y cuidado visual"
+    "image": "/images/contacto/contacto-hero.webp",
+    "imageAlt": "Contacta con Óptica Suárez en Jaén",
+    "imageTitle": "Contacto Óptica Suárez Jaén"
   },
   "contactInfo": {
     "title": "INFORMACIÓN DE CONTACTO",
@@ -28,7 +30,8 @@
         },
         "phone": "953-093-062",
         "phoneUrl": "tel:+34953093062",
-        "whatsappUrl": "https://api.whatsapp.com/send?phone=34953093062",
+        "whatsappUrl": "https://wa.me/34953093062",
+        "whatsappNumber": "+34 953 093 062",
         "email": "bulevar@opticasuarezjaen.es",
         "mapUrl": "https://maps.google.com/maps?q=C.+de+Canarias,+6,+23009+Jaén"
       },
@@ -44,7 +47,8 @@
         },
         "phone": "953-223-180",
         "phoneUrl": "tel:+34953223180",
-        "whatsappUrl": "https://api.whatsapp.com/send?phone=34953223180",
+        "whatsappUrl": "https://wa.me/34953223180",
+        "whatsappNumber": "+34 953 223 180",
         "email": "centro@opticasuarezjaen.es",
         "mapUrl": "https://maps.google.com/maps?q=P.º+de+la+Estación,+12,+23003+Jaén"
       }
@@ -76,17 +80,22 @@
     "instagram": {
       "title": "Instagram",
       "handle": "@opticasuarezjaen",
-      "url": "https://www.instagram.com/opticasuarezjaen"
+      "url": "https://www.instagram.com/opticasuarezjaen/"
     },
     "facebook": {
       "title": "Facebook",
       "handle": "@opticasuarezjaen",
       "url": "https://www.facebook.com/opticasuarezjaen"
     },
+    "twitter": {
+      "title": "Twitter",
+      "handle": "@opticasuarez",
+      "url": "https://x.com/opticasuarez"
+    },
     "youtube": {
       "title": "YouTube",
       "handle": "@OpticaSuarezJaen",
-      "url": "https://www.youtube.com/@OpticaSuarezJaen"
+      "url": "https://www.youtube.com/c/OpticaSuarezJa%C3%A9n/"
     }
   }
 }
