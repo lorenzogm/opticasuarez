@@ -71,7 +71,7 @@ test.describe("About & Contact", () => {
     await expect(
       page.getByRole("heading", { name: /NUESTRAS TIENDAS/i })
     ).toBeVisible();
-    await expect(page.getByText(/Bulevar/i)).toBeVisible();
+    await expect(page.getByText(/Bulevar/i).first()).toBeVisible();
     await expect(page.getByText(/Centro/i).first()).toBeVisible();
   });
 
