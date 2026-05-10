@@ -7,7 +7,7 @@ test.describe("Site Navigation", () => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     await page
-      .locator("nav")
+      .locator("header nav")
       .getByRole("link", { name: "Quienes Somos" })
       .click();
     await page.waitForLoadState("networkidle");
@@ -19,7 +19,7 @@ test.describe("Site Navigation", () => {
   test("CSR navigation to Blog", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await page.locator("nav").getByRole("link", { name: "Blog" }).click();
+    await page.locator("header nav").getByRole("link", { name: "Blog" }).click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/blog/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -29,7 +29,7 @@ test.describe("Site Navigation", () => {
   test("CSR navigation to Contacto", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await page.locator("nav").getByRole("link", { name: "Contacto" }).click();
+    await page.locator("header nav").getByRole("link", { name: "Contacto" }).click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/contacto/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -42,7 +42,7 @@ test.describe("Site Navigation", () => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     const serviciosLink = page
-      .locator("nav")
+      .locator("header nav")
       .getByRole("link", { name: "Servicios" });
     await serviciosLink.click();
     await expect(
@@ -58,7 +58,7 @@ test.describe("Site Navigation", () => {
   test("navigate back to homepage via logo", async ({ page }) => {
     await page.goto("/blog");
     await page.waitForLoadState("networkidle");
-    await page.locator("nav a[href='/']").first().click();
+    await page.locator("header nav a[href='/']").first().click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/\/$/);
   });
@@ -69,10 +69,11 @@ test.describe("Site Navigation", () => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /menú/i }).click();
-    await expect(page.getByRole("link", { name: "Inicio" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Blog" })).toBeVisible();
+    const header = page.locator("header");
+    await expect(header.getByRole("link", { name: "Inicio" })).toBeVisible();
+    await expect(header.getByRole("link", { name: "Blog" })).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Contacto", exact: true })
+      header.getByRole("link", { name: "Contacto", exact: true })
     ).toBeVisible();
   });
 
@@ -80,7 +81,7 @@ test.describe("Site Navigation", () => {
   test("navigation bar has all main links", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    const nav = page.locator("nav");
+    const nav = page.locator("header nav");
     await expect(nav).toBeVisible();
     await expect(nav.getByRole("link", { name: "Inicio" })).toBeVisible();
     await expect(

@@ -17,7 +17,7 @@ test.describe("<Journey Name>", () => {
     await page.waitForLoadState("networkidle");
 
     // Click a link to navigate (CSR)
-    await page.locator("nav").getByRole("link", { name: "Blog" }).click();
+    await page.locator("header nav").getByRole("link", { name: "Blog" }).click();
     await page.waitForLoadState("networkidle");
 
     // Verify destination rendered with content

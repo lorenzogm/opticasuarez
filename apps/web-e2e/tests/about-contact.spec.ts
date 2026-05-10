@@ -39,7 +39,7 @@ test.describe("About & Contact", () => {
   test("navigate to Contacto via nav and verify content", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await page.locator("nav").getByRole("link", { name: "Contacto" }).click();
+    await page.locator("header nav").getByRole("link", { name: "Contacto" }).click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/contacto/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
