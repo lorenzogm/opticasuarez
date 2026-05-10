@@ -363,6 +363,7 @@ jobs:
       always() &&
       github.event_name != 'pull_request' &&
       needs.deploy-preview.result == 'success' &&
+      needs.e2e-tests.result == 'success' &&
       needs.infra-deploy.result != 'failure'
     runs-on: ubuntu-latest
     name: Deploy Production

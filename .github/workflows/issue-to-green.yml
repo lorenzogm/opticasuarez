@@ -41,10 +41,11 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
         run: |
           FULL_REPO="${{ github.repository }}"
-          TDD_INSTRUCTIONS="Use the /tdd skill. Follow TDD (Test-Driven Development) with red-green-refactor. Write ONE test for first behavior, make it pass with minimal code, then repeat for each behavior. Vertical slices only — never write all tests first. Tests verify behavior through public interfaces, not implementation details. Run pnpm check to validate before pushing. Follow kebab-case file naming, PascalCase for React components. Request reviews from juanpeich and lorenzogm."
+          TDD_INSTRUCTIONS="Use the /tdd skill. Follow TDD (Test-Driven Development) with red-green-refactor. Write ONE test for first behavior, make it pass with minimal code, then repeat for each behavior. Vertical slices only — never write all tests first. Tests verify behavior through public interfaces, not implementation details. Run pnpm check to validate before pushing. Follow kebab-case file naming, PascalCase for React components. When finished, request review from juanpeich. Assign the PR to juanpeich."
 
           echo "Assigning Copilot Cloud Agent to issue #${ISSUE_NUMBER}..."
 
+          # Replace all assignees with only Copilot (removes lorenzogm or others)
           PAYLOAD=$(jq -n \
             --arg repo "$FULL_REPO" \
             --arg instructions "$TDD_INSTRUCTIONS" \
@@ -60,10 +61,10 @@ jobs:
             }')
 
           RESPONSE=$(echo "$PAYLOAD" | gh api \
-            --method POST \
+            --method PATCH \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            "/repos/${FULL_REPO}/issues/${ISSUE_NUMBER}/assignees" \
+            "/repos/${FULL_REPO}/issues/${ISSUE_NUMBER}" \
             --input -)
 
           COPILOT_ASSIGNED=$(echo "$RESPONSE" | jq -r '.assignees[]? | select(.login == "Copilot") | .login')
