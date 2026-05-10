@@ -1,0 +1,83 @@
+name: Copilot PR Ready
+
+# When Copilot finishes work, it requests a review on its draft PR.
+# This workflow:
+#   1. Marks the PR as ready for review (undraft)
+#   2. Replaces the reviewer with juanpeich
+#   3. Assigns the PR to juanpeich
+# Then pr-automerge.yml kicks in (triggered by ready_for_review).
+
+on:
+  pull_request_target:
+    types: [review_requested]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare-copilot-pr:
+    name: Prepare Copilot PR for review
+    if: github.event.pull_request.user.login == 'copilot-swe-agent[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mark ready, assign juanpeich, replace reviewer
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pullNumber = context.payload.pull_request.number;
+            const isDraft = context.payload.pull_request.draft;
+
+            core.info(`Processing Copilot PR #${pullNumber} (draft: ${isDraft})`);
+
+            // 1. Mark as ready for review if still draft
+            if (isDraft) {
+              const { repository } = await github.graphql(
+                `query($owner: String!, $repo: String!, $pullNumber: Int!) {
+                  repository(owner: $owner, name: $repo) {
+                    pullRequest(number: $pullNumber) { id }
+                  }
+                }`,
+                { owner, repo, pullNumber }
+              );
+
+              await github.graphql(
+                `mutation($pullRequestId: ID!) {
+                  markPullRequestReadyForReview(input: { pullRequestId: $pullRequestId }) {
+                    pullRequest { number }
+                  }
+                }`,
+                { pullRequestId: repository.pullRequest.id }
+              );
+              core.info(`Marked PR #${pullNumber} as ready for review`);
+            }
+
+            // 2. Remove existing reviewers and add juanpeich
+            const { data: reviewRequests } = await github.rest.pulls.listRequestedReviewers({
+              owner, repo, pull_number: pullNumber,
+            });
+
+            const existingReviewers = reviewRequests.users.map(u => u.login);
+            if (existingReviewers.length > 0) {
+              await github.rest.pulls.removeRequestedReviewers({
+                owner, repo, pull_number: pullNumber,
+                reviewers: existingReviewers,
+              });
+              core.info(`Removed reviewers: ${existingReviewers.join(', ')}`);
+            }
+
+            await github.rest.pulls.requestReviewers({
+              owner, repo, pull_number: pullNumber,
+              reviewers: ['juanpeich'],
+            });
+            core.info(`Requested review from juanpeich`);
+
+            // 3. Assign PR to juanpeich
+            await github.rest.issues.addAssignees({
+              owner, repo, issue_number: pullNumber,
+              assignees: ['juanpeich'],
+            });
+            core.info(`Assigned PR #${pullNumber} to juanpeich`);
