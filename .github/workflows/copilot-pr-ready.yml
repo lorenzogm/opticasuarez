@@ -75,7 +75,18 @@ jobs:
             });
             core.info(`Requested review from juanpeich`);
 
-            // 3. Assign PR to juanpeich
+            // 3. Remove lorenzogm from PR assignees (avoid notifications)
+            try {
+              await github.rest.issues.removeAssignees({
+                owner, repo, issue_number: pullNumber,
+                assignees: ['lorenzogm'],
+              });
+              core.info(`Removed lorenzogm from PR #${pullNumber} assignees`);
+            } catch (e) {
+              core.info(`lorenzogm was not assigned to PR #${pullNumber}`);
+            }
+
+            // 4. Assign PR to juanpeich
             await github.rest.issues.addAssignees({
               owner, repo, issue_number: pullNumber,
               assignees: ['juanpeich'],

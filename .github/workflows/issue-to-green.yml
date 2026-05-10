@@ -75,3 +75,12 @@ jobs:
             echo "Response assignees: $(echo "$RESPONSE" | jq -r '[.assignees[].login] | join(", ")')"
             exit 1
           fi
+
+      - name: Remove lorenzogm from issue assignees
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+        run: |
+          gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}/assignees" \
+            --method DELETE --input - <<< '{"assignees":["lorenzogm"]}' || true
+          echo "✅ Removed lorenzogm from issue #${ISSUE_NUMBER} assignees (if present)"
