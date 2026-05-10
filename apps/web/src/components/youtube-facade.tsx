@@ -104,14 +104,6 @@ export default function YouTubeFacade({
           </svg>
         </div>
       </div>
-
-      {/* Preconnect hint when hovering */}
-      {isIntersecting && (
-        <>
-          <link href="https://www.youtube.com" rel="preconnect" />
-          <link href="https://www.google.com" rel="preconnect" />
-        </>
-      )}
     </div>
   );
 }
