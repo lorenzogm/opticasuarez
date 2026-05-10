@@ -19,7 +19,10 @@ test.describe("Site Navigation", () => {
   test("CSR navigation to Blog", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await page.locator("header nav").getByRole("link", { name: "Blog" }).click();
+    await page
+      .locator("header nav")
+      .getByRole("link", { name: "Blog" })
+      .click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/blog/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -29,7 +32,10 @@ test.describe("Site Navigation", () => {
   test("CSR navigation to Contacto", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await page.locator("header nav").getByRole("link", { name: "Contacto" }).click();
+    await page
+      .locator("header nav")
+      .getByRole("link", { name: "Contacto" })
+      .click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/contacto/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

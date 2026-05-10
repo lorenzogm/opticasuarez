@@ -6,7 +6,10 @@ test.describe("Blog Engagement", () => {
   test("navigate to blog via nav and see articles", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await page.locator("header nav").getByRole("link", { name: "Blog" }).click();
+    await page
+      .locator("header nav")
+      .getByRole("link", { name: "Blog" })
+      .click();
     await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/blog/);
     await expect(page).toHaveTitle(/Blog|Óptica Suárez/);
