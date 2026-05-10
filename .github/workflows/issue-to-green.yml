@@ -38,35 +38,34 @@ jobs:
       - name: Assign Copilot Cloud Agent with TDD instructions
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
         run: |
-          OWNER="${{ github.repository_owner }}"
-          REPO="${{ github.event.repository.name }}"
           FULL_REPO="${{ github.repository }}"
-
           TDD_INSTRUCTIONS="Use the /tdd skill. Follow TDD (Test-Driven Development) with red-green-refactor. Write ONE test for first behavior, make it pass with minimal code, then repeat for each behavior. Vertical slices only — never write all tests first. Tests verify behavior through public interfaces, not implementation details. Run pnpm check to validate before pushing. Follow kebab-case file naming, PascalCase for React components. Request reviews from juanpeich and lorenzogm."
 
           echo "Assigning Copilot Cloud Agent to issue #${ISSUE_NUMBER}..."
 
-          RESPONSE=$(gh api \
+          PAYLOAD=$(jq -n \
+            --arg repo "$FULL_REPO" \
+            --arg instructions "$TDD_INSTRUCTIONS" \
+            '{
+              assignees: ["copilot-swe-agent[bot]"],
+              agent_assignment: {
+                target_repo: $repo,
+                base_branch: "main",
+                custom_instructions: $instructions,
+                custom_agent: "",
+                model: ""
+              }
+            }')
+
+          RESPONSE=$(echo "$PAYLOAD" | gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "/repos/${FULL_REPO}/issues/${ISSUE_NUMBER}/assignees" \
-            --input - <<EOF
-          {
-            "assignees": ["copilot-swe-agent[bot]"],
-            "agent_assignment": {
-              "target_repo": "${FULL_REPO}",
-              "base_branch": "main",
-              "custom_instructions": "${TDD_INSTRUCTIONS}",
-              "custom_agent": "",
-              "model": ""
-            }
-          }
-          EOF
-          )
+            --input -)
 
-          # Verify assignment
           COPILOT_ASSIGNED=$(echo "$RESPONSE" | jq -r '.assignees[]? | select(.login == "Copilot") | .login')
           if [ "$COPILOT_ASSIGNED" = "Copilot" ]; then
             echo "✅ Copilot Cloud Agent assigned to issue #${ISSUE_NUMBER}"
@@ -75,5 +74,3 @@ jobs:
             echo "Response assignees: $(echo "$RESPONSE" | jq -r '[.assignees[].login] | join(", ")')"
             exit 1
           fi
-
-            core.info(`Added TDD instructions to issue #${issueNumber}`);
