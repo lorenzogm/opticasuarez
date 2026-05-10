@@ -1,5 +1,27 @@
-const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
-const dataset = process.env.SANITY_DATASET || "production";
+const DEFAULT_SANITY_PROJECT_ID = "2a24wmex";
+const DEFAULT_SANITY_DATASET = "production";
+
+function resolveSanityEnvValue(
+  value: string | undefined,
+  fallback: string,
+  pattern: RegExp
+): string {
+  if (!value || !pattern.test(value)) {
+    return fallback;
+  }
+  return value;
+}
+
+const projectId = resolveSanityEnvValue(
+  process.env.SANITY_PROJECT_ID,
+  DEFAULT_SANITY_PROJECT_ID,
+  /^[a-z0-9-]+$/i
+);
+const dataset = resolveSanityEnvValue(
+  process.env.SANITY_DATASET,
+  DEFAULT_SANITY_DATASET,
+  /^[a-z0-9_-]+$/i
+);
 const apiVersion = "2026-03-23";
 
 const SANITY_API_URL = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}`;
