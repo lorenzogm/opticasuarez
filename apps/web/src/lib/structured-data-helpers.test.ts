@@ -26,6 +26,31 @@ describe("createWebsiteSchema", () => {
 });
 
 describe("createOpticianSchema", () => {
+  it("lists both physical stores as subOrganization entries", () => {
+    const schema = createOpticianSchema(baseUrl);
+    const subOrganizations = schema.subOrganization;
+
+    expect(subOrganizations).toHaveLength(2);
+    expect(subOrganizations).toMatchObject([
+      {
+        name: "Óptica Suárez Bulevar",
+        address: {
+          streetAddress: "C. de Canarias, 6",
+          postalCode: "23009",
+          addressLocality: "Jaén",
+        },
+      },
+      {
+        name: "Óptica Suárez Centro",
+        address: {
+          streetAddress: "P.º de la Estación, 12",
+          postalCode: "23003",
+          addressLocality: "Jaén",
+        },
+      },
+    ]);
+  });
+
   it("uses the validated NAP data for both departments", () => {
     const schema = createOpticianSchema(baseUrl);
     const departments = schema.department;

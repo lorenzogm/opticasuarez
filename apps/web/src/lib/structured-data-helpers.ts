@@ -249,6 +249,32 @@ export function createWebsiteSchema(baseUrl = getBaseUrl()) {
 
 export function createOpticianSchema(baseUrl = getBaseUrl()) {
   const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+  const locationSchemas = departmentSpecs.map((department) => ({
+    "@type": "Optician",
+    "@id": `${normalizedBaseUrl}/#${department.id}`,
+    name: department.name,
+    image: `${normalizedBaseUrl}${department.image}`,
+    priceRange: "$$",
+    telephone: department.telephone,
+    email: department.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: department.streetAddress,
+      addressLocality: "Jaén",
+      addressRegion: "Andalucía",
+      postalCode: department.postalCode,
+      addressCountry: "ES",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: department.latitude,
+      longitude: department.longitude,
+    },
+    hasMap: department.hasMap,
+    openingHoursSpecification: buildOpeningHoursSpecification(
+      getVisibleLocationSchedule(department.email)
+    ),
+  }));
 
   return {
     "@context": "https://schema.org",
@@ -341,32 +367,8 @@ export function createOpticianSchema(baseUrl = getBaseUrl()) {
         },
       ],
     },
-    department: departmentSpecs.map((department) => ({
-      "@type": "Optician",
-      "@id": `${normalizedBaseUrl}/#${department.id}`,
-      name: department.name,
-      image: `${normalizedBaseUrl}${department.image}`,
-      priceRange: "$$",
-      telephone: department.telephone,
-      email: department.email,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: department.streetAddress,
-        addressLocality: "Jaén",
-        addressRegion: "Andalucía",
-        postalCode: department.postalCode,
-        addressCountry: "ES",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: department.latitude,
-        longitude: department.longitude,
-      },
-      hasMap: department.hasMap,
-      openingHoursSpecification: buildOpeningHoursSpecification(
-        getVisibleLocationSchedule(department.email)
-      ),
-    })),
+    department: locationSchemas,
+    subOrganization: locationSchemas,
   };
 }
 
