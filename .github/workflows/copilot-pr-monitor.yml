@@ -1,0 +1,102 @@
+name: Copilot PR Monitor
+
+# Watches CI results on Copilot PRs.
+# When PR Checks fail or merge conflicts exist, comments on the PR
+# telling Copilot to fix them — creating a self-healing loop.
+
+on:
+  workflow_run:
+    workflows: ["PR Checks"]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  check-copilot-pr:
+    name: Monitor Copilot PR
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check CI result and merge conflicts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const headBranch = context.payload.workflow_run.head_branch;
+            const conclusion = context.payload.workflow_run.conclusion;
+
+            // Find the PR for this workflow run
+            const { data: prs } = await github.rest.pulls.list({
+              owner, repo,
+              state: 'open',
+              head: `${owner}:${headBranch}`,
+            });
+
+            const pr = prs.find(p => p.user.login === 'copilot-swe-agent[bot]');
+            if (!pr) {
+              core.info('No Copilot PR found for this branch — skipping');
+              return;
+            }
+
+            const prNumber = pr.number;
+            core.info(`Copilot PR #${prNumber}: CI conclusion = ${conclusion}`);
+
+            // Check merge conflicts
+            const { data: prDetail } = await github.rest.pulls.get({
+              owner, repo, pull_number: prNumber,
+            });
+            const hasConflicts = prDetail.mergeable === false;
+            const ciFailed = conclusion === 'failure';
+
+            if (!ciFailed && !hasConflicts) {
+              core.info(`PR #${prNumber}: CI passed, no conflicts — all good`);
+              return;
+            }
+
+            // Avoid spamming: check for recent nudge (last 30 min)
+            const MARKER = '<!-- copilot-monitor -->';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner, repo, issue_number: prNumber,
+              per_page: 20,
+            });
+
+            const recentNudge = comments.some(c =>
+              c.body.includes(MARKER) &&
+              Date.now() - new Date(c.created_at).getTime() < 30 * 60 * 1000
+            );
+            if (recentNudge) {
+              core.info(`Already nudged PR #${prNumber} in the last 30 min — skipping`);
+              return;
+            }
+
+            // Build the nudge message
+            const parts = [MARKER];
+
+            if (ciFailed) {
+              parts.push(
+                '@copilot The CI pipeline (`pnpm check`) has **failed** on this PR.',
+                'Please investigate the errors and push a fix. Run `pnpm check` to reproduce locally.',
+                ''
+              );
+            }
+
+            if (hasConflicts) {
+              parts.push(
+                '@copilot This PR has **merge conflicts** with `main`.',
+                'Please rebase on the latest `main` branch and resolve all conflicts.',
+                ''
+              );
+            }
+
+            await github.rest.issues.createComment({
+              owner, repo,
+              issue_number: prNumber,
+              body: parts.join('\n'),
+            });
+
+            core.info(`Nudged Copilot on PR #${prNumber}: ciFailed=${ciFailed}, hasConflicts=${hasConflicts}`);
