@@ -5,8 +5,27 @@ import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 
-const SANITY_PROJECT_ID = process.env.SANITY_PROJECT_ID || "2a24wmex";
-const SANITY_DATASET = process.env.SANITY_DATASET || "production";
+function resolveSanityEnvValue(
+  value: string | undefined,
+  fallback: string,
+  pattern: RegExp
+): string {
+  if (!(value && pattern.test(value))) {
+    return fallback;
+  }
+  return value;
+}
+
+const SANITY_PROJECT_ID = resolveSanityEnvValue(
+  process.env.SANITY_PROJECT_ID,
+  "2a24wmex",
+  /^[a-z0-9-]+$/i
+);
+const SANITY_DATASET = resolveSanityEnvValue(
+  process.env.SANITY_DATASET,
+  "production",
+  /^[a-z0-9_-]+$/i
+);
 const SANITY_API_VERSION = "2026-03-23";
 const SANITY_CDN_URL = `https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;
 

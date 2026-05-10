@@ -26,7 +26,10 @@ export default function SiteFooter() {
               <ul className="space-y-2">
                 {footerLinks.map((link) => (
                   <li key={link.to}>
-                    <a className="text-sm text-white hover:text-gray-200" href={link.to}>
+                    <a
+                      className="text-sm text-white hover:text-gray-200"
+                      href={link.to}
+                    >
                       {link.label}
                     </a>
                   </li>
@@ -36,25 +39,39 @@ export default function SiteFooter() {
           </section>
 
           {contactContent.locations.locations.map((location) => (
-            <section aria-labelledby={`footer-${location.name}`} key={location.name}>
-              <h2 className="font-semibold text-xl" id={`footer-${location.name}`}>
+            <section
+              aria-labelledby={`footer-${location.name}`}
+              key={location.name}
+            >
+              <h2
+                className="font-semibold text-xl"
+                id={`footer-${location.name}`}
+              >
                 {location.name}
               </h2>
               <address className="mt-4 not-italic">
                 <p className="text-gray-300 text-sm">{location.address}</p>
                 <p className="mt-2 text-gray-300 text-sm">
-                  {location.schedule.weekdays}: {location.schedule.weekdaysHours}
+                  {location.schedule.weekdays}:{" "}
+                  {location.schedule.weekdaysHours}
                 </p>
                 <p className="text-gray-300 text-sm">
-                  {location.schedule.saturday}: {location.schedule.saturdayHours}
+                  {location.schedule.saturday}:{" "}
+                  {location.schedule.saturdayHours}
                 </p>
                 <p className="mt-3">
-                  <a className="text-sm hover:text-gray-200" href={location.phoneUrl}>
+                  <a
+                    className="text-sm hover:text-gray-200"
+                    href={location.phoneUrl}
+                  >
                     {location.phone}
                   </a>
                 </p>
                 <p>
-                  <a className="text-sm hover:text-gray-200" href={`mailto:${location.email}`}>
+                  <a
+                    className="text-sm hover:text-gray-200"
+                    href={`mailto:${location.email}`}
+                  >
                     {location.email}
                   </a>
                 </p>

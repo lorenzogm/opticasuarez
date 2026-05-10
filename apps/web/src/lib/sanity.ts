@@ -6,7 +6,7 @@ function resolveSanityEnvValue(
   fallback: string,
   pattern: RegExp
 ): string {
-  if (!value || !pattern.test(value)) {
+  if (!(value && pattern.test(value))) {
     return fallback;
   }
   return value;
