@@ -1,10 +1,14 @@
 name: Issue-to-Green
 
-# Assigns the Copilot Coding Agent to new issues with TDD instructions.
+# Assigns the Copilot Cloud Agent to new issues with TDD instructions.
 # Copilot creates a branch and PR. Other workflows handle:
 #   - pr-checks.yml        → pnpm check + build
 #   - web-vercel-deploy.yml → preview URL on PR
 #   - pr-automerge.yml      → auto-merge after approval
+#
+# Requirements:
+#   - Copilot Cloud Agent enabled in repo Settings → Copilot → Cloud agent
+#   - GH_PAT secret: a Personal Access Token with repo scope (needed for agent assignment API)
 
 on:
   issues:
@@ -18,6 +22,7 @@ on:
 
 permissions:
   issues: write
+  contents: read
 
 concurrency:
   group: issue-to-green-${{ github.event.issue.number || inputs.issue_number }}
@@ -30,53 +35,52 @@ jobs:
     env:
       ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
     steps:
-      - name: Assign Copilot with TDD instructions
-        uses: actions/github-script@v7
+      - name: Assign Copilot Cloud Agent with TDD instructions
         env:
-          ISSUE_NUMBER: ${{ env.ISSUE_NUMBER }}
-        with:
-          script: |
-            const issueNumber = parseInt(process.env.ISSUE_NUMBER);
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+        run: |
+          FULL_REPO="${{ github.repository }}"
+          TDD_INSTRUCTIONS="Use the /tdd skill. Follow TDD (Test-Driven Development) with red-green-refactor. Write ONE test for first behavior, make it pass with minimal code, then repeat for each behavior. Vertical slices only — never write all tests first. Tests verify behavior through public interfaces, not implementation details. Run pnpm check to validate before pushing. Follow kebab-case file naming, PascalCase for React components. When finished, request review from juanpeich. Assign the PR to juanpeich."
 
-            if (!issueNumber) {
-              core.setFailed('No issue number provided');
-              return;
-            }
+          echo "Assigning Copilot Cloud Agent to issue #${ISSUE_NUMBER}..."
 
-            // Assign copilot to the issue
-            try {
-              await github.rest.issues.addAssignees({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issueNumber,
-                assignees: ['copilot'],
-              });
-              core.info(`Assigned Copilot to issue #${issueNumber}`);
-            } catch (err) {
-              core.warning(`Could not assign Copilot: ${err.message}`);
-            }
+          # Replace all assignees with only Copilot (removes lorenzogm or others)
+          PAYLOAD=$(jq -n \
+            --arg repo "$FULL_REPO" \
+            --arg instructions "$TDD_INSTRUCTIONS" \
+            '{
+              assignees: ["copilot-swe-agent[bot]"],
+              agent_assignment: {
+                target_repo: $repo,
+                base_branch: "main",
+                custom_instructions: $instructions,
+                custom_agent: "",
+                model: ""
+              }
+            }')
 
-            // Add TDD instruction comment
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              body: [
-                'Implement this issue following **TDD (Test-Driven Development)** using the `/tdd` skill.',
-                '',
-                '### Workflow',
-                '1. **Plan**: Read the issue, explore the codebase, identify behaviors to test and public interfaces',
-                '2. **Tracer bullet**: Write ONE test for first behavior → minimal code to pass',
-                '3. **Incremental loop**: Next behavior → write test → make it pass → repeat',
-                '4. **Refactor**: Only after all tests pass, clean up',
-                '',
-                '### Rules',
-                '- Vertical slices only — one test → one implementation at a time (never write all tests first)',
-                '- Tests verify behavior through public interfaces, not implementation details',
-                '- Run `pnpm check` to validate before pushing',
-                '- Follow kebab-case file naming, PascalCase for components',
-                '- Request reviews from `juanpeich` and `lorenzogm`',
-              ].join('\n'),
-            });
+          RESPONSE=$(echo "$PAYLOAD" | gh api \
+            --method PATCH \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${FULL_REPO}/issues/${ISSUE_NUMBER}" \
+            --input -)
 
-            core.info(`Added TDD instructions to issue #${issueNumber}`);
+          COPILOT_ASSIGNED=$(echo "$RESPONSE" | jq -r '.assignees[]? | select(.login == "Copilot") | .login')
+          if [ "$COPILOT_ASSIGNED" = "Copilot" ]; then
+            echo "✅ Copilot Cloud Agent assigned to issue #${ISSUE_NUMBER}"
+          else
+            echo "❌ Failed to assign Copilot Cloud Agent"
+            echo "Response assignees: $(echo "$RESPONSE" | jq -r '[.assignees[].login] | join(", ")')"
+            exit 1
+          fi
+
+      - name: Remove lorenzogm from issue assignees
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+        run: |
+          gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}/assignees" \
+            --method DELETE --input - <<< '{"assignees":["lorenzogm"]}' || true
+          echo "✅ Removed lorenzogm from issue #${ISSUE_NUMBER} assignees (if present)"

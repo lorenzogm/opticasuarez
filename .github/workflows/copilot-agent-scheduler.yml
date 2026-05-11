@@ -3,12 +3,12 @@
 # Runs daily and on manual trigger to:
 #   1. Assign Copilot to open issues (so it creates branches and PRs)
 #   2. Nudge Copilot on PRs with merge conflicts or pending review comments
-#   3. Request reviews from juanpeich and lorenzogm on Copilot PRs
+#   3. Request reviews from juanpeich on Copilot PRs
 #
 # Prerequisites:
 #   - GitHub Copilot coding agent must be enabled in repo Settings > Copilot > Coding agent
 #   - Recommended: set branch protection on `main` to require approving reviews
-#     from juanpeich and/or lorenzogm before merging
+#     from juanpeich before merging
 
 name: Copilot Agent Scheduler
 
@@ -66,7 +66,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const REQUIRED_REVIEWERS = ['juanpeich', 'lorenzogm'];
+            const REQUIRED_REVIEWERS = ['juanpeich'];
             const MARKER = '<!-- copilot-scheduler -->';
 
             const { data: prs } = await github.rest.pulls.list({

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
   head: ({ loaderData }) => {
     // biome-ignore lint/suspicious/noExplicitAny: Sanity data
     const data = (loaderData as any)?.homepage;
-    return buildHeadFromSanitySeo({
+    const seoHead = buildHeadFromSanitySeo({
       seo: data?.seo,
       path: "/",
       fallback: {
@@ -18,6 +18,18 @@ export const Route = createFileRoute("/")({
           "óptica en Jaén, optometría Jaén, revisión visual Jaén, terapia visual Jaén, control de miopía Jaén, lentes de contacto Jaén, ojo vago Jaén, estrabismo Jaén",
       },
     });
+    return {
+      ...seoHead,
+      links: [
+        ...seoHead.links,
+        {
+          rel: "preload",
+          href: "/images/homepage/hero/hero-1.webp",
+          as: "image",
+          type: "image/webp",
+        },
+      ],
+    };
   },
   loader: () => fetchHomepageData(),
   component: RouteComponent,

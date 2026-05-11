@@ -69,6 +69,13 @@ export const Route = createRootRoute({
         sizes: "512x512",
         href: "/icon-512x512.png",
       },
+      // Preconnect hints for third-party origins
+      { rel: "preconnect", href: "https://www.googletagmanager.com" },
+      { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
+      { rel: "preconnect", href: "https://www.youtube.com" },
+      { rel: "dns-prefetch", href: "https://www.youtube.com" },
+      { rel: "preconnect", href: "https://i.ytimg.com" },
+      { rel: "dns-prefetch", href: "https://i.ytimg.com" },
     ],
     scripts: [
       {

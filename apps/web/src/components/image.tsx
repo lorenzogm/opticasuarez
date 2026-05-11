@@ -156,6 +156,7 @@ export default function Image({
         alt={alt}
         className={className}
         decoding="async"
+        fetchPriority={priority ? "high" : undefined}
         height={height}
         loading={priority ? "eager" : "lazy"}
         src={src}
@@ -174,6 +175,7 @@ export default function Image({
         alt={alt}
         className={className}
         decoding="async"
+        fetchPriority={priority ? "high" : undefined}
         height={height}
         loading={priority ? "eager" : "lazy"}
         src={src}

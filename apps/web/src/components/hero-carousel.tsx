@@ -85,6 +85,8 @@ export default function HeroCarousel({
                   <img
                     alt={image.alt}
                     className="h-full w-full object-cover object-center"
+                    decoding="async"
+                    fetchPriority={index === 0 ? "high" : undefined}
                     loading={index === 0 ? "eager" : "lazy"}
                     src={image.src}
                   />
