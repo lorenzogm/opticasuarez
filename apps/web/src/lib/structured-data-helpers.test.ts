@@ -4,6 +4,7 @@ import {
   buildDynamicPageBreadcrumbItems,
   buildSitemapRoutes,
   createFaqSchema,
+  createOpticalBusinessLocationsSchema,
   createOpticianSchema,
   createWebsiteSchema,
   extractServiceFaqItems,
@@ -25,17 +26,16 @@ describe("createWebsiteSchema", () => {
   });
 });
 
-describe("createOpticianSchema", () => {
+describe("createOpticalBusinessLocationsSchema", () => {
   it("adds two independent OpticalBusiness entities from homepage locations", () => {
-    const schema = createOpticianSchema(baseUrl) as {
-      "@graph"?: Record<string, unknown>[];
-    };
-    const entities = schema["@graph"] ?? [];
+    const schema = createOpticalBusinessLocationsSchema(baseUrl);
+    const entities = schema["@graph"];
 
     expect(entities).toHaveLength(2);
     expect(entities).toMatchObject([
       {
         "@type": "OpticalBusiness",
+        "@id": "https://opticasuarezjaen.es/#location-optica-bulevar",
         name: "Óptica Bulevar",
         address: {
           streetAddress: "C. de Canarias, 6, 23009 Jaén",
@@ -45,6 +45,7 @@ describe("createOpticianSchema", () => {
       },
       {
         "@type": "OpticalBusiness",
+        "@id": "https://opticasuarezjaen.es/#location-optica-centro",
         name: "Óptica Centro",
         address: {
           streetAddress: "P.º de la Estación, 12, 23003 Jaén",
@@ -54,7 +55,9 @@ describe("createOpticianSchema", () => {
       },
     ]);
   });
+});
 
+describe("createOpticianSchema", () => {
   it("lists both physical stores as subOrganization entries", () => {
     const schema = createOpticianSchema(baseUrl);
     const subOrganizations = schema.subOrganization;

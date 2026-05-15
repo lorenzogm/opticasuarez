@@ -158,9 +158,9 @@ function createHomepageOpticalBusinessSchemas(baseUrl: string) {
   const locations = (homepageContent.locations?.locations ??
     []) as HomepageLocation[];
 
-  return locations.map((location, index) => ({
+  return locations.map((location) => ({
     "@type": "OpticalBusiness" as const,
-    "@id": `${baseUrl}/#location-${index + 1}`,
+    "@id": `${baseUrl}/#location-${slugifyLocationName(location.name)}`,
     name: location.name,
     image: `${baseUrl}${location.image}`,
     telephone: location.phone,
@@ -169,11 +169,18 @@ function createHomepageOpticalBusinessSchemas(baseUrl: string) {
     address: {
       "@type": "PostalAddress" as const,
       streetAddress: location.address,
-      addressLocality: "Jaén",
-      addressRegion: "Andalucía",
       addressCountry: "ES",
     },
   }));
+}
+
+function slugifyLocationName(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 const departmentSpecs = [
@@ -281,8 +288,6 @@ export function createWebsiteSchema(baseUrl = getBaseUrl()) {
 
 export function createOpticianSchema(baseUrl = getBaseUrl()) {
   const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
-  const homepageOpticalBusinessSchemas =
-    createHomepageOpticalBusinessSchemas(normalizedBaseUrl);
   const locationSchemas = departmentSpecs.map((department) => ({
     "@type": "Optician",
     "@id": `${normalizedBaseUrl}/#${department.id}`,
@@ -403,7 +408,15 @@ export function createOpticianSchema(baseUrl = getBaseUrl()) {
     },
     department: locationSchemas,
     subOrganization: locationSchemas,
-    "@graph": homepageOpticalBusinessSchemas,
+  };
+}
+
+export function createOpticalBusinessLocationsSchema(baseUrl = getBaseUrl()) {
+  const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": createHomepageOpticalBusinessSchemas(normalizedBaseUrl),
   };
 }
 
