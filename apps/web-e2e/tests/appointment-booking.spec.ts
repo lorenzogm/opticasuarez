@@ -250,7 +250,9 @@ test.describe("Appointment Booking", () => {
 
     // Verify booking summary has key sections
     await expect(page.getByText(/Tipo de servicio/i)).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Centro/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Centro", exact: true })
+    ).toBeVisible();
     await expect(page.getByText(/Fecha y hora/i)).toBeVisible();
     await expect(page.getByText(/Datos de contacto/i)).toBeVisible();
 
