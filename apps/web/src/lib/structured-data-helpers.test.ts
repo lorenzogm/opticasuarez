@@ -28,7 +28,7 @@ describe("createWebsiteSchema", () => {
 describe("createOpticianSchema", () => {
   it("adds two independent OpticalBusiness entities from homepage locations", () => {
     const schema = createOpticianSchema(baseUrl) as {
-      "@graph"?: Array<Record<string, unknown>>;
+      "@graph"?: Record<string, unknown>[];
     };
     const entities = schema["@graph"] ?? [];
 

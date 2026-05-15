@@ -155,9 +155,8 @@ function buildOpeningHoursSpecification(
 }
 
 function createHomepageOpticalBusinessSchemas(baseUrl: string) {
-  const locations = (
-    homepageContent.locations?.locations ?? []
-  ) as HomepageLocation[];
+  const locations = (homepageContent.locations?.locations ??
+    []) as HomepageLocation[];
 
   return locations.map((location, index) => ({
     "@type": "OpticalBusiness" as const,
