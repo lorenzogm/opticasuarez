@@ -202,12 +202,5 @@
     "description": "Contáctatenos para agendar tu cita y realizar un examen visual exhaustivo, evaluando todas las habilidades visuales como acomodación, vergencias, visión binocular o estereopsis.",
     "buttonText": "Reservar Cita",
     "whatsappMessage": "Hola, me gustaría reservar una cita para un examen visual completo"
-  },
-  "contact": {
-    "title": "Contacto",
-    "phone": "+34 123 456 789",
-    "email": "info@opticasuarez.com",
-    "address": "Calle Principal, 123, Madrid",
-    "hours": "Lunes a Sábado: 9:00 - 20:00"
   }
 }

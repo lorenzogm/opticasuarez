@@ -1,4 +1,5 @@
 import contactContent from "~/content/contacto.json" with { type: "json" };
+import homepageContent from "~/content/homepage.json" with { type: "json" };
 
 import { getBaseUrl } from "./utils";
 
@@ -64,6 +65,15 @@ interface VisibleLocationSchedule {
 interface VisibleLocationContent {
   email: string;
   schedule: VisibleLocationSchedule;
+}
+
+interface HomepageLocation {
+  name: string;
+  image: string;
+  address: string;
+  mapUrl: string;
+  phone: string;
+  email: string;
 }
 
 interface OpeningHoursSpecification {
@@ -142,6 +152,29 @@ function buildOpeningHoursSpecification(
   );
 
   return [...weekdays, ...saturday];
+}
+
+function createHomepageOpticalBusinessSchemas(baseUrl: string) {
+  const locations = (
+    homepageContent.locations?.locations ?? []
+  ) as HomepageLocation[];
+
+  return locations.map((location, index) => ({
+    "@type": "OpticalBusiness" as const,
+    "@id": `${baseUrl}/#location-${index + 1}`,
+    name: location.name,
+    image: `${baseUrl}${location.image}`,
+    telephone: location.phone,
+    email: location.email,
+    hasMap: location.mapUrl,
+    address: {
+      "@type": "PostalAddress" as const,
+      streetAddress: location.address,
+      addressLocality: "Jaén",
+      addressRegion: "Andalucía",
+      addressCountry: "ES",
+    },
+  }));
 }
 
 const departmentSpecs = [
@@ -249,6 +282,8 @@ export function createWebsiteSchema(baseUrl = getBaseUrl()) {
 
 export function createOpticianSchema(baseUrl = getBaseUrl()) {
   const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+  const homepageOpticalBusinessSchemas =
+    createHomepageOpticalBusinessSchemas(normalizedBaseUrl);
   const locationSchemas = departmentSpecs.map((department) => ({
     "@type": "Optician",
     "@id": `${normalizedBaseUrl}/#${department.id}`,
@@ -369,6 +404,7 @@ export function createOpticianSchema(baseUrl = getBaseUrl()) {
     },
     department: locationSchemas,
     subOrganization: locationSchemas,
+    "@graph": homepageOpticalBusinessSchemas,
   };
 }
 

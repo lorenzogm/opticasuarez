@@ -26,6 +26,35 @@ describe("createWebsiteSchema", () => {
 });
 
 describe("createOpticianSchema", () => {
+  it("adds two independent OpticalBusiness entities from homepage locations", () => {
+    const schema = createOpticianSchema(baseUrl) as {
+      "@graph"?: Array<Record<string, unknown>>;
+    };
+    const entities = schema["@graph"] ?? [];
+
+    expect(entities).toHaveLength(2);
+    expect(entities).toMatchObject([
+      {
+        "@type": "OpticalBusiness",
+        name: "Óptica Bulevar",
+        address: {
+          streetAddress: "C. de Canarias, 6, 23009 Jaén",
+        },
+        telephone: "953-093-062",
+        email: "bulevar@opticasuarezjaen.es",
+      },
+      {
+        "@type": "OpticalBusiness",
+        name: "Óptica Centro",
+        address: {
+          streetAddress: "P.º de la Estación, 12, 23003 Jaén",
+        },
+        telephone: "953-223-180",
+        email: "centro@opticasuarezjaen.es",
+      },
+    ]);
+  });
+
   it("lists both physical stores as subOrganization entries", () => {
     const schema = createOpticianSchema(baseUrl);
     const subOrganizations = schema.subOrganization;
