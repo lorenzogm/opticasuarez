@@ -16,6 +16,7 @@ import { CartProvider } from "~/lib/cart";
 import type { FeatureFlags } from "~/lib/feature-flags";
 import { fetchSiteSettings } from "~/lib/server-fns";
 import {
+  createOpticalBusinessLocationsSchema,
   createOpticianSchema,
   createWebsiteSchema,
 } from "~/lib/structured-data-helpers";
@@ -85,6 +86,10 @@ export const Route = createRootRoute({
       {
         type: "application/ld+json",
         children: JSON.stringify(createOpticianSchema()),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(createOpticalBusinessLocationsSchema()),
       },
     ],
   }),

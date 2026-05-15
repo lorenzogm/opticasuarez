@@ -4,6 +4,7 @@ import {
   buildDynamicPageBreadcrumbItems,
   buildSitemapRoutes,
   createFaqSchema,
+  createOpticalBusinessLocationsSchema,
   createOpticianSchema,
   createWebsiteSchema,
   extractServiceFaqItems,
@@ -22,6 +23,37 @@ describe("createWebsiteSchema", () => {
 
     expect(schema["@type"]).toBe("WebSite");
     expect(schema).not.toHaveProperty("potentialAction");
+  });
+});
+
+describe("createOpticalBusinessLocationsSchema", () => {
+  it("adds two independent OpticalBusiness entities from homepage locations", () => {
+    const schema = createOpticalBusinessLocationsSchema(baseUrl);
+    const entities = schema["@graph"];
+
+    expect(entities).toHaveLength(2);
+    expect(entities).toMatchObject([
+      {
+        "@type": "OpticalBusiness",
+        "@id": "https://opticasuarezjaen.es/#location-optica-bulevar",
+        name: "Óptica Bulevar",
+        address: {
+          streetAddress: "C. de Canarias, 6, 23009 Jaén",
+        },
+        telephone: "953-093-062",
+        email: "bulevar@opticasuarezjaen.es",
+      },
+      {
+        "@type": "OpticalBusiness",
+        "@id": "https://opticasuarezjaen.es/#location-optica-centro",
+        name: "Óptica Centro",
+        address: {
+          streetAddress: "P.º de la Estación, 12, 23003 Jaén",
+        },
+        telephone: "953-223-180",
+        email: "centro@opticasuarezjaen.es",
+      },
+    ]);
   });
 });
 
