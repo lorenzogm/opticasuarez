@@ -133,7 +133,7 @@ describe("buildHeadFromSanitySeo", () => {
     expect(tTitle?.content).toBe(defaultFallback.title);
   });
 
-  it("should default robots to 'index, follow'", () => {
+  it("should default robots to 'index, follow, max-image-preview:large'", () => {
     const result = buildHeadFromSanitySeo({
       seo: null,
       path: "/",
@@ -141,7 +141,7 @@ describe("buildHeadFromSanitySeo", () => {
     });
 
     const robots = result.meta.find((m) => m.name === "robots");
-    expect(robots?.content).toBe("index, follow");
+    expect(robots?.content).toBe("index, follow, max-image-preview:large");
   });
 
   it("should use seo.robots when provided", () => {
