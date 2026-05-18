@@ -3,6 +3,8 @@ import terapiaVisual from "../../../../content/json/terapia-visual.json" with {
   type: "json",
 };
 
+const MIN_SEO_DESCRIPTION_LENGTH = 80;
+
 describe("terapia visual content", () => {
   it("includes a home and school warning signs section for parents and teachers", () => {
     expect(terapiaVisual.symptoms.title).toBe(
@@ -31,7 +33,9 @@ describe("terapia visual content", () => {
       "Disfunciones binoculares y de motilidad ocular",
     ]);
     for (const item of terapiaVisual.conditions.items) {
-      expect(item.description.length).toBeGreaterThan(80);
+      expect(item.description.length).toBeGreaterThan(
+        MIN_SEO_DESCRIPTION_LENGTH
+      );
     }
   });
 
