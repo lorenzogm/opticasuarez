@@ -50,7 +50,17 @@ export default function SiteFooter() {
                 {location.name}
               </h2>
               <address className="mt-4 not-italic">
-                <p className="text-gray-300 text-sm">{location.address}</p>
+                <p className="text-gray-300 text-sm">
+                  <a
+                    aria-label={`${location.address} (se abre en una nueva ventana)`}
+                    className="hover:text-gray-200"
+                    href={location.mapUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {location.address}
+                  </a>
+                </p>
                 <p className="mt-2 text-gray-300 text-sm">
                   {location.schedule.weekdays}:{" "}
                   {location.schedule.weekdaysHours}

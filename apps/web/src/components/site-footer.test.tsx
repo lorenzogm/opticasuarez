@@ -27,6 +27,27 @@ describe("SiteFooter", () => {
     );
   });
 
+  it("links store addresses to Google Maps", () => {
+    render(<SiteFooter />);
+
+    expect(
+      screen.getByRole("link", {
+        name: "C. de Canarias, 6, 23009 Jaén (se abre en una nueva ventana)",
+      })
+    ).toHaveAttribute(
+      "href",
+      "https://maps.google.com/maps?q=C.+de+Canarias,+6,+23009+Jaén"
+    );
+    expect(
+      screen.getByRole("link", {
+        name: "P.º de la Estación, 12, 23003 Jaén (se abre en una nueva ventana)",
+      })
+    ).toHaveAttribute(
+      "href",
+      "https://maps.google.com/maps?q=P.º+de+la+Estación,+12,+23003+Jaén"
+    );
+  });
+
   it("exposes semantic footer navigation and legal information", () => {
     render(<SiteFooter />);
 
