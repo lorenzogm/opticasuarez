@@ -1,4 +1,5 @@
 import contactContent from "~/content/contacto.json" with { type: "json" };
+import homepageContent from "~/content/homepage.json" with { type: "json" };
 
 import { getBaseUrl } from "./utils";
 
@@ -64,6 +65,15 @@ interface VisibleLocationSchedule {
 interface VisibleLocationContent {
   email: string;
   schedule: VisibleLocationSchedule;
+}
+
+interface HomepageLocation {
+  name: string;
+  image: string;
+  address: string;
+  mapUrl: string;
+  phone: string;
+  email: string;
 }
 
 interface OpeningHoursSpecification {
@@ -142,6 +152,35 @@ function buildOpeningHoursSpecification(
   );
 
   return [...weekdays, ...saturday];
+}
+
+function createHomepageOpticalBusinessSchemas(baseUrl: string) {
+  const locations = (homepageContent.locations?.locations ??
+    []) as HomepageLocation[];
+
+  return locations.map((location) => ({
+    "@type": "OpticalBusiness" as const,
+    "@id": `${baseUrl}/#location-${slugifyLocationName(location.name)}`,
+    name: location.name,
+    image: `${baseUrl}${location.image}`,
+    telephone: location.phone,
+    email: location.email,
+    hasMap: location.mapUrl,
+    address: {
+      "@type": "PostalAddress" as const,
+      streetAddress: location.address,
+      addressCountry: "ES",
+    },
+  }));
+}
+
+function slugifyLocationName(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 const departmentSpecs = [
@@ -369,6 +408,15 @@ export function createOpticianSchema(baseUrl = getBaseUrl()) {
     },
     department: locationSchemas,
     subOrganization: locationSchemas,
+  };
+}
+
+export function createOpticalBusinessLocationsSchema(baseUrl = getBaseUrl()) {
+  const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": createHomepageOpticalBusinessSchemas(normalizedBaseUrl),
   };
 }
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { resolveImage, sanityImageUrl } from "./sanity";
 
 describe("sanityImageUrl", () => {
@@ -78,5 +78,20 @@ describe("resolveImage", () => {
       typeof resolveImage
     >[0];
     expect(resolveImage(image)).toBe("");
+  });
+});
+
+describe("sanity configuration fallback", () => {
+  it("uses safe defaults when SANITY_PROJECT_ID is not URL-safe", async () => {
+    const originalProjectId = process.env.SANITY_PROJECT_ID;
+    process.env.SANITY_PROJECT_ID = "enc:invalid/project$id";
+    vi.resetModules();
+
+    const sanityModule = await import("./sanity");
+    const url = sanityModule.sanityImageUrl("image-abc123-800x600-jpg");
+
+    expect(url).toContain("/images/2a24wmex/");
+
+    process.env.SANITY_PROJECT_ID = originalProjectId;
   });
 });

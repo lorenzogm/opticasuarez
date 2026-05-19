@@ -342,10 +342,20 @@ async function buildTerapiaVisual() {
       variant: "checkmark",
       items: data.whatIs.benefits,
     }),
+    sectionList({
+      title: data.symptoms.title,
+      description: data.symptoms.subtitle,
+      variant: "checkmark",
+      items: data.symptoms.items,
+    }),
     sectionCards({
       title: data.conditions.title,
       subtitle: data.conditions.subtitle,
       items: data.conditions.items,
+    }),
+    sectionText({
+      title: data.installations.title,
+      content: data.installations.description,
     }),
     sectionProcessSteps({
       title: data.process.title,
