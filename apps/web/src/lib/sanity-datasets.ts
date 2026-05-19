@@ -1,4 +1,4 @@
-interface ResolveTargetDatasetsInput {
+export interface ResolveTargetDatasetsInput {
   sanityDataset?: string;
   sanityTargetDatasets?: string;
 }
