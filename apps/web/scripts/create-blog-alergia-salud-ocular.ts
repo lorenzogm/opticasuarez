@@ -4,6 +4,8 @@
  * Usage: cd apps/web && npx tsx scripts/create-blog-alergia-salud-ocular.ts
  *
  * Uploads local .webp images from public/images/blog and creates the blog post in Sanity.
+ * Defaults to publishing in production and development datasets.
+ * You can override with SANITY_DATASET or SANITY_TARGET_DATASETS=production,development.
  * Requires Sanity write access (SANITY_API_TOKEN env var or Sanity CLI login).
  */
 
@@ -12,9 +14,13 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { createClient } from "@sanity/client";
 import { buildAlergiaSaludOcularPost } from "../src/lib/blog-posts/alergia-salud-ocular";
+import { resolveTargetDatasets } from "../src/lib/sanity-datasets";
 
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
-const dataset = process.env.SANITY_DATASET || "production";
+const targetDatasets = resolveTargetDatasets({
+  sanityDataset: process.env.SANITY_DATASET,
+  sanityTargetDatasets: process.env.SANITY_TARGET_DATASETS,
+});
 
 function resolveToken(): string {
   if (process.env.SANITY_API_TOKEN) return process.env.SANITY_API_TOKEN;
@@ -36,20 +42,17 @@ function resolveToken(): string {
   process.exit(1);
 }
 
-const client = createClient({
-  projectId,
-  dataset,
-  apiVersion: "2026-03-23",
-  useCdn: false,
-  token: resolveToken(),
-});
+const token = resolveToken();
 
 const imageFiles = [
   "alergia-ocular-jaen-1.webp",
   "alergia-ocular-jaen-2.webp",
 ] as const;
 
-async function uploadImage(filename: string): Promise<string> {
+async function uploadImage(
+  filename: string,
+  datasetClient: ReturnType<typeof createClient>
+): Promise<string> {
   const filePath = path.join(
     process.cwd(),
     "public",
@@ -58,18 +61,28 @@ async function uploadImage(filename: string): Promise<string> {
     filename
   );
   const fileBuffer = fs.readFileSync(filePath);
-  const asset = await client.assets.upload("image", fileBuffer, { filename });
+  const asset = await datasetClient.assets.upload("image", fileBuffer, {
+    filename,
+  });
   return asset._id;
 }
 
-async function main() {
-  console.log("📷 Uploading local images to Sanity...");
+async function publishToDataset(dataset: string) {
+  const datasetClient = createClient({
+    projectId,
+    dataset,
+    apiVersion: "2026-03-23",
+    useCdn: false,
+    token,
+  });
+
+  console.log(`📷 [${dataset}] Uploading local images to Sanity...`);
 
   const imageRefs: string[] = [];
   for (const file of imageFiles) {
-    const ref = await uploadImage(file);
+    const ref = await uploadImage(file, datasetClient);
     imageRefs.push(ref);
-    console.log(`  ✅ ${file} -> ${ref}`);
+    console.log(`  ✅ [${dataset}] ${file} -> ${ref}`);
   }
 
   const blogPost = buildAlergiaSaludOcularPost({
@@ -77,9 +90,15 @@ async function main() {
     imageRefs,
   });
 
-  await client.createOrReplace(blogPost);
-  console.log(`✅ Blog post created: ${blogPost.title}`);
-  console.log(`   URL: /blog/${blogPost.slug.current}`);
+  await datasetClient.createOrReplace(blogPost);
+  console.log(`✅ [${dataset}] Blog post created: ${blogPost.title}`);
+  console.log(`   [${dataset}] URL: /blog/${blogPost.slug.current}`);
+}
+
+async function main() {
+  for (const dataset of targetDatasets) {
+    await publishToDataset(dataset);
+  }
 }
 
 main().catch(console.error);
