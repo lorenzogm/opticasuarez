@@ -346,6 +346,23 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Decrypt Sanity API token
+        run: |
+          npm install -g @dotenvx/dotenvx
+          value=$(dotenvx get "SANITY_API_TOKEN" -f "infra/vercel/web/.env.development" 2>/dev/null || echo "")
+          if [ -n "$value" ]; then
+            echo "::add-mask::$value"
+            echo "SANITY_TOKEN=$value" >> $GITHUB_ENV
+          else
+            echo "::warning::SANITY_API_TOKEN not found — Sanity migration will be skipped"
+          fi
+        env:
+          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
+
+      - name: Apply Sanity content migrations
+        run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+        continue-on-error: true
+
       - name: Install Playwright Browsers
         run: pnpm --filter opticasuarez-web-e2e exec playwright install --with-deps chromium
 
