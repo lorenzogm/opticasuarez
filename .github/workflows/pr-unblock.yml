@@ -1,36 +1,43 @@
 # PR Unblock
 #
-# Runs every 6 hours (4× / day) to recover PRs stuck in a non-actionable state.
+# Goal: keep approved PRs moving until they merge. On every relevant event,
+# walk every open non-draft PR and:
 #
-# A PR is "stuck" when it has an approving review but:
-#   - One or more required check runs are failing, AND/OR
-#   - Auto-merge was automatically disabled by GitHub (common cause:
-#     "Head branch was pushed to by a user without write access" — happens
-#     when the Copilot coding agent pushes new commits after auto-merge
-#     was initially enabled).
+#   • if all checks are green   → ensure auto-merge is enabled (so GitHub merges
+#                                  the PR automatically once required checks pass).
+#   • if any checks are failing → immediately
+#       1. re-run failed workflow jobs (handles transient/flaky failures), and
+#       2. post one comment per head SHA pinging @copilot with the failure
+#          diagnostics so it can diagnose and push a fix.
 #
-# State machine (per PR head SHA — resets when a new commit is pushed):
+# The loop continues until merge:
 #
-#   ┌─ all checks green ─→ ensure auto-merge is enabled, done.
-#   │
-#   ├─ first time we see failures on this SHA  (no retry marker yet)
-#   │     → re-run failed workflow jobs (handles transient/flaky failures)
-#   │     → post retry marker comment
-#   │
-#   └─ failures still present on next pass  (retry marker exists for this SHA)
-#         → collect failure annotations + failed step names
-#         → @copilot comment asking it to diagnose & fix, with details
-#         → post nudge marker comment
+#   trigger ─→ this workflow ─→ ping @copilot ─→ copilot pushes a fix
+#       └────────────────────────────────────────────────┘
+#                              (synchronize event re-triggers us)
 #
-# Because the marker comments embed the head SHA, every new Copilot commit
-# automatically restarts the cycle: retry → diagnose → push fix → retry…
-# That's the "keep trying to fix it" loop.
+# Triggers chosen so we react instantly — no need to wait for the schedule:
+#   • pull_request_target (synchronize)      → every new commit on any PR
+#   • pull_request_target (opened, reopened, ready_for_review)
+#   • pull_request_review (submitted)        → fresh approval flips auto-merge
+#   • check_suite        (completed)         → a check just finished
+#   • schedule (hourly)                       → safety net
+#   • workflow_dispatch                       → manual
+#
+# We use `pull_request_target` (not `pull_request`) because the workflow needs
+# write permissions on PRs from the Copilot coding-agent branches.
 
 name: PR Unblock
 
 on:
+  pull_request_target:
+    types: [opened, reopened, ready_for_review, synchronize]
+  pull_request_review:
+    types: [submitted]
+  check_suite:
+    types: [completed]
   schedule:
-    - cron: "15 */6 * * *" # 4× / day at 00:15, 06:15, 12:15, 18:15 UTC
+    - cron: "5 * * * *" # hourly safety net
   workflow_dispatch:
 
 permissions:
@@ -41,57 +48,53 @@ permissions:
   checks: read
 
 concurrency:
+  # Serialize per repo — comments / auto-merge mutations are global anyway.
   group: pr-unblock
   cancel-in-progress: false
 
 jobs:
   unblock:
-    name: Recover stuck PRs
+    name: Drive approved PRs to merge
     runs-on: ubuntu-latest
     steps:
-      - name: Diagnose, retry, escalate, monitor
+      - name: Diagnose, retry, ping @copilot, enable auto-merge
         uses: actions/github-script@v7
         with:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
-            const FAILED_CONCLUSIONS = new Set([
-              'failure',
-              'timed_out',
-              'cancelled',
-              'startup_failure',
+            const FAILED = new Set([
+              'failure', 'timed_out', 'cancelled', 'startup_failure', 'action_required',
             ]);
 
             // ── helpers ────────────────────────────────────────────────
-            const enableAutoMergeIfApproved = async (pr) => {
+            const isApproved = async (prNumber) => {
               const { data: reviews } = await github.rest.pulls.listReviews({
-                owner, repo, pull_number: pr.number,
+                owner, repo, pull_number: prNumber,
               });
-              const latestByUser = new Map();
-              for (const r of reviews) {
-                if (r.user) latestByUser.set(r.user.login, r);
-              }
-              const latest = [...latestByUser.values()];
-              const approved = latest.some((r) => r.state === 'APPROVED');
-              const blocked = latest.some((r) => r.state === 'CHANGES_REQUESTED');
-              if (!approved || blocked) {
-                core.info(`  ⏭️  PR #${pr.number}: approved=${approved} blocked=${blocked} — not enabling auto-merge.`);
-                return;
-              }
+              const latest = new Map();
+              for (const r of reviews) if (r.user) latest.set(r.user.login, r);
+              const arr = [...latest.values()];
+              return {
+                approved: arr.some((r) => r.state === 'APPROVED'),
+                blocked: arr.some((r) => r.state === 'CHANGES_REQUESTED'),
+              };
+            };
 
+            const enableAutoMerge = async (prNumber) => {
               const { repository } = await github.graphql(
-                `query($owner:String!,$repo:String!,$n:Int!){
-                   repository(owner:$owner,name:$repo){
+                `query($o:String!,$r:String!,$n:Int!){
+                   repository(owner:$o,name:$r){
                      pullRequest(number:$n){ id autoMergeRequest{ enabledAt } }
                    }
                  }`,
-                { owner, repo, n: pr.number },
+                { o: owner, r: repo, n: prNumber },
               );
-              const node = repository.pullRequest;
+              const node = repository?.pullRequest;
               if (!node) return;
               if (node.autoMergeRequest) {
-                core.info(`  ✅ PR #${pr.number}: auto-merge already enabled.`);
+                core.info(`    ✅ auto-merge already enabled.`);
                 return;
               }
               try {
@@ -103,170 +106,179 @@ jobs:
                    }`,
                   { id: node.id },
                 );
-                core.info(`  🔓 PR #${pr.number}: re-enabled auto-merge.`);
+                core.info(`    🔓 enabled auto-merge.`);
               } catch (err) {
-                core.warning(`  ⚠️  PR #${pr.number}: could not enable auto-merge: ${err.message}`);
+                core.warning(`    ⚠️  could not enable auto-merge: ${err.message}`);
               }
             };
 
-            const listRecentComments = async (prNumber) => {
-              const { data } = await github.rest.issues.listComments({
-                owner, repo, issue_number: prNumber, per_page: 100,
+            const reRunFailedWorkflows = async (headSha) => {
+              const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+                owner, repo, head_sha: headSha, per_page: 100,
               });
-              return data;
-            };
-
-            const reRunFailedWorkflows = async (prNumber, headSha) => {
-              const { data: runs } =
-                await github.rest.actions.listWorkflowRunsForRepo({
-                  owner, repo, head_sha: headSha, per_page: 100,
-                });
-              // Latest attempt per workflow
-              const latest = new Map();
+              const latestByWorkflow = new Map();
               for (const r of runs.workflow_runs) {
-                const prev = latest.get(r.workflow_id);
-                if (!prev || r.run_number > prev.run_number) latest.set(r.workflow_id, r);
+                const prev = latestByWorkflow.get(r.workflow_id);
+                if (!prev || r.run_number > prev.run_number) latestByWorkflow.set(r.workflow_id, r);
               }
               let retried = 0;
-              for (const run of latest.values()) {
+              for (const run of latestByWorkflow.values()) {
                 if (run.status !== 'completed') continue;
-                if (!FAILED_CONCLUSIONS.has(run.conclusion)) continue;
+                if (!FAILED.has(run.conclusion)) continue;
                 try {
                   await github.rest.actions.reRunWorkflowFailedJobs({
                     owner, repo, run_id: run.id,
                   });
-                  core.info(`    🔁 Re-ran "${run.name}" (run ${run.id}, ${run.conclusion}).`);
                   retried++;
+                  core.info(`    🔁 re-ran "${run.name}" (run ${run.id}, ${run.conclusion}).`);
                 } catch (err) {
-                  core.warning(`    ⚠️  Could not re-run "${run.name}" (${run.id}): ${err.message}`);
+                  core.warning(`    ⚠️  could not re-run "${run.name}" (${run.id}): ${err.message}`);
                 }
               }
               return retried;
             };
 
-            const collectFailureDiagnostics = async (headSha) => {
-              // Use the Checks API: includes every check run on this SHA.
+            const checkState = async (headSha) => {
               const { data: { check_runs } } = await github.rest.checks.listForRef({
-                owner, repo, ref: headSha, per_page: 100,
+                owner, repo, ref: headSha, per_page: 100, filter: 'latest',
               });
-              const failed = check_runs.filter(
-                (c) => c.status === 'completed' && FAILED_CONCLUSIONS.has(c.conclusion),
+              const stillRunning = check_runs.some(
+                (c) => c.status === 'queued' || c.status === 'in_progress',
               );
-              if (failed.length === 0) return { failed: [], sections: [] };
+              const failed = check_runs.filter(
+                (c) => c.status === 'completed' && FAILED.has(c.conclusion),
+              );
+              return { check_runs, stillRunning, failed };
+            };
 
+            const collectDiagnostics = async (failed) => {
               const sections = [];
               for (const check of failed) {
-                let body = `### ❌ ${check.name} (${check.conclusion})\n`;
+                let body = `#### ❌ ${check.name} — \`${check.conclusion}\`\n`;
                 if (check.html_url) body += `[View run](${check.html_url})\n\n`;
 
-                if (check.output && (check.output.title || check.output.summary)) {
-                  if (check.output.title) body += `**${check.output.title}**\n\n`;
-                  if (check.output.summary) {
-                    const summary = check.output.summary.slice(0, 1200);
-                    body += `${summary}\n\n`;
-                  }
+                if (check.output?.title) body += `**${check.output.title}**\n\n`;
+                if (check.output?.summary) {
+                  body += check.output.summary.slice(0, 1500) + '\n\n';
                 }
-
-                // Failed step names from the linked Actions job, if any.
                 try {
                   const { data: ann } = await github.rest.checks.listAnnotations({
                     owner, repo, check_run_id: check.id, per_page: 20,
                   });
-                  if (ann.length > 0) {
-                    body += `**Annotations:**\n`;
-                    for (const a of ann.slice(0, 10)) {
+                  if (ann.length) {
+                    body += `<details><summary>Annotations (${ann.length})</summary>\n\n`;
+                    for (const a of ann.slice(0, 15)) {
                       const loc = a.path ? `\`${a.path}\`${a.start_line ? `:${a.start_line}` : ''}` : '';
-                      body += `- ${a.annotation_level || 'notice'} ${loc} — ${a.message?.slice(0, 200) || ''}\n`;
+                      body += `- **${a.annotation_level || 'notice'}** ${loc} — ${(a.message || '').slice(0, 300)}\n`;
                     }
-                    body += '\n';
+                    body += `\n</details>\n\n`;
                   }
                 } catch (err) {
-                  core.warning(`    ⚠️  Could not list annotations for "${check.name}": ${err.message}`);
+                  core.warning(`    ⚠️  listAnnotations("${check.name}"): ${err.message}`);
                 }
-
                 sections.push(body);
               }
-              return { failed, sections };
+              return sections.join('\n').slice(0, 60000);
             };
 
-            // ── main loop ──────────────────────────────────────────────
-            const { data: prs } = await github.rest.pulls.list({
-              owner, repo, state: 'open', per_page: 100,
-            });
-            if (prs.length === 0) {
-              core.info('No open PRs.');
-              return;
-            }
-
-            for (const pr of prs) {
+            const processPR = async (pr) => {
               if (pr.draft) {
-                core.info(`⏭️  PR #${pr.number} is draft — skipping.`);
-                continue;
+                core.info(`⏭️  PR #${pr.number}: draft.`);
+                return;
               }
               const headSha = pr.head.sha;
-              const shortSha = headSha.slice(0, 7);
-              const RETRY_MARKER = `<!-- pr-unblock:retry:${shortSha} -->`;
-              const NUDGE_MARKER = `<!-- pr-unblock:nudge:${shortSha} -->`;
+              const short = headSha.slice(0, 7);
+              core.info(`\n── PR #${pr.number} @ ${short} (${pr.title}) ──`);
 
-              core.info(`\n── PR #${pr.number} @ ${shortSha} (${pr.title}) ──`);
+              const { stillRunning, failed } = await checkState(headSha);
 
-              const { failed, sections } = await collectFailureDiagnostics(headSha);
+              if (stillRunning) {
+                core.info(`    ⏳ checks still running — will be re-evaluated on the next event.`);
+                // Still ensure auto-merge is on so green checks merge automatically.
+                const { approved, blocked } = await isApproved(pr.number);
+                if (approved && !blocked) await enableAutoMerge(pr.number);
+                return;
+              }
 
               if (failed.length === 0) {
-                core.info('  ✅ No failed checks on this SHA.');
-                await enableAutoMergeIfApproved(pr);
-                continue;
+                core.info(`    ✅ all checks green.`);
+                const { approved, blocked } = await isApproved(pr.number);
+                if (approved && !blocked) await enableAutoMerge(pr.number);
+                return;
               }
 
-              core.info(`  ❌ ${failed.length} failed check(s): ${failed.map((f) => f.name).join(', ')}`);
+              core.info(`    ❌ ${failed.length} failed check(s): ${failed.map((f) => f.name).join(', ')}`);
 
-              const comments = await listRecentComments(pr.number);
-              const alreadyRetried = comments.some((c) => c.body.includes(RETRY_MARKER));
-              const alreadyNudged = comments.some((c) => c.body.includes(NUDGE_MARKER));
+              // Make sure auto-merge is on so a successful re-run / fix merges immediately.
+              const { approved, blocked } = await isApproved(pr.number);
+              if (approved && !blocked) await enableAutoMerge(pr.number);
 
-              if (!alreadyRetried) {
-                // Phase 1: re-run failed workflow jobs (covers flakes).
-                const retried = await reRunFailedWorkflows(pr.number, headSha);
-                await github.rest.issues.createComment({
-                  owner, repo, issue_number: pr.number,
-                  body: [
-                    RETRY_MARKER,
-                    `🔁 **PR Unblock — retry pass for \`${shortSha}\`**`,
-                    '',
-                    `Re-ran ${retried} failed workflow run(s) to rule out flakiness. ` +
-                      `If checks are still red on the next scheduled pass (every 6h), ` +
-                      `I'll escalate with failure diagnostics and ping @copilot to diagnose & fix.`,
-                  ].join('\n'),
-                });
-                core.info('  📝 Posted retry marker.');
-                continue;
+              // 1. Re-run failed workflow jobs (cheap flake recovery).
+              await reRunFailedWorkflows(headSha);
+
+              // 2. Ping @copilot with diagnostics — once per head SHA (avoid spam).
+              const NUDGE_MARKER = `<!-- pr-unblock:nudge:${short} -->`;
+              const { data: comments } = await github.rest.issues.listComments({
+                owner, repo, issue_number: pr.number, per_page: 100,
+              });
+              if (comments.some((c) => c.body.includes(NUDGE_MARKER))) {
+                core.info(`    💤 already pinged @copilot for ${short} — waiting for new commit.`);
+                return;
               }
 
-              if (alreadyNudged) {
-                core.info('  💤 Already nudged @copilot for this SHA — waiting for new commit.');
-                continue;
-              }
-
-              // Phase 2: escalate to Copilot with diagnostics.
-              const diagBody = sections.join('\n').slice(0, 60000); // GitHub comment cap is 65 536.
+              const diagnostics = await collectDiagnostics(failed);
               await github.rest.issues.createComment({
                 owner, repo, issue_number: pr.number,
                 body: [
                   NUDGE_MARKER,
-                  `@copilot The retry pass did **not** clear the failing checks on \`${shortSha}\`. ` +
-                    `Please **diagnose the root cause** of each failure below, push a fix to this branch, ` +
-                    `and keep iterating until all required checks are green.`,
+                  `@copilot The required checks are failing on \`${short}\`. ` +
+                    `Auto-merge is enabled and the PR is approved — the **only** thing standing ` +
+                    `between this PR and \`main\` is the red checks below. Please diagnose the ` +
+                    `root cause and push a fix to this branch. I'll keep pinging on every new ` +
+                    `commit until everything is green and the PR merges.`,
                   '',
-                  '### Workflow',
-                  '1. Read the failure details below + open the linked runs for full logs.',
+                  '### How to fix',
+                  '1. Read the failure details below; open the linked runs for full logs.',
                   '2. Reproduce locally with `pnpm check` and `pnpm build`.',
-                  '3. Fix the root cause (no `--no-verify`, no skipping tests).',
-                  '4. Push the fix. A new scheduled pass will retry/escalate again if needed.',
+                  '3. Fix the **root cause** — no `--no-verify`, no skipping tests.',
+                  '4. Push the fix. A new run will retry/ping again if anything is still red.',
                   '',
                   '### Failure details',
                   '',
-                  diagBody,
+                  diagnostics,
                 ].join('\n'),
               });
-              core.info('  🚨 Escalated to @copilot with diagnostics.');
+              core.info(`    🚨 pinged @copilot with diagnostics.`);
+            };
+
+            // ── target selection ──────────────────────────────────────
+            // For PR-scoped events, process only that PR. Otherwise walk all open PRs.
+            const eventPRNumber =
+              context.payload.pull_request?.number ||
+              context.payload.check_suite?.pull_requests?.[0]?.number;
+
+            let targets;
+            if (eventPRNumber) {
+              const { data: pr } = await github.rest.pulls.get({
+                owner, repo, pull_number: eventPRNumber,
+              });
+              targets = [pr];
+            } else {
+              const { data } = await github.rest.pulls.list({
+                owner, repo, state: 'open', per_page: 100,
+              });
+              targets = data;
+            }
+
+            if (targets.length === 0) {
+              core.info('No PRs to process.');
+              return;
+            }
+
+            for (const pr of targets) {
+              try {
+                await processPR(pr);
+              } catch (err) {
+                core.warning(`PR #${pr.number}: unexpected error: ${err.stack || err.message}`);
+              }
             }
