@@ -60,6 +60,10 @@ jobs:
       - name: Diagnose, retry, ping @copilot, enable auto-merge
         uses: actions/github-script@v7
         with:
+          # Use a PAT (not the default GITHUB_TOKEN) so the @copilot mention
+          # is posted as a real user with write access. The Copilot coding
+          # agent does NOT start a session when mentioned by github-actions[bot].
+          github-token: ${{ secrets.GH_PAT }}
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
