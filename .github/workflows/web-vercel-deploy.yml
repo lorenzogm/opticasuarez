@@ -540,3 +540,42 @@ jobs:
               pull_number: context.issue.number,
               body: newBody
             });
+
+  promote-to-production:
+    # After the development cycle finishes successfully (infra applied,
+    # preview deployed, E2E green, dev-prod-alias promoted), kick off the
+    # same workflow targeting `production` so the prod project goes through
+    # an identical pipeline. Also trigger Sanity Studio if it changed in
+    # this same commit (so its deploy is gated on web's dev E2E).
+    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests, deploy-production]
+    if: |
+      always() &&
+      github.event_name == 'push' &&
+      needs.check-changes.outputs.environment == 'development' &&
+      needs.e2e-tests.result == 'success' &&
+      needs.deploy-production.result == 'success'
+    runs-on: ubuntu-latest
+    name: Promote to Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Trigger web production deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh workflow run web-vercel-deploy.yml --ref main -f environment=production
+          echo "Dispatched web-vercel-deploy.yml with environment=production"
+
+      - name: Trigger Sanity Studio deploy if Sanity changed
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if git diff --name-only HEAD~1 -- apps/sanity-studio/ | grep -q .; then
+            gh workflow run deploy-sanity-studio.yml --ref main
+            echo "Dispatched deploy-sanity-studio.yml (sanity-studio changed in this commit)"
+          else
+            echo "No apps/sanity-studio/ changes in this commit — skipping Sanity dispatch"
+          fi
