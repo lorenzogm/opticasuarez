@@ -118,7 +118,6 @@ export default defineConfig(async () => {
         routeRules: {
           "/_serverFn/**": { swr: false },
           "/api/**": { swr: false },
-          "/blog": { redirect: { to: "/blog/", statusCode: 301 } },
           "/examen-visual": {
             redirect: { to: "/servicios/examen-visual", statusCode: 301 },
           },
