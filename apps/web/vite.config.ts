@@ -56,7 +56,7 @@ async function getPrerenderPages(): Promise<Array<{ path: string }>> {
 
   const routes = [
     "/",
-    "/blog",
+    "/blog/",
     ...blogSlugs.map((p) => `/blog/${p.slug}`),
     ...pages.map((p) => `/${p.path.replace(/^\//, "")}`),
   ];
@@ -118,6 +118,7 @@ export default defineConfig(async () => {
         routeRules: {
           "/_serverFn/**": { swr: false },
           "/api/**": { swr: false },
+          "/blog": { redirect: { to: "/blog/", statusCode: 301 } },
           "/examen-visual": {
             redirect: { to: "/servicios/examen-visual", statusCode: 301 },
           },
