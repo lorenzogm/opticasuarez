@@ -358,9 +358,19 @@ jobs:
           fi
         env:
           DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
+          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
 
       - name: Apply Sanity content migrations
-        run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+        if: env.SANITY_TOKEN != ''
+        run: |
+          curl -fsS \
+            -X POST \
+            "https://2a24wmex.api.sanity.io/v2026-03-27/data/mutate/production" \
+            -H "Authorization: Bearer ${SANITY_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data-raw '{"mutations":[{"patch":{"id":"page-servicios-ortoqueratologia","set":{"seo.title":"Ortoqueratolog\u00eda en Ja\u00e9n | \u00d3ptica Su\u00e1rez"}}}]}' \
+            && echo "Sanity migration applied" \
+            || echo "::warning::Sanity migration failed (non-critical)"
         continue-on-error: true
 
       - name: Install Playwright Browsers
