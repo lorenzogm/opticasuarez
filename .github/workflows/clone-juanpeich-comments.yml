@@ -1,0 +1,154 @@
+# Clone juanpeich's comments as lorenzogm
+#
+# Why this exists: the Copilot coding agent only starts a session when the
+# @copilot mention is posted by the user whose account owns the Copilot
+# subscription (lorenzogm). Comments authored by juanpeich — including PR
+# reviews requesting changes — therefore never trigger the agent on their own.
+#
+# This workflow watches for any comment authored by juanpeich on issues, PRs
+# and PR review threads and re-posts the same body as lorenzogm (via GH_PAT),
+# so the Copilot agent sees the message as coming from an authorized user.
+#
+# Loop protection: each cloned comment carries a hidden marker
+# `<!-- cloned-from:juanpeich:<ORIGINAL_ID> -->` and we skip any comment that
+# already contains it (or that was authored by lorenzogm).
+
+name: Clone juanpeich Comments
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: clone-juanpeich-${{ github.event.comment.id || github.event.review.id }}
+  cancel-in-progress: false
+
+jobs:
+  clone:
+    if: >-
+      (github.event.comment && github.event.comment.user.login == 'juanpeich')
+      || (github.event.review && github.event.review.user.login == 'juanpeich' && github.event.review.body != '')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-post juanpeich's comment as lorenzogm
+        uses: actions/github-script@v7
+        with:
+          # Must be a PAT owned by lorenzogm so the cloned comment is authored
+          # by lorenzogm — that's the whole point of this workflow.
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const eventName = context.eventName;
+
+            // Resolve the source object (issue/PR comment, review comment, or review).
+            let source;
+            let kind;
+            if (eventName === 'issue_comment') {
+              source = context.payload.comment;
+              kind = 'issue_comment';
+            } else if (eventName === 'pull_request_review_comment') {
+              source = context.payload.comment;
+              kind = 'review_comment';
+            } else if (eventName === 'pull_request_review') {
+              source = context.payload.review;
+              kind = 'review';
+            } else {
+              core.info(`Unsupported event: ${eventName}`);
+              return;
+            }
+
+            const originalId = source.id;
+            const originalBody = source.body || '';
+            const marker = `<!-- cloned-from:juanpeich:${originalId} -->`;
+
+            // Idempotency: bail out if this is already a clone, or empty.
+            if (!originalBody.trim()) {
+              core.info('Empty body — skipping.');
+              return;
+            }
+            if (originalBody.includes('cloned-from:juanpeich:')) {
+              core.info('Already a clone — skipping to avoid loops.');
+              return;
+            }
+
+            const clonedBody = [
+              marker,
+              `_Re-posting on behalf of @juanpeich so the Copilot agent picks it up:_`,
+              '',
+              originalBody,
+            ].join('\n');
+
+            // Branch by event kind.
+            if (kind === 'issue_comment') {
+              const issueNumber = context.payload.issue.number;
+
+              // Double-check existing comments in case the workflow re-runs.
+              const { data: existing } = await github.rest.issues.listComments({
+                owner, repo, issue_number: issueNumber, per_page: 100,
+              });
+              if (existing.some((c) => c.body && c.body.includes(marker))) {
+                core.info(`Clone for comment ${originalId} already exists.`);
+                return;
+              }
+
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: issueNumber, body: clonedBody,
+              });
+              core.info(`Cloned issue/PR comment ${originalId} on #${issueNumber}.`);
+              return;
+            }
+
+            if (kind === 'review_comment') {
+              const prNumber = context.payload.pull_request.number;
+
+              // Try to reply in the same review thread so the conversation is preserved.
+              try {
+                const { data: existing } = await github.rest.pulls.listReviewComments({
+                  owner, repo, pull_number: prNumber, per_page: 100,
+                });
+                if (existing.some((c) => c.body && c.body.includes(marker))) {
+                  core.info(`Review-comment clone for ${originalId} already exists.`);
+                  return;
+                }
+                await github.rest.pulls.createReplyForReviewComment({
+                  owner, repo, pull_number: prNumber,
+                  comment_id: originalId, body: clonedBody,
+                });
+                core.info(`Replied to review comment ${originalId} on PR #${prNumber}.`);
+                return;
+              } catch (err) {
+                core.warning(`Reply failed (${err.message}); falling back to issue comment.`);
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: prNumber, body: clonedBody,
+                });
+                core.info(`Cloned review comment ${originalId} as issue comment on #${prNumber}.`);
+                return;
+              }
+            }
+
+            if (kind === 'review') {
+              // A PR review with a body. Post the body as a regular PR comment.
+              const prNumber = context.payload.pull_request.number;
+              const { data: existing } = await github.rest.issues.listComments({
+                owner, repo, issue_number: prNumber, per_page: 100,
+              });
+              if (existing.some((c) => c.body && c.body.includes(marker))) {
+                core.info(`Review-body clone for ${originalId} already exists.`);
+                return;
+              }
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: prNumber, body: clonedBody,
+              });
+              core.info(`Cloned review body ${originalId} on PR #${prNumber}.`);
+              return;
+            }
