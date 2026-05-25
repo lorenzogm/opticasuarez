@@ -363,12 +363,28 @@ jobs:
       - name: Apply Sanity content migrations
         if: env.SANITY_TOKEN != ''
         run: |
+          # Step 1: Resolve the actual document _id via GROQ (the ID is not always predictable)
+          DOC_ID=$(curl -fsS \
+            -H "Authorization: Bearer ${SANITY_TOKEN}" \
+            -G \
+            --data-urlencode 'query=*[_type == "page" && path.current == "/servicios/ortoqueratologia"][0]._id' \
+            "https://2a24wmex.api.sanity.io/v2026-03-27/data/query/production" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin).get('result') or '')" 2>/dev/null || true)
+
+          if [ -z "$DOC_ID" ]; then
+            echo "::warning::Ortoqueratología page not found in Sanity — migration skipped"
+            exit 0
+          fi
+
+          echo "Updating document: $DOC_ID"
+
+          # Step 2: Patch the SEO title using the real document _id
           curl -fsS \
             -X POST \
             "https://2a24wmex.api.sanity.io/v2026-03-27/data/mutate/production" \
             -H "Authorization: Bearer ${SANITY_TOKEN}" \
             -H "Content-Type: application/json" \
-            --data-raw '{"mutations":[{"patch":{"id":"page-servicios-ortoqueratologia","set":{"seo.title":"Ortoqueratolog\u00eda en Ja\u00e9n | \u00d3ptica Su\u00e1rez"}}}]}' \
+            -d "{\"mutations\":[{\"patch\":{\"id\":\"${DOC_ID}\",\"set\":{\"seo.title\":\"Ortoqueratolog\u00eda en Ja\u00e9n | \u00d3ptica Su\u00e1rez\"}}}]}" \
             && echo "Sanity migration applied" \
             || echo "::warning::Sanity migration failed (non-critical)"
         continue-on-error: true
