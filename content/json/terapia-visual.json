@@ -18,39 +18,40 @@
       "Fortalece la visión binocular"
     ]
   },
+  "symptoms": {
+    "title": "SÍNTOMAS DETECTABLES EN CASA Y EL COLEGIO",
+    "subtitle": "Señales de alerta para padres y profesores",
+    "items": [
+      "Se acerca demasiado al papel al leer o escribir.",
+      "Se salta líneas o usa el dedo para no perderse al leer.",
+      "Termina el día con fatiga visual, irritación o picor de ojos.",
+      "Presenta dolores de cabeza durante o después del estudio.",
+      "Baja su rendimiento escolar pese a dedicar tiempo al estudio."
+    ]
+  },
   "conditions": {
-    "title": "CONDICIONES QUE TRATAMOS",
-    "subtitle": "Problemas visuales que pueden beneficiarse de la terapia visual",
+    "title": "PROBLEMAS VISUALES QUE TRATAMOS",
+    "subtitle": "Valoramos cada caso y diseñamos un plan de terapia visual personalizado según la dificultad detectada.",
     "items": [
       {
-        "title": "Problemas de enfoque",
-        "description": "Dificultades para mantener una visión clara a diferentes distancias",
-        "icon": "focus"
-      },
-      {
-        "title": "Problemas de seguimiento",
-        "description": "Dificultades para seguir objetos en movimiento con los ojos",
-        "icon": "tracking"
-      },
-      {
-        "title": "Estrabismo",
-        "description": "Desalineación de los ojos que afecta la visión binocular",
-        "icon": "alignment"
-      },
-      {
-        "title": "Ambliopía (ojo vago)",
-        "description": "Reducción de la visión en uno o ambos ojos",
+        "title": "Ambliopía (Ojo Vago)",
+        "description": "La ambliopía es una disminución de visión en uno de los ojos porque el cerebro prioriza la información del ojo dominante. Con terapia visual trabajamos la estimulación del ojo vago y la integración binocular para mejorar la agudeza visual y el uso coordinado de ambos ojos.",
         "icon": "lazy-eye"
       },
       {
-        "title": "Problemas de percepción visual",
-        "description": "Dificultades en el procesamiento de la información visual",
-        "icon": "perception"
+        "title": "Estrabismos y microestrabismos",
+        "description": "Tratamos tanto estrabismos manifiestos como microestrabismos, donde la desviación puede ser sutil pero afecta al confort visual y al rendimiento lector. El objetivo es mejorar la alineación ocular, reducir la supresión y favorecer una visión binocular estable.",
+        "icon": "alignment"
       },
       {
-        "title": "Fatiga visual",
-        "description": "Cansancio ocular por uso prolongado de dispositivos digitales",
-        "icon": "fatigue"
+        "title": "Problemas de acomodación (enfoque)",
+        "description": "Cuando el sistema de enfoque no responde bien, aparecen visión borrosa, cansancio y dificultades para cambiar de lejos a cerca con rapidez. En nuestras sesiones entrenamos la flexibilidad y resistencia acomodativa para que leer y estudiar sea más cómodo.",
+        "icon": "focus"
+      },
+      {
+        "title": "Disfunciones binoculares y de motilidad ocular",
+        "description": "Las disfunciones binoculares y de motilidad ocular dificultan coordinar ambos ojos con precisión en lectura, escritura o actividades deportivas. Con ejercicios específicos mejoramos vergencias, seguimiento y movimientos sacádicos para aumentar precisión y fluidez visual.",
+        "icon": "tracking"
       }
     ]
   },
@@ -79,6 +80,10 @@
         "description": "Monitoreamos tu progreso y ajustamos el programa según sea necesario"
       }
     ]
+  },
+  "installations": {
+    "title": "INSTALACIONES",
+    "description": "En nuestro centro del Bulevar contamos con una sala especializada de más de 40m² para terapia visual, equipada con tecnología de vanguardia y materiales adaptados por edades. Esto nos permite realizar sesiones personalizadas, dinámicas y amenas para los más pequeños, manteniendo siempre un seguimiento profesional y cercano en cada fase del tratamiento."
   },
   "specialists": {
     "title": "NUESTROS ESPECIALISTAS",
