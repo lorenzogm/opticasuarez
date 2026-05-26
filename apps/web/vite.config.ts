@@ -56,7 +56,6 @@ async function getPrerenderPages(): Promise<Array<{ path: string }>> {
 
   const routes = [
     "/",
-    "/blog/",
     ...blogSlugs.map((p) => `/blog/${p.slug}`),
     ...pages.map((p) => `/${p.path.replace(/^\//, "")}`),
   ];
@@ -84,6 +83,15 @@ export default defineConfig(async () => {
           crawlLinks: true,
           failOnError: false,
           filter: ({ path }) => {
+            // Exclude blog index and category-filter pages; let SSR handle them
+            // so BlogIndexRoute is rendered via client-side hydration (same as /cita)
+            if (
+              path === "/blog" ||
+              path === "/blog/" ||
+              path.startsWith("/blog?")
+            ) {
+              return false;
+            }
             if (
               path.startsWith("/cita") ||
               path.startsWith("/tienda") ||
