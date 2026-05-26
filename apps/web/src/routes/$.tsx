@@ -25,8 +25,19 @@ export const Route = createFileRoute("/$")({
   head: ({ loaderData }) => {
     const page = (loaderData as { page: PageData } | undefined)?.page;
     const path = page?.path || "/";
+    // Code-level SEO title overrides for pages where the Sanity seo.title
+    // field contains an incorrect value that cannot be patched via CI
+    // (no valid Sanity project API token is available in GitHub Secrets).
+    // Remove an entry here once the corresponding Sanity document is corrected.
+    const seoTitleOverrides: Record<string, string> = {
+      "/servicios/ortoqueratologia": "Ortoqueratología en Jaén | Óptica Suárez",
+    };
+    const titleOverride = seoTitleOverrides[path];
+    const seo = titleOverride
+      ? { ...page?.seo, title: titleOverride }
+      : page?.seo;
     return buildHeadFromSanitySeo({
-      seo: page?.seo,
+      seo,
       path,
       fallback: {
         title: `${page?.title || "Página"} | Óptica Suárez`,
