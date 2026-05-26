@@ -278,7 +278,7 @@ jobs:
         run: |
           npm install -g @dotenvx/dotenvx
           ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
+          for key in VERCEL_TOKEN VERCEL_ORG_ID SANITY_API_TOKEN; do
             value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
@@ -300,6 +300,13 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Apply Sanity content migrations
+        if: env.SANITY_API_TOKEN != ''
+        run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+        env:
+          SANITY_TOKEN: ${{ env.SANITY_API_TOKEN }}
+        continue-on-error: true
 
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
@@ -345,50 +352,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Decrypt Sanity API token
-        run: |
-          npm install -g @dotenvx/dotenvx
-          value=$(dotenvx get "SANITY_API_TOKEN" -f "infra/vercel/web/.env.development" 2>/dev/null || echo "")
-          if [ -n "$value" ]; then
-            echo "::add-mask::$value"
-            echo "SANITY_TOKEN=$value" >> $GITHUB_ENV
-          else
-            echo "::warning::SANITY_API_TOKEN not found — Sanity migration will be skipped"
-          fi
-        env:
-          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
-          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
-
-      - name: Apply Sanity content migrations
-        if: env.SANITY_TOKEN != ''
-        run: |
-          # Step 1: Resolve the actual document _id via GROQ (the ID is not always predictable)
-          DOC_ID=$(curl -fsS \
-            -H "Authorization: Bearer ${SANITY_TOKEN}" \
-            -G \
-            --data-urlencode 'query=*[_type == "page" && path.current == "/servicios/ortoqueratologia"][0]._id' \
-            "https://2a24wmex.api.sanity.io/v2026-03-27/data/query/production" \
-            | python3 -c "import sys,json; print(json.load(sys.stdin).get('result') or '')" 2>/dev/null || true)
-
-          if [ -z "$DOC_ID" ]; then
-            echo "::warning::Ortoqueratología page not found in Sanity — migration skipped"
-            exit 0
-          fi
-
-          echo "Updating document: $DOC_ID"
-
-          # Step 2: Patch the SEO title using the real document _id
-          curl -fsS \
-            -X POST \
-            "https://2a24wmex.api.sanity.io/v2026-03-27/data/mutate/production" \
-            -H "Authorization: Bearer ${SANITY_TOKEN}" \
-            -H "Content-Type: application/json" \
-            -d "{\"mutations\":[{\"patch\":{\"id\":\"${DOC_ID}\",\"set\":{\"seo.title\":\"Ortoqueratolog\u00eda en Ja\u00e9n | \u00d3ptica Su\u00e1rez\"}}}]}" \
-            && echo "Sanity migration applied" \
-            || echo "::warning::Sanity migration failed (non-critical)"
-        continue-on-error: true
-
       - name: Install Playwright Browsers
         run: pnpm --filter opticasuarez-web-e2e exec playwright install --with-deps chromium
 
