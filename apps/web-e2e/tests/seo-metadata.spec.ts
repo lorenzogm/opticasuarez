@@ -79,4 +79,37 @@ test.describe("SEO Metadata", () => {
       ).toBeTruthy();
     }
   });
+
+  // TC-SEO-06
+  test("ortoqueratologia page has correct SEO title", async ({ page }) => {
+    await page.goto("/servicios/ortoqueratologia");
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveTitle(/Ortoqueratología en Jaén \| Óptica Suárez/);
+  });
+
+  // TC-SEO-07
+  test("ortoqueratologia page has FAQPage JSON-LD structured data", async ({
+    page,
+  }) => {
+    await page.goto("/servicios/ortoqueratologia");
+    await page.waitForLoadState("networkidle");
+    const faqSchema = await page.evaluate(() => {
+      const scripts = Array.from(
+        document.querySelectorAll('script[type="application/ld+json"]')
+      );
+      for (const script of scripts) {
+        try {
+          const data = JSON.parse(script.textContent || "");
+          if (data["@type"] === "FAQPage") return data;
+        } catch {
+          // ignore parse errors
+        }
+      }
+      return null;
+    });
+    expect(faqSchema, "FAQPage JSON-LD not found").not.toBeNull();
+    expect(faqSchema?.["@context"]).toBe("https://schema.org");
+    expect(Array.isArray(faqSchema?.mainEntity)).toBe(true);
+    expect(faqSchema?.mainEntity.length).toBeGreaterThan(0);
+  });
 });

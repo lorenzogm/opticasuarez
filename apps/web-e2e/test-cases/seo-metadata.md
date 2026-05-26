@@ -70,3 +70,25 @@ Multiple pages via SSR (page.goto for each)
   4. Check meta[name="description"] tag exists
 - **Expected**: Each service page has a meta description tag with content, no JS errors
 - **Implemented**: Yes
+
+### TC-SEO-06: Ortoqueratología page has correct SEO title
+
+- **Priority**: High
+- **Type**: SEO
+- **Entry**: Navigate to /servicios/ortoqueratologia (SSR)
+- **Steps**:
+  1. Navigate to /servicios/ortoqueratologia
+  2. Check page title
+- **Expected**: Title is "Ortoqueratología en Jaén | Óptica Suárez", no JS errors
+- **Implemented**: Yes
+
+### TC-SEO-07: Ortoqueratología page has FAQPage JSON-LD structured data
+
+- **Priority**: High
+- **Type**: SEO
+- **Entry**: Navigate to /servicios/ortoqueratologia (SSR)
+- **Steps**:
+  1. Navigate to /servicios/ortoqueratologia
+  2. Check script[type="application/ld+json"] tags for a FAQPage schema
+- **Expected**: At least one JSON-LD block with @type FAQPage and non-empty mainEntity array, no JS errors
+- **Implemented**: Yes

@@ -97,14 +97,24 @@ export const fetchProduct = createServerFn({ method: "GET" })
 export const fetchSiteSettings = createServerFn({ method: "GET" }).handler(
   async () => {
     const preview = isPreviewMode();
-    const settings = await getSiteSettings(preview);
-    const featureFlags = resolveFeatureFlags(
-      (settings as SanityData)?.featureFlags ?? {}
-    );
-    return {
-      settings: { ...(settings as SanityData), featureFlags } as SanityData,
-      isPreview: preview,
-    };
+    try {
+      const settings = await getSiteSettings(preview);
+      const featureFlags = resolveFeatureFlags(
+        (settings as SanityData)?.featureFlags ?? {}
+      );
+      return {
+        settings: { ...(settings as SanityData), featureFlags } as SanityData,
+        isPreview: preview,
+      };
+    } catch {
+      // If Sanity is unreachable (e.g. CDN cold-start timeout in preview),
+      // return safe defaults so the root layout (header/footer) still renders.
+      const featureFlags = resolveFeatureFlags({});
+      return {
+        settings: { featureFlags } as SanityData,
+        isPreview: preview,
+      };
+    }
   }
 );
 

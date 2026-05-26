@@ -278,7 +278,7 @@ jobs:
         run: |
           npm install -g @dotenvx/dotenvx
           ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
+          for key in VERCEL_TOKEN VERCEL_ORG_ID SANITY_API_TOKEN; do
             value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
@@ -300,6 +300,13 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Apply Sanity content migrations
+        if: env.SANITY_API_TOKEN
+        run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+        env:
+          SANITY_TOKEN: ${{ env.SANITY_API_TOKEN }}
+        continue-on-error: true
 
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
@@ -345,7 +352,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Install Playwright Browsers
         run: pnpm --filter opticasuarez-web-e2e exec playwright install --with-deps chromium
 

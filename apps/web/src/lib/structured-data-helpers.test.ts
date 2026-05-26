@@ -322,6 +322,38 @@ describe("extractServiceFaqItems", () => {
     ]);
   });
 
+  it("extracts FAQ items from ortoqueratologia service page", () => {
+    const items = extractServiceFaqItems("/servicios/ortoqueratologia", [
+      {
+        _type: "sectionAccordion",
+        title: "Preguntas Frecuentes sobre Ortoqueratología",
+        accordionItems: [
+          {
+            title: "¿Qué es la ortoqueratología?",
+            content:
+              "La ortoqueratología es una técnica de corrección visual sin cirugía mediante lentes nocturnas.",
+          },
+          {
+            title: "¿Cuánto tiempo tarda en hacer efecto?",
+            content: "Los primeros resultados se notan desde la primera noche.",
+          },
+        ],
+      },
+    ]);
+
+    expect(items).toEqual([
+      {
+        question: "¿Qué es la ortoqueratología?",
+        answer:
+          "La ortoqueratología es una técnica de corrección visual sin cirugía mediante lentes nocturnas.",
+      },
+      {
+        question: "¿Cuánto tiempo tarda en hacer efecto?",
+        answer: "Los primeros resultados se notan desde la primera noche.",
+      },
+    ]);
+  });
+
   it("ignores generic accordions and non-service pages", () => {
     expect(
       extractServiceFaqItems("/contacto", [
