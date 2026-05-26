@@ -302,7 +302,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Apply Sanity content migrations
-        if: env.SANITY_API_TOKEN != ''
+        if: env.SANITY_API_TOKEN
         run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
         env:
           SANITY_TOKEN: ${{ env.SANITY_API_TOKEN }}

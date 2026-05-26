@@ -11,6 +11,14 @@ import {
 // biome-ignore lint/suspicious/noExplicitAny: dynamic page data from Sanity
 type PageData = Record<string, any>;
 
+// Code-level SEO title overrides for pages where the Sanity seo.title field
+// contains an incorrect value that cannot be patched via CI (no valid Sanity
+// project API token is available in GitHub Secrets).
+// Remove an entry here once the corresponding Sanity document is corrected.
+const SEO_TITLE_OVERRIDES: Record<string, string> = {
+  "/servicios/ortoqueratologia": "Ortoqueratología en Jaén | Óptica Suárez",
+};
+
 export const Route = createFileRoute("/$")({
   loader: async ({ params }) => {
     const splat = (params as Record<string, string>)._splat || "";
@@ -25,14 +33,7 @@ export const Route = createFileRoute("/$")({
   head: ({ loaderData }) => {
     const page = (loaderData as { page: PageData } | undefined)?.page;
     const path = page?.path || "/";
-    // Code-level SEO title overrides for pages where the Sanity seo.title
-    // field contains an incorrect value that cannot be patched via CI
-    // (no valid Sanity project API token is available in GitHub Secrets).
-    // Remove an entry here once the corresponding Sanity document is corrected.
-    const seoTitleOverrides: Record<string, string> = {
-      "/servicios/ortoqueratologia": "Ortoqueratología en Jaén | Óptica Suárez",
-    };
-    const titleOverride = seoTitleOverrides[path];
+    const titleOverride = SEO_TITLE_OVERRIDES[path];
     const seo = titleOverride
       ? { ...page?.seo, title: titleOverride }
       : page?.seo;
