@@ -302,10 +302,18 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Apply Sanity content migrations
-        if: env.SANITY_API_TOKEN != ''
-        run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+        run: |
+          # Prefer the SANITY_AUTH_TOKEN secret (used by Studio deploy, known to work).
+          # Fall back to the dotenvx-decrypted SANITY_API_TOKEN.
+          TOKEN="${SANITY_AUTH_TOKEN:-${SANITY_API_TOKEN:-}}"
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::No Sanity token available, skipping migration"
+            exit 0
+          fi
+          export SANITY_TOKEN="$TOKEN"
+          node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
         env:
-          SANITY_TOKEN: ${{ env.SANITY_API_TOKEN }}
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
         continue-on-error: true
 
       - name: Install Vercel CLI
