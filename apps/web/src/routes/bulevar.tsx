@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Mail, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 
 export const Route = createFileRoute("/bulevar")({
@@ -52,38 +53,45 @@ function RouteComponent() {
           <ul className="mt-4 space-y-3 text-gray-700">
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="https://maps.app.goo.gl/G6fLtLamfj1wQVjr8"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                C. de Canarias, 6, 23009 Jaén
+                <MapPin aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span>C. de Canarias, 6, 23009 Jaén</span>
               </a>
             </li>
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="tel:+34953093062"
               >
-                +34 953 093 062
+                <Phone aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span>+34 953 093 062</span>
               </a>
             </li>
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="https://wa.me/34953093062"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                WhatsApp Bulevar
+                <MessageCircle
+                  aria-hidden="true"
+                  className="h-4 w-4 shrink-0"
+                />
+                <span>WhatsApp Bulevar</span>
               </a>
             </li>
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="mailto:bulevar@opticasuarezjaen.es"
               >
-                bulevar@opticasuarezjaen.es
+                <Mail aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span>bulevar@opticasuarezjaen.es</span>
               </a>
             </li>
           </ul>
@@ -97,6 +105,25 @@ function RouteComponent() {
             Encuentra fácilmente nuestra óptica en el Bulevar de Jaén y consulta
             las opiniones reales de nuestros pacientes en Google.
           </p>
+          <div className="mt-4 rounded-xl bg-gray-50 p-4">
+            <p className="sr-only">Valoración de 5 estrellas en Google</p>
+            <div className="flex gap-1 text-yellow-400">
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star
+                  aria-hidden="true"
+                  className="h-4 w-4 fill-current"
+                  key={index}
+                />
+              ))}
+            </div>
+            <p className="mt-3 text-gray-700 italic">
+              “Gracias a la terapia visual, mi hijo ha mejorado notablemente su
+              rendimiento escolar.”
+            </p>
+            <p className="mt-2 font-medium text-gray-900">
+              — Reseña de paciente en Google
+            </p>
+          </div>
           <div className="mt-4 overflow-hidden rounded-xl border border-gray-200">
             <iframe
               allowFullScreen

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Mail, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 
 export const Route = createFileRoute("/centro")({
@@ -52,38 +53,45 @@ function RouteComponent() {
           <ul className="mt-4 space-y-3 text-gray-700">
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="https://maps.app.goo.gl/17ZkGLbx8gELpTAw7"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                P.º de la Estación, 12, 23003 Jaén
+                <MapPin aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span>P.º de la Estación, 12, 23003 Jaén</span>
               </a>
             </li>
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="tel:+34953223180"
               >
-                +34 953 223 180
+                <Phone aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span>+34 953 223 180</span>
               </a>
             </li>
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="https://wa.me/34953223180"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                WhatsApp Centro
+                <MessageCircle
+                  aria-hidden="true"
+                  className="h-4 w-4 shrink-0"
+                />
+                <span>WhatsApp Centro</span>
               </a>
             </li>
             <li>
               <a
-                className="underline underline-offset-2"
+                className="flex items-center gap-2 underline underline-offset-2"
                 href="mailto:centro@opticasuarezjaen.es"
               >
-                centro@opticasuarezjaen.es
+                <Mail aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span>centro@opticasuarezjaen.es</span>
               </a>
             </li>
           </ul>
@@ -97,6 +105,25 @@ function RouteComponent() {
             Visítanos en pleno centro de Jaén y consulta las opiniones de Google
             para conocer la experiencia de quienes ya han confiado en nosotros.
           </p>
+          <div className="mt-4 rounded-xl bg-gray-50 p-4">
+            <p className="sr-only">Valoración de 5 estrellas en Google</p>
+            <div className="flex gap-1 text-yellow-400">
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star
+                  aria-hidden="true"
+                  className="h-4 w-4 fill-current"
+                  key={index}
+                />
+              ))}
+            </div>
+            <p className="mt-3 text-gray-700 italic">
+              “La terapia visual me ayudó a superar la fatiga visual que tenía
+              por trabajar muchas horas frente al ordenador.”
+            </p>
+            <p className="mt-2 font-medium text-gray-900">
+              — Reseña de paciente en Google
+            </p>
+          </div>
           <div className="mt-4 overflow-hidden rounded-xl border border-gray-200">
             <iframe
               allowFullScreen
