@@ -111,11 +111,11 @@ function RouteComponent() {
               className="flex gap-1 text-yellow-400"
               role="img"
             >
-              {Array.from({ length: 5 }, (_, i) => (
+              {Array.from({ length: 5 }, (_, starIndex) => (
                 <Star
                   aria-hidden="true"
                   className="h-4 w-4 fill-current"
-                  key={i}
+                  key={starIndex}
                 />
               ))}
             </div>
