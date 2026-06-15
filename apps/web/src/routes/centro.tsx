@@ -106,13 +106,16 @@ function RouteComponent() {
             para conocer la experiencia de quienes ya han confiado en nosotros.
           </p>
           <div className="mt-4 rounded-xl bg-gray-50 p-4">
-            <p className="sr-only">Valoración de 5 estrellas en Google</p>
-            <div className="flex gap-1 text-yellow-400">
-              {Array.from({ length: 5 }, (_, index) => (
+            <div
+              aria-label="Valoración de 5 estrellas en Google"
+              className="flex gap-1 text-yellow-400"
+              role="img"
+            >
+              {Array.from({ length: 5 }, (_, i) => (
                 <Star
                   aria-hidden="true"
                   className="h-4 w-4 fill-current"
-                  key={index}
+                  key={i}
                 />
               ))}
             </div>
