@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CitaRouteImport } from './routes/cita'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as CentroRouteImport } from './routes/centro'
 import { Route as CarritoRouteImport } from './routes/carrito'
+import { Route as BulevarRouteImport } from './routes/bulevar'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
@@ -40,9 +42,19 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CentroRoute = CentroRouteImport.update({
+  id: '/centro',
+  path: '/centro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CarritoRoute = CarritoRouteImport.update({
   id: '/carrito',
   path: '/carrito',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BulevarRoute = BulevarRouteImport.update({
+  id: '/bulevar',
+  path: '/bulevar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -135,7 +147,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/blog': typeof BlogRouteWithChildren
+  '/bulevar': typeof BulevarRoute
   '/carrito': typeof CarritoRoute
+  '/centro': typeof CentroRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/cita': typeof CitaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -156,7 +170,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/bulevar': typeof BulevarRoute
   '/carrito': typeof CarritoRoute
+  '/centro': typeof CentroRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -177,7 +193,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/blog': typeof BlogRouteWithChildren
+  '/bulevar': typeof BulevarRoute
   '/carrito': typeof CarritoRoute
+  '/centro': typeof CentroRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/cita': typeof CitaRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -201,7 +219,9 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/blog'
+    | '/bulevar'
     | '/carrito'
+    | '/centro'
     | '/checkout'
     | '/cita'
     | '/blog/$slug'
@@ -222,7 +242,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$'
+    | '/bulevar'
     | '/carrito'
+    | '/centro'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -242,7 +264,9 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/blog'
+    | '/bulevar'
     | '/carrito'
+    | '/centro'
     | '/checkout'
     | '/cita'
     | '/blog/$slug'
@@ -265,7 +289,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BulevarRoute: typeof BulevarRoute
   CarritoRoute: typeof CarritoRoute
+  CentroRoute: typeof CentroRoute
   CheckoutRoute: typeof CheckoutRouteWithChildren
   CitaRoute: typeof CitaRouteWithChildren
   TiendaSlugRoute: typeof TiendaSlugRoute
@@ -288,11 +314,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/centro': {
+      id: '/centro'
+      path: '/centro'
+      fullPath: '/centro'
+      preLoaderRoute: typeof CentroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/carrito': {
       id: '/carrito'
       path: '/carrito'
       fullPath: '/carrito'
       preLoaderRoute: typeof CarritoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bulevar': {
+      id: '/bulevar'
+      path: '/bulevar'
+      fullPath: '/bulevar'
+      preLoaderRoute: typeof BulevarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -471,7 +511,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   BlogRoute: BlogRouteWithChildren,
+  BulevarRoute: BulevarRoute,
   CarritoRoute: CarritoRoute,
+  CentroRoute: CentroRoute,
   CheckoutRoute: CheckoutRouteWithChildren,
   CitaRoute: CitaRouteWithChildren,
   TiendaSlugRoute: TiendaSlugRoute,
