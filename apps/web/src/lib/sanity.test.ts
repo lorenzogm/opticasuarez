@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { resolveImage, sanityImageUrl } from "./sanity";
+import { getBlogPosts, resolveImage, sanityImageUrl } from "./sanity";
 
 describe("sanityImageUrl", () => {
   it("should convert a standard Sanity image ref to CDN URL", () => {
@@ -93,5 +93,41 @@ describe("sanity configuration fallback", () => {
     expect(url).toContain("/images/2a24wmex/");
 
     process.env.SANITY_PROJECT_ID = originalProjectId;
+  });
+});
+
+describe("sanity preview queries", () => {
+  it("uses previewDrafts perspective when preview mode is enabled", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ result: [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      })
+    );
+
+    await getBlogPosts(true);
+
+    const requestedUrl = new URL(fetchMock.mock.calls[0][0] as string);
+    expect(requestedUrl.hostname).toContain(".api.sanity.io");
+    expect(requestedUrl.searchParams.get("perspective")).toBe("previewDrafts");
+
+    fetchMock.mockRestore();
+  });
+
+  it("does not set previewDrafts perspective outside preview mode", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ result: [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      })
+    );
+
+    await getBlogPosts(false);
+
+    const requestedUrl = new URL(fetchMock.mock.calls[0][0] as string);
+    expect(requestedUrl.hostname).toContain(".apicdn.sanity.io");
+    expect(requestedUrl.searchParams.get("perspective")).toBeNull();
+
+    fetchMock.mockRestore();
   });
 });

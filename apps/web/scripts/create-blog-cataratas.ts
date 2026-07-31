@@ -6,6 +6,7 @@
  * Uploads local .webp images from public/images/blog and creates the blog post in Sanity.
  * Defaults to publishing in production and development datasets.
  * You can override with SANITY_DATASET or SANITY_TARGET_DATASETS=production,development.
+ * Set SANITY_CREATE_DRAFT=true to create/update the post as a draft document.
  * Requires Sanity write access (SANITY_API_TOKEN env var or Sanity CLI login).
  */
 
@@ -21,6 +22,7 @@ const targetDatasets = resolveTargetDatasets({
   sanityDataset: process.env.SANITY_DATASET,
   sanityTargetDatasets: process.env.SANITY_TARGET_DATASETS,
 });
+const createDraft = process.env.SANITY_CREATE_DRAFT === "true";
 
 function resolveToken(): string {
   if (process.env.SANITY_API_TOKEN) return process.env.SANITY_API_TOKEN;
@@ -90,9 +92,14 @@ async function publishToDataset(dataset: string) {
     featuredImageRef: imageRefs[0],
     imageRefs,
   });
+  if (createDraft) {
+    blogPost._id = `drafts.${blogPost._id}`;
+  }
 
   await datasetClient.createOrReplace(blogPost);
-  console.log(`✅ [${dataset}] Blog post created: ${blogPost.title}`);
+  console.log(
+    `✅ [${dataset}] Blog post ${createDraft ? "draft" : "published"}: ${blogPost.title}`
+  );
   console.log(`   [${dataset}] URL: /blog/${blogPost.slug.current}`);
 }
 
