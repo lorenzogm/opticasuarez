@@ -26,6 +26,10 @@ import {
 type SanityData = any;
 
 function isPreviewMode(): boolean {
+  if (process.env.VERCEL_ENV === "preview") {
+    return true;
+  }
+
   try {
     return getCookie("__sanity_preview") === "1";
   } catch {
