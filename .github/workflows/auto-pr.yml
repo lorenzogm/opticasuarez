@@ -49,6 +49,29 @@ jobs:
               }
 
               try {
+                const { data: reviewRequests } = await github.rest.pulls.listRequestedReviewers({
+                  owner,
+                  repo,
+                  pull_number: prNumber,
+                });
+                const alreadyRequested = reviewRequests.users.map((u) => u.login);
+
+                if (alreadyRequested.includes('copilot')) {
+                  core.info(`ℹ️ Copilot review is already requested on PR #${prNumber}.`);
+                } else {
+                  await github.rest.pulls.requestReviewers({
+                    owner,
+                    repo,
+                    pull_number: prNumber,
+                    reviewers: ['copilot'],
+                  });
+                  core.info(`✅ Copilot review requested on PR #${prNumber}.`);
+                }
+              } catch (err) {
+                core.warning(`⚠️ Could not request Copilot review for PR #${prNumber}: ${err.message}`);
+              }
+
+              try {
                 await github.graphql(
                   `mutation EnableAutoMerge($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
                     enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: $mergeMethod }) {
