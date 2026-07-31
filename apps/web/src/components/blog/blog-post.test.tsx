@@ -11,9 +11,12 @@ vi.mock("@tanstack/react-router", () => ({
   }: AnchorHTMLAttributes<HTMLAnchorElement> & {
     to?: string;
     search?: unknown;
-  }) => <a {...props}>{children}</a>,
+  }) => (
+    <a href={typeof _to === "string" ? _to : "#"} {...props}>
+      {children}
+    </a>
+  ),
 }));
-
 
 vi.mock("@portabletext/react", () => ({
   PortableText: ({
@@ -25,12 +28,17 @@ vi.mock("@portabletext/react", () => ({
         image?: ({ value }: { value: Record<string, unknown> }) => ReactNode;
       };
     };
-    value: Array<Record<string, unknown>>;
+    value: Record<string, unknown>[];
   }) => (
     <>
       {value.map((block, index) => {
-        if ((block as { _type?: string })._type === "image" && components.types?.image) {
-          return <div key={index}>{components.types.image({ value: block })}</div>;
+        if (
+          (block as { _type?: string })._type === "image" &&
+          components.types?.image
+        ) {
+          return (
+            <div key={index}>{components.types.image({ value: block })}</div>
+          );
         }
         return null;
       })}
@@ -95,7 +103,9 @@ describe("BlogPost", () => {
           slug: "eclipse-solar-como-verlo-correctamente",
           date: "2026-07-30",
           categories: ["Salud Visual"],
-          featured_image: { asset: { url: "https://cdn.example.com/featured.webp" } },
+          featured_image: {
+            asset: { url: "https://cdn.example.com/featured.webp" },
+          },
           body: [
             {
               _type: "image",
@@ -111,7 +121,9 @@ describe("BlogPost", () => {
     const images = screen.getAllByRole("img");
     expect(images).toHaveLength(2);
 
-    const portableImage = screen.getByAltText("Gafas homologadas para eclipse solar");
+    const portableImage = screen.getByAltText(
+      "Gafas homologadas para eclipse solar"
+    );
     expect(portableImage).toHaveAttribute("data-image-component", "true");
     expect(portableImage).toHaveAttribute(
       "title",

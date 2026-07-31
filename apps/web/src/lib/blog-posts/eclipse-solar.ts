@@ -106,7 +106,10 @@ export function buildEclipseSolarPost({
   const strong = (text: string) => ({ text, marks: ["strong"] });
 
   const body: Record<string, unknown>[] = [
-    block("¿Qué es un eclipse solar y por qué hay que verlo con protección?", "h2"),
+    block(
+      "¿Qué es un eclipse solar y por qué hay que verlo con protección?",
+      "h2"
+    ),
     paragraph([
       "Un eclipse solar ocurre cuando la Luna se interpone entre la Tierra y el Sol y oculta total o parcialmente su luz. Aunque el fenómeno sea espectacular, mirar el Sol sin protección puede causar daño ocular irreversible en la retina. Por eso, desde la óptica y la optometría insistimos en combinar divulgación, prevención y material homologado antes de observarlo.",
     ]),
@@ -126,7 +129,10 @@ export function buildEclipseSolarPost({
           ),
         ]
       : []),
-    block("Cómo se verá el eclipse solar del 12 de agosto de 2026 en Jaén", "h2"),
+    block(
+      "Cómo se verá el eclipse solar del 12 de agosto de 2026 en Jaén",
+      "h2"
+    ),
     paragraph([
       "El 12 de agosto de 2026 España vivirá uno de los grandes eventos astronómicos de la década. En parte del norte peninsular el eclipse será total, pero en Jaén se observará como un ",
       strong("eclipse parcial muy profundo"),
@@ -145,13 +151,23 @@ export function buildEclipseSolarPost({
     block("Qué gafas necesitas para ver el eclipse correctamente", "h2"),
     paragraph([
       "No sirven las gafas de sol convencionales, los cristales ahumados ni los filtros caseros. Para mirar el eclipse necesitas ",
-      strong("gafas solares específicas para eclipse homologadas según la norma ISO 12312-2"),
+      strong(
+        "gafas solares específicas para eclipse homologadas según la norma ISO 12312-2"
+      ),
       ", con marcado CE, compradas en establecimientos fiables y en perfecto estado.",
     ]),
-    bullet("Comprueba que las gafas no tengan arañazos, perforaciones ni filtros deformados."),
-    bullet("No utilices prismáticos, telescopios, cámaras ni móviles sin filtro solar específico delante del objetivo."),
-    bullet("Supervisa siempre a los niños y evita que se quiten la protección mientras miran al Sol."),
-    bullet("Si llevas gafas graduadas, las gafas para eclipse deben colocarse por delante, sin sustituirlas."),
+    bullet(
+      "Comprueba que las gafas no tengan arañazos, perforaciones ni filtros deformados."
+    ),
+    bullet(
+      "No utilices prismáticos, telescopios, cámaras ni móviles sin filtro solar específico delante del objetivo."
+    ),
+    bullet(
+      "Supervisa siempre a los niños y evita que se quiten la protección mientras miran al Sol."
+    ),
+    bullet(
+      "Si llevas gafas graduadas, las gafas para eclipse deben colocarse por delante, sin sustituirlas."
+    ),
     block("Qué puede hacer el óptico-optometrista para ayudarte en Jaén", "h2"),
     paragraph([
       "El óptico-optometrista no solo corrige la graduación: también educa en salud visual. Ante un eclipse solar puede ayudarte a identificar material homologado, resolver dudas sobre filtros solares, aconsejar a personas con baja visión o sensibilidad a la luz y derivarte si presentas molestias o síntomas tras la observación.",
@@ -176,11 +192,22 @@ export function buildEclipseSolarPost({
           ),
         ]
       : []),
-    block("Consejos finales para disfrutar del eclipse sin dañar tus ojos", "h2"),
-    bullet("Elige con antelación un lugar con horizonte despejado hacia el oeste para verlo mejor desde Jaén."),
-    bullet("Lleva tus gafas homologadas de repuesto si las compartes en familia o con amigos."),
-    bullet("No mires al Sol directamente ni siquiera durante unos segundos si no llevas la protección adecuada."),
-    bullet("Si notas visión borrosa, manchas o deslumbramiento persistente después del eclipse, solicita revisión profesional cuanto antes."),
+    block(
+      "Consejos finales para disfrutar del eclipse sin dañar tus ojos",
+      "h2"
+    ),
+    bullet(
+      "Elige con antelación un lugar con horizonte despejado hacia el oeste para verlo mejor desde Jaén."
+    ),
+    bullet(
+      "Lleva tus gafas homologadas de repuesto si las compartes en familia o con amigos."
+    ),
+    bullet(
+      "No mires al Sol directamente ni siquiera durante unos segundos si no llevas la protección adecuada."
+    ),
+    bullet(
+      "Si notas visión borrosa, manchas o deslumbramiento persistente después del eclipse, solicita revisión profesional cuanto antes."
+    ),
     paragraph([
       "En Óptica Suárez trabajamos la prevención visual cada día para que disfrutes de experiencias como este eclipse con seguridad. Si quieres prepararte con tiempo, reserva tu revisión en Jaén y te ayudaremos a cuidar tu visión antes, durante y después del fenómeno.",
     ]),
@@ -208,7 +235,8 @@ export function buildEclipseSolarPost({
     body,
     seo: {
       _type: "seo",
-      title: "Eclipse solar 2026 en Jaén: cómo verlo correctamente | Óptica Suárez",
+      title:
+        "Eclipse solar 2026 en Jaén: cómo verlo correctamente | Óptica Suárez",
       description:
         "Guía sobre el eclipse solar del 12 de agosto de 2026 en Jaén: horarios orientativos, gafas homologadas ISO 12312-2 y consejos de óptica y optometría para proteger tus ojos.",
       keywords:
