@@ -1,7 +1,7 @@
 /**
  * Create blog post: ¿Qué son las cataratas y cómo tratarlas?
  *
- * Usage: cd apps/web && npx tsx scripts/create-blog-cataratas.ts
+ * Usage: npx tsx apps/web/scripts/create-blog-cataratas.ts
  *
  * Uploads local .webp images from public/images/blog and creates the blog post in Sanity.
  * Defaults to publishing in production and development datasets.
@@ -13,6 +13,7 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createClient } from "@sanity/client";
 import { buildCataratasPost } from "../src/lib/blog-posts/cataratas";
 import { resolveTargetDatasets } from "../src/lib/sanity-datasets";
@@ -56,13 +57,15 @@ async function uploadImage(
   filename: string,
   datasetClient: ReturnType<typeof createClient>
 ): Promise<string> {
-  const filePath = path.join(
-    process.cwd(),
-    "public",
-    "images",
-    "blog",
-    filename
-  );
+  const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+  const candidates = [
+    path.join(process.cwd(), "public", "images", "blog", filename),
+    path.join(scriptDir, "..", "public", "images", "blog", filename),
+  ];
+  const filePath = candidates.find((candidate) => fs.existsSync(candidate));
+  if (!filePath) {
+    throw new Error(`Image file not found for upload: ${filename}`);
+  }
   const fileBuffer = fs.readFileSync(filePath);
   const asset = await datasetClient.assets.upload("image", fileBuffer, {
     filename,
