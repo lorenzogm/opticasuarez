@@ -303,7 +303,9 @@ jobs:
 
       - name: Apply Sanity content migrations
         if: env.SANITY_API_TOKEN
-        run: node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+        run: |
+          node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs
+          node apps/sanity-studio/scripts/fix-terapia-visual-sections.mjs
         env:
           SANITY_TOKEN: ${{ env.SANITY_API_TOKEN }}
         continue-on-error: true
