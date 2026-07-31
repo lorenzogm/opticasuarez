@@ -1,0 +1,84 @@
+name: Auto PR
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark PRs ready and enable auto-merge
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            async function processPr(prNumber) {
+              const { data: pr } = await github.rest.pulls.get({
+                owner,
+                repo,
+                pull_number: prNumber,
+              });
+
+              if (pr.state !== 'open') {
+                core.info(`⏭️ PR #${prNumber} is not open. Skipping.`);
+                return;
+              }
+
+              if (pr.draft) {
+                try {
+                  await github.request('POST /repos/{owner}/{repo}/pulls/{pull_number}/ready_for_review', {
+                    owner,
+                    repo,
+                    pull_number: prNumber,
+                  });
+                  core.info(`✅ PR #${prNumber} marked as ready for review.`);
+                } catch (err) {
+                  core.warning(`⚠️ Could not mark PR #${prNumber} as ready: ${err.message}`);
+                }
+              } else {
+                core.info(`ℹ️ PR #${prNumber} is already ready for review.`);
+              }
+
+              try {
+                await github.graphql(
+                  `mutation EnableAutoMerge($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
+                    enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: $mergeMethod }) {
+                      pullRequest {
+                        number
+                      }
+                    }
+                  }`,
+                  {
+                    pullRequestId: pr.node_id,
+                    mergeMethod: 'SQUASH',
+                  }
+                );
+                core.info(`✅ Auto-merge enabled for PR #${prNumber}.`);
+              } catch (err) {
+                core.warning(`⚠️ Could not enable auto-merge for PR #${prNumber}: ${err.message}`);
+              }
+            }
+
+            if (context.eventName === 'workflow_dispatch') {
+              const { data: prs } = await github.rest.pulls.list({
+                owner,
+                repo,
+                state: 'open',
+                per_page: 100,
+              });
+
+              for (const pr of prs) {
+                await processPr(pr.number);
+              }
+            } else {
+              await processPr(context.payload.pull_request.number);
+            }
