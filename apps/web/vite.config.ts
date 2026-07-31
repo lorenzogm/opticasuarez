@@ -28,12 +28,22 @@ const SANITY_DATASET = resolveSanityEnvValue(
 );
 const SANITY_API_VERSION = "2026-03-23";
 const SANITY_CDN_URL = `https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;
+const SANITY_API_URL = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}`;
+const SANITY_QUERY_TIMEOUT_MS = 15_000;
+const SANITY_QUERY_MAX_ATTEMPTS = 3;
 
-async function sanityQuery<T>(query: string): Promise<T> {
-  const url = new URL(SANITY_CDN_URL);
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchSanityResult<T>(
+  baseUrl: string,
+  query: string
+): Promise<T> {
+  const url = new URL(baseUrl);
   url.searchParams.set("query", query);
   const res = await fetch(url.toString(), {
-    signal: AbortSignal.timeout(10_000),
+    signal: AbortSignal.timeout(SANITY_QUERY_TIMEOUT_MS),
   });
   if (!res.ok) {
     throw new Error(
@@ -42,6 +52,28 @@ async function sanityQuery<T>(query: string): Promise<T> {
   }
   const json = (await res.json()) as { result: T };
   return json.result;
+}
+
+async function sanityQuery<T>(query: string): Promise<T> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= SANITY_QUERY_MAX_ATTEMPTS; attempt++) {
+    try {
+      return await fetchSanityResult<T>(SANITY_CDN_URL, query);
+    } catch (error) {
+      lastError = error;
+      if (attempt < SANITY_QUERY_MAX_ATTEMPTS) {
+        await sleep(2 ** (attempt - 1) * 1000);
+      }
+    }
+  }
+  // Fall back to the non-CDN endpoint in case the CDN is unreachable or slow.
+  try {
+    return await fetchSanityResult<T>(SANITY_API_URL, query);
+  } catch {
+    throw lastError instanceof Error
+      ? lastError
+      : new Error("Sanity query failed during prerender route enumeration");
+  }
 }
 
 async function getPrerenderPages(): Promise<Array<{ path: string }>> {
