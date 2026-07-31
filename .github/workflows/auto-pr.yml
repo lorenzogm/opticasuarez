@@ -71,23 +71,27 @@ jobs:
                 core.warning(`⚠️ Could not request Copilot review for PR #${prNumber}: ${err.message}`);
               }
 
-              try {
-                await github.graphql(
-                  `mutation EnableAutoMerge($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
-                    enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: $mergeMethod }) {
-                      pullRequest {
-                        number
+              if (pr.auto_merge) {
+                core.info(`ℹ️ Auto-merge is already enabled for PR #${prNumber}.`);
+              } else {
+                try {
+                  await github.graphql(
+                    `mutation EnableAutoMerge($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
+                      enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: $mergeMethod }) {
+                        pullRequest {
+                          number
+                        }
                       }
+                    }`,
+                    {
+                      pullRequestId: pr.node_id,
+                      mergeMethod: 'SQUASH',
                     }
-                  }`,
-                  {
-                    pullRequestId: pr.node_id,
-                    mergeMethod: 'SQUASH',
-                  }
-                );
-                core.info(`✅ Auto-merge enabled for PR #${prNumber}.`);
-              } catch (err) {
-                core.warning(`⚠️ Could not enable auto-merge for PR #${prNumber}: ${err.message}`);
+                  );
+                  core.info(`✅ Auto-merge enabled for PR #${prNumber}.`);
+                } catch (err) {
+                  core.warning(`⚠️ Could not enable auto-merge for PR #${prNumber}: ${err.message}`);
+                }
               }
             }
 
