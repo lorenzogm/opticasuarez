@@ -92,15 +92,23 @@ jobs:
             }
 
             if (context.eventName === 'workflow_dispatch') {
-              const { data: prs } = await github.rest.pulls.list({
-                owner,
-                repo,
-                state: 'open',
-                per_page: 100,
-              });
+              let page = 1;
+              while (true) {
+                const { data: prs } = await github.rest.pulls.list({
+                  owner,
+                  repo,
+                  state: 'open',
+                  per_page: 100,
+                  page,
+                });
 
-              for (const pr of prs) {
-                await processPr(pr.number);
+                if (prs.length === 0) break;
+
+                for (const pr of prs) {
+                  await processPr(pr.number);
+                }
+
+                page += 1;
               }
             } else {
               await processPr(context.payload.pull_request.number);
