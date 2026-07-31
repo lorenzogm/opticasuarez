@@ -1,0 +1,127 @@
+name: Auto PR
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark PRs ready and enable auto-merge
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            async function processPr(prNumber) {
+              const { data: pr } = await github.rest.pulls.get({
+                owner,
+                repo,
+                pull_number: prNumber,
+              });
+
+              if (pr.state !== 'open') {
+                core.info(`⏭️ PR #${prNumber} is not open. Skipping.`);
+                return;
+              }
+
+              if (pr.draft) {
+                try {
+                  await github.request('POST /repos/{owner}/{repo}/pulls/{pull_number}/ready_for_review', {
+                    owner,
+                    repo,
+                    pull_number: prNumber,
+                  });
+                  core.info(`✅ PR #${prNumber} marked as ready for review.`);
+                } catch (err) {
+                  core.warning(`⚠️ Could not mark PR #${prNumber} as ready: ${err.message}`);
+                }
+              } else {
+                core.info(`ℹ️ PR #${prNumber} is already ready for review.`);
+              }
+
+              try {
+                const { data: reviewRequests } = await github.rest.pulls.listRequestedReviewers({
+                  owner,
+                  repo,
+                  pull_number: prNumber,
+                });
+                const alreadyRequested = reviewRequests.users.map((u) => u.login);
+
+                if (alreadyRequested.includes('copilot')) {
+                  core.info(`ℹ️ Copilot review is already requested on PR #${prNumber}.`);
+                } else {
+                  await github.rest.pulls.requestReviewers({
+                    owner,
+                    repo,
+                    pull_number: prNumber,
+                    reviewers: ['copilot'],
+                  });
+                  core.info(`✅ Copilot review requested on PR #${prNumber}.`);
+                }
+              } catch (err) {
+                core.warning(`⚠️ Could not request Copilot review for PR #${prNumber}: ${err.message}`);
+              }
+
+              if (pr.auto_merge) {
+                core.info(`ℹ️ Auto-merge is already enabled for PR #${prNumber}.`);
+              } else {
+                try {
+                  await github.graphql(
+                    `mutation EnableAutoMerge($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
+                      enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: $mergeMethod }) {
+                        pullRequest {
+                          number
+                        }
+                      }
+                    }`,
+                    {
+                      pullRequestId: pr.node_id,
+                      mergeMethod: 'SQUASH',
+                    }
+                  );
+                  core.info(`✅ Auto-merge enabled for PR #${prNumber}.`);
+                } catch (err) {
+                  core.warning(`⚠️ Could not enable auto-merge for PR #${prNumber}: ${err.message}`);
+                }
+              }
+            }
+
+            if (context.eventName === 'workflow_dispatch') {
+              let page = 1;
+              while (true) {
+                const { data: prs } = await github.rest.pulls.list({
+                  owner,
+                  repo,
+                  state: 'open',
+                  per_page: 100,
+                  page,
+                });
+
+                if (prs.length === 0) break;
+
+                for (const pr of prs) {
+                  await processPr(pr.number);
+                }
+
+                page += 1;
+              }
+            } else {
+              const prPayload = context.payload.pull_request;
+              const headRepo = prPayload.head.repo?.full_name;
+              const baseRepo = `${owner}/${repo}`;
+              const trustedAssociations = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+              if (headRepo !== baseRepo || !trustedAssociations.includes(prPayload.author_association)) {
+                core.info(`⏭️ PR #${prPayload.number} is from an untrusted source (headRepo=${headRepo}, author_association=${prPayload.author_association}). Skipping.`);
+              } else {
+                await processPr(prPayload.number);
+              }
+            }
