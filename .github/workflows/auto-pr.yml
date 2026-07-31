@@ -115,5 +115,13 @@ jobs:
                 page += 1;
               }
             } else {
-              await processPr(context.payload.pull_request.number);
+              const prPayload = context.payload.pull_request;
+              const headRepo = prPayload.head.repo?.full_name;
+              const baseRepo = `${owner}/${repo}`;
+              const trustedAssociations = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+              if (headRepo !== baseRepo || !trustedAssociations.includes(prPayload.author_association)) {
+                core.info(`⏭️ PR #${prPayload.number} is from an untrusted source (headRepo=${headRepo}, author_association=${prPayload.author_association}). Skipping.`);
+              } else {
+                await processPr(prPayload.number);
+              }
             }
