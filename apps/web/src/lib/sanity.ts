@@ -35,6 +35,9 @@ async function sanityFetch<T>(
   const baseUrl = preview ? SANITY_API_URL : SANITY_CDN_URL;
   const url = new URL(baseUrl);
   url.searchParams.set("query", query);
+  if (preview) {
+    url.searchParams.set("perspective", "previewDrafts");
+  }
   if (params) {
     for (const [key, value] of Object.entries(params)) {
       url.searchParams.set(`$${key}`, `"${value}"`);

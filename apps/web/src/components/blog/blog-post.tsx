@@ -88,15 +88,25 @@ const portableTextComponents = {
   },
   types: {
     // biome-ignore lint/suspicious/noExplicitAny: Sanity image block shape
-    image: ({ value }: { value: any }) => (
-      <div className="my-8">
-        <img
-          alt={value.alt || ""}
-          className="mx-auto h-64 w-full rounded-lg object-cover shadow-lg"
-          src={resolveImage(value)}
-        />
-      </div>
-    ),
+    image: ({ value }: { value: any }) => {
+      const imageTitle = value.caption || value.alt || undefined;
+
+      return (
+        <figure className="my-8">
+          <Image
+            alt={value.alt || value.caption || ""}
+            className="mx-auto h-64 w-full rounded-lg object-cover shadow-lg"
+            src={resolveImage(value)}
+            title={imageTitle}
+          />
+          {value.caption ? (
+            <figcaption className="mt-3 text-center text-gray-500 text-sm">
+              {value.caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      );
+    },
   },
 };
 
@@ -190,6 +200,7 @@ export default function BlogPost({ post }: BlogPostProps) {
                 alt={post.title}
                 className="h-96 w-full object-cover"
                 src={resolveImage(post.featured_image)}
+                title={post.title}
               />
             </div>
           </div>
