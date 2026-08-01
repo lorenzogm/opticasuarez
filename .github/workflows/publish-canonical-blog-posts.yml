@@ -1,0 +1,55 @@
+name: Publish Canonical Blog Posts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/scripts/create-blog-alergia-salud-ocular.ts"
+      - "apps/web/scripts/create-blog-cataratas.ts"
+      - "apps/web/scripts/create-blog-eclipse-solar.ts"
+      - "apps/web/src/lib/blog-posts/alergia-salud-ocular.ts"
+      - "apps/web/src/lib/blog-posts/cataratas.ts"
+      - "apps/web/src/lib/blog-posts/eclipse-solar.ts"
+      - "apps/web/public/images/blog/alergia-ocular-jaen-1.webp"
+      - "apps/web/public/images/blog/alergia-ocular-jaen-2.webp"
+      - "apps/web/public/images/blog/cataratas-jaen-1.webp"
+      - "apps/web/public/images/blog/cataratas-jaen-2.webp"
+      - "apps/web/public/images/blog/cataratas-jaen-3.webp"
+      - "apps/web/public/images/blog/eclipse-solar-jaen-cielo.webp"
+      - "apps/web/public/images/blog/eclipse-solar-jaen-gafas.webp"
+  workflow_dispatch:
+    inputs:
+      target_datasets:
+        description: "Comma-separated Sanity datasets"
+        required: true
+        default: production
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish canonical blog posts to Sanity
+        run: pnpm --filter opticasuarez-web run sync:canonical-blog-posts
+        env:
+          SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_TARGET_DATASETS: ${{ inputs.target_datasets || 'production' }}
