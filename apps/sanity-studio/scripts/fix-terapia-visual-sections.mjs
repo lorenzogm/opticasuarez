@@ -14,7 +14,7 @@
  * matching its title) before inserting it.
  *
  * Usage:
- *   SANITY_TOKEN=<token> node scripts/fix-terapia-visual-sections.mjs
+ *   SANITY_TOKEN=<token> node apps/sanity-studio/scripts/fix-terapia-visual-sections.mjs
  */
 
 import { readFileSync } from "node:fs";
