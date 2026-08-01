@@ -9,7 +9,8 @@
     "build": "dotenvx run -- vite build",
     "start": "dotenvx run -- node .output/server/index.mjs",
     "check:types": "tsc --noEmit",
-    "migrate": "dotenvx run -- tsx scripts/migrate-to-sanity.ts"
+    "migrate": "dotenvx run -- tsx scripts/migrate-to-sanity.ts",
+    "sync:canonical-blog-posts": "tsx scripts/create-blog-alergia-salud-ocular.ts && tsx scripts/create-blog-cataratas.ts && tsx scripts/create-blog-eclipse-solar.ts"
   },
   "dependencies": {
     "@forge42/seo-tools": "^1.4.5",

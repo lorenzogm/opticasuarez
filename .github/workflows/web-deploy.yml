@@ -26,6 +26,7 @@ jobs:
     outputs:
       infra-changed: ${{ steps.check.outputs.infra-changed }}
       app-changed: ${{ steps.check.outputs.app-changed }}
+      canonical-blog-changed: ${{ steps.check.outputs.canonical-blog-changed }}
       environment: ${{ steps.resolve-env.outputs.environment }}
 
     steps:
@@ -51,6 +52,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "infra-changed=true" >> $GITHUB_OUTPUT
             echo "app-changed=true" >> $GITHUB_OUTPUT
+            echo "canonical-blog-changed=true" >> $GITHUB_OUTPUT
             echo "Manual trigger — deploying everything"
             exit 0
           fi
@@ -69,6 +71,27 @@ jobs:
           else
             echo "app-changed=false" >> $GITHUB_OUTPUT
             echo "No changes in apps/web/ or apps/web-e2e/"
+          fi
+
+          if git diff --name-only HEAD~1 -- \
+            apps/web/scripts/create-blog-alergia-salud-ocular.ts \
+            apps/web/scripts/create-blog-cataratas.ts \
+            apps/web/scripts/create-blog-eclipse-solar.ts \
+            apps/web/src/lib/blog-posts/alergia-salud-ocular.ts \
+            apps/web/src/lib/blog-posts/cataratas.ts \
+            apps/web/src/lib/blog-posts/eclipse-solar.ts \
+            apps/web/public/images/blog/alergia-ocular-jaen-1.webp \
+            apps/web/public/images/blog/alergia-ocular-jaen-2.webp \
+            apps/web/public/images/blog/cataratas-jaen-1.webp \
+            apps/web/public/images/blog/cataratas-jaen-2.webp \
+            apps/web/public/images/blog/cataratas-jaen-3.webp \
+            apps/web/public/images/blog/eclipse-solar-jaen-gafas.webp \
+            apps/web/public/images/blog/eclipse-solar-jaen-cielo.webp | grep -q .; then
+            echo "canonical-blog-changed=true" >> $GITHUB_OUTPUT
+            echo "Canonical local blog sources changed"
+          else
+            echo "canonical-blog-changed=false" >> $GITHUB_OUTPUT
+            echo "No canonical local blog source changes"
           fi
 
   infra-deploy:
@@ -387,7 +410,7 @@ jobs:
         run: |
           npm install -g @dotenvx/dotenvx
           ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
+          for key in VERCEL_TOKEN VERCEL_ORG_ID SANITY_API_TOKEN; do
             value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
@@ -409,6 +432,13 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Sync canonical blog posts to Sanity production
+        if: env.SANITY_API_TOKEN && needs.check-changes.outputs.canonical-blog-changed == 'true'
+        run: pnpm --filter opticasuarez-web run sync:canonical-blog-posts
+        env:
+          SANITY_API_TOKEN: ${{ env.SANITY_API_TOKEN }}
+          SANITY_TARGET_DATASETS: production
 
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest

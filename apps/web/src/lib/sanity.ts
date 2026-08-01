@@ -1,9 +1,3 @@
-import {
-  getFallbackBlogPost,
-  getFallbackBlogPosts,
-  getFallbackBlogSlugs,
-} from "./blog-posts/fallback-posts";
-
 const DEFAULT_SANITY_PROJECT_ID = "2a24wmex";
 const DEFAULT_SANITY_DATASET = "production";
 
@@ -62,23 +56,6 @@ async function sanityFetch<T>(
   }
   const json = (await res.json()) as { result: T };
   return json.result;
-}
-
-function mergeBlogCollections<
-  T extends {
-    slug: string;
-    date?: string;
-  },
->(primaryPosts: T[], fallbackPosts: T[]): T[] {
-  const mergedPosts = new Map(fallbackPosts.map((post) => [post.slug, post]));
-
-  for (const post of primaryPosts) {
-    mergedPosts.set(post.slug, post);
-  }
-
-  return Array.from(mergedPosts.values()).sort((a, b) =>
-    (b.date || "").localeCompare(a.date || "")
-  );
 }
 
 // Image URL helper — converts Sanity image reference to CDN URL
@@ -199,23 +176,26 @@ export async function getSiteSettings(preview = false) {
 
 // Blog posts (listing)
 export async function getBlogPosts(preview = false) {
-  const fallbackPosts = getFallbackBlogPosts();
+  return sanityFetch(
+    `*[_type == "blogPost"] | order(date desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    date,
+    excerpt,
+    author,
+    categories,
+    "featured_image": featuredImage ${imageProjection}
+  }`,
+    undefined,
+    preview
+  );
+}
 
-  try {
-    const blogPosts =
-      (await sanityFetch<
-        Array<{
-          _id: string;
-          title: string;
-          slug: string;
-          date: string;
-          excerpt: string;
-          author: string;
-          categories: string[];
-          featured_image?: { asset?: { url?: string; _ref?: string } };
-        }>
-      >(
-        `*[_type == "blogPost"] | order(date desc) {
+// Single blog post by slug
+export async function getBlogPost(slug: string, preview = false) {
+  return sanityFetch(
+    `*[_type == "blogPost" && slug.current == $slug][0]{
       _id,
       title,
       "slug": slug.current,
@@ -223,67 +203,22 @@ export async function getBlogPosts(preview = false) {
       excerpt,
       author,
       categories,
-      "featured_image": featuredImage ${imageProjection}
+      "featured_image": featuredImage ${imageProjection},
+      body,
+      seo
     }`,
-        undefined,
-        preview
-      )) ?? [];
-
-    return mergeBlogCollections(blogPosts, fallbackPosts);
-  } catch {
-    return fallbackPosts;
-  }
-}
-
-// Single blog post by slug
-export async function getBlogPost(slug: string, preview = false) {
-  const fallbackPost = getFallbackBlogPost(slug);
-
-  try {
-    return (
-      (await sanityFetch(
-        `*[_type == "blogPost" && slug.current == $slug][0]{
-        _id,
-        title,
-        "slug": slug.current,
-        date,
-        excerpt,
-        author,
-        categories,
-        "featured_image": featuredImage ${imageProjection},
-        body,
-        seo
-      }`,
-        { slug },
-        preview
-      )) ?? fallbackPost
-    );
-  } catch {
-    return fallbackPost;
-  }
+    { slug },
+    preview
+  );
 }
 
 // All blog slugs (for sitemap)
 export async function getAllBlogSlugs(preview = false) {
-  const fallbackSlugs = getFallbackBlogSlugs();
-
-  try {
-    const blogSlugs =
-      (await sanityFetch<Array<{ slug: string }>>(
-        `*[_type == "blogPost"]{ "slug": slug.current }`,
-        undefined,
-        preview
-      )) ?? [];
-
-    const mergedSlugs = new Map(fallbackSlugs.map((post) => [post.slug, post]));
-    for (const post of blogSlugs) {
-      mergedSlugs.set(post.slug, post);
-    }
-
-    return Array.from(mergedSlugs.values());
-  } catch {
-    return fallbackSlugs;
-  }
+  return sanityFetch(
+    `*[_type == "blogPost"]{ "slug": slug.current }`,
+    undefined,
+    preview
+  );
 }
 
 // ──────────────────────────────────────
