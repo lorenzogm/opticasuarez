@@ -1,5 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
-import { getBlogPosts, resolveImage, sanityImageUrl } from "./sanity";
+import {
+  getAllBlogSlugs,
+  getBlogPost,
+  getBlogPosts,
+  resolveImage,
+  sanityImageUrl,
+} from "./sanity";
 
 describe("sanityImageUrl", () => {
   it("should convert a standard Sanity image ref to CDN URL", () => {
@@ -127,6 +133,103 @@ describe("sanity preview queries", () => {
     const requestedUrl = new URL(fetchMock.mock.calls[0][0] as string);
     expect(requestedUrl.hostname).toContain(".apicdn.sanity.io");
     expect(requestedUrl.searchParams.get("perspective")).toBeNull();
+
+    fetchMock.mockRestore();
+  });
+});
+
+describe("fallback blog posts", () => {
+  interface BlogPostWithBody {
+    slug: string;
+    featured_image?: {
+      asset?: {
+        url?: string;
+      };
+    };
+    body?: Record<string, unknown>[];
+  }
+
+  it("merges local fallback articles into the blog listing when Sanity omits them", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          result: [
+            {
+              _id: "blog-alergia-y-salud-ocular",
+              title:
+                "Alergia y Salud Ocular: guía práctica para aliviar tus síntomas",
+              slug: "alergia-y-salud-ocular",
+              date: "2026-05-12",
+              excerpt: "Ejemplo",
+              author: "Óptica Suárez",
+              categories: ["Salud Visual"],
+            },
+          ],
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    );
+
+    const posts = await getBlogPosts(false);
+    const slugs = posts.map((post) => post.slug);
+
+    expect(slugs).toContain("alergia-y-salud-ocular");
+    expect(slugs).toContain("eclipse-solar-como-verlo-correctamente");
+    expect(slugs).toContain("que-son-las-cataratas-y-como-tratarlas");
+    expect(posts[0]?.slug).toBe("eclipse-solar-como-verlo-correctamente");
+
+    fetchMock.mockRestore();
+  });
+
+  it("returns the local fallback article when Sanity does not have the requested slug", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ result: null }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      })
+    );
+
+    const post = (await getBlogPost(
+      "que-son-las-cataratas-y-como-tratarlas",
+      false
+    )) as BlogPostWithBody | null;
+
+    expect(post?.slug).toBe("que-son-las-cataratas-y-como-tratarlas");
+    expect(post?.featured_image).toMatchObject({
+      asset: { url: "/images/blog/cataratas-jaen-1.webp" },
+    });
+    expect(JSON.stringify(post?.body)).toContain(
+      "/images/blog/cataratas-jaen-2.webp"
+    );
+
+    fetchMock.mockRestore();
+  });
+
+  it("adds fallback slugs to the sitemap/prerender slug source", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          result: [{ slug: "alergia-y-salud-ocular" }],
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    );
+
+    const slugs = await getAllBlogSlugs(false);
+
+    expect(slugs).toEqual(
+      expect.arrayContaining([
+        { slug: "alergia-y-salud-ocular" },
+        { slug: "eclipse-solar-como-verlo-correctamente" },
+        { slug: "que-son-las-cataratas-y-como-tratarlas" },
+      ])
+    );
 
     fetchMock.mockRestore();
   });

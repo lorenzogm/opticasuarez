@@ -4,6 +4,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
+import { getFallbackBlogSlugs } from "./src/lib/blog-posts/fallback-posts";
 
 function resolveSanityEnvValue(
   value: string | undefined,
@@ -85,10 +86,16 @@ async function getPrerenderPages(): Promise<Array<{ path: string }>> {
       '*[_type == "page"]{ "path": path.current }'
     ),
   ]);
+  const mergedBlogSlugs = new Map(
+    getFallbackBlogSlugs().map((post) => [post.slug, post])
+  );
+  for (const post of blogSlugs) {
+    mergedBlogSlugs.set(post.slug, post);
+  }
 
   const routes = [
     "/",
-    ...blogSlugs.map((p) => `/blog/${p.slug}`),
+    ...Array.from(mergedBlogSlugs.values()).map((p) => `/blog/${p.slug}`),
     ...pages.map((p) => `/${p.path.replace(/^\//, "")}`),
   ];
 

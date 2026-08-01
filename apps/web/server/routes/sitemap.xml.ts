@@ -1,4 +1,5 @@
 import { defineEventHandler, setResponseHeaders } from "nitro/h3";
+import { getFallbackBlogSlugs } from "~/lib/blog-posts/fallback-posts";
 import { resolveFeatureFlags } from "~/lib/feature-flags";
 import { buildSitemapRoutes } from "~/lib/structured-data-helpers";
 
@@ -47,6 +48,12 @@ export default defineEventHandler(async (event) => {
       featureFlags?: { shopEnabled?: boolean; ecommerce?: boolean };
     }>('*[_type == "siteSettings"][0]{ featureFlags }'),
   ]);
+  const mergedBlogSlugs = new Map(
+    getFallbackBlogSlugs().map((post) => [post.slug, post])
+  );
+  for (const post of blogSlugs) {
+    mergedBlogSlugs.set(post.slug, post);
+  }
 
   const featureFlags = resolveFeatureFlags(
     siteSettings?.featureFlags ?? {},
@@ -62,7 +69,7 @@ export default defineEventHandler(async (event) => {
   const uniqueRoutes = buildSitemapRoutes({
     staticRoutes,
     pages,
-    blogSlugs,
+    blogSlugs: Array.from(mergedBlogSlugs.values()),
     productSlugs,
     shopEnabled: featureFlags.shopEnabled,
   });
