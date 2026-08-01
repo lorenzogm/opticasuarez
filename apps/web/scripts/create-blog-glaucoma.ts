@@ -382,4 +382,7 @@ async function main() {
   console.log(`   URL: /blog/${slug}`);
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
