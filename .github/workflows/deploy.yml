@@ -1,4 +1,23 @@
-name: Web Deploy
+name: Deploy
+
+# Unified deploy pipeline for the web app and Sanity content/studio.
+#
+# The SAME five steps run for every trigger and for each environment:
+#   1. Deploy Sanity migration scripts / content     (if needed)
+#   2. Deploy Vercel web infra via Terraform         (if needed)
+#   3. Deploy the Vercel web app as a staged build    (if needed)
+#   4. Run E2E tests against the staged/preview deploy
+#   5. Promote the staged deployment to production    (push to main only)
+#
+# Flow:
+#   - pull_request  → run steps 1-4 for `development` (Vercel preview /
+#                     staged deploy, Sanity content kept out of the live
+#                     dataset). Step 5 (promotion) is skipped.
+#   - push to main  → run steps 1-5 for `development`, then — once the
+#                     whole development cycle is green — re-dispatch this
+#                     workflow with `environment=production` so the SAME
+#                     five steps run again for production.
+#   - workflow_dispatch → run the five steps for the chosen environment.
 
 on:
   push:
@@ -24,6 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check for changes
     outputs:
+      sanity-changed: ${{ steps.check.outputs.sanity-changed }}
       infra-changed: ${{ steps.check.outputs.infra-changed }}
       app-changed: ${{ steps.check.outputs.app-changed }}
       environment: ${{ steps.resolve-env.outputs.environment }}
@@ -42,17 +62,30 @@ jobs:
             echo "Environment: ${{ github.event.inputs.environment }}"
           else
             echo "environment=development" >> $GITHUB_OUTPUT
-            echo "Environment: development (push trigger)"
+            echo "Environment: development (${{ github.event_name }} trigger)"
           fi
 
       - name: Check for changes
         id: check
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "sanity-changed=true" >> $GITHUB_OUTPUT
             echo "infra-changed=true" >> $GITHUB_OUTPUT
             echo "app-changed=true" >> $GITHUB_OUTPUT
             echo "Manual trigger — deploying everything"
             exit 0
+          fi
+
+          if git diff --name-only HEAD~1 -- \
+            apps/sanity-studio/ \
+            ":(glob)apps/web/scripts/create-blog-*.ts" \
+            apps/web/src/lib/blog-posts/ \
+            apps/web/public/images/blog/ | grep -q .; then
+            echo "sanity-changed=true" >> $GITHUB_OUTPUT
+            echo "Sanity content/studio changes detected"
+          else
+            echo "sanity-changed=false" >> $GITHUB_OUTPUT
+            echo "No Sanity content/studio changes"
           fi
 
           if git diff --name-only HEAD~1 -- infra/vercel/web/ | grep -q .; then
@@ -71,9 +104,70 @@ jobs:
             echo "No changes in apps/web/ or apps/web-e2e/"
           fi
 
-  infra-deploy:
+  # ---------------------------------------------------------------------------
+  # STEP 1 — Deploy Sanity migration scripts / content (if needed)
+  # ---------------------------------------------------------------------------
+  # On pull requests the live `production` dataset is left untouched (Sanity
+  # content stays as draft / out of the published dataset); the published
+  # content is deployed only on push to main and manual runs.
+  sanity-deploy:
     needs: check-changes
-    if: needs.check-changes.outputs.infra-changed == 'true'
+    if: |
+      always() &&
+      needs.check-changes.outputs.sanity-changed == 'true' &&
+      github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    name: Deploy Sanity content
+    env:
+      SANITY_TARGET_DATASETS: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Apply Sanity content migrations
+        run: |
+          node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs || echo "fix-ortoqueratologia-seo.mjs failed"
+          node apps/sanity-studio/scripts/fix-terapia-visual-sections.mjs || echo "fix-terapia-visual-sections.mjs failed"
+        env:
+          SANITY_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish canonical blog posts to Sanity
+        run: pnpm --filter opticasuarez-web run sync:canonical-blog-posts
+        env:
+          SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_TARGET_DATASETS: ${{ env.SANITY_TARGET_DATASETS }}
+
+      - name: Deploy Sanity Studio
+        run: pnpm --filter opticasuarez-sanity-studio run deploy
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_STUDIO_GITHUB_DEPLOY_TOKEN: ${{ secrets.SANITY_STUDIO_GITHUB_DEPLOY_TOKEN }}
+
+  # ---------------------------------------------------------------------------
+  # STEP 2 — Deploy Vercel web infra via Terraform (if needed)
+  # ---------------------------------------------------------------------------
+  infra-deploy:
+    needs: [check-changes, sanity-deploy]
+    if: |
+      always() &&
+      needs.sanity-deploy.result != 'failure' &&
+      needs.check-changes.outputs.infra-changed == 'true'
     runs-on: ubuntu-latest
     name: Infrastructure Deploy
     permissions:
@@ -181,7 +275,7 @@ jobs:
             if [ -n "${TF_VAR_VERCEL_ORG_ID}" ]; then
               TEAM_PARAM="?teamId=${TF_VAR_VERCEL_ORG_ID}"
             fi
-            PROJECT_ID=$(curl -sf -H "Authorization: Bearer ${TF_VAR_VERCEL_TOKEN}" "https://api.vercel.com/v9/projects/${PROJECT_NAME}${TEAM_PARAM}" | jq -r '.id // empty')
+            PROJECT_ID=$(curl -sf -H "Authorization: ******" "https://api.vercel.com/v9/projects/${PROJECT_NAME}${TEAM_PARAM}" | jq -r '.id // empty')
             if [ -n "$PROJECT_ID" ]; then
               echo "Found existing project $PROJECT_ID — importing into state"
               terraform import -var-file="config.${ENVIRONMENT}.json" vercel_project.main "$PROJECT_ID"
@@ -257,16 +351,24 @@ jobs:
           git push origin terraform-state
           echo "State file committed to terraform-state branch"
 
-  deploy-preview:
-    needs: [check-changes, infra-deploy]
+  # ---------------------------------------------------------------------------
+  # STEP 3 — Deploy the Vercel web app as a staged build (if needed)
+  # ---------------------------------------------------------------------------
+  # The deployment is created with `--skip-domain`, so it is never assigned
+  # to the environment's production domains until STEP 5 promotes it. This is
+  # what provides the Vercel "preview" behaviour on PRs and the "staged"
+  # deployment on push.
+  deploy-web:
+    needs: [check-changes, sanity-deploy, infra-deploy]
     if: |
       always() &&
+      needs.sanity-deploy.result != 'failure' &&
       needs.infra-deploy.result != 'failure' &&
       (needs.check-changes.outputs.app-changed == 'true' || needs.check-changes.outputs.infra-changed == 'true')
     runs-on: ubuntu-latest
-    name: Deploy to Vercel Preview
+    name: Deploy web (staged)
     outputs:
-      preview-url: ${{ steps.preview-deploy.outputs.preview-url }}
+      deploy-url: ${{ steps.deploy.outputs.deploy-url }}
     env:
       VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
 
@@ -301,43 +403,37 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Apply Sanity content migrations
-        if: env.SANITY_API_TOKEN
-        run: |
-          node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs || echo "fix-ortoqueratologia-seo.mjs failed"
-          node apps/sanity-studio/scripts/fix-terapia-visual-sections.mjs || echo "fix-terapia-visual-sections.mjs failed"
-        env:
-          SANITY_TOKEN: ${{ env.SANITY_API_TOKEN }}
-        continue-on-error: true
-
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
 
-      - name: Pull Vercel Preview Environment
-        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+      - name: Pull Vercel Environment
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
-      - name: Build Preview Artifacts
-        run: vercel build --token=$VERCEL_TOKEN
+      - name: Build Artifacts
+        run: vercel build --prod --token=$VERCEL_TOKEN
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
           NITRO_PRESET: vercel
 
-      - name: Deploy to Vercel Preview
-        id: preview-deploy
+      - name: Deploy staged build to Vercel
+        id: deploy
         run: |
-          PREVIEW_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)
-          echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
-          echo "Preview URL: $PREVIEW_URL"
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod --skip-domain --token=$VERCEL_TOKEN)
+          echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "Staged deploy URL: $DEPLOY_URL"
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
+  # ---------------------------------------------------------------------------
+  # STEP 4 — Run E2E tests against the staged/preview deployment
+  # ---------------------------------------------------------------------------
   e2e-tests:
-    needs: [deploy-preview]
-    if: always() && needs.deploy-preview.result == 'success'
+    needs: [deploy-web]
+    if: always() && needs.deploy-web.result == 'success'
     runs-on: ubuntu-latest
-    name: E2E Tests on Preview
+    name: E2E Tests
 
     steps:
       - name: Checkout
@@ -354,27 +450,31 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
       - name: Install Playwright Browsers
         run: pnpm --filter opticasuarez-web-e2e exec playwright install --with-deps chromium
 
       - name: Run E2E Tests
         run: pnpm --filter opticasuarez-web-e2e test:e2e
         env:
-          PLAYWRIGHT_BASE_URL: ${{ needs.deploy-preview.outputs.preview-url }}
+          PLAYWRIGHT_BASE_URL: ${{ needs.deploy-web.outputs.deploy-url }}
           PLAYWRIGHT_WORKERS: 2
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           CI: true
 
-  deploy-production:
-    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
+  # ---------------------------------------------------------------------------
+  # STEP 5 — Promote the staged deployment to production (push to main only)
+  # ---------------------------------------------------------------------------
+  promote:
+    needs: [check-changes, infra-deploy, deploy-web, e2e-tests]
     if: |
       always() &&
       github.event_name != 'pull_request' &&
-      needs.deploy-preview.result == 'success' &&
+      needs.deploy-web.result == 'success' &&
       needs.e2e-tests.result == 'success' &&
       needs.infra-deploy.result != 'failure'
     runs-on: ubuntu-latest
-    name: Deploy Production
+    name: Promote staged deployment
     environment: ${{ needs.check-changes.outputs.environment }}
     env:
       VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
@@ -387,7 +487,7 @@ jobs:
         run: |
           npm install -g @dotenvx/dotenvx
           ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-          for key in VERCEL_TOKEN VERCEL_ORG_ID SANITY_API_TOKEN; do
+          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
             value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
@@ -407,30 +507,48 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
 
-      - name: Pull Vercel Production Environment
-        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+      - name: Promote staged deployment to production
+        run: |
+          DEPLOY_URL="${{ needs.deploy-web.outputs.deploy-url }}"
+          echo "Promoting $DEPLOY_URL to production for ${{ needs.check-changes.outputs.environment }}"
+          vercel promote "$DEPLOY_URL" --token=$VERCEL_TOKEN
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
-      - name: Build Production Artifacts
-        run: vercel build --prod --token=$VERCEL_TOKEN
+  # ---------------------------------------------------------------------------
+  # After the development cycle finishes (steps 1-5 green on push to main),
+  # re-dispatch this workflow with environment=production so the SAME five
+  # steps run again for the production environment.
+  # ---------------------------------------------------------------------------
+  run-production:
+    needs: [check-changes, sanity-deploy, infra-deploy, deploy-web, e2e-tests, promote]
+    if: |
+      always() &&
+      github.event_name == 'push' &&
+      needs.check-changes.outputs.environment == 'development' &&
+      needs.deploy-web.result == 'success' &&
+      needs.e2e-tests.result == 'success' &&
+      needs.promote.result == 'success' &&
+      needs.infra-deploy.result != 'failure' &&
+      needs.sanity-deploy.result != 'failure'
+    runs-on: ubuntu-latest
+    name: Run the same steps for production
+    steps:
+      - name: Trigger production deploy
         env:
-          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
-          NITRO_PRESET: vercel
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh workflow run deploy.yml --ref main -f environment=production
+          echo "Dispatched deploy.yml with environment=production"
 
-      - name: Deploy to Vercel Production
-        run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
-        env:
-          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
-
+  # ---------------------------------------------------------------------------
+  # PR gating + summary (pull requests only)
+  # ---------------------------------------------------------------------------
   pr-merge-gate:
-    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
+    needs: [check-changes, sanity-deploy, infra-deploy, deploy-web, e2e-tests]
     if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: PR Merge Gate
@@ -439,8 +557,9 @@ jobs:
       - name: Validate full PR workflow
         run: |
           echo "check-changes: ${{ needs.check-changes.result }}"
+          echo "sanity-deploy: ${{ needs.sanity-deploy.result }}"
           echo "infra-deploy: ${{ needs.infra-deploy.result }}"
-          echo "deploy-preview: ${{ needs.deploy-preview.result }}"
+          echo "deploy-web: ${{ needs.deploy-web.result }}"
           echo "e2e-tests: ${{ needs.e2e-tests.result }}"
 
           if [ "${{ needs.check-changes.result }}" != "success" ]; then
@@ -453,18 +572,18 @@ jobs:
             exit 1
           fi
 
-          if [ "${{ needs.deploy-preview.result }}" != "success" ] && [ "${{ needs.deploy-preview.result }}" != "skipped" ]; then
-            echo "deploy-preview must succeed (or be skipped when no app/infra changes)"
+          if [ "${{ needs.deploy-web.result }}" != "success" ] && [ "${{ needs.deploy-web.result }}" != "skipped" ]; then
+            echo "deploy-web must succeed (or be skipped when no app/infra changes)"
             exit 1
           fi
 
-          if [ "${{ needs.deploy-preview.result }}" = "success" ] && [ "${{ needs.e2e-tests.result }}" != "success" ]; then
-            echo "e2e-tests must succeed when preview deployment succeeds"
+          if [ "${{ needs.deploy-web.result }}" = "success" ] && [ "${{ needs.e2e-tests.result }}" != "success" ]; then
+            echo "e2e-tests must succeed when the staged deployment succeeds"
             exit 1
           fi
 
   pr-workflow-summary:
-    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests]
+    needs: [check-changes, sanity-deploy, infra-deploy, deploy-web, e2e-tests]
     if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Update PR with Workflow Summary
@@ -476,10 +595,11 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |-
+            const sanityStatus = '${{ needs.sanity-deploy.result }}';
             const infraStatus = '${{ needs.infra-deploy.result }}';
-            const previewStatus = '${{ needs.deploy-preview.result }}';
+            const deployStatus = '${{ needs.deploy-web.result }}';
             const e2eStatus = '${{ needs.e2e-tests.result }}';
-            const previewUrl = '${{ needs.deploy-preview.outputs.preview-url }}';
+            const deployUrl = '${{ needs.deploy-web.outputs.deploy-url }}';
 
             const statusEmoji = {
               success: '✅',
@@ -494,8 +614,8 @@ jobs:
               return `| **${label}** | ${emoji} ${statusText} | ${details} |`;
             };
 
-            const previewDetails = previewStatus === 'success' && previewUrl
-              ? `[Preview](${previewUrl})`
+            const deployDetails = deployStatus === 'success' && deployUrl
+              ? `[Preview](${deployUrl})`
               : 'No preview URL available';
 
             const summaryLines = [
@@ -503,8 +623,9 @@ jobs:
               '',
               '| Step | Status | Details |',
               '|------|--------|---------|',
+              getSummaryRow('Sanity Content', sanityStatus, 'Migrations / canonical content'),
               getSummaryRow('Infrastructure Changes', infraStatus, 'Terraform plan/apply'),
-              getSummaryRow('Deploy to Preview', previewStatus, previewDetails),
+              getSummaryRow('Deploy Web (staged)', deployStatus, deployDetails),
               getSummaryRow('E2E Tests', e2eStatus, 'Playwright tests against preview'),
               '',
               '---'
@@ -548,42 +669,3 @@ jobs:
               pull_number: context.issue.number,
               body: newBody
             });
-
-  promote-to-production:
-    # After the development cycle finishes successfully (infra applied,
-    # preview deployed, E2E green, dev-prod-alias promoted), kick off the
-    # same workflow targeting `production` so the prod project goes through
-    # an identical pipeline. Also trigger Sanity Studio if it changed in
-    # this same commit (so its deploy is gated on web's dev E2E).
-    needs: [check-changes, infra-deploy, deploy-preview, e2e-tests, deploy-production]
-    if: |
-      always() &&
-      github.event_name == 'push' &&
-      needs.check-changes.outputs.environment == 'development' &&
-      needs.e2e-tests.result == 'success' &&
-      needs.deploy-production.result == 'success'
-    runs-on: ubuntu-latest
-    name: Promote to Production
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Trigger web production deploy
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          gh workflow run web-deploy.yml --ref main -f environment=production
-          echo "Dispatched web-deploy.yml with environment=production"
-
-      - name: Trigger Sanity Studio deploy if Sanity changed
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          if git diff --name-only HEAD~1 -- apps/sanity-studio/ | grep -q .; then
-            gh workflow run sanity-studio-deploy.yml --ref main
-            echo "Dispatched sanity-studio-deploy.yml (sanity-studio changed in this commit)"
-          else
-            echo "No apps/sanity-studio/ changes in this commit — skipping Sanity dispatch"
-          fi
