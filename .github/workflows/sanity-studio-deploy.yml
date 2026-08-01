@@ -36,6 +36,9 @@ on:
         default: production
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   publish-canonical-blog-posts:
     runs-on: ubuntu-latest
