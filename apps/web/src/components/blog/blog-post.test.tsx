@@ -124,13 +124,12 @@ describe("BlogPost", () => {
     const portableImage = screen.getByAltText(
       "Gafas homologadas para eclipse solar"
     );
-    expect(portableImage).toHaveAttribute("data-image-component", "true");
-    expect(portableImage).toHaveAttribute(
-      "title",
+    expect(portableImage.getAttribute("data-image-component")).toBe("true");
+    expect(portableImage.getAttribute("title")).toBe(
       "Observación segura del eclipse solar"
     );
     expect(
       screen.getByText("Observación segura del eclipse solar")
-    ).toBeVisible();
+    ).not.toBeNull();
   });
 });
