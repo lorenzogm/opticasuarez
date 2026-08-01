@@ -14,7 +14,7 @@
  * matching its title) before inserting it.
  *
  * Usage:
- *   SANITY_TOKEN=<token> node scripts/fix-terapia-visual-sections.mjs
+ *   SANITY_TOKEN=<token> node apps/sanity-studio/scripts/fix-terapia-visual-sections.mjs
  */
 
 import { readFileSync } from "node:fs";
@@ -164,9 +164,7 @@ async function main() {
   if (hasSymptoms) {
     console.log("\n✅ Symptoms section already present — skipping.");
   } else {
-    console.log(
-      `\n➕ Adding symptoms section: "${SYMPTOMS_TITLE}"...`
-    );
+    console.log(`\n➕ Adding symptoms section: "${SYMPTOMS_TITLE}"...`);
     // Insert after the benefits sectionList (the first sectionList in the page)
     const benefitsIdx = sections.findIndex((s) => s._type === "sectionList");
     const insertAfter = benefitsIdx !== -1 ? benefitsIdx : sections.length - 1;
@@ -212,7 +210,7 @@ async function main() {
       console.log(
         `  ✓ Title: "${CONDITIONS_OLD_TITLE}" → "${CONDITIONS_NEW_TITLE}"`
       );
-      console.log(`  ✓ Items: updated to 4 detailed SEO-rich blocks`);
+      console.log("  ✓ Items: updated to 4 detailed SEO-rich blocks");
       changed = true;
     }
   }
@@ -226,7 +224,9 @@ async function main() {
   if (hasInstallations) {
     console.log("\n✅ Installations section already present — skipping.");
   } else {
-    console.log(`\n➕ Adding installations section: "${INSTALLATIONS_TITLE}"...`);
+    console.log(
+      `\n➕ Adding installations section: "${INSTALLATIONS_TITLE}"...`
+    );
     // Insert after conditions section (find updated conditions index)
     const condIdx = sections.findIndex(
       (s) =>
