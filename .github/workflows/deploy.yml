@@ -79,6 +79,7 @@ jobs:
           if git diff --name-only HEAD~1 -- \
             apps/sanity-studio/ \
             ":(glob)apps/web/scripts/create-blog-*.ts" \
+            apps/web/scripts/verify-blog-posts.ts \
             apps/web/src/lib/blog-posts/ \
             apps/web/public/images/blog/ | grep -q .; then
             echo "sanity-changed=true" >> $GITHUB_OUTPUT
@@ -149,6 +150,12 @@ jobs:
 
       - name: Publish canonical blog posts to Sanity
         run: pnpm --filter opticasuarez-web run sync:canonical-blog-posts
+        env:
+          SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_TARGET_DATASETS: ${{ env.SANITY_TARGET_DATASETS }}
+
+      - name: Verify canonical blog posts are published
+        run: pnpm --filter opticasuarez-web run verify:canonical-blog-posts
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
           SANITY_TARGET_DATASETS: ${{ env.SANITY_TARGET_DATASETS }}
