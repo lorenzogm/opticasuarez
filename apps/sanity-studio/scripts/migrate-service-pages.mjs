@@ -3,7 +3,7 @@
  * using the page builder architecture (sections[]).
  *
  * Usage:
- *   SANITY_TOKEN=<token> node scripts/migrate-service-pages.mjs
+ *   SANITY_EDITOR_TOKEN=<token> node scripts/migrate-service-pages.mjs
  *
  * Requires a Sanity write token (create at https://www.sanity.io/manage/project/2a24wmex/api#tokens).
  */
@@ -16,7 +16,7 @@ const PROJECT_ID = "2a24wmex";
 const DATASET = "production";
 
 // Try env var first, then fall back to CLI auth token
-let TOKEN = process.env.SANITY_TOKEN;
+let TOKEN = process.env.SANITY_EDITOR_TOKEN;
 if (!TOKEN) {
   try {
     const configPath = resolve(
@@ -37,7 +37,7 @@ if (!TOKEN) {
 
 if (!TOKEN) {
   console.error(
-    "Missing SANITY_TOKEN. Create a write token at:\nhttps://www.sanity.io/manage/project/2a24wmex/api#tokens"
+    "Missing SANITY_EDITOR_TOKEN. Create a write token at:\nhttps://www.sanity.io/manage/project/2a24wmex/api#tokens"
   );
   process.exit(1);
 }

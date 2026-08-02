@@ -3,7 +3,7 @@
  *
  * Usage: cd apps/web && npx tsx scripts/migrate-to-sanity.ts
  *
- * Requires SANITY_API_TOKEN env var with write access.
+ * Requires SANITY_EDITOR_TOKEN env var with write access.
  */
 
 import * as fs from "node:fs";
@@ -13,11 +13,11 @@ import matter from "gray-matter";
 
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
-const token = process.env.SANITY_API_TOKEN;
+const token = process.env.SANITY_EDITOR_TOKEN;
 
 if (!token) {
   console.error(
-    "Error: SANITY_API_TOKEN is required. Create one at https://www.sanity.io/manage"
+    "Error: SANITY_EDITOR_TOKEN is required. Create one at https://www.sanity.io/manage"
   );
   process.exit(1);
 }

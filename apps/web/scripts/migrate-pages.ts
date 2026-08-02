@@ -4,7 +4,7 @@
  * Usage: cd apps/web && npx tsx scripts/migrate-pages.ts
  *
  * Prerequisites:
- * - SANITY_API_TOKEN env var with write access
+ * - SANITY_EDITOR_TOKEN env var with write access
  * - Legacy data must exist in the Sanity dataset
  *
  * This script is idempotent: it will skip documents that already exist.
@@ -14,10 +14,10 @@ import { createClient } from "@sanity/client";
 
 const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
-const token = process.env.SANITY_API_TOKEN;
+const token = process.env.SANITY_EDITOR_TOKEN;
 
 if (!token) {
-  console.error("Error: SANITY_API_TOKEN is required.");
+  console.error("Error: SANITY_EDITOR_TOKEN is required.");
   process.exit(1);
 }
 

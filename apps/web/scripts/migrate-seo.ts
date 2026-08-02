@@ -7,7 +7,7 @@
  *
  * Usage: cd apps/web && npx tsx scripts/migrate-seo.ts
  *
- * Requires SANITY_API_TOKEN env var with write access.
+ * Requires SANITY_EDITOR_TOKEN env var with write access.
  */
 
 import * as fs from "node:fs";
@@ -19,7 +19,7 @@ const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
 
 function resolveToken(): string {
-  if (process.env.SANITY_API_TOKEN) return process.env.SANITY_API_TOKEN;
+  if (process.env.SANITY_EDITOR_TOKEN) return process.env.SANITY_EDITOR_TOKEN;
   // Fall back to Sanity CLI stored auth token
   const configPath = path.join(
     os.homedir(),
@@ -34,7 +34,7 @@ function resolveToken(): string {
     // ignore
   }
   console.error(
-    "Error: SANITY_API_TOKEN is required. Set it or run `npx sanity login`."
+    "Error: SANITY_EDITOR_TOKEN is required. Set it or run `npx sanity login`."
   );
   process.exit(1);
 }

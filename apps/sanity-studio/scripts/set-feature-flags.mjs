@@ -2,7 +2,7 @@
  * Sets feature flags on the siteSettings document.
  *
  * Usage:
- *   SANITY_TOKEN=<token> node scripts/set-feature-flags.mjs
+ *   SANITY_EDITOR_TOKEN=<token> node scripts/set-feature-flags.mjs
  *
  * Or if you have the Sanity CLI auth token configured, it will use that automatically.
  */
@@ -14,7 +14,7 @@ import { createClient } from "@sanity/client";
 const PROJECT_ID = "2a24wmex";
 const DATASET = "production";
 
-let TOKEN = process.env.SANITY_TOKEN;
+let TOKEN = process.env.SANITY_EDITOR_TOKEN;
 if (!TOKEN) {
   try {
     const configPath = resolve(
@@ -34,7 +34,7 @@ if (!TOKEN) {
 }
 
 if (!TOKEN) {
-  console.error("No Sanity token found. Set SANITY_TOKEN env var.");
+  console.error("No Sanity token found. Set SANITY_EDITOR_TOKEN env var.");
   process.exit(1);
 }
 
