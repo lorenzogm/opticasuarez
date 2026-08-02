@@ -6,7 +6,7 @@
  * Uploads local .webp images from public/images/blog and creates the blog post in Sanity.
  * Defaults to publishing in production and development datasets.
  * You can override with SANITY_DATASET or SANITY_TARGET_DATASETS=production,development.
- * Requires Sanity write access (SANITY_API_TOKEN env var or Sanity CLI login).
+ * Requires Sanity write access (SANITY_EDITOR_TOKEN env var or Sanity CLI login).
  */
 
 import * as fs from "node:fs";
@@ -23,7 +23,7 @@ const targetDatasets = resolveTargetDatasets({
 });
 
 function resolveToken(): string {
-  if (process.env.SANITY_API_TOKEN) return process.env.SANITY_API_TOKEN;
+  if (process.env.SANITY_EDITOR_TOKEN) return process.env.SANITY_EDITOR_TOKEN;
   const configPath = path.join(
     os.homedir(),
     ".config",
@@ -37,7 +37,7 @@ function resolveToken(): string {
     // ignore
   }
   console.error(
-    "Error: SANITY_API_TOKEN is required. Set it or run `npx sanity login`."
+    "Error: SANITY_EDITOR_TOKEN is required. Set it or run `npx sanity login`."
   );
   process.exit(1);
 }

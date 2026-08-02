@@ -3,7 +3,7 @@
  *
  * Usage: cd apps/web && npx tsx scripts/seed-shop.ts
  *
- * Requires Sanity write access (SANITY_API_TOKEN env var or Sanity CLI login).
+ * Requires Sanity write access (SANITY_EDITOR_TOKEN env var or Sanity CLI login).
  * Idempotent: skips documents that already exist.
  */
 
@@ -16,7 +16,7 @@ const projectId = process.env.SANITY_PROJECT_ID || "2a24wmex";
 const dataset = process.env.SANITY_DATASET || "production";
 
 function resolveToken(): string {
-  if (process.env.SANITY_API_TOKEN) return process.env.SANITY_API_TOKEN;
+  if (process.env.SANITY_EDITOR_TOKEN) return process.env.SANITY_EDITOR_TOKEN;
   const configPath = path.join(
     os.homedir(),
     ".config",
@@ -30,7 +30,7 @@ function resolveToken(): string {
     // ignore
   }
   console.error(
-    "Error: SANITY_API_TOKEN is required. Set it or run `npx sanity login`."
+    "Error: SANITY_EDITOR_TOKEN is required. Set it or run `npx sanity login`."
   );
   process.exit(1);
 }

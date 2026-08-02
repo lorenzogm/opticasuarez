@@ -7,7 +7,7 @@
  * Defaults to publishing in production and development datasets.
  * You can override with SANITY_DATASET or SANITY_TARGET_DATASETS=production,development.
  * Set SANITY_CREATE_DRAFT=true to create/update the post as a draft document.
- * Requires Sanity write access (SANITY_API_TOKEN env var or Sanity CLI login).
+ * Requires Sanity write access (SANITY_EDITOR_TOKEN env var or Sanity CLI login).
  */
 
 import * as fs from "node:fs";
@@ -26,7 +26,7 @@ const targetDatasets = resolveTargetDatasets({
 const createDraft = process.env.SANITY_CREATE_DRAFT === "true";
 
 function resolveToken(): string {
-  if (process.env.SANITY_API_TOKEN) return process.env.SANITY_API_TOKEN;
+  if (process.env.SANITY_EDITOR_TOKEN) return process.env.SANITY_EDITOR_TOKEN;
   const configPath = path.join(
     os.homedir(),
     ".config",
@@ -40,7 +40,7 @@ function resolveToken(): string {
     // ignore
   }
   console.error(
-    "Error: SANITY_API_TOKEN is required. Set it or run `npx sanity login`."
+    "Error: SANITY_EDITOR_TOKEN is required. Set it or run `npx sanity login`."
   );
   process.exit(1);
 }

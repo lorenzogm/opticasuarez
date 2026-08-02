@@ -145,25 +145,25 @@ jobs:
           node apps/sanity-studio/scripts/fix-ortoqueratologia-seo.mjs || echo "fix-ortoqueratologia-seo.mjs failed"
           node apps/sanity-studio/scripts/fix-terapia-visual-sections.mjs || echo "fix-terapia-visual-sections.mjs failed"
         env:
-          SANITY_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_EDITOR_TOKEN: ${{ secrets.SANITY_EDITOR_TOKEN }}
         continue-on-error: true
 
       - name: Publish canonical blog posts to Sanity
         run: pnpm --filter opticasuarez-web run sync:canonical-blog-posts
         env:
-          SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_EDITOR_TOKEN: ${{ secrets.SANITY_EDITOR_TOKEN }}
           SANITY_TARGET_DATASETS: ${{ env.SANITY_TARGET_DATASETS }}
 
       - name: Verify canonical blog posts are published
         run: pnpm --filter opticasuarez-web run verify:canonical-blog-posts
         env:
-          SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_EDITOR_TOKEN: ${{ secrets.SANITY_EDITOR_TOKEN }}
           SANITY_TARGET_DATASETS: ${{ env.SANITY_TARGET_DATASETS }}
 
       - name: Deploy Sanity Studio
         run: pnpm --filter opticasuarez-sanity-studio run deploy
         env:
-          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_DEPLOY_STUDIO_TOKEN }}
           SANITY_STUDIO_GITHUB_DEPLOY_TOKEN: ${{ secrets.SANITY_STUDIO_GITHUB_DEPLOY_TOKEN }}
 
   # ---------------------------------------------------------------------------

@@ -11,7 +11,7 @@
  * No Sanity changes are needed for that feature.
  *
  * Usage:
- *   SANITY_TOKEN=<token> node scripts/fix-ortoqueratologia-seo.mjs
+ *   SANITY_EDITOR_TOKEN=<token> node scripts/fix-ortoqueratologia-seo.mjs
  */
 
 import { readFileSync } from "node:fs";
@@ -21,7 +21,7 @@ import { createClient } from "@sanity/client";
 const PROJECT_ID = "2a24wmex";
 const DATASET = "production";
 
-let TOKEN = process.env.SANITY_TOKEN;
+let TOKEN = process.env.SANITY_EDITOR_TOKEN;
 if (!TOKEN) {
   try {
     const configPath = resolve(
@@ -42,7 +42,7 @@ if (!TOKEN) {
 
 if (!TOKEN) {
   console.error(
-    "Missing SANITY_TOKEN. Create a write token at:\nhttps://www.sanity.io/manage/project/2a24wmex/api#tokens"
+    "Missing SANITY_EDITOR_TOKEN. Create a write token at:\nhttps://www.sanity.io/manage/project/2a24wmex/api#tokens"
   );
   process.exit(1);
 }
