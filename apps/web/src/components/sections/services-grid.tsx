@@ -18,6 +18,9 @@ export default function ServicesGrid({ items }: ServicesGridProps) {
   return (
     <section className="bg-white px-4 py-16 sm:px-6">
       <div className="container mx-auto max-w-7xl">
+        <h2 className="mb-8 text-center font-bold text-3xl text-gray-900 sm:text-4xl">
+          Servicios de optometría en Jaén
+        </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:grid-cols-3">
           {items.map((item, index) => (
             <article className="group" key={index}>

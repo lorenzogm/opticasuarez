@@ -39,16 +39,8 @@ export default function SiteFooter() {
           </section>
 
           {contactContent.locations.locations.map((location) => (
-            <section
-              aria-labelledby={`footer-${location.name}`}
-              key={location.name}
-            >
-              <h2
-                className="font-semibold text-xl"
-                id={`footer-${location.name}`}
-              >
-                {location.name}
-              </h2>
+            <section aria-label={location.name} key={location.name}>
+              <p className="font-semibold text-xl">{location.name}</p>
               <address className="mt-4 not-italic">
                 <p className="text-gray-300 text-sm">
                   <a
