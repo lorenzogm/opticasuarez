@@ -11,6 +11,7 @@ test.describe("Test de forias", () => {
         name: "Test de forias y alineamiento ocular",
       })
     ).toBeVisible();
+    await expect(page).toHaveTitle(/Test de forias y alineamiento ocular/);
     await expect(
       page.getByRole("heading", { name: "¿Qué es una foria?" })
     ).toBeVisible();
@@ -27,6 +28,11 @@ test.describe("Test de forias", () => {
     await page
       .getByRole("button", { name: "No tengo gafas de colores" })
       .click();
+    await expect(
+      page.getByRole("heading", {
+        name: "¿Sientes cansancio o tensión en los ojos al leer o usar el móvil?",
+      })
+    ).toBeFocused();
 
     for (let question = 0; question < 10; question += 1) {
       await page.getByRole("button", { name: "Casi siempre" }).click();
@@ -58,10 +64,16 @@ test.describe("Test de forias", () => {
     }
 
     await expect(
-      page.getByRole("heading", { name: "Prueba completada" })
+      page.getByRole("heading", { name: "¿Te ha resultado difícil?" })
+    ).toBeVisible();
+    await page
+      .getByRole("button", { name: "Sí, me ha costado o no he podido" })
+      .click();
+    await expect(
+      page.getByRole("heading", { name: "Conviene valorar una revisión" })
     ).toBeVisible();
     await expect(
-      page.getByText(/no mide ni diagnostica una foria/)
+      page.getByText(/esta prueba no permite saber la causa/)
     ).toBeVisible();
   });
 });

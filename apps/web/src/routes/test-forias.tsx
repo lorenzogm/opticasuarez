@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { buildHeadFromSanitySeo } from "~/lib/seo";
 
 const questions = [
@@ -89,8 +89,10 @@ function TestForiasPage() {
     | "symptom-result"
     | "alignment-prep"
     | "alignment"
+    | "alignment-check"
     | "alignment-result"
   >("intro");
+  const testHeadingRef = useRef<HTMLHeadingElement>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [symptomScore, setSymptomScore] = useState(0);
   const [reportedEyeTurn, setReportedEyeTurn] = useState(false);
@@ -103,6 +105,12 @@ function TestForiasPage() {
   });
   const [unableToSeeFigures, setUnableToSeeFigures] = useState(false);
   const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    if (screen === "questions" || screen === "convergence") {
+      testHeadingRef.current?.focus();
+    }
+  }, [questionIndex, screen]);
 
   function beginSymptoms() {
     setQuestionIndex(0);
@@ -148,18 +156,21 @@ function TestForiasPage() {
   }
 
   function updateCross(clientX: number, clientY: number, svg: SVGSVGElement) {
-    const bounds = svg.getBoundingClientRect();
+    const matrix = svg.getScreenCTM();
+
+    if (!matrix) {
+      return;
+    }
+
+    const point = new DOMPoint(clientX, clientY).matrixTransform(
+      matrix.inverse()
+    );
+
     setAlignmentRound((current) => ({
       ...current,
       cross: {
-        x: Math.max(
-          0,
-          Math.min(1000, ((clientX - bounds.left) / bounds.width) * 1000)
-        ),
-        y: Math.max(
-          0,
-          Math.min(600, ((clientY - bounds.top) / bounds.height) * 600)
-        ),
+        x: Math.max(0, Math.min(1000, point.x)),
+        y: Math.max(0, Math.min(600, point.y)),
       },
     }));
   }
@@ -188,7 +199,7 @@ function TestForiasPage() {
 
   function nextAlignmentRound() {
     if (roundNumber === 5) {
-      finishAlignment();
+      setScreen("alignment-check");
       return;
     }
 
@@ -294,7 +305,11 @@ function TestForiasPage() {
               <p className="mt-4 text-gray-600 text-sm">
                 Pregunta {questionIndex + 1} de {questions.length}
               </p>
-              <h2 className="mt-3 font-semibold text-gray-900 text-xl">
+              <h2
+                className="mt-3 font-semibold text-gray-900 text-xl"
+                ref={testHeadingRef}
+                tabIndex={-1}
+              >
                 {questions[questionIndex]}
               </h2>
               <div className="mt-5 space-y-2">
@@ -315,7 +330,11 @@ function TestForiasPage() {
           {screen === "convergence" && (
             <div>
               <Progress value={95} />
-              <h2 className="mt-4 font-semibold text-gray-900 text-xl">
+              <h2
+                className="mt-4 font-semibold text-gray-900 text-xl"
+                ref={testHeadingRef}
+                tabIndex={-1}
+              >
                 Prueba de convergencia
               </h2>
               <ol className="mt-3 list-inside list-decimal space-y-2 text-gray-700">
@@ -510,6 +529,34 @@ function TestForiasPage() {
             </div>
           )}
 
+          {screen === "alignment-check" && (
+            <div>
+              <h2 className="font-semibold text-gray-900 text-xl">
+                ¿Te ha resultado difícil?
+              </h2>
+              <p className="mt-3 text-gray-700">
+                Según lo que has notado durante la prueba, ¿te ha costado ver
+                las dos figuras a la vez o unir la cruz con el aro?
+              </p>
+              <div className="mt-5 space-y-2">
+                <button
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-left text-gray-900 hover:bg-gray-50"
+                  onClick={() => finishAlignment(true)}
+                  type="button"
+                >
+                  Sí, me ha costado o no he podido
+                </button>
+                <button
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-left text-gray-900 hover:bg-gray-50"
+                  onClick={() => finishAlignment(false)}
+                  type="button"
+                >
+                  No, he podido hacerlo con facilidad
+                </button>
+              </div>
+            </div>
+          )}
+
           {screen === "alignment-result" && (
             <div aria-live="polite">
               <h2 className="font-semibold text-2xl text-gray-900">
@@ -519,8 +566,8 @@ function TestForiasPage() {
               </h2>
               <p className="mt-3 text-gray-700">
                 {unableToSeeFigures
-                  ? "Si no consigues percibir las dos figuras a la vez, coméntalo con un profesional. Esta prueba por sí sola no permite saber la causa."
-                  : "Has completado la prueba. La posición que has marcado no mide ni diagnostica una foria; una exploración profesional es necesaria para valorar la coordinación ocular."}
+                  ? "Indicaste que te costó ver o alinear las figuras. Puede ser útil comentarlo con un profesional; esta prueba no permite saber la causa."
+                  : "Indicaste que pudiste completar el ejercicio con facilidad. Eso no descarta dificultades: solo una exploración profesional puede valorar la coordinación ocular."}
               </p>
               {unableToSeeFigures && <AppointmentLink />}
               <button
