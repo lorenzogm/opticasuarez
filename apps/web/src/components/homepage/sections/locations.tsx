@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import Image from "~/components/image";
 
 interface LocationSchedule {
@@ -166,12 +165,12 @@ export default function Locations({ title, locations }: LocationsProps) {
                           EMAIL
                         </h3>
                       </div>
-                      <Link
+                      <a
                         className="font-medium text-blue-600 text-lg transition-colors duration-200 hover:text-blue-800"
-                        to={location.contactUrl}
+                        href={`mailto:${location.email}`}
                       >
                         {location.email}
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
