@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TestForiasRouteImport } from './routes/test-forias'
 import { Route as CitaRouteImport } from './routes/cita'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CentroRouteImport } from './routes/centro'
@@ -32,6 +33,11 @@ import { Route as CheckoutEnvioRouteImport } from './routes/checkout/envio'
 import { Route as CheckoutConfirmacionRouteImport } from './routes/checkout/confirmacion'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
+const TestForiasRoute = TestForiasRouteImport.update({
+  id: '/test-forias',
+  path: '/test-forias',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CitaRoute = CitaRouteImport.update({
   id: '/cita',
   path: '/cita',
@@ -152,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/centro': typeof CentroRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/cita': typeof CitaRouteWithChildren
+  '/test-forias': typeof TestForiasRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/bulevar': typeof BulevarRoute
   '/carrito': typeof CarritoRoute
   '/centro': typeof CentroRoute
+  '/test-forias': typeof TestForiasRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/centro': typeof CentroRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/cita': typeof CitaRouteWithChildren
+  '/test-forias': typeof TestForiasRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -224,6 +233,7 @@ export interface FileRouteTypes {
     | '/centro'
     | '/checkout'
     | '/cita'
+    | '/test-forias'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
     | '/bulevar'
     | '/carrito'
     | '/centro'
+    | '/test-forias'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -269,6 +280,7 @@ export interface FileRouteTypes {
     | '/centro'
     | '/checkout'
     | '/cita'
+    | '/test-forias'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -294,12 +306,20 @@ export interface RootRouteChildren {
   CentroRoute: typeof CentroRoute
   CheckoutRoute: typeof CheckoutRouteWithChildren
   CitaRoute: typeof CitaRouteWithChildren
+  TestForiasRoute: typeof TestForiasRoute
   TiendaSlugRoute: typeof TiendaSlugRoute
   TiendaIndexRoute: typeof TiendaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/test-forias': {
+      id: '/test-forias'
+      path: '/test-forias'
+      fullPath: '/test-forias'
+      preLoaderRoute: typeof TestForiasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cita': {
       id: '/cita'
       path: '/cita'
@@ -516,6 +536,7 @@ const rootRouteChildren: RootRouteChildren = {
   CentroRoute: CentroRoute,
   CheckoutRoute: CheckoutRouteWithChildren,
   CitaRoute: CitaRouteWithChildren,
+  TestForiasRoute: TestForiasRoute,
   TiendaSlugRoute: TiendaSlugRoute,
   TiendaIndexRoute: TiendaIndexRoute,
 }
