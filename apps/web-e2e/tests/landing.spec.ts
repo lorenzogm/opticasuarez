@@ -25,13 +25,13 @@ test.describe("Landing Page", () => {
   // TC-LAND-03
   test("services grid shows service cards", async ({ page }) => {
     await expect(
-      page.getByRole("heading", { name: "VISIÓN BINOCULAR" })
+      page.getByRole("heading", { name: "VISIÓN BINOCULAR", exact: true })
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "TERAPIA VISUAL" })
+      page.getByRole("heading", { name: "TERAPIA VISUAL", exact: true })
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "CONTACTOLOGÍA" })
+      page.getByRole("heading", { name: "CONTACTOLOGÍA", exact: true })
     ).toBeVisible();
   });
 
