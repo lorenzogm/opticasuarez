@@ -49,6 +49,9 @@ describe("NearVisionTest", () => {
       target: { value: "47" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "Ajusta el tamaño de la tarjeta bancaria"
+    );
     fireEvent.click(screen.getByRole("button", { name: "Empezar" }));
 
     for (const eye of ["derecho", "izquierdo"]) {
@@ -83,5 +86,24 @@ describe("NearVisionTest", () => {
     expect(
       screen.getByRole("link", { name: "Contacta con nosotros" })
     ).toHaveAttribute("href", "/contacto");
+  });
+
+  it("reports acuity below the first level when neither eye identifies the symbol", () => {
+    vi.spyOn(Math, "random").mockReturnValue(0);
+    render(<NearVisionTest />);
+
+    fireEvent.change(screen.getByLabelText("Tu edad"), {
+      target: { value: "47" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
+    fireEvent.click(screen.getByRole("button", { name: "Empezar" }));
+    fireEvent.click(screen.getByRole("button", { name: "Ya estoy listo" }));
+    fireEvent.click(screen.getByRole("button", { name: "No la veo" }));
+    fireEvent.click(screen.getByRole("button", { name: "No la veo" }));
+    fireEvent.click(screen.getByRole("button", { name: "Ya estoy listo" }));
+    fireEvent.click(screen.getByRole("button", { name: "No la veo" }));
+    fireEvent.click(screen.getByRole("button", { name: "No la veo" }));
+
+    expect(screen.getAllByText("Menos de 0,1")).toHaveLength(2);
   });
 });

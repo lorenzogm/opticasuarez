@@ -424,7 +424,7 @@ describe("breadcrumb builders", () => {
 });
 
 describe("buildSitemapRoutes", () => {
-  const staticRoutes = ["/", "/contacto", "/blog"];
+  const staticRoutes = ["/", "/contacto", "/blog", "/test-vision-cerca"];
   const pages = [{ path: "planveo" }, { path: "/quienes-somos" }];
   const blogSlugs = [{ slug: "control-miopia" }];
   const productSlugs = [{ slug: "gafa-premium" }];
@@ -442,6 +442,7 @@ describe("buildSitemapRoutes", () => {
       "/",
       "/contacto",
       "/blog",
+      "/test-vision-cerca",
       "/planveo",
       "/quienes-somos",
       "/blog/control-miopia",
@@ -461,6 +462,7 @@ describe("buildSitemapRoutes", () => {
       "/",
       "/contacto",
       "/blog",
+      "/test-vision-cerca",
       "/planveo",
       "/quienes-somos",
       "/blog/control-miopia",

@@ -185,6 +185,16 @@ export default function NearVisionTest() {
 
   const worstResult = Math.min(results[0] ?? 0, results[1] ?? 0);
   const generalResult = expectedResult(worstResult);
+  const stageAnnouncement =
+    screen === "calibration"
+      ? "Ajusta el tamaño de la tarjeta bancaria y coloca la pantalla a 40 centímetros."
+      : screen === "cover"
+        ? `Tapa el ojo ${eye === 0 ? "izquierdo" : "derecho"} para comprobar el ojo ${EYES[eye]}.`
+        : screen === "test"
+          ? `Test del ojo ${EYES[eye]}, paso ${level + 1} de ${LEVELS.length}.`
+          : screen === "results"
+            ? "Test completado. Consulta el resultado orientativo de cada ojo."
+            : "";
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
@@ -203,6 +213,10 @@ export default function NearVisionTest() {
           causa ni sustituye una revisión visual completa.
         </p>
       </header>
+
+      <p aria-atomic="true" className="sr-only" role="status">
+        {stageAnnouncement}
+      </p>
 
       <div className="mx-auto max-w-xl rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8">
         {screen === "intro" && (
@@ -400,8 +414,12 @@ export default function NearVisionTest() {
               Tu resultado orientativo
             </h2>
             {results.map((result, index) => {
-              const status = expectedResult(result ?? 0.05);
-              const decimal = (result ?? 0.05).toString().replace(".", ",");
+              const value = result ?? 0.05;
+              const status = expectedResult(value);
+              const decimal =
+                value < 0.1
+                  ? "Menos de 0,1"
+                  : value.toString().replace(".", ",");
               return (
                 <div
                   className="mb-3 rounded-lg border border-gray-200 p-4"
