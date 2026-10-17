@@ -10,10 +10,8 @@ describe("SiteFooter", () => {
   it("shows both stores with their contact links", () => {
     render(<SiteFooter />);
 
-    expect(
-      screen.getByRole("heading", { name: "Óptica Bulevar" })
-    ).toBeTruthy();
-    expect(screen.getByRole("heading", { name: "Óptica Centro" })).toBeTruthy();
+    expect(screen.getByRole("region", { name: "Óptica Bulevar" })).toBeTruthy();
+    expect(screen.getByRole("region", { name: "Óptica Centro" })).toBeTruthy();
 
     expect(
       screen.getByRole("link", { name: "953-093-062" }).getAttribute("href")

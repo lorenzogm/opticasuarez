@@ -26,9 +26,9 @@ export default function VideoAbout({
 
           {/* Content */}
           <div className="space-y-6">
-            <h1 className="font-bold text-3xl text-gray-900 sm:text-4xl">
+            <h2 className="font-bold text-3xl text-gray-900 sm:text-4xl">
               {title}
-            </h1>
+            </h2>
             <p className="text-gray-700 text-lg leading-relaxed">
               {description}
             </p>
