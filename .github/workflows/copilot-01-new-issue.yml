@@ -1,0 +1,69 @@
+# Auto-assign every newly opened issue to the GitHub Copilot coding agent
+# so it immediately starts working on it.
+name: copilot-01-new-issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  assign-to-copilot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to Copilot coding agent
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          OWNER="${REPO%/*}"
+          NAME="${REPO#*/}"
+
+          # Find the Copilot coding agent among the actors that can be assigned.
+          COPILOT_ID=$(gh api graphql -f query='
+            query($owner: String!, $name: String!) {
+              repository(owner: $owner, name: $name) {
+                suggestedActors(capabilities: [CAN_BE_ASSIGNED], first: 100) {
+                  nodes {
+                    login
+                    __typename
+                    ... on Bot { id }
+                    ... on User { id }
+                  }
+                }
+              }
+            }' -f owner="$OWNER" -f name="$NAME" \
+            --jq '.data.repository.suggestedActors.nodes[]
+                  | select(.login == "copilot-swe-agent" or .login == "Copilot")
+                  | .id' | head -n1)
+
+          if [ -z "$COPILOT_ID" ]; then
+            echo "::error::Copilot coding agent is not available as an assignee for this repository."
+            echo "Enable the Copilot coding agent in repository settings, then re-run."
+            exit 1
+          fi
+
+          # Resolve the issue node ID.
+          ISSUE_ID=$(gh api graphql -f query='
+            query($owner: String!, $name: String!, $number: Int!) {
+              repository(owner: $owner, name: $name) {
+                issue(number: $number) { id }
+              }
+            }' -f owner="$OWNER" -f name="$NAME" -F number="$ISSUE_NUMBER" \
+            --jq '.data.repository.issue.id')
+
+          # Assign the Copilot coding agent to the issue.
+          gh api graphql -f query='
+            mutation($assignableId: ID!, $actorIds: [ID!]!) {
+              replaceActorsForAssignable(input: {assignableId: $assignableId, actorIds: $actorIds}) {
+                assignable {
+                  ... on Issue { number }
+                }
+              }
+            }' -f assignableId="$ISSUE_ID" -f actorIds="$COPILOT_ID"
+
+          echo "Assigned issue #$ISSUE_NUMBER to the Copilot coding agent."

@@ -10,16 +10,11 @@ locals {
     SANITY_PREVIEW_SECRET = var.SANITY_PREVIEW_SECRET
     GITHUB_DEPLOY_TOKEN   = var.GITHUB_DEPLOY_TOKEN
   }
-  environments = {
-    "development" = "dev"
-    "production"  = "prod"
-  }
-  environment_short_code = lookup(local.environments, lower(var.ENVIRONMENT), "")
 }
 
 resource "vercel_project" "main" {
   team_id                    = var.VERCEL_ORG_ID != "" ? var.VERCEL_ORG_ID : null
-  name                       = "${var.vercel.project.name}-${local.environment_short_code}"
+  name                       = var.vercel.project.name
   output_directory           = var.vercel.project.output_directory
   build_command              = var.vercel.project.build_command
   root_directory             = var.vercel.project.root_directory

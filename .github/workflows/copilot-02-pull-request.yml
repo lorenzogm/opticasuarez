@@ -1,0 +1,72 @@
+# Merge pull requests once the Copilot coding agent has finished working on them.
+#
+# Why a schedule instead of a `pull_request` trigger:
+#   * Copilot leaves its PR as a DRAFT and only emits a `review_requested`
+#     event when done — and GitHub does not fire `pull_request` workflow
+#     triggers for draft PRs, so a `pull_request`-triggered workflow never runs.
+#   * Even after a PR is marked ready, GitHub gates Actions runs on
+#     Copilot-authored PRs behind manual approval ("action_required").
+# A scheduled workflow runs from the default branch in the repository's trusted
+# context, so it sidesteps both problems.
+name: copilot-02-pull-request
+
+on:
+  # Fires the moment a Copilot coding-agent session finishes — this is the
+  # responsive path. workflow_run runs from the default branch in the
+  # repository's trusted context, so it is not subject to draft-PR trigger
+  # suppression nor to the manual-approval gate on Copilot-authored PR runs.
+  workflow_run:
+    workflows: ["Copilot cloud agent"]
+    types: [completed]
+  schedule:
+    - cron: "*/5 * * * *" # safety-net fallback (GitHub cron is best-effort)
+  workflow_dispatch: # allow manual/on-demand runs
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Avoid overlapping runs racing on the same PRs.
+concurrency:
+  group: copilot-auto-merge
+  cancel-in-progress: false
+
+jobs:
+  merge-finished-copilot-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge finished Copilot pull requests
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # Open pull requests authored by the Copilot coding agent.
+          prs=$(gh pr list --repo "$REPO" --state open --json number,author \
+            --jq '.[] | select(.author.login == "Copilot" or .author.login == "copilot-swe-agent" or .author.login == "app/copilot-swe-agent") | .number')
+
+          if [ -z "$prs" ]; then
+            echo "No open Copilot pull requests."
+            exit 0
+          fi
+
+          for pr in $prs; do
+            # Look at the ordered work events. Copilot is done only when the
+            # most recent work event is "finished" (not still "started").
+            last_work=$(gh api "repos/$REPO/issues/$pr/timeline" --paginate \
+              --jq '[.[] | select(.event == "copilot_work_started" or .event == "copilot_work_finished") | .event] | last' \
+              2>/dev/null || echo "")
+
+            if [ "$last_work" != "copilot_work_finished" ]; then
+              echo "PR #$pr: Copilot not finished (last work event: '${last_work:-none}') — skipping."
+              continue
+            fi
+
+            echo "PR #$pr: Copilot finished — marking ready and merging."
+            # Draft PRs cannot be merged; undraft first (no-op if already ready).
+            gh pr ready "$pr" --repo "$REPO" || true
+            gh pr merge "$pr" --repo "$REPO" --squash --delete-branch \
+              && echo "PR #$pr: merged." \
+              || echo "PR #$pr: merge failed (conflicts or not mergeable) — will retry next run."
+          done

@@ -128,11 +128,10 @@ opticasuarez/                               # Raíz del monorepo
 ├── .github/                                 # ⚙️ CI/CD + COPILOT
 │   ├── workflows/
 │   │   ├── pr-checks.yml                    # → Checks en PRs
-│   │   ├── web-vercel-deploy.yml            # → Deploy web a Vercel (main)
-│   │   ├── deploy-sanity-studio.yml         # → Deploy Sanity Studio
-│   │   ├── deploy-production.yml            # → DISABLED (React Router)
-│   │   ├── deploy-preview.yml               # → Preview deploys
-│   │   └── copilot-agent-scheduler.yml      # → Copilot agent scheduling
+│   │   ├── deploy.yml                       # → Preview (PR) / producción (main)
+│   │   ├── copilot-01-new-issue.yml         # → Asigna issues nuevas a Copilot
+│   │   ├── copilot-02-pull-request.yml      # → Mezcla PRs de Copilot terminados
+│   │   └── clone-juanpeich-comments.yml     # → Reenvía comentarios a Copilot
 │   ├── copilot-instructions.md              # Reglas para Copilot
 │   ├── agents/                              # Agents de Copilot
 │   └── skills/                              # Skills de BMAD

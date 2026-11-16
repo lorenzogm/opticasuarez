@@ -6,56 +6,44 @@
 
 **Vercel** — Despliegue automático desde GitHub.
 
-## Apps Desplegadas
+## Entorno único
 
-| App | URL | Workflow | Trigger |
-|-----|-----|----------|---------|
-| **web** (TanStack Start) | https://opticasuarezjaen.es | `web-vercel-deploy.yml` | Push a `main` |
-| **sanity-studio** | (Sanity hosted) | `deploy-sanity-studio.yml` | Push a `main` |
+Solo existe un entorno: **producción** (proyecto Vercel `opticasuarez-web-prod`). No hay entorno de desarrollo/staging.
+Las ramas/PRs se validan con un **preview de Vercel** y, al mezclar en `main`, se despliega directamente a producción.
 
-## Pipeline de Deploy — Web
+## Flujo de issues → producción
 
-### `web-vercel-deploy.yml`
+1. Alguien crea una issue → `copilot-01-new-issue.yml` la asigna automáticamente al Copilot coding agent.
+2. Copilot abre un PR. `deploy.yml` despliega un **preview de Vercel**, ejecuta los E2E contra él y comenta la URL del preview en el PR.
+3. Cuando Copilot termina, `copilot-02-pull-request.yml` (evento `workflow_run` + cron cada 5 min) marca el PR como listo y lo mezcla (squash).
+4. El push a `main` ejecuta `deploy.yml` → despliegue a producción.
 
-Trigger: push a `main` o `workflow_dispatch`
+## Workflows
 
-**Fase 1: Check Changes**
-- Compara HEAD~1 para detectar cambios en:
-  - `infra/vercel/web/` → cambios de infraestructura
-  - `apps/web/` o `apps/web-e2e/` → cambios de aplicación
+| Workflow | Trigger | Qué hace |
+|----------|---------|----------|
+| `copilot-01-new-issue.yml` | Issue abierta | Asigna la issue a Copilot |
+| `copilot-02-pull-request.yml` | Fin de sesión de Copilot / cron / manual | Marca ready y mezcla los PRs de Copilot terminados |
+| `pr-checks.yml` | PR a `main` | `pnpm check` (types + lint + build) |
+| `deploy.yml` | PR / push a `main` / manual | Preview (PR) o producción (main) |
 
-**Fase 2: Deploy Infrastructure** (si hay cambios en infra)
-- Aplica configuración de Vercel desde `infra/vercel/web/`
+### `deploy.yml`
 
-**Fase 3: Deploy Application** (si hay cambios en app)
-- Build y deploy a Vercel Production
+- **PR:** Terraform `plan` (sin apply), preview de Vercel, E2E contra el preview y comentario con la URL. Sanity no se toca.
+- **Push a `main` / manual:** contenido Sanity + Studio, Terraform apply (`infra/vercel/web/`) y deploy de la web a producción.
+- Detecta cambios en `apps/sanity-studio/` (y scripts/contenido de blog), `infra/vercel/web/` y `apps/web/`/`apps/web-e2e/` para saltar pasos innecesarios.
 
 ### Secrets Requeridos
 
 | Secret | Uso |
 |--------|-----|
-| `VERCEL_TOKEN` | Token de API de Vercel |
-| `VERCEL_TEAM_ID` | ID de la organización |
-| `VERCEL_PROJECT_ID` | ID del proyecto |
-| `SANITY_API_TOKEN` | Token para preview mode |
-| `RESEND_API_KEY` | Token para envío de emails |
+| `GH_PAT` | Asignar issues a Copilot y mezclar sus PRs |
+| `DOTENV_PRIVATE_KEY_INFRA_PRODUCTION` | Descifra `infra/vercel/web/.env.production` (token de Vercel, claves de la app) |
+| `DOTENV_PRIVATE_KEY` | Checks de PR |
+| `VERCEL_AUTOMATION_BYPASS_SECRET` | E2E contra el preview |
+| `SANITY_EDITOR_TOKEN`, `SANITY_DEPLOY_STUDIO_TOKEN`, `SANITY_STUDIO_GITHUB_DEPLOY_TOKEN` | Deploy de Sanity |
 
-## Pipeline de CI — PR Checks
-
-### `pr-checks.yml`
-
-Trigger: Pull Request a `main`
-
-Ejecuta:
-1. Checkout + pnpm setup + Node.js 22
-2. `pnpm install`
-3. `pnpm check` (types + linting + build)
-
-## Pipeline — Sanity Studio
-
-### `deploy-sanity-studio.yml`
-
-Deploy del Sanity Studio cuando hay cambios en `apps/sanity-studio/`.
+Variable de repo: `OPTICASUAREZ_WEB_VERCEL_PROJECT_ID`.
 
 ## Redirects y Headers
 

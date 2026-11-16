@@ -1,23 +1,15 @@
 name: Deploy
 
-# Unified deploy pipeline for the web app and Sanity content/studio.
+# Single-environment deploy pipeline (production) for the web app and Sanity.
 #
-# The SAME five steps run for every trigger and for each environment:
-#   1. Deploy Sanity migration scripts / content     (if needed)
-#   2. Deploy Vercel web infra via Terraform         (if needed)
-#   3. Deploy the Vercel web app as a staged build    (if needed)
-#   4. Run E2E tests against the staged/preview deploy
-#   5. Promote the staged deployment to production    (push to main only)
-#
-# Flow:
-#   - pull_request  → run steps 1-4 for `development` (Vercel preview /
-#                     staged deploy, Sanity content kept out of the live
-#                     dataset). Step 5 (promotion) is skipped.
-#   - push to main  → run steps 1-5 for `development`, then — once the
-#                     whole development cycle is green — re-dispatch this
-#                     workflow with `environment=production` so the SAME
-#                     five steps run again for production.
-#   - workflow_dispatch → run the five steps for the chosen environment.
+#   - pull_request  → deploy a Vercel PREVIEW of the branch, run E2E tests
+#                     against it and post the preview URL on the PR. Nothing
+#                     touches production (Sanity and Terraform apply are
+#                     skipped; Terraform only runs `plan`).
+#   - push to main  → (i.e. the PR was merged) deploy Sanity content, apply
+#                     the Terraform infra and deploy the web app straight to
+#                     production.
+#   - workflow_dispatch → same as push to main, deploying everything.
 
 on:
   push:
@@ -25,15 +17,6 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      environment:
-        description: "Target environment"
-        required: true
-        type: choice
-        options:
-          - development
-          - production
-        default: development
 
 permissions:
   contents: read
@@ -46,24 +29,12 @@ jobs:
       sanity-changed: ${{ steps.check.outputs.sanity-changed }}
       infra-changed: ${{ steps.check.outputs.infra-changed }}
       app-changed: ${{ steps.check.outputs.app-changed }}
-      environment: ${{ steps.resolve-env.outputs.environment }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
-
-      - name: Resolve environment
-        id: resolve-env
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
-            echo "Environment: ${{ github.event.inputs.environment }}"
-          else
-            echo "environment=development" >> $GITHUB_OUTPUT
-            echo "Environment: development (${{ github.event_name }} trigger)"
-          fi
 
       - name: Check for changes
         id: check
@@ -106,7 +77,7 @@ jobs:
           fi
 
   # ---------------------------------------------------------------------------
-  # STEP 1 — Deploy Sanity migration scripts / content (if needed)
+  # Deploy Sanity migration scripts / content (if needed)
   # ---------------------------------------------------------------------------
   # On pull requests the live `production` dataset is left untouched (Sanity
   # content stays as draft / out of the published dataset); the published
@@ -167,7 +138,7 @@ jobs:
           SANITY_STUDIO_GITHUB_DEPLOY_TOKEN: ${{ secrets.SANITY_STUDIO_GITHUB_DEPLOY_TOKEN }}
 
   # ---------------------------------------------------------------------------
-  # STEP 2 — Deploy Vercel web infra via Terraform (if needed)
+  # Deploy Vercel web infra via Terraform (if needed)
   # ---------------------------------------------------------------------------
   infra-deploy:
     needs: [check-changes, sanity-deploy]
@@ -181,8 +152,6 @@ jobs:
       contents: write
     outputs:
       project-id: ${{ steps.export-outputs.outputs.project-id || steps.pr-project-id.outputs.project-id }}
-    env:
-      TF_VAR_ENVIRONMENT: ${{ needs.check-changes.outputs.environment }}
 
     steps:
       - name: Checkout
@@ -191,8 +160,7 @@ jobs:
       - name: Decrypt infra env vars
         run: |
           npm install -g @dotenvx/dotenvx
-          ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-          ENV_FILE="infra/vercel/web/.env.${ENVIRONMENT}"
+          ENV_FILE="infra/vercel/web/.env.production"
 
           # Infra-specific vars → TF_VAR_ prefixed + direct env
           for key in VERCEL_TOKEN TERRAFORM_STATE_ENCRYPT_KEY; do
@@ -220,13 +188,12 @@ jobs:
             fi
           done
         env:
-          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
           DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
 
       - name: Fetch Terraform State from state branch
         working-directory: infra/vercel/web/src
         run: |
-          STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
+          STATE_FILE="terraform-production.tfstate.enc"
           if git fetch origin terraform-state 2>/dev/null; then
             if git show "origin/terraform-state:infra/vercel/web/src/${STATE_FILE}" > "$STATE_FILE" 2>/dev/null && [ -s "$STATE_FILE" ]; then
               echo "State file fetched from terraform-state branch (new path)"
@@ -243,7 +210,7 @@ jobs:
       - name: Decrypt Terraform State
         working-directory: infra/vercel/web/src
         run: |
-          STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
+          STATE_FILE="terraform-production.tfstate.enc"
           if [ -s "$STATE_FILE" ]; then
             if echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -d -in "$STATE_FILE" -out "terraform.tfstate" -pass stdin 2>/dev/null; then
               echo "State file decrypted"
@@ -270,13 +237,7 @@ jobs:
         continue-on-error: true
         run: |
           if [ ! -f "terraform.tfstate" ] || [ "$(jq '.resources | length' terraform.tfstate 2>/dev/null)" = "0" ]; then
-            ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-            case "$ENVIRONMENT" in
-              development) ENV_SHORT="dev" ;;
-              production)  ENV_SHORT="prod" ;;
-              *)           ENV_SHORT="${ENVIRONMENT:0:3}" ;;
-            esac
-            PROJECT_NAME="opticasuarez-web-${ENV_SHORT}"
+            PROJECT_NAME="opticasuarez-web-prod"
             echo "No state found. Checking for existing project: $PROJECT_NAME"
             TEAM_PARAM=""
             if [ -n "${TF_VAR_VERCEL_ORG_ID}" ]; then
@@ -285,7 +246,7 @@ jobs:
             PROJECT_ID=$(curl -sf -H "Authorization: ******" "https://api.vercel.com/v9/projects/${PROJECT_NAME}${TEAM_PARAM}" | jq -r '.id // empty')
             if [ -n "$PROJECT_ID" ]; then
               echo "Found existing project $PROJECT_ID — importing into state"
-              terraform import -var-file="config.${ENVIRONMENT}.json" vercel_project.main "$PROJECT_ID"
+              terraform import -var-file="config.json" vercel_project.main "$PROJECT_ID"
             else
               echo "No existing project found, proceeding with fresh creation"
             fi
@@ -293,7 +254,7 @@ jobs:
 
       - name: Terraform Plan
         working-directory: infra/vercel/web/src
-        run: terraform plan -var-file="config.${{ env.TF_VAR_ENVIRONMENT }}.json" -out=tfplan
+        run: terraform plan -var-file="config.json" -out=tfplan
 
       - name: Terraform Apply
         if: github.event_name != 'pull_request'
@@ -321,7 +282,7 @@ jobs:
         working-directory: infra/vercel/web/src
         run: |
           if [ -f "terraform.tfstate" ]; then
-            echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -in "terraform.tfstate" -out "terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc" -pass stdin
+            echo "$TERRAFORM_STATE_ENCRYPT_KEY" | openssl enc -aes-256-cbc -in "terraform.tfstate" -out "terraform-production.tfstate.enc" -pass stdin
             rm -f terraform.tfstate
             echo "State file encrypted successfully"
           else
@@ -339,7 +300,7 @@ jobs:
         if: github.event_name != 'pull_request'
         working-directory: infra/vercel/web/src
         run: |
-          STATE_FILE="terraform-${{ env.TF_VAR_ENVIRONMENT }}.tfstate.enc"
+          STATE_FILE="terraform-production.tfstate.enc"
           cp "$STATE_FILE" "/tmp/$STATE_FILE"
 
           cd ${{ github.workspace }}
@@ -354,17 +315,15 @@ jobs:
           cp "/tmp/$STATE_FILE" "infra/vercel/web/src/$STATE_FILE"
           git add "infra/vercel/web/src/$STATE_FILE"
           git diff --staged --quiet && echo "No changes to state file" && exit 0
-          git commit -m "chore: update terraform state for ${{ env.TF_VAR_ENVIRONMENT }} environment"
+          git commit -m "chore: update terraform state"
           git push origin terraform-state
           echo "State file committed to terraform-state branch"
 
   # ---------------------------------------------------------------------------
-  # STEP 3 — Deploy the Vercel web app as a staged build (if needed)
+  # Deploy the Vercel web app
   # ---------------------------------------------------------------------------
-  # The deployment is created with `--skip-domain`, so it is never assigned
-  # to the environment's production domains until STEP 5 promotes it. This is
-  # what provides the Vercel "preview" behaviour on PRs and the "staged"
-  # deployment on push.
+  # Pull requests get a Vercel preview deployment; pushes to main (merged PRs)
+  # and manual runs deploy straight to production.
   deploy-web:
     needs: [check-changes, sanity-deploy, infra-deploy]
     if: |
@@ -373,11 +332,12 @@ jobs:
       needs.infra-deploy.result != 'failure' &&
       (needs.check-changes.outputs.app-changed == 'true' || needs.check-changes.outputs.infra-changed == 'true')
     runs-on: ubuntu-latest
-    name: Deploy web (staged)
+    name: ${{ github.event_name == 'pull_request' && 'Deploy to Vercel Preview' || 'Deploy to Vercel Production' }}
     outputs:
       deploy-url: ${{ steps.deploy.outputs.deploy-url }}
     env:
       VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
+      VERCEL_TARGET: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
 
     steps:
       - name: Checkout
@@ -386,16 +346,14 @@ jobs:
       - name: Decrypt infra env vars
         run: |
           npm install -g @dotenvx/dotenvx
-          ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
           for key in VERCEL_TOKEN VERCEL_ORG_ID; do
-            value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
+            value=$(dotenvx get "$key" -f "infra/vercel/web/.env.production" 2>/dev/null || echo "")
             if [ -n "$value" ]; then
               echo "${key}=${value}" >> $GITHUB_ENV
               echo "::add-mask::${value}"
             fi
           done
         env:
-          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
           DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
 
       - name: Setup pnpm
@@ -414,33 +372,43 @@ jobs:
         run: pnpm add -g vercel@latest
 
       - name: Pull Vercel Environment
-        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+        run: vercel pull --yes --environment=$VERCEL_TARGET --token=$VERCEL_TOKEN
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
       - name: Build Artifacts
-        run: vercel build --prod --token=$VERCEL_TOKEN
+        run: |
+          if [ "$VERCEL_TARGET" = "production" ]; then
+            vercel build --prod --token=$VERCEL_TOKEN
+          else
+            vercel build --token=$VERCEL_TOKEN
+          fi
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
           NITRO_PRESET: vercel
 
-      - name: Deploy staged build to Vercel
+      - name: Deploy to Vercel
         id: deploy
         run: |
-          DEPLOY_URL=$(vercel deploy --prebuilt --prod --skip-domain --token=$VERCEL_TOKEN)
+          if [ "$VERCEL_TARGET" = "production" ]; then
+            DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN)
+          else
+            DEPLOY_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)
+          fi
           echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
-          echo "Staged deploy URL: $DEPLOY_URL"
+          echo "Deployed ($VERCEL_TARGET): $DEPLOY_URL"
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
 
   # ---------------------------------------------------------------------------
-  # STEP 4 — Run E2E tests against the staged/preview deployment
+  # Run E2E tests against the preview deployment (pull requests only)
   # ---------------------------------------------------------------------------
   e2e-tests:
     needs: [deploy-web]
-    if: always() && needs.deploy-web.result == 'success'
-    runs-on: ubuntu-latest
-    name: E2E Tests
+    if: always() && github.event_name == 'pull_request' && needs.deploy-web.result == 'success'
+    # Playwright 1.52 does not support the Ubuntu 26.04 image behind ubuntu-latest
+    runs-on: ubuntu-24.04
+    name: E2E Tests on Preview
 
     steps:
       - name: Checkout
@@ -470,89 +438,7 @@ jobs:
           CI: true
 
   # ---------------------------------------------------------------------------
-  # STEP 5 — Promote the staged deployment to production (push to main only)
-  # ---------------------------------------------------------------------------
-  promote:
-    needs: [check-changes, infra-deploy, deploy-web, e2e-tests]
-    if: |
-      always() &&
-      github.event_name != 'pull_request' &&
-      needs.deploy-web.result == 'success' &&
-      needs.e2e-tests.result == 'success' &&
-      needs.infra-deploy.result != 'failure'
-    runs-on: ubuntu-latest
-    name: Promote staged deployment
-    environment: ${{ needs.check-changes.outputs.environment }}
-    env:
-      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Decrypt infra env vars
-        run: |
-          npm install -g @dotenvx/dotenvx
-          ENVIRONMENT="${{ needs.check-changes.outputs.environment }}"
-          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
-            value=$(dotenvx get "$key" -f "infra/vercel/web/.env.${ENVIRONMENT}" 2>/dev/null || echo "")
-            if [ -n "$value" ]; then
-              echo "${key}=${value}" >> $GITHUB_ENV
-              echo "::add-mask::${value}"
-            fi
-          done
-        env:
-          DOTENV_PRIVATE_KEY_DEVELOPMENT: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_DEVELOPMENT }}
-          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "pnpm"
-
-      - name: Install Vercel CLI
-        run: pnpm add -g vercel@latest
-
-      - name: Promote staged deployment to production
-        run: |
-          DEPLOY_URL="${{ needs.deploy-web.outputs.deploy-url }}"
-          echo "Promoting $DEPLOY_URL to production for ${{ needs.check-changes.outputs.environment }}"
-          vercel promote "$DEPLOY_URL" --token=$VERCEL_TOKEN
-        env:
-          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
-
-  # ---------------------------------------------------------------------------
-  # After the development cycle finishes (steps 1-5 green on push to main),
-  # re-dispatch this workflow with environment=production so the SAME five
-  # steps run again for the production environment.
-  # ---------------------------------------------------------------------------
-  run-production:
-    needs: [check-changes, sanity-deploy, infra-deploy, deploy-web, e2e-tests, promote]
-    if: |
-      always() &&
-      github.event_name == 'push' &&
-      needs.check-changes.outputs.environment == 'development' &&
-      needs.deploy-web.result == 'success' &&
-      needs.e2e-tests.result == 'success' &&
-      needs.promote.result == 'success' &&
-      needs.infra-deploy.result != 'failure' &&
-      needs.sanity-deploy.result != 'failure'
-    runs-on: ubuntu-latest
-    name: Run the same steps for production
-    steps:
-      - name: Trigger production deploy
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          gh workflow run deploy.yml --ref main -f environment=production
-          echo "Dispatched deploy.yml with environment=production"
-
-  # ---------------------------------------------------------------------------
-  # PR gating + summary (pull requests only)
+  # PR gating + preview comment (pull requests only)
   # ---------------------------------------------------------------------------
   pr-merge-gate:
     needs: [check-changes, sanity-deploy, infra-deploy, deploy-web, e2e-tests]
@@ -564,7 +450,6 @@ jobs:
       - name: Validate full PR workflow
         run: |
           echo "check-changes: ${{ needs.check-changes.result }}"
-          echo "sanity-deploy: ${{ needs.sanity-deploy.result }}"
           echo "infra-deploy: ${{ needs.infra-deploy.result }}"
           echo "deploy-web: ${{ needs.deploy-web.result }}"
           echo "e2e-tests: ${{ needs.e2e-tests.result }}"
@@ -585,94 +470,60 @@ jobs:
           fi
 
           if [ "${{ needs.deploy-web.result }}" = "success" ] && [ "${{ needs.e2e-tests.result }}" != "success" ]; then
-            echo "e2e-tests must succeed when the staged deployment succeeds"
+            echo "e2e-tests must succeed when the preview deployment succeeds"
             exit 1
           fi
 
-  pr-workflow-summary:
-    needs: [check-changes, sanity-deploy, infra-deploy, deploy-web, e2e-tests]
-    if: always() && github.event_name == 'pull_request'
+  pr-preview-comment:
+    needs: [deploy-web, e2e-tests]
+    if: always() && github.event_name == 'pull_request' && needs.deploy-web.result != 'skipped'
     runs-on: ubuntu-latest
-    name: Update PR with Workflow Summary
+    name: Comment preview URL on PR
     permissions:
       pull-requests: write
 
     steps:
-      - name: Generate workflow summary
+      - name: Create or update preview comment
         uses: actions/github-script@v7
+        env:
+          DEPLOY_STATUS: ${{ needs.deploy-web.result }}
+          E2E_STATUS: ${{ needs.e2e-tests.result }}
+          DEPLOY_URL: ${{ needs.deploy-web.outputs.deploy-url }}
         with:
-          script: |-
-            const sanityStatus = '${{ needs.sanity-deploy.result }}';
-            const infraStatus = '${{ needs.infra-deploy.result }}';
-            const deployStatus = '${{ needs.deploy-web.result }}';
-            const e2eStatus = '${{ needs.e2e-tests.result }}';
-            const deployUrl = '${{ needs.deploy-web.outputs.deploy-url }}';
+          script: |
+            const { DEPLOY_STATUS, E2E_STATUS, DEPLOY_URL } = process.env;
+            const marker = '<!-- vercel-preview -->';
+            const icon = (status) =>
+              ({ success: '✅', failure: '❌', cancelled: '⚪', skipped: '⏭️' })[status] || '❓';
 
-            const statusEmoji = {
-              success: '✅',
-              skipped: '⏭️',
-              failure: '❌',
-              cancelled: '⚪'
-            };
-
-            const getSummaryRow = (label, status, details) => {
-              const emoji = statusEmoji[status] || '❓';
-              const statusText = status === 'success' ? 'Applied' : status === 'skipped' ? 'Skipped' : 'Failed';
-              return `| **${label}** | ${emoji} ${statusText} | ${details} |`;
-            };
-
-            const deployDetails = deployStatus === 'success' && deployUrl
-              ? `[Preview](${deployUrl})`
-              : 'No preview URL available';
-
-            const summaryLines = [
-              '## Deployment Workflow Summary',
+            const body = [
+              marker,
+              '## 🔎 Vercel preview',
               '',
-              '| Step | Status | Details |',
-              '|------|--------|---------|',
-              getSummaryRow('Sanity Content', sanityStatus, 'Migrations / canonical content'),
-              getSummaryRow('Infrastructure Changes', infraStatus, 'Terraform plan/apply'),
-              getSummaryRow('Deploy Web (staged)', deployStatus, deployDetails),
-              getSummaryRow('E2E Tests', e2eStatus, 'Playwright tests against preview'),
+              DEPLOY_STATUS === 'success' && DEPLOY_URL
+                ? `**Preview:** ${DEPLOY_URL}`
+                : '❌ The preview deployment failed.',
               '',
-              '---'
-            ];
-            const summary = summaryLines.join('\n');
+              '| Step | Status |',
+              '|------|--------|',
+              `| Deploy preview | ${icon(DEPLOY_STATUS)} ${DEPLOY_STATUS} |`,
+              `| E2E tests | ${icon(E2E_STATUS)} ${E2E_STATUS} |`,
+              '',
+              `_Updated for ${context.sha.slice(0, 7)}. Merging this PR deploys to production._`,
+            ].join('\n');
 
-            const { data: pr } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
             });
+            const existing = comments.find((c) => c.body?.includes(marker));
 
-            let newBody = pr.body || '';
-            const summaryMarker = '## Deployment Workflow Summary';
-
-            if (newBody.includes(summaryMarker)) {
-              const lines = newBody.split('\n');
-              let startIdx = -1;
-              let endIdx = lines.length;
-
-              for (let i = 0; i < lines.length; i++) {
-                if (lines[i].includes(summaryMarker)) {
-                  startIdx = i;
-                }
-                if (startIdx !== -1 && i > startIdx && lines[i].startsWith('## ') && !lines[i].includes(summaryMarker)) {
-                  endIdx = i;
-                  break;
-                }
-              }
-
-              if (startIdx !== -1) {
-                newBody = lines.slice(0, startIdx).join('\n') + '\n' + summary + (endIdx < lines.length ? '\n' + lines.slice(endIdx).join('\n') : '');
-              }
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
             } else {
-              newBody = newBody + '\n\n' + summary;
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
             }
-
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              body: newBody
-            });
