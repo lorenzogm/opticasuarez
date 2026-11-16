@@ -109,9 +109,9 @@ export default function HeroCarousel({
       <div className="pointer-events-none absolute inset-0 z-20 flex h-full items-center justify-center">
         <div className="container pointer-events-auto mx-auto max-w-6xl px-4 text-center text-white">
           <div className="animate-fade-in-up">
-            <p className="mb-2 font-bold text-2xl uppercase tracking-wide drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="mb-2 font-bold text-2xl uppercase tracking-wide drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
               {currentImage.title}
-            </p>
+            </h1>
             <p className="mb-3 font-semibold text-blue-300 text-lg uppercase tracking-wide drop-shadow-lg sm:text-2xl md:text-3xl lg:text-4xl">
               {currentImage.subtitle}
             </p>

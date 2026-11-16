@@ -11,7 +11,13 @@ const domain =
   process.env.VITE_BASE_URL?.replace(/\/+$/, "") ||
   "https://opticasuarezjaen.es";
 
-const staticRoutes = ["/", "/contacto", "/blog", "/test-daltonismo"];
+const staticRoutes = [
+  "/",
+  "/contacto",
+  "/blog",
+  "/test-vision-cerca",
+  "/test-daltonismo",
+];
 
 async function fetchCollectionFromSanity<T>(query: string): Promise<T[]> {
   const url = new URL(SANITY_CDN_URL);
