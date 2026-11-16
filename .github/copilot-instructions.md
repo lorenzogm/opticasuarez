@@ -134,11 +134,11 @@ When working on GitHub Issues as the Copilot coding agent (cloud), follow this w
 - PR title: reference the issue number (e.g. "feat: add contact form — closes #42").
 - PR body: include a summary of changes, link to the issue, and a checklist of acceptance criteria.
 
-### Required reviewers
+### Review and merge
 
-- Always request reviews from **juanpeich** and **lorenzogm** on every PR.
-- Do **not** merge the PR yourself. Wait for an approving review from at least one of them.
-- If reviewers request changes, address every comment and re-request review.
+- New issues are assigned to Copilot automatically; the PR gets a Vercel preview URL commented by CI.
+- Do **not** merge the PR yourself. When your session finishes, the `copilot-02-pull-request` workflow marks it ready and squash-merges it; merging to `main` deploys to production (there is no dev environment).
+- If reviewers request changes, address every comment.
 
 ### Handling merge conflicts
 
@@ -160,8 +160,8 @@ pnpm build    # Full production build
 2. Create a feature branch from `main`.
 3. Implement the solution following the code style guidelines in this file.
 4. Run quality gates and fix any failures.
-5. Open a PR, request reviews from juanpeich and lorenzogm.
-6. Address any review feedback until the PR is approved.
+5. Open a PR (CI posts the Vercel preview URL).
+6. Address any review feedback.
 
 ### PR review feedback
 
