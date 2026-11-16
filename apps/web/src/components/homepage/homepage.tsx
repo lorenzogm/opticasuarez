@@ -1,12 +1,23 @@
 import BookAppointment from "~/components/sections/book-appointment";
 import ServicesGrid from "~/components/sections/services-grid";
 import { resolveImage } from "~/lib/sanity";
+import EditorialContent from "./sections/editorial-content";
 import Hero from "./sections/hero";
 import Locations from "./sections/locations";
 import News from "./sections/news";
 import SocialMedia from "./sections/social-media";
 import Specialists from "./sections/specialists";
 import VideoAbout from "./sections/video-about";
+
+function normalizeVisionAccent(text?: string) {
+  return text?.replace(/\bvision\b/gi, (word) =>
+    word === word.toUpperCase()
+      ? "VISIÓN"
+      : word[0] === word[0].toUpperCase()
+        ? "Visión"
+        : "visión"
+  );
+}
 
 export default function Homepage({
   data,
@@ -21,6 +32,8 @@ export default function Homepage({
     (item: any) => ({
       ...item,
       image: resolveImage(item.image),
+      alt: normalizeVisionAccent(item.alt),
+      imageTitle: normalizeVisionAccent(item.imageTitle),
     })
   );
 
@@ -41,6 +54,7 @@ export default function Homepage({
         title={data.hero?.title}
       />
       <ServicesGrid items={servicesGridItems} />
+      <EditorialContent />
       <VideoAbout
         description={data.videoAbout?.description}
         title={data.videoAbout?.title}

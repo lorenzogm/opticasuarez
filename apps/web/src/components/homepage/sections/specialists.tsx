@@ -15,9 +15,9 @@ export default function Specialists({
         <h2 className="mb-4 font-bold text-2xl text-gray-900 uppercase tracking-wide sm:text-3xl md:text-4xl">
           {title}
         </h2>
-        <h3 className="mb-6 font-semibold text-blue-800 text-xl sm:text-2xl">
+        <p className="mb-6 font-semibold text-blue-800 text-xl sm:text-2xl">
           {subtitle}
-        </h3>
+        </p>
         <p className="mx-auto max-w-3xl text-gray-700 text-lg leading-relaxed">
           {description}
         </p>
