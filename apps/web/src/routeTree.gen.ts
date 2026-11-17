@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestVisionCercaRouteImport } from './routes/test-vision-cerca'
+import { Route as TestLecturaRouteImport } from './routes/test-lectura'
 import { Route as TestForiasRouteImport } from './routes/test-forias'
 import { Route as TestDaltonismoRouteImport } from './routes/test-daltonismo'
 import { Route as CitaRouteImport } from './routes/cita'
@@ -38,6 +39,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 const TestVisionCercaRoute = TestVisionCercaRouteImport.update({
   id: '/test-vision-cerca',
   path: '/test-vision-cerca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestLecturaRoute = TestLecturaRouteImport.update({
+  id: '/test-lectura',
+  path: '/test-lectura',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TestForiasRoute = TestForiasRouteImport.update({
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/cita': typeof CitaRouteWithChildren
   '/test-daltonismo': typeof TestDaltonismoRoute
   '/test-forias': typeof TestForiasRoute
+  '/test-lectura': typeof TestLecturaRoute
   '/test-vision-cerca': typeof TestVisionCercaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/centro': typeof CentroRoute
   '/test-daltonismo': typeof TestDaltonismoRoute
   '/test-forias': typeof TestForiasRoute
+  '/test-lectura': typeof TestLecturaRoute
   '/test-vision-cerca': typeof TestVisionCercaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
@@ -224,6 +232,7 @@ export interface FileRoutesById {
   '/cita': typeof CitaRouteWithChildren
   '/test-daltonismo': typeof TestDaltonismoRoute
   '/test-forias': typeof TestForiasRoute
+  '/test-lectura': typeof TestLecturaRoute
   '/test-vision-cerca': typeof TestVisionCercaRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/cita'
     | '/test-daltonismo'
     | '/test-forias'
+    | '/test-lectura'
     | '/test-vision-cerca'
     | '/blog/$slug'
     | '/checkout/confirmacion'
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/centro'
     | '/test-daltonismo'
     | '/test-forias'
+    | '/test-lectura'
     | '/test-vision-cerca'
     | '/blog/$slug'
     | '/checkout/confirmacion'
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
     | '/cita'
     | '/test-daltonismo'
     | '/test-forias'
+    | '/test-lectura'
     | '/test-vision-cerca'
     | '/blog/$slug'
     | '/checkout/confirmacion'
@@ -332,6 +344,7 @@ export interface RootRouteChildren {
   CitaRoute: typeof CitaRouteWithChildren
   TestDaltonismoRoute: typeof TestDaltonismoRoute
   TestForiasRoute: typeof TestForiasRoute
+  TestLecturaRoute: typeof TestLecturaRoute
   TestVisionCercaRoute: typeof TestVisionCercaRoute
   TiendaSlugRoute: typeof TiendaSlugRoute
   TiendaIndexRoute: typeof TiendaIndexRoute
@@ -344,6 +357,13 @@ declare module '@tanstack/react-router' {
       path: '/test-vision-cerca'
       fullPath: '/test-vision-cerca'
       preLoaderRoute: typeof TestVisionCercaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/test-lectura': {
+      id: '/test-lectura'
+      path: '/test-lectura'
+      fullPath: '/test-lectura'
+      preLoaderRoute: typeof TestLecturaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/test-forias': {
@@ -578,6 +598,7 @@ const rootRouteChildren: RootRouteChildren = {
   CitaRoute: CitaRouteWithChildren,
   TestDaltonismoRoute: TestDaltonismoRoute,
   TestForiasRoute: TestForiasRoute,
+  TestLecturaRoute: TestLecturaRoute,
   TestVisionCercaRoute: TestVisionCercaRoute,
   TiendaSlugRoute: TiendaSlugRoute,
   TiendaIndexRoute: TiendaIndexRoute,

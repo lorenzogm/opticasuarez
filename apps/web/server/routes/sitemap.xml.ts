@@ -17,6 +17,7 @@ const staticRoutes = [
   "/blog",
   "/test-vision-cerca",
   "/test-daltonismo",
+  "/test-lectura",
 ];
 
 async function fetchCollectionFromSanity<T>(query: string): Promise<T[]> {
