@@ -28,4 +28,19 @@ describe("homepage content", () => {
 
     expect(imageText).not.toMatch(/\bvision\b/i);
   });
+
+  it("uses correct service alt text and spelling in homepage copy", () => {
+    const serviceAltByTitle = Object.fromEntries(
+      homepage.servicesGrid.items.map(({ title, alt }) => [title, alt])
+    );
+
+    expect(serviceAltByTitle).toMatchObject({
+      CONTACTOLOGÍA:
+        "Contactología avanzada y lentes de contacto en Jaén",
+      "VISIÓN PEDIÁTRICA": "Optometría y visión pediátrica en Jaén",
+      "CONTROL DE MIOPÍA": "Control de miopía infantil en Jaén",
+    });
+    expect(homepage.hero.subtitle).toBe("BIENVENIDOS A ÓPTICA SUÁREZ");
+    expect(homepage.bookAppointment.description).toMatch(/^Contáctanos\b/);
+  });
 });
