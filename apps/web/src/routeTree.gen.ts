@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TestsRouteImport } from './routes/tests'
 import { Route as TestVisionCercaRouteImport } from './routes/test-vision-cerca'
 import { Route as TestLecturaRouteImport } from './routes/test-lectura'
 import { Route as TestForiasRouteImport } from './routes/test-forias'
@@ -35,6 +36,11 @@ import { Route as CheckoutEnvioRouteImport } from './routes/checkout/envio'
 import { Route as CheckoutConfirmacionRouteImport } from './routes/checkout/confirmacion'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
+const TestsRoute = TestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TestVisionCercaRoute = TestVisionCercaRouteImport.update({
   id: '/test-vision-cerca',
   path: '/test-vision-cerca',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/test-forias': typeof TestForiasRoute
   '/test-lectura': typeof TestLecturaRoute
   '/test-vision-cerca': typeof TestVisionCercaRoute
+  '/tests': typeof TestsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -197,6 +204,7 @@ export interface FileRoutesByTo {
   '/test-forias': typeof TestForiasRoute
   '/test-lectura': typeof TestLecturaRoute
   '/test-vision-cerca': typeof TestVisionCercaRoute
+  '/tests': typeof TestsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/test-forias': typeof TestForiasRoute
   '/test-lectura': typeof TestLecturaRoute
   '/test-vision-cerca': typeof TestVisionCercaRoute
+  '/tests': typeof TestsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/checkout/confirmacion': typeof CheckoutConfirmacionRoute
   '/checkout/envio': typeof CheckoutEnvioRoute
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/test-forias'
     | '/test-lectura'
     | '/test-vision-cerca'
+    | '/tests'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -278,6 +288,7 @@ export interface FileRouteTypes {
     | '/test-forias'
     | '/test-lectura'
     | '/test-vision-cerca'
+    | '/tests'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/test-forias'
     | '/test-lectura'
     | '/test-vision-cerca'
+    | '/tests'
     | '/blog/$slug'
     | '/checkout/confirmacion'
     | '/checkout/envio'
@@ -333,12 +345,20 @@ export interface RootRouteChildren {
   TestForiasRoute: typeof TestForiasRoute
   TestLecturaRoute: typeof TestLecturaRoute
   TestVisionCercaRoute: typeof TestVisionCercaRoute
+  TestsRoute: typeof TestsRoute
   TiendaSlugRoute: typeof TiendaSlugRoute
   TiendaIndexRoute: typeof TiendaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tests': {
+      id: '/tests'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof TestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/test-vision-cerca': {
       id: '/test-vision-cerca'
       path: '/test-vision-cerca'
@@ -579,6 +599,7 @@ const rootRouteChildren: RootRouteChildren = {
   TestForiasRoute: TestForiasRoute,
   TestLecturaRoute: TestLecturaRoute,
   TestVisionCercaRoute: TestVisionCercaRoute,
+  TestsRoute: TestsRoute,
   TiendaSlugRoute: TiendaSlugRoute,
   TiendaIndexRoute: TiendaIndexRoute,
 }
