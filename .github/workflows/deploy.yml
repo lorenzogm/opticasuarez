@@ -336,7 +336,8 @@ jobs:
     outputs:
       deploy-url: ${{ steps.deploy.outputs.deploy-url }}
     env:
-      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id || vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
+      VERCEL_PROJECT_ID: ${{ needs.infra-deploy.outputs.project-id }}
+      PREVIEW_VERCEL_PROJECT_ID: ${{ vars.OPTICASUAREZ_WEB_VERCEL_PROJECT_ID }}
       VERCEL_TARGET: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
 
     steps:
@@ -355,6 +356,34 @@ jobs:
           done
         env:
           DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_INFRA_PRODUCTION }}
+
+      - name: Resolve Vercel project ID
+        run: |
+          if [ -n "$VERCEL_PROJECT_ID" ]; then
+            echo "Using Vercel project ID from Terraform"
+            exit 0
+          fi
+
+          if [ "$VERCEL_TARGET" = "preview" ]; then
+            PROJECT_ID="$PREVIEW_VERCEL_PROJECT_ID"
+          else
+            TEAM_PARAM=""
+            if [ -n "$VERCEL_ORG_ID" ]; then
+              TEAM_PARAM="?teamId=$VERCEL_ORG_ID"
+            fi
+            PROJECT_ID=$(curl -sf --oauth2-bearer "$VERCEL_TOKEN" \
+              "https://api.vercel.com/v9/projects/opticasuarez-web-prod${TEAM_PARAM}" |
+              jq -r '.id // empty')
+          fi
+
+          if [ -z "$PROJECT_ID" ]; then
+            echo "::error::Failed to resolve Vercel project ID for $VERCEL_TARGET"
+            exit 1
+          fi
+
+          echo "::add-mask::$PROJECT_ID"
+          echo "VERCEL_PROJECT_ID=$PROJECT_ID" >> "$GITHUB_ENV"
+          echo "Resolved Vercel project ID for $VERCEL_TARGET"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -399,6 +428,21 @@ jobs:
           echo "Deployed ($VERCEL_TARGET): $DEPLOY_URL"
         env:
           VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+
+      - name: Verify production tests page
+        if: env.VERCEL_TARGET == 'production'
+        run: |
+          for attempt in $(seq 1 12); do
+            if curl -fsS https://opticasuarezjaen.es/tests | grep -q "Tests visuales online"; then
+              echo "Production /tests page is available"
+              exit 0
+            fi
+            echo "Waiting for production /tests page (attempt $attempt/12)"
+            sleep 5
+          done
+
+          echo "::error::Production domain did not serve the /tests page after deployment"
+          exit 1
 
   # ---------------------------------------------------------------------------
   # Run E2E tests against the preview deployment (pull requests only)
