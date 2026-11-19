@@ -35,6 +35,7 @@ const staticRoutes = [
   "/blog",
   "/tests",
   "/test-lectura",
+  "/test-daltonismo",
   "/test-forias",
   "/test-vision-cerca",
 ];

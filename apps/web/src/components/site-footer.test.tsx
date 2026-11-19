@@ -53,6 +53,11 @@ describe("SiteFooter", () => {
     expect(
       screen.getByRole("link", { name: "Tests visuales" }).getAttribute("href")
     ).toBe("/tests");
+    expect(
+      screen
+        .getByRole("link", { name: "Test de daltonismo" })
+        .getAttribute("href")
+    ).toBe("/test-daltonismo");
 
     expect(
       screen.getByText(`© ${new Date().getFullYear()} Óptica Suárez`)

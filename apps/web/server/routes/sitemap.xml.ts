@@ -16,6 +16,7 @@ const staticRoutes = [
   "/contacto",
   "/blog",
   "/tests",
+  "/test-daltonismo",
   "/test-lectura",
   "/test-forias",
   "/test-vision-cerca",
