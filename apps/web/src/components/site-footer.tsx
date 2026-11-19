@@ -5,6 +5,7 @@ const footerLinks = [
   { label: "Quiénes somos", to: "/quienes-somos" },
   { label: "Contacto", to: "/contacto" },
   { label: "Blog", to: "/blog" },
+  { label: "Tests visuales", to: "/tests" },
   { label: "Test de daltonismo", to: "/test-daltonismo" },
   { label: "Pedir cita", to: "/cita" },
 ] as const;
