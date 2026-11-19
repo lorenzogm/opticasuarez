@@ -1,7 +1,7 @@
 {
   "hero": {
     "title": "TU ÓPTICA EN JAÉN",
-    "subtitle": "BIENVENIDOS A ÓPTICA SUAREZ",
+    "subtitle": "BIENVENIDOS A ÓPTICA SUÁREZ",
     "description": "DESDE 1940 CUIDANDO TU VISIÓN",
     "cta": "Descubre nuestros servicios"
   },
@@ -28,7 +28,7 @@
         "description": "Adaptación de lentes de contacto personalizadas en casos de Queratocono, Córneas Irregulares y Ortoqueratologia entre otros.",
         "url": "/contactologia",
         "image": "/images/homepage/services/contactologia.webp",
-        "alt": "Ortok en Jaén",
+        "alt": "Contactología avanzada y lentes de contacto en Jaén",
         "imageTitle": "Contactologia"
       },
       {
@@ -36,7 +36,7 @@
         "description": "¿Preocupada por el neurodesarrollo visual de tu hij@?, en Óptica Suárez comprobamos que tu peque crezca con la mejor visión.",
         "url": "/vision-pediatrica",
         "image": "/images/homepage/services/vision-pediatrica.webp",
-        "alt": "Control de miopía en Jaén",
+        "alt": "Optometría y visión pediátrica en Jaén",
         "imageTitle": "Vision Pediatrica"
       },
       {
@@ -44,7 +44,7 @@
         "description": "Evaluación y asesoramiento de las diferentes técnicas para frenar el avance de la miopía en los peques de la familia.",
         "url": "/control-de-miopia",
         "image": "/images/control-miopia/control-de-miopia-hero.webp",
-        "alt": "vision infantil en Jaén",
+        "alt": "Control de miopía infantil en Jaén",
         "imageTitle": "Control de Miopía"
       },
       {
@@ -199,7 +199,7 @@
   },
   "bookAppointment": {
     "title": "Reserva tu cita hoy",
-    "description": "Contáctatenos para agendar tu cita y realizar un examen visual exhaustivo, evaluando todas las habilidades visuales como acomodación, vergencias, visión binocular o estereopsis.",
+    "description": "Contáctanos para agendar tu cita y realizar un examen visual exhaustivo, evaluando todas las habilidades visuales como acomodación, vergencias, visión binocular o estereopsis.",
     "buttonText": "Reservar Cita",
     "whatsappMessage": "Hola, me gustaría reservar una cita para un examen visual completo"
   }
