@@ -51,6 +51,9 @@ describe("SiteFooter", () => {
       screen.getByRole("link", { name: "Contacto" }).getAttribute("href")
     ).toBe("/contacto");
     expect(
+      screen.getByRole("link", { name: "Tests visuales" }).getAttribute("href")
+    ).toBe("/tests");
+    expect(
       screen
         .getByRole("link", { name: "Test de daltonismo" })
         .getAttribute("href")

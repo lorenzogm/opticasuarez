@@ -33,6 +33,11 @@ const staticRoutes = [
   "/planveo",
   "/contacto",
   "/blog",
+  "/tests",
+  "/test-lectura",
+  "/test-daltonismo",
+  "/test-forias",
+  "/test-vision-cerca",
 ];
 
 async function generateSitemap() {
