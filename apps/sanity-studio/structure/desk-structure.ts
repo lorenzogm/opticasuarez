@@ -9,6 +9,11 @@ export function structure(S: StructureBuilder) {
         .title("Páginas")
         .child(S.documentTypeList("page").title("Páginas")),
 
+      S.listItem()
+        .title("Página de inicio")
+        .id("homepage")
+        .child(S.document().schemaType("homepage").documentId("homepage")),
+
       S.divider(),
 
       // Structured data
